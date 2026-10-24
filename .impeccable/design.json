@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T18:36:42.715Z",
+  "generatedAt": "2026-10-24T18:44:43.548Z",
   "title": "Design System: SheWins",
   "extensions": {
     "colorMeta": {
@@ -124,6 +124,18 @@
       "numeral": {
         "displayName": "Numeral",
         "purpose": "Chapter numbers in opener bands, the event date, trio figures. Decorative."
+      },
+      "title-event": {
+        "displayName": "Event title",
+        "purpose": "Next free event title in the red frame."
+      },
+      "title-list": {
+        "displayName": "List title",
+        "purpose": "Blog list article titles, max 22ch."
+      },
+      "title-pair": {
+        "displayName": "Pair title",
+        "purpose": "Why SheWins pairs; one line, no hyphenation."
       },
       "display": {
         "displayName": "Display",
@@ -374,6 +386,11 @@
       {
         "name": "The Chapter Opener Rule",
         "body": "Every main page starts with a band: a numeral, a headline, one script phrase and a lead, on one of red, pink, gradient or cream.",
+        "section": "layout"
+      },
+      {
+        "name": "The Shared Baseline Rule",
+        "body": "Elements that sit side by side share a line:\n\n- A label next to large type sits on the baseline of its first line (names, quotes, rows).\n- A description next to a title sits on the title's baseline.\n- Repeated cards share row heights (subgrid), so numbers, titles, texts and links line up across cards whatever the copy length.",
         "section": "layout"
       },
       {

@@ -41,6 +41,47 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
    ("+" plus its padding measures 0.913em in the display face). */
 .names .vals span { padding-left: 0.913em; text-indent: -0.913em; }
 
+/* ---------- Alignment polish (team request, October 2026) ---------- */
+
+/* Rows with a label column: the small uppercase label sits on the same baseline as the first
+   line of large type next to it, instead of at the top of its box (where it floated above). */
+.names > div { align-items: baseline; }
+
+/* Community voices: one quote per hairline row, with the name in the label column on the
+   quote's first baseline. The two-column grid left large gaps under short quotes. */
+@media (min-width: 760px) {
+  .quotes { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .quotes > div,
+  .quotes > div:first-child,
+  .quotes > div:nth-child(-n + 2) {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 10px 32px;
+    align-items: baseline;
+    padding: 26px 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .quotes > div:first-child { border-top-color: var(--ink); }
+  .quotes cite { grid-column: 1; grid-row: 1; margin-top: 0; }
+  .quotes p { grid-column: 2; grid-row: 1; max-width: 46ch; }
+}
+
+/* Why SheWins pairs: each title holds one line (68px max fits the longest, "Comunidad +
+   formación", in its column at every width), with no forced hyphenation ("educa-tion"), and the
+   description sits on the title's baseline. */
+.pair .t { font-size: clamp(28px, 5.2vw, 68px); hyphens: manual; overflow-wrap: break-word; }
+@media (min-width: 860px) {
+  .pair { align-items: end; align-items: last baseline; }
+}
+
+/* Start cards: number, title, text and link line up across the four cards (subgrid), so a
+   two-line title no longer pushes its card's text and link below the others. */
+@supports (grid-template-rows: subgrid) {
+  .start > a { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; }
+  .start > a .go { justify-self: start; align-self: start; }
+}
+
 /* Script phrase under the page titles ("So we made a place to find your people", "every month"…).
    The script's loops (S, f, y) hung past the column's left edge, the first line touched the
    title's descenders, and wrapped lines crossed each other on phones. A small indent keeps the
