@@ -26,10 +26,11 @@
   animation: sw-settle 0.7s var(--ease-out) both;
 }
 
-/* Handwritten accent: a left-to-right wipe, like the script being written. */
+/* Handwritten accent: a left-to-right wipe, like the script being written. Fill mode "backwards"
+   only: once written, no clip stays on the phrase (the script's swashes reach past its box). */
 .cover .script,
 .open .script {
-  animation: sw-write var(--dur-focal) var(--ease-out) 0.25s both;
+  animation: sw-write var(--dur-focal) var(--ease-out) 0.25s backwards;
 }
 
 /* Chapter numeral rises out of its band (decorative, aria-hidden). */
@@ -55,9 +56,11 @@
 @keyframes sw-settle {
   from { transform: translateY(0.12em); }
 }
+/* The clip box is 1em larger than the phrase on every side, so loops and descenders are never cut
+   and nothing jumps when the animation ends. */
 @keyframes sw-write {
-  from { clip-path: inset(-0.4em 100% -0.4em 0); }
-  to { clip-path: inset(-0.4em -0.4em -0.4em 0); }
+  from { clip-path: inset(-1em 100% -1em -1em); }
+  to { clip-path: inset(-1em -1em -1em -1em); }
 }
 @keyframes sw-rise {
   from { transform: translateY(100%); clip-path: inset(0 0 100% 0); }

@@ -7,8 +7,19 @@ form.done ~ .sent { display: block; }
 
 /* ---------- Adjustments requested by the team ---------- */
 
-/* Partners / sponsor / hosts: every name starts with "+". The original only put it between names
-   (span + span), so the first name of each row had none and, when a line wrapped, the "+" looked
-   attached to the end of the previous name. The wider gap keeps each "+" with its own name. */
-.names .vals { gap: 0 0.6em; }
+/* Partners / sponsor / hosts: one name per line, each starting with "+". The original ran the
+   names together in a wrapping row with "+" only between them (span + span), so the first name
+   had none and, on wrapped lines, the "+" looked attached to the previous name. */
+.names .vals { flex-direction: column; align-items: flex-start; gap: 0; }
 .names .vals span::before { content: "+"; font-weight: 400; padding-right: 0.35em; opacity: 0.6; }
+/* Hanging indent: a long name that wraps on phones lines up with the text, not under the "+"
+   ("+" plus its padding measures 0.913em in the display face). */
+.names .vals span { padding-left: 0.913em; text-indent: -0.913em; }
+
+/* Script phrase under the page titles ("So we made a place to find your people", "every month"…).
+   The script's loops (S, f, y) hung past the column's left edge, the first line touched the
+   title's descenders, and wrapped lines crossed each other on phones. A small indent keeps the
+   loops inside the column, with more room above and between lines. */
+.cover .script,
+.open .script { padding-left: 0.3em; }
+.open .script { margin-top: 0.3em; line-height: 1.45; }
