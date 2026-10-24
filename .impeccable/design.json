@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T18:50:18.344Z",
+  "generatedAt": "2026-10-24T18:59:28.737Z",
   "title": "Design System: SheWins",
   "extensions": {
     "colorMeta": {
@@ -385,7 +385,7 @@
       },
       {
         "name": "The Chapter Opener Rule",
-        "body": "Every main page starts with a band: a numeral, a headline, one script phrase and a lead, on one of red, pink, gradient or cream.",
+        "body": "Every main page starts with a band: a numeral, a headline, one script phrase and a lead, on one of red, pink, gradient or cream, always in that order. When the page has a main action (waitlist, contact), its buttons follow the lead.",
         "section": "layout"
       },
       {

@@ -293,7 +293,7 @@ To mark something as inactive or past, dim only large type (display, titles, num
 
 **The Hairline Row Rule.** Lists of facts, events, articles and FAQs are rows separated by 1px hairlines, never cards. The first row of a list takes a full-strength ink rule.
 
-**The Chapter Opener Rule.** Every main page starts with a band: a numeral, a headline, one script phrase and a lead, on one of red, pink, gradient or cream.
+**The Chapter Opener Rule.** Every main page starts with a band: a numeral, a headline, one script phrase and a lead, on one of red, pink, gradient or cream, always in that order. When the page has a main action (waitlist, contact), its buttons follow the lead.
 
 **The Shared Baseline Rule.** Elements that sit side by side share a line:
 
