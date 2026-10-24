@@ -41,7 +41,7 @@ Scripts:
 
 1. **GitHub**: the repository belongs to the association's GitHub account.
 2. **Vercel**: import the repository (framework preset Astro, Node 24). Add the domain (`www.shewins.es` main, `shewins.es` redirects to it).
-3. **Keystatic Cloud** (free up to 3 users): create the team, then the project `shewins/website` (it must match `cloud.project` in `keystatic.config.ts`), connect the GitHub repository and invite the editors by email.
+3. **Keystatic Cloud** (free up to 3 users): project key `shewins-website/shewins-web` (it must match `cloud.project` in `keystatic.config.ts`), Primary URL `https://www.shewins.es`, connected to `johnalbh/shewins-web`. Invite the editors by email under Users.
 4. **Brevo** (forms and newsletter): authenticate `shewins.es` (DKIM/SPF), create the "Waitlist" and "Newsletter" lists and a double opt-in template, and set the variables from `.env.example` in Vercel.
 5. **Daily rebuild**: create a Vercel Deploy Hook and save it as the `VERCEL_DEPLOY_HOOK` secret in GitHub (see `.github/workflows/daily-rebuild.yml`).
 6. **Brand font**: Wonderful Branding (Din Studio) is a licensed font and is not in this repository. It lives in the project's Vercel Blob store, and `npm run build` downloads it from `BRAND_FONT_URL` (see `scripts/fetch-brand-font.mjs`). For local work, copy it into `public/fonts/` (it is git-ignored). The owners should confirm they hold a commercial licence for it.

@@ -36,7 +36,8 @@ const articleBody = (label: string) =>
 
 export default config({
   storage,
-  cloud: { project: 'shewins/website' },
+  // Project key from keystatic.cloud (team "shewins/website" → slug shewins-website).
+  cloud: { project: 'shewins-website/shewins-web' },
   ui: {
     brand: { name: 'SheWins' },
     navigation: { Content: ['posts', 'events'], Settings: ['authors', 'settings'] },
