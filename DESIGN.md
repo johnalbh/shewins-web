@@ -26,6 +26,13 @@ typography:
     lineHeight: 0.88
     letterSpacing: "-0.055em"
     fontVariation: "'wdth' 96"
+  display-closer:
+    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(50px, 11vw, 160px)"
+    fontWeight: 700
+    lineHeight: 0.88
+    letterSpacing: "-0.055em"
+    fontVariation: "'wdth' 96"
   headline:
     fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
     fontSize: "clamp(38px, 6.4vw, 92px)"
@@ -257,7 +264,7 @@ To mark something as inactive or past, dim only large type (display, titles, num
 ### Hierarchy
 
 - **Numeral** (700, clamp(120px, 19vw, 300px), 0.8, −0.06em): the chapter number in opener bands (01–04), the event date and the trio figures. Decorative (`aria-hidden`).
-- **Display** (700, clamp(50px, 11vw, 168px), 0.88, −0.055em): the home cover headline (tuned to clamp(46px, 8.6vw, 128px) at 0.96) and the waitlist closers.
+- **Display** (700, clamp(50px, 11vw, 168px), 0.88, −0.055em): the home cover headline (tuned to clamp(46px, 8.6vw, 128px) at 0.96) and the waitlist closers. In the two-column form band, closers cap at 160px (display-closer) so the longest word fits its column.
 - **Headline** (700, clamp(38px, 6.4vw, 92px), 0.94, −0.045em): section headings ("October at SheWins.") and opener titles (clamp(44px, 6.4vw, 100px)).
 - **Title** (700, clamp(28px, 4vw, 56px), 1, −0.04em): sub-section heads. Row and card titles step down to clamp(24px, 2.6vw, 38px).
 - **Feature titles** (700, display face): the next-event title (clamp(34px, 4.6vw, 70px), 0.95); blog list titles (clamp(24px, 2.6vw, 36px), max 28ch, two or three lines); "Why SheWins" pair titles (clamp(28px, 5.2vw, 68px)), capped so the longest pair holds one line with no hyphenation.
@@ -394,7 +401,7 @@ The next event, held in a red frame (12–22px border of red) around a pink pane
 - a giant date numeral with a weekday and month label;
 - an uppercase "Next free event" label;
 - the title, a topic line, and the host and role;
-- time, language and venue pills;
+- a facts row: When, Language and Where. Each fact is an uppercase label over a 15px 600 value, divided by 1px black hairlines; on phones each fact becomes its own row;
 - red and line buttons to Meetup and Luma.
 
 ### Colour-block Tiles

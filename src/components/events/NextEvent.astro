@@ -15,10 +15,10 @@ const { L } = localize(lang);
 const [{ upcoming }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
 const ev = upcoming[0];
 const when = dateParts(ev?.date ?? todayInMadrid(), lang);
-const inLanguage = {
-  es: L('in Spanish', 'en español'),
-  en: L('in English', 'en inglés'),
-  both: L('in English + Spanish', 'en inglés y español'),
+const language = {
+  es: L('Spanish', 'Español'),
+  en: L('English', 'Inglés'),
+  both: L('English + Spanish', 'Inglés + español'),
 };
 const topic = ev && L(ev.topicEn, ev.topicEs);
 const role = ev && L(ev.hostRoleEn, ev.hostRoleEs);
@@ -32,7 +32,7 @@ const time = ev && [ev.startTime, ev.endTime].filter(Boolean).join('–');
 <p class="lab" style="margin-bottom:14px"><span class={lang}>{L('Next free event', 'Próximo evento gratuito')}</span></p>
 <h2>{ev.title}</h2>
 <p class="who">{topic && <Fragment><span class={lang}>{topic}</span><br /></Fragment>}{ev.host ? <b>{ev.host}</b> : <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}{ev.host && role && <Fragment> · <span class={lang}>{role}</span></Fragment>}</p>
-<div class="mt"><span class="pill">{time}</span><span class="pill"><span class={lang}>{inLanguage[ev.language]}</span></span><span class="pill">{ev.venue}</span></div>
+<dl class="facts"><div><dt><span class={lang}>{L('When', 'Cuándo')}</span></dt><dd>{time}</dd></div><div><dt><span class={lang}>{L('Language', 'Idioma')}</span></dt><dd><span class={lang}>{language[ev.language]}</span></dd></div><div><dt><span class={lang}>{L('Where', 'Dónde')}</span></dt><dd>{ev.venue}</dd></div></dl>
 <div class="btns"><a class="btn b-red" href={ev.meetupUrl || settings.meetup} rel="noopener" target="_blank"><span class={lang}>{L('RSVP on Meetup', 'Apúntate en Meetup')}</span><Fragment set:html={ARROW} /></a><a class="btn b-line" href={ev.lumaUrl || settings.luma} rel="noopener" target="_blank"><span class={lang}>{L('RSVP on Luma', 'Apúntate en Luma')}</span><Fragment set:html={ARROW} /></a></div>
 </div>
 </div></div>

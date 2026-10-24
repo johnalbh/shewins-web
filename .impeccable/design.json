@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T18:59:28.737Z",
+  "generatedAt": "2026-10-24T19:06:44.333Z",
   "title": "Design System: SheWins",
   "extensions": {
     "colorMeta": {
@@ -140,6 +140,10 @@
       "display": {
         "displayName": "Display",
         "purpose": "Home cover headline and waitlist closers."
+      },
+      "display-closer": {
+        "displayName": "Display closer",
+        "purpose": "Closers in the two-column form band, capped at 160px."
       },
       "headline": {
         "displayName": "Headline",

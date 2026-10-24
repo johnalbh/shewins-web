@@ -11,8 +11,7 @@
 @media (max-width: 400px) {
   .pill { white-space: normal; }
   /* Only these hold text long enough to wrap; two lines need air. */
-  .frame .mt .pill,
-  .door .pill { border-radius: 16px; line-height: 1.25; }
+  .door .pill { line-height: 1.25; }
 }
 
 /* 2. Wide screens: "Sé la primera." at 168px was 10px wider than its form column (1920px).
