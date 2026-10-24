@@ -433,8 +433,8 @@ The next event, held in a red frame (12–22px border of red) around a pink pane
 
 The reading page, centred as one composition.
 
-- **From 1100px:** a 200px side column next to a 68ch reading column, with a 56–96px gap and equal margins on both sides.
-- **Head:** "← Blog" (a drawn arrow) sits in the side column, on the baseline of the meta line ("By … · N min read"). The red title sits in the reading column.
+- **From 1100px:** the 68ch reading column on the left, where the eye lands first, and a 200px side column on the right, with a 56–96px gap and equal margins on both sides.
+- **Head:** in the reading column: "← Blog" (a drawn arrow), then the meta line ("By … · N min read") and the red title, aligned with the text below.
 - **Side column:** sticky 150px from the top. It holds "Written by", the author's name in display type, the role and reading time in small, a hairline, then "Share this article".
 - **Share actions:** outlined square buttons (1px ink, 44px, 14px label, drawn icon at the right) for Copy link, LinkedIn, WhatsApp and Email, plus the phone's Share… on touch devices. Hover tints them and turns the text red. Copy link confirms with "Link copied" for 2s, also announced to screen readers. They are plain links: nothing loads and no cookies are set until the reader shares.
 - **Text:** the opening paragraph is a lead, a size up. Pull quotes are red display type between two ink hairlines, with no side bar. Text selection is pink with black text.
