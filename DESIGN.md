@@ -405,6 +405,16 @@ The next event, held in a red frame (12–22px border of red) around a pink pane
 - a facts strip in black with cream text: When, Language and Where. Each fact is an uppercase label over a 15px 600 value, divided by line-on-dark rules; on phones each fact becomes its own row;
 - red and line buttons to Meetup and Luma.
 
+### Article Share Rail
+
+The article page pairs the 70ch reading column with a share block in hairline rows: a "Share this article" label, then Copy link, LinkedIn, WhatsApp, Email, and the device's Share… where the browser offers one.
+
+- **From 1100px:** a 220–260px rail to the right of the text, sticky 150px from the top while reading.
+- **Below 1100px:** the block follows the article.
+- **Rows:** 48px tall, 15px Inter 500, with a drawn icon at the right. Text and icon turn red on hover, and the icon nudges toward its action.
+- **Copy link:** the row confirms with "Link copied" for 2s, also announced to screen readers.
+- **No third parties:** plain links only; nothing loads and no cookies are set until the reader shares.
+
 ### Colour-block Tiles
 
 "Doors", the trio and the notes tiles are square blocks in red, pink, gradient, cream or white. They have generous padding (clamp(22–24px, 3vw, 44px)), a minimum height of 190–300px, and content pushed to the edges with a big title or figure.

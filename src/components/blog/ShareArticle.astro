@@ -1,0 +1,33 @@
+---
+// Share actions for an article: copy the link, LinkedIn, WhatsApp, email, and the device's own
+// share sheet where the browser offers one. Plain links only: no third-party widgets or scripts,
+// so nothing loads (and no cookies are set) until the reader chooses to share.
+import { localize, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  url: string;
+  title: string;
+  description: string;
+}
+
+const { lang, url, title, description } = Astro.props;
+const { L } = localize(lang);
+const enc = encodeURIComponent;
+
+const svg = (path: string) =>
+  `<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16">${path}</svg>`;
+const ICON_OUT = svg('<path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"></path>');
+const ICON_COPY = svg('<path d="M5.5 5.5h8v8h-8zM10.5 2.5h-8v8"></path>');
+const ICON_SHARE = svg('<path d="M8 10V2.5M5 5.5l3-3 3 3M3.5 8.5v5h9v-5"></path>');
+
+const links = [
+  { name: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}`, external: true },
+  { name: 'WhatsApp', href: `https://wa.me/?text=${enc(`${title} ${url}`)}`, external: true },
+  { name: L('Email', 'Correo'), href: `mailto:?subject=${enc(title)}&body=${enc(`${description}\n\n${url}`)}`, external: false },
+];
+---
+
+<aside class="share" aria-labelledby="share-t"><h2 class="lab" id="share-t"><span class={lang}>{L('Share this article', 'Comparte este artículo')}</span></h2><ul><li hidden><button type="button" data-share-native data-title={title} data-url={url}><span class={lang}>{L('Share…', 'Compartir…')}</span><Fragment set:html={ICON_SHARE} /></button></li><li><button type="button" data-copy={url} data-done={L('Link copied', 'Enlace copiado')}><span class={lang}>{L('Copy link', 'Copiar enlace')}</span><Fragment set:html={ICON_COPY} /></button></li>{links.map((l) => <li><a href={l.href} target={l.external ? '_blank' : undefined} rel={l.external ? 'noopener' : undefined}><span>{l.name}</span><Fragment set:html={ICON_OUT} /></a></li>)}</ul><p class="share-status" aria-live="polite"></p></aside>
+
+<script src="../../scripts/share.js"></script>

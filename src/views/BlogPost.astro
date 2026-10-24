@@ -1,6 +1,8 @@
 ---
 // Blog article page, same markup as html/blog/*.html. Content comes from src/content/posts.
 import Base from '../layouts/Base.astro';
+import ShareArticle from '../components/blog/ShareArticle.astro';
+import '../styles/article.css';
 import { SITE, localize, type Lang } from '../i18n';
 import { getPosts, type Post } from '../lib/content';
 import { renderMarkdoc } from '../lib/markdoc';
@@ -59,7 +61,7 @@ const seo = {
 <Base lang={lang} route={`post-${post.slug}`} seo={seo} path={path}>
 <div class="page on" id={`p-post-${post.slug}`}>
 <section class="s-cream post-head"><div class="w"><a class="back" href={u('/blog')}>← <span class={lang}>Blog</span></a> <p class="lab" style="margin-top:34px"><span class={lang}>{L('By', 'Por')}</span> {author} · {post.readingTime} <span class={lang}>{L('min read', 'min de lectura')}</span></p> <h1><span class={lang}>{title}</span></h1></div></section>
-<section class="s-cream"><div class="w"><article class="post"><div class={lang}><Fragment set:html={body} /></div><div class="byline"><p class="lab"><span class={lang}>{L('Written by', 'Escrito por')}</span></p><p class="nm">{author}</p>{role && <p class="lab" style="margin-top:6px"><span class={lang}>{role}</span></p>}</div></article></div></section>
+<section class="s-cream"><div class="w post-layout"><article class="post"><div class={lang}><Fragment set:html={body} /></div><div class="byline"><p class="lab"><span class={lang}>{L('Written by', 'Escrito por')}</span></p><p class="nm">{author}</p>{role && <p class="lab" style="margin-top:6px"><span class={lang}>{role}</span></p>}</div></article><ShareArticle lang={lang} url={url} title={title} description={description} /></div></section>
 <section class="s-white nextp"><div class="w"><p class="lab"><span class={lang}>{L('Next article', 'Siguiente artículo')}</span></p><a class="prow" href={u(`/blog/${next.slug}`)}><div class="lab">{next.authorEntry?.name}</div><div><h3><span class={lang}>{L(next.title, next.titleEs)}</span></h3><span class="go"><i><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></i><span class={lang}>{L('Read article', 'Leer artículo')}</span></span></div></a></div></section>
 </div>
 </Base>

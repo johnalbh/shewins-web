@@ -1,0 +1,60 @@
+/* Article page: the 70ch reading column plus a share rail (team request, October 2026).
+   From 1100px the rail sits in the space to the right of the text and stays in view while
+   reading; below that, the share block follows the article, where readers usually share. */
+
+.post-layout { display: grid; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1100px) {
+  .post-layout {
+    grid-template-columns: minmax(0, 70ch) minmax(220px, 260px);
+    justify-content: space-between;
+    column-gap: clamp(48px, 6vw, 120px);
+    align-items: start;
+  }
+}
+
+/* ---------- Share block: an index of hairline rows, square like every control ---------- */
+
+.share { max-width: 70ch; margin-bottom: clamp(40px, 6vw, 88px); }
+@media (min-width: 1100px) {
+  .share { position: sticky; top: 150px; margin: clamp(28px, 4vw, 56px) 0 0; }
+}
+.share h2 { margin-bottom: 14px; }
+.share ul { border-top: 1px solid var(--ink); }
+.share li { border-bottom: 1px solid var(--line); }
+.share li[hidden] { display: none; }
+.share a,
+.share button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 0;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.share svg { width: 16px; height: 16px; flex: none; transition: transform 0.2s var(--ease-out); }
+.share a:hover,
+.share button:hover,
+.share .is-done { color: var(--red); }
+.share a:hover svg { transform: translate(2px, -2px); }
+.share button:hover svg { transform: translateY(-2px); }
+.share a:focus-visible,
+.share button:focus-visible { border-radius: 0; }
+
+/* Announces "Link copied" to screen readers without showing twice on screen. */
+.share-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .share a:hover svg,
+  .share button:hover svg { transform: none; }
+}
