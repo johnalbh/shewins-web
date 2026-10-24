@@ -1,60 +1,145 @@
-/* Article page: the 70ch reading column plus a share rail (team request, October 2026).
-   From 1100px the rail sits in the space to the right of the text and stays in view while
-   reading; below that, the share block follows the article, where readers usually share. */
+/* Article page: "The Chapter Book" set for reading (team request, October 2026).
+   From 1100px the page is one centred composition: a 200px side column (the site's label
+   column) holding the back link, author, reading time and share actions, and a 68ch reading
+   column holding the title and the text. Below 1100px it is a single column and the share
+   actions follow the article. */
 
-.post-layout { display: grid; grid-template-columns: minmax(0, 1fr); }
+/* ---------- Grid ---------- */
+
+.post-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 1100px) {
-  .post-layout {
-    grid-template-columns: minmax(0, 70ch) minmax(220px, 260px);
-    justify-content: space-between;
-    column-gap: clamp(48px, 6vw, 120px);
-    align-items: start;
+  .post-grid {
+    grid-template-columns: 200px minmax(0, 68ch);
+    column-gap: clamp(56px, 6vw, 96px);
+    justify-content: center;
   }
+  .post-rail-head,
+  .post-rail { grid-column: 1; grid-row: 1; }
+  .post-title,
+  .post-body .post { grid-column: 2; grid-row: 1; }
+  .post-head .post-grid { align-items: baseline; }
 }
 
-/* ---------- Share block: an index of hairline rows, square like every control ---------- */
+/* ---------- Head ---------- */
 
-.share { max-width: 70ch; margin-bottom: clamp(40px, 6vw, 88px); }
+.post-head { padding-top: clamp(40px, 6vw, 96px); }
+.post-head .back { display: inline-flex; align-items: center; gap: 8px; }
+.post-head .back svg { width: 14px; height: 14px; transition: transform 0.2s var(--ease-out); }
+.post-head .back:hover svg { transform: translateX(-3px); }
+.post-title .lab { margin: 28px 0 0; }
+@media (min-width: 1100px) { .post-title .lab { margin-top: 0; } }
+.post-head h1 { font-size: clamp(34px, 4.4vw, 64px); line-height: 0.98; max-width: 18ch; margin-top: 18px; }
+
+/* ---------- Reading column ---------- */
+
+.post-body .post {
+  max-width: none;
+  padding-block: clamp(40px, 5vw, 72px) clamp(64px, 8vw, 120px);
+}
+.post > div > p { line-height: 1.8; margin-bottom: 1.45em; }
+/* The opening paragraph is the lead: a size up, an invitation to read on. */
+.post > div > p:first-child { font-size: clamp(19px, 1.75vw, 23px); line-height: 1.6; margin-bottom: 1.3em; }
+.post h2 { font-size: clamp(24px, 2.4vw, 32px); margin: 2.4em 0 0.75em; }
+.post ul,
+.post ol { gap: 0.7em; margin-bottom: 1.6em; }
+.post ul > li,
+.post ol > li { line-height: 1.7; }
+/* Pull quote: red display type between two hairlines, instead of a side bar. */
+.post .pull {
+  border-left: 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 30px 0 28px;
+  margin: 2.4em 0;
+  color: var(--red);
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.2;
+}
+.post .callout { margin: 2.6em 0; }
+.post .byline { margin-top: 3.5em; }
+.post ::selection,
+.post-head ::selection { background: var(--pink); color: var(--black); }
+
+/* ---------- Side column: author, reading time, share ---------- */
+
+.post-rail { margin-bottom: clamp(56px, 8vw, 112px); }
+.post-author { display: none; }
 @media (min-width: 1100px) {
-  .share { position: sticky; top: 150px; margin: clamp(28px, 4vw, 56px) 0 0; }
+  .post-rail { position: sticky; top: 150px; align-self: start; margin: clamp(40px, 5vw, 72px) 0 0; }
+  .post-author { display: block; padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
+  .post-author .nm { font-family: var(--display); font-weight: 700; font-stretch: 96%; letter-spacing: -0.03em; font-size: 22px; line-height: 1.1; margin-top: 10px; }
+  .post-author .role { font-size: 13px; line-height: 1.5; opacity: 0.75; margin-top: 6px; }
+  .post-author .role + .role { margin-top: 2px; }
 }
-.share h2 { margin-bottom: 14px; }
-.share ul { border-top: 1px solid var(--ink); }
-.share li { border-bottom: 1px solid var(--line); }
+
+/* Share actions: outlined square buttons, icon at the right, one per line in the side column
+   and two per line below 1100px. */
+.share { max-width: 68ch; }
+.share h2 { margin-bottom: 12px; }
+.share ul { display: grid; gap: 8px; }
 .share li[hidden] { display: none; }
+@media (max-width: 1099px) {
+  .share ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .share li:has([data-share-native]) { grid-column: 1 / -1; }
+}
 .share a,
 .share button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   width: 100%;
-  min-height: 48px;
-  padding: 12px 0;
+  min-height: 44px;
+  padding: 0 14px;
   font: inherit;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
+  line-height: 1.2;
   color: var(--ink);
-  background: none;
-  border: 0;
+  background: transparent;
+  border: 1px solid var(--ink);
+  border-radius: 0;
   text-align: left;
   text-decoration: none;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 .share svg { width: 16px; height: 16px; flex: none; transition: transform 0.2s var(--ease-out); }
 .share a:hover,
-.share button:hover,
-.share .is-done { color: var(--red); }
+.share button:hover { background-color: color-mix(in srgb, var(--ink) 6%, transparent); color: var(--red); }
+.share .is-done { color: var(--red); border-color: var(--red); }
 .share a:hover svg { transform: translate(2px, -2px); }
 .share button:hover svg { transform: translateY(-2px); }
 .share a:focus-visible,
 .share button:focus-visible { border-radius: 0; }
 
-/* Announces "Link copied" to screen readers without showing twice on screen. */
+/* Announces "Link copied" to screen readers without showing it twice on screen. */
 .share-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
+/* ---------- Reading progress ---------- */
+
+/* A 3px red line along the top of the window that fills as the article is read (scroll-driven,
+   no script). Hidden where scroll timelines are not supported and under reduced motion. */
+.read-progress { display: none; }
+@supports (animation-timeline: scroll()) {
+  .read-progress {
+    display: block;
+    position: fixed;
+    inset: 0 0 auto;
+    height: 3px;
+    z-index: 70;
+    background: var(--red);
+    transform-origin: 0 50%;
+    animation: sw-read linear both;
+    animation-timeline: scroll(root);
+    pointer-events: none;
+  }
+  @keyframes sw-read { from { transform: scaleX(0); } }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .read-progress { display: none; }
+  .post-head .back:hover svg,
   .share a:hover svg,
   .share button:hover svg { transform: none; }
 }

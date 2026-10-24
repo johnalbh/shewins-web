@@ -1,7 +1,7 @@
 /* Article share actions (components/blog/ShareArticle.astro).
    - Copy link: clipboard API, with a textarea fallback; the label confirms for two seconds and a
      polite live region announces it to screen readers.
-   - Share…: shown only where the browser has a native share sheet (mostly phones). */
+   - Share…: shown on touch devices that have a native share sheet. */
 (function(){
 var status=document.querySelector('.share-status');
 function announce(msg){if(!status)return;status.textContent=msg;setTimeout(function(){status.textContent=''},2200)}
@@ -15,7 +15,8 @@ document.querySelectorAll('[data-copy]').forEach(function(btn){
   });
 });
 
-if(navigator.share)document.querySelectorAll('[data-share-native]').forEach(function(btn){
+// Touch devices only: on desktop the explicit actions are clearer than a system sheet.
+if(navigator.share&&matchMedia('(pointer: coarse)').matches)document.querySelectorAll('[data-share-native]').forEach(function(btn){
   btn.closest('li').hidden=false;
   btn.addEventListener('click',function(){navigator.share({title:btn.getAttribute('data-title'),url:btn.getAttribute('data-url')}).catch(function(){})});
 });

@@ -68,6 +68,18 @@ typography:
     lineHeight: 0.95
     letterSpacing: "-0.05em"
     fontVariation: "'wdth' 96"
+  article-title:
+    fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(34px, 4.4vw, 64px)"
+    fontWeight: 700
+    lineHeight: 0.98
+    letterSpacing: "-0.045em"
+    fontVariation: "'wdth' 96"
+  article-lead:
+    fontFamily: "Inter, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "clamp(19px, 1.75vw, 23px)"
+    fontWeight: 400
+    lineHeight: 1.6
   lead:
     fontFamily: "Inter, system-ui, -apple-system, Segoe UI, sans-serif"
     fontSize: "clamp(17px, 1.6vw, 20px)"
@@ -78,6 +90,16 @@ typography:
     fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.6
+  control:
+    fontFamily: "Inter, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "14px"
+    fontWeight: 500
+    lineHeight: 1.2
+  small:
+    fontFamily: "Inter, system-ui, -apple-system, Segoe UI, sans-serif"
+    fontSize: "13px"
+    fontWeight: 400
+    lineHeight: 1.5
   label:
     fontFamily: "Inter, system-ui, -apple-system, Segoe UI, sans-serif"
     fontSize: "11px"
@@ -270,7 +292,9 @@ To mark something as inactive or past, dim only large type (display, titles, num
 - **Title** (700, clamp(28px, 4vw, 56px), 1, −0.04em): sub-section heads. Row and card titles step down to clamp(24px, 2.6vw, 38px).
 - **Feature titles** (700, display face): the next-event title (clamp(34px, 4.6vw, 70px), 0.95); blog list titles (clamp(24px, 2.6vw, 36px), max 28ch, two or three lines); "Why SheWins" pair titles (clamp(28px, 5.2vw, 68px)), capped so the longest pair holds one line with no hyphenation.
 - **Lead** (400, clamp(17px, 1.6vw, 20px), 1.55): the first paragraph under a headline, max 44ch (36ch in openers).
-- **Body** (400, 16px, 1.6): running text. Article paragraphs use clamp(17px, 1.4vw, 19px) at 1.75, max 70ch.
+- **Body** (400, 16px, 1.6): running text. Article paragraphs use clamp(17px, 1.4vw, 19px) at 1.8, on a 68ch column, 1.45em apart.
+- **Article** (the reading page): title in red at clamp(34px, 4.4vw, 64px), max 18ch; the opening paragraph as a lead at clamp(19px, 1.75vw, 23px), 1.6; section heads at clamp(24px, 2.4vw, 32px) with 2.4em above.
+- **Control and small** (Inter 500 14px; Inter 400 13px): navigation and share buttons; secondary details such as role and reading time.
 - **Label** (500, 11px, 0.16em, uppercase): row labels, section labels, form labels, the footer and quote names.
 - **Script** (400, clamp(22px, 2.4vw, 32px), 1.45): one phrase per opener, and the cover tagline at clamp(24px, 2.6vw, 36px).
 
@@ -405,15 +429,17 @@ The next event, held in a red frame (12–22px border of red) around a pink pane
 - a facts strip in black with cream text: When, Language and Where. Each fact is an uppercase label over a 15px 600 value, divided by line-on-dark rules; on phones each fact becomes its own row;
 - red and line buttons to Meetup and Luma.
 
-### Article Share Rail
+### Article Page (signature)
 
-The article page pairs the 70ch reading column with a share block in hairline rows: a "Share this article" label, then Copy link, LinkedIn, WhatsApp, Email, and the device's Share… where the browser offers one.
+The reading page, centred as one composition.
 
-- **From 1100px:** a 220–260px rail to the right of the text, sticky 150px from the top while reading.
-- **Below 1100px:** the block follows the article.
-- **Rows:** 48px tall, 15px Inter 500, with a drawn icon at the right. Text and icon turn red on hover, and the icon nudges toward its action.
-- **Copy link:** the row confirms with "Link copied" for 2s, also announced to screen readers.
-- **No third parties:** plain links only; nothing loads and no cookies are set until the reader shares.
+- **From 1100px:** a 200px side column next to a 68ch reading column, with a 56–96px gap and equal margins on both sides.
+- **Head:** "← Blog" (a drawn arrow) sits in the side column, on the baseline of the meta line ("By … · N min read"). The red title sits in the reading column.
+- **Side column:** sticky 150px from the top. It holds "Written by", the author's name in display type, the role and reading time in small, a hairline, then "Share this article".
+- **Share actions:** outlined square buttons (1px ink, 44px, 14px label, drawn icon at the right) for Copy link, LinkedIn, WhatsApp and Email, plus the phone's Share… on touch devices. Hover tints them and turns the text red. Copy link confirms with "Link copied" for 2s, also announced to screen readers. They are plain links: nothing loads and no cookies are set until the reader shares.
+- **Text:** the opening paragraph is a lead, a size up. Pull quotes are red display type between two ink hairlines, with no side bar. Text selection is pink with black text.
+- **Reading progress:** a 3px red line along the top of the window fills as the article is read. It is scroll-driven, uses no script, and is hidden under reduced motion.
+- **Below 1100px:** one column; the share buttons follow the article in a 2×2 grid.
 
 ### Colour-block Tiles
 

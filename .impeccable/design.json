@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T19:15:17.732Z",
+  "generatedAt": "2026-10-24T19:39:03.326Z",
   "title": "Design System: SheWins",
   "extensions": {
     "colorMeta": {
@@ -152,6 +152,22 @@
       "title": {
         "displayName": "Title",
         "purpose": "Sub-section, row and card titles."
+      },
+      "article-title": {
+        "displayName": "Article title",
+        "purpose": "Red title of the reading page, max 18ch."
+      },
+      "article-lead": {
+        "displayName": "Article lead",
+        "purpose": "Opening paragraph of an article."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Navigation and share buttons."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Secondary details: role, reading time."
       },
       "lead": {
         "displayName": "Lead",
