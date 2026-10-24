@@ -10,7 +10,7 @@ form.done ~ .sent { display: block; }
 /* Heading order. Some headings skipped a level (h1 → h3, h2 → h4). They now use the right level
    and keep exactly the look of the original rule they replace. */
 .frame h2 { font-size: clamp(34px, 4.6vw, 70px); letter-spacing: -0.045em; line-height: 0.95; margin-bottom: 14px; } /* was .frame h3 */
-.plist .prow h2 { font-size: clamp(26px, 3.2vw, 46px); letter-spacing: -0.04em; margin-bottom: 12px; max-width: 22ch; } /* was .prow h3 */
+.plist .prow h2 { letter-spacing: -0.04em; margin-bottom: 12px; } /* was .prow h3; size and measure in "Blog list" below */
 .foot h2 { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; font-family: var(--body); margin-bottom: 12px; } /* was .foot h4 */
 h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promoted to h2 ("We believe") */
 
@@ -35,7 +35,8 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
 /* Partners / sponsor / hosts: one name per line, each starting with "+". The original ran the
    names together in a wrapping row with "+" only between them (span + span), so the first name
    had none and, on wrapped lines, the "+" looked attached to the previous name. */
-.names .vals { flex-direction: column; align-items: flex-start; gap: 0; }
+.names .vals { flex-direction: column; align-items: flex-start; gap: clamp(6px, 1vw, 14px) 0; }
+.names > div { padding: clamp(22px, 2.6vw, 34px) 0; }
 .names .vals span::before { content: "+"; font-weight: 400; padding-right: 0.35em; opacity: 0.6; }
 /* Hanging indent: a long name that wraps on phones lines up with the text, not under the "+"
    ("+" plus its padding measures 0.913em in the display face). */
@@ -73,6 +74,22 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
 .pair .t { font-size: clamp(28px, 5.2vw, 68px); hyphens: manual; overflow-wrap: break-word; }
 @media (min-width: 860px) {
   .pair { align-items: end; align-items: last baseline; }
+}
+
+/* Blog list: a calmer index. Titles step down to 36px on a 28ch measure (two lines instead of
+   three or four), and from 760px the "Read article" arrow moves to the end of the row as a quiet
+   square cell; the label stays for screen readers, and the whole row is the link. */
+.plist .prow h2 { font-size: clamp(24px, 2.6vw, 36px); line-height: 1.02; max-width: 28ch; }
+.plist .prow p { max-width: 60ch; }
+@media (min-width: 760px) {
+  .plist .prow { position: relative; grid-template-columns: 200px minmax(0, 1fr) 34px; align-items: baseline; }
+  .plist .prow > div:last-child { display: contents; }
+  .plist .prow h2,
+  .plist .prow p { grid-column: 2; }
+  .plist .prow .go { grid-column: 3; grid-row: 1; margin-top: 0; align-self: start; }
+  .plist .prow .go > span:last-child {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
 }
 
 /* Start cards: number, title, text and link line up across the four cards (subgrid), so a

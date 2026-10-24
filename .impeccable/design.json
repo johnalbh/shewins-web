@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T18:44:43.548Z",
+  "generatedAt": "2026-10-24T18:50:18.344Z",
   "title": "Design System: SheWins",
   "extensions": {
     "colorMeta": {
@@ -131,7 +131,7 @@
       },
       "title-list": {
         "displayName": "List title",
-        "purpose": "Blog list article titles, max 22ch."
+        "purpose": "Blog index titles, 24–36px, max 28ch."
       },
       "title-pair": {
         "displayName": "Pair title",

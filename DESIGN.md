@@ -49,9 +49,9 @@ typography:
     fontVariation: "'wdth' 96"
   title-list:
     fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(26px, 3.2vw, 46px)"
+    fontSize: "clamp(24px, 2.6vw, 36px)"
     fontWeight: 700
-    lineHeight: 0.98
+    lineHeight: 1.02
     letterSpacing: "-0.04em"
     fontVariation: "'wdth' 96"
   title-pair:
@@ -260,7 +260,7 @@ To mark something as inactive or past, dim only large type (display, titles, num
 - **Display** (700, clamp(50px, 11vw, 168px), 0.88, −0.055em): the home cover headline (tuned to clamp(46px, 8.6vw, 128px) at 0.96) and the waitlist closers.
 - **Headline** (700, clamp(38px, 6.4vw, 92px), 0.94, −0.045em): section headings ("October at SheWins.") and opener titles (clamp(44px, 6.4vw, 100px)).
 - **Title** (700, clamp(28px, 4vw, 56px), 1, −0.04em): sub-section heads. Row and card titles step down to clamp(24px, 2.6vw, 38px).
-- **Feature titles** (700, display face): the next-event title (clamp(34px, 4.6vw, 70px), 0.95); blog list titles (clamp(26px, 3.2vw, 46px), max 22ch); "Why SheWins" pair titles (clamp(28px, 5.2vw, 68px)), capped so the longest pair holds one line with no hyphenation.
+- **Feature titles** (700, display face): the next-event title (clamp(34px, 4.6vw, 70px), 0.95); blog list titles (clamp(24px, 2.6vw, 36px), max 28ch, two or three lines); "Why SheWins" pair titles (clamp(28px, 5.2vw, 68px)), capped so the longest pair holds one line with no hyphenation.
 - **Lead** (400, clamp(17px, 1.6vw, 20px), 1.55): the first paragraph under a headline, max 44ch (36ch in openers).
 - **Body** (400, 16px, 1.6): running text. Article paragraphs use clamp(17px, 1.4vw, 19px) at 1.75, max 70ch.
 - **Label** (500, 11px, 0.16em, uppercase): row labels, section labels, form labels, the footer and quote names.
@@ -376,7 +376,7 @@ The editorial block: square like the colour blocks, and always pointing forward.
 
 ### Hairline Row (signature)
 
-The brand book's index line. A 1px hairline sits on top. An uppercase label in a 200px left column pairs with a title and text on the right. Rows draw their hairline from left to right as they scroll into view, and settle in with a 14px rise. Used for facts, the event schedule, blog articles, community quotes (the name in the label column, the quote at 46ch on the right) and the partner, sponsor and host names (one name per line, each starting with a "+" at 60% opacity, with a hanging indent). Past events dim only their title and day number to ink at 55%. Host, venue and pills stay at full contrast, and the status pill reads "Past".
+The brand book's index line. A 1px hairline sits on top. An uppercase label in a 200px left column pairs with a title and text on the right. Rows draw their hairline from left to right as they scroll into view, and settle in with a 14px rise. Used for facts, the event schedule, blog articles, community quotes (the name in the label column, the quote at 46ch on the right), the blog index (author and reading time | title and excerpt | an arrow cell at the end of the row; the whole row is the link) and the partner, sponsor and host names (one name per line, each starting with a "+" at 60% opacity, with a hanging indent). Past events dim only their title and day number to ink at 55%. Host, venue and pills stay at full contrast, and the status pill reads "Past".
 
 ### Chapter Opener (signature)
 
