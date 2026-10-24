@@ -1,0 +1,31 @@
+---
+// Generated from html/index.html + html/es/index.html by scripts/migrate-from-html.mjs.
+import { localize, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L, u } = localize(lang);
+---
+
+<div aria-labelledby="cb-t" aria-modal="false" class="cb" hidden id="cb" role="dialog">
+<div class="cb-in">
+<div class="cb-main">
+<p class="lab" id="cb-t"><span class={lang}>Cookies</span></p>
+<p><span class={lang}>{L("We only use cookies that are needed for the site to work, like remembering your language. With your permission we could also use optional ones. You choose, and you can change it any time.", "Solo usamos las cookies necesarias para que la web funcione, como recordar tu idioma. Con tu permiso podríamos usar también otras opcionales. Tú eliges y puedes cambiarlo cuando quieras.")}</span> <a href={u("/cookies")}><span class={lang}>{L("Cookie policy", "Política de cookies")}</span></a></p>
+<div class="cb-set" hidden>
+<label class="cb-row"><input checked disabled type="checkbox" /><span><b><span class={lang}>{L("Necessary", "Necesarias")}</span></b> <span class={lang}>{L("Always on. Language and cookie choice.", "Siempre activas. Idioma y elección de cookies.")}</span></span></label>
+<label class="cb-row"><input id="cb-an" type="checkbox" /><span><b><span class={lang}>{L("Analytics", "Analítica")}</span></b> <span class={lang}>{L("Help us understand how the site is used. Not in use yet.", "Nos ayudan a entender cómo se usa la web. Aún no se usan.")}</span></span></label>
+<label class="cb-row"><input id="cb-mk" type="checkbox" /><span><b>Marketing</b> <span class={lang}>{L("Personalised content and ads. Not in use yet.", "Contenido y anuncios personalizados. Aún no se usan.")}</span></span></label>
+</div>
+</div>
+<div class="cb-btns">
+<button class="btn b-red" data-cb="all" type="button"><span class={lang}>{L("Accept all", "Aceptar todas")}</span></button>
+<button class="btn b-line" data-cb="none" type="button"><span class={lang}>{L("Reject all", "Rechazar todas")}</span></button>
+<button class="btn b-line" data-cb="cfg" type="button"><span class={lang}>{L("Settings", "Configurar")}</span></button>
+<button class="btn b-red" data-cb="save" hidden type="button"><span class={lang}>{L("Save choice", "Guardar elección")}</span></button>
+</div>
+</div>
+</div>

@@ -1,0 +1,13 @@
+---
+// Generated from html/index.html + html/es/index.html by scripts/migrate-from-html.mjs.
+import { localize, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L, u } = localize(lang);
+---
+
+<div class="sticky-cta" id="sticky"><button class="btn b-red" data-scroll="waitlist" type="button"><span class={lang}>{L("Join the waitlist", "Unirme a la lista de espera")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div>

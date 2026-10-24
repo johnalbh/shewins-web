@@ -1,0 +1,78 @@
+---
+// Generated from html/index.html + html/es/index.html by scripts/migrate-from-html.mjs.
+import Base from '../layouts/Base.astro';
+import NextEvent from '../components/events/NextEvent.astro';
+import PastEvents from '../components/events/PastEvents.astro';
+import { localize, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  /** "404" reuses the home content under a "Page not found" heading (passed as children). */
+  route?: string;
+}
+
+const { lang, route = 'home' } = Astro.props;
+const { L, u } = localize(lang);
+---
+
+<Base lang={lang} route={route}>
+<slot />
+<div class="page on" id="p-home">
+<section class="cover"><div class="w">
+<p class="lab meta"><span><span class={lang}>{L("International", "Internacional")}</span></span><span><span class={lang}>Local</span></span><span><span class={lang}>{L("English + Spanish", "Inglés + español")}</span></span></p>
+<div>
+<h1 class="xl"><span class={lang}>{L("A business community for women in Málaga.", "Una comunidad de negocios para mujeres en Málaga.")}</span></h1>
+<span class="script sc-xl"><span class={lang}>{L("Move forward. Together.", "Avanza. Juntas.")}</span></span>
+<p class="lead"><span class={lang}>{L("A free event every month, workshops, and soon a membership. For women who want to connect, grow and take the next step.", "Un evento gratuito cada mes, talleres y, pronto, una membresía. Para mujeres que quieren conectar, crecer y dar el siguiente paso.")}</span></p>
+<div class="btns"><a class="btn b-cream" href={u("/events")}><span class={lang}>{L("Come to a free event", "Ven a un evento gratuito")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a><a class="btn b-line" href={u("/membership")}><span class={lang}>{L("Join the membership waitlist", "Lista de espera de la membresía")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a></div>
+</div>
+<p class="lab foot"><span>Málaga</span><span>www.shewins.es</span><span>@shewins.es</span></p>
+</div></section>
+<section class="sec s-cream"><div class="w"><div class="rw" style="padding-top:0"><p class="lab"><span class={lang}>{L("Next free event", "Próximo evento gratuito")}</span></p><div><NextEvent lang={lang} /></div></div></div></section>
+<section class="sec s-cream" style="padding-top:0"><div class="w">
+<div class="head"><p class="lab"><span class={lang}>{L("Start here", "Empieza aquí")}</span></p><h2 class="l"><span class={lang}>{L("Where do you want to start?", "¿Por dónde quieres empezar?")}</span></h2></div>
+<div class="start">
+<a href={u("/about")}><b class="k">01</b><h3><span class={lang}>{L("I am new to SheWins", "Soy nueva en SheWins")}</span></h3><p><span class={lang}>{L("Find out what we are, who comes and what makes us different.", "Descubre qué somos, quién viene y qué nos hace diferentes.")}</span></p><span class="go"><i>→</i><span class={lang}>{L("About SheWins", "Sobre SheWins")}</span></span></a>
+<a href={u("/events")}><b class="k">02</b><h3><span class={lang}>{L("I am part of the community", "Ya soy parte de la comunidad")}</span></h3><p><span class={lang}>{L("Find the next event and catch up on what you missed.", "Encuentra el próximo evento y ponte al día.")}</span></p><span class="go"><i>→</i><span class={lang}>{L("Events", "Eventos")}</span></span></a>
+<a href={u("/membership")}><b class="k">03</b><h3><span class={lang}>{L("I want to belong", "Quiero pertenecer")}</span></h3><p><span class={lang}>{L("Membership opens soon: a private community, monthly sessions and real introductions.", "La membresía abre pronto: comunidad privada, sesiones mensuales e introducciones reales.")}</span></p><span class="go"><i>→</i><span class={lang}>{L("Membership", "Membresía")}</span></span></a>
+<a href={u("/partners")}><b class="k">04</b><h3><span class={lang}>{L("I want to work with SheWins", "Quiero colaborar con SheWins")}</span></h3><p><span class={lang}>{L("Sponsors, partners, speakers, mentors and investors, this is your door.", "Patrocinio, partners, ponentes, mentoras e inversores: esta es tu puerta.")}</span></p><span class="go"><i>→</i><span class={lang}>{L("Work with us", "Colabora con nosotras")}</span></span></a>
+</div>
+</div></section>
+<section class="trio">
+<div class="a"><b><span class={lang}>{L("Connect", "Conecta")}</span></b><p><span class={lang}>{L("Meet people. Build relationships. Find your people.", "Conoce gente. Crea relaciones. Encuentra a tu gente.")}</span></p></div>
+<div class="b"><b><span class={lang}>{L("Grow", "Crece")}</span></b><p><span class={lang}>{L("Learn. Build confidence. Exchange knowledge.", "Aprende. Gana confianza. Comparte conocimiento.")}</span></p></div>
+<div class="c"><b><span class={lang}>{L("Move", "Avanza")}</span></b><p><span class={lang}>{L("Take action. Create opportunities. Move forward.", "Actúa. Crea oportunidades. Avanza.")}</span></p></div>
+</section>
+<section class="sec s-white"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L("Who it is for", "Para quién es")}</span></p><h2 class="l"><span class={lang}>{L("Defined by mindset, not by age, nationality or job title.", "Te define tu actitud, no la edad, la nacionalidad ni el cargo.")}</span></h2></div><div class="rw"><p class="lab"><span class={lang}>{L("Starting", "Empezando")}</span></p><div><h3><span class={lang}>{L("I want to start a business.", "Quiero empezar un negocio.")}</span></h3></div></div><div class="rw"><p class="lab"><span class={lang}>{L("Changing", "Cambiando")}</span></p><div><h3><span class={lang}>{L("I want to change my career or direction.", "Quiero cambiar de carrera o de rumbo.")}</span></h3></div></div><div class="rw"><p class="lab"><span class={lang}>{L("Growing", "Creciendo")}</span></p><div><h3><span class={lang}>{L("I already have a business. I want to scale it.", "Ya tengo un negocio. Quiero escalarlo.")}</span></h3></div></div><div class="rw"><p class="lab"><span class={lang}>{L("Connecting", "Conectando")}</span></p><div><h3><span class={lang}>{L("I want to meet the right people and be part of Málaga’s ecosystem.", "Quiero conocer a las personas adecuadas y ser parte del ecosistema de Málaga.")}</span></h3></div></div></div></section>
+<section class="man s-red on-d"><div class="w stmt">
+<p class="lab"><span class={lang}>{L("Languages", "Idiomas")}</span></p>
+<p class="big"><span class={lang}>{L("You do not need perfect English to belong here. Or perfect Spanish.", "No necesitas un inglés perfecto para pertenecer aquí. Ni un español perfecto.")}</span></p>
+<span class="script"><span class={lang}>{L("Try anyway", "Anímate igual")}</span></span>
+</div></section>
+<section class="sec s-cream"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L("How it works", "Cómo funciona")}</span></p><h2 class="l"><span class={lang}>{L("One community, four ways in.", "Una comunidad, cuatro formas de entrar.")}</span></h2></div><div class="rw"><p class="lab"><span class="pill"><span class={lang}>{L("Every month", "Cada mes")}</span></span></p><div><h3><span class={lang}>{L("Free event", "Evento gratuito")}</span></h3><p><span class={lang}>{L("The easiest way to meet us. Talks, workshops and open conversations.", "La forma más fácil de conocernos. Charlas, talleres y conversaciones abiertas.")}</span></p></div></div><div class="rw"><p class="lab"><span class="pill"><span class={lang}>{L("Paid", "De pago")}</span></span></p><div><h3><span class={lang}>{L("Workshops", "Talleres")}</span></h3><p><span class={lang}>{L("Practical learning on one specific challenge.", "Aprendizaje práctico sobre un reto concreto.")}</span></p></div></div><div class="rw"><p class="lab"><span class="pill f"><span class={lang}>{L("Opening soon", "Abre pronto")}</span></span></p><div><h3><span class={lang}>{L("Membership", "Membresía")}</span></h3><p><span class={lang}>{L("Your ongoing home: community, monthly sessions and opportunities.", "Tu casa en SheWins: comunidad, sesiones mensuales y oportunidades.")}</span></p></div></div><div class="rw"><p class="lab"><span class="pill"><span class={lang}>{L("Coming next", "Próximamente")}</span></span></p><div><h3>Academy</h3><p><span class={lang}>{L("Deeper programmes for a specific change, like changing career or starting a business.", "Programas más profundos para un cambio concreto, como cambiar de carrera o empezar un negocio.")}</span></p></div></div></div></section>
+<section class="sec s-white"><div class="w">
+<div class="head"><p class="lab"><span class={lang}>{L("Recent events", "Eventos recientes")}</span></p><h2 class="l"><span class={lang}>{L("Real rooms. Real conversations.", "Salas reales. Conversaciones reales.")}</span></h2></div>
+<PastEvents lang={lang} />
+<div class="btns" style="margin-top:30px"><a class="btn b-red" href={u("/events")}><span class={lang}>{L("See all events", "Ver todos los eventos")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a></div>
+</div></section>
+<section class="sec s-cream"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L("Community voices", "Voces de la comunidad")}</span></p></div><div class="quotes"><div><p lang="en">“A safe, supportive space, great connections, a wide variety of experts and topics, beautiful networking and all this with a lot of fun.”</p><cite>Marta</cite></div><div><p lang="en">“Mirroring other women who are already building their careers and have already started their businesses. It’s important for me to have a positive influence and be surrounded by women with the same vibes, attitude, energy and whom I can look up to.”</p><cite>Silvia</cite></div><div><p lang="en">“To join a good network from the beginning of building my life in Malaga.”</p><cite>Sara</cite></div><div><p lang="en">“I was a bit nervous to join as I just came to Malaga and did not know anyone around, but She Wins is an amazing place, where you feel safe and welcomed. The keynote speaker shared great and very practical tips on how to connect with people, which made me rethink my views on networking. Thank you to the organisers, and the speaker will join more in the future!”</p><cite>Anna</cite></div><div><p lang="en">“Amazing!!! I love the community and the whole energy that She Wins brings to Malaga... the smiles, the inspiration, the wisdom, the community and the opportunities. This is the time for women to come together and create a more beautiful world. She Wins is moving forward and leading us in that direction too.”</p><cite>Mar</cite></div></div></div></section>
+<section class="sec s-pink"><div class="w">
+<div class="head"><p class="lab"><span class={lang}>{L("Built with people and places across Málaga", "Construida con personas y lugares de Málaga")}</span></p></div>
+<div class="names"><div><p class="lab"><span class={lang}>Partners</span></p><p class="vals"><span>Femtech Spain</span><span>Talentina</span><span>Inception Women’s Lab</span></p></div><div><p class="lab"><span class={lang}>{L("Sponsor", "Patrocinio")}</span></p><p class="vals"><span>Memcyco</span></p></div><div><p class="lab"><span class={lang}>{L("Hosts", "Espacios")}</span></p><p class="vals"><span>Innovation Campus Málaga</span><span>Niage Garage</span><span>Workcafé Santander</span><span>Sharing Co·working</span></p></div></div>
+<div class="btns" style="margin-top:34px"><a class="btn b-line" href={u("/partners")}><span class={lang}>{L("Work with SheWins", "Colabora con SheWins")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a></div>
+</div></section>
+<section class="s-red formband on-d"><div class="w"><div class="fgrid">
+<div><p class="lab"><span class={lang}>{L("The SheWins Letter", "La Letter de SheWins")}</span></p>
+<h2 class="l" style="margin-top:18px"><span class={lang}>{L("One idea. One tool. One woman. One opportunity.", "Una idea. Una herramienta. Una mujer. Una oportunidad.")}</span></h2></div>
+<div>
+<p class="lead"><span class={lang}>{L("A short email with what is worth your time, and what is happening in the community.", "Un email breve con lo que merece tu tiempo y lo que pasa en la comunidad.")}</span></p>
+<form class="inline-form" data-form="letter" novalidate><input aria-hidden="true" autocomplete="off" id="em-website" name="website" style="position:absolute;left:-9999px" tabindex="-1" type="text" />
+<label for="em-letter" style="position:absolute;left:-999px">Email</label>
+<input autocomplete="email" data-ph-en="Email" data-ph-es="Correo electrónico" id="em-letter" placeholder="Email" required type="email" />
+<button class="btn b-cream" type="submit"><span class={lang}>{L("Subscribe", "Suscribirme")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button>
+</form>
+<p class="ferr" hidden role="alert"><span class={lang}>{L("Something went wrong. Please try again or email us.", "Algo ha fallado. Inténtalo de nuevo o escríbenos por email.")}</span></p><div class="sent" role="status"><b><span class={lang}>{L("You are in.", "Ya estás dentro.")}</span></b><p><span class={lang}>{L("Look out for the next Letter in your inbox.", "Busca la próxima Letter en tu bandeja de entrada.")}</span></p></div>
+<p class="small" style="margin-top:16px"><span class={lang}>{L("Event updates and community news. Unsubscribe at any time.", "Novedades de eventos y de la comunidad. Puedes darte de baja cuando quieras.")}</span></p>
+</div>
+</div></div></section></div>
+</Base>

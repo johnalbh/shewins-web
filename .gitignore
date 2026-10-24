@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.vercel/
+.env
+.env.*
+!.env.example
+.DS_Store
+audit/
+*.log
+# Licensed brand font: downloaded at build time (scripts/fetch-brand-font.mjs), never committed
+public/fonts/wonderful-branding.woff2

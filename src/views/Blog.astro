@@ -1,0 +1,33 @@
+---
+// Generated from html/blog.html + html/es/blog.html by scripts/migrate-from-html.mjs.
+import Base from '../layouts/Base.astro';
+import PostList from '../components/blog/PostList.astro';
+import { localize, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L, u } = localize(lang);
+---
+
+<Base lang={lang} route="blog">
+<div class="page on" id="p-blog">
+<section class="open o-cream"><div aria-hidden="true" class="n">05</div><div class="t"><h1><span class={lang}>Blog</span></h1><p class="lead"><span class={lang}>{L("Ideas, stories and practical tools from the women behind SheWins. Read in English or Spanish.", "Ideas, historias y herramientas prácticas de las mujeres detrás de SheWins. Léelo en inglés o en español.")}</span></p></div></section>
+<section class="sec s-cream" style="padding-top:clamp(36px,5vw,72px)"><div class="w"><PostList lang={lang} /></div></section>
+<section class="s-red formband on-d"><div class="w"><div class="fgrid">
+<div><p class="lab"><span class={lang}>{L("The SheWins Letter", "La Letter de SheWins")}</span></p>
+<h2 class="l" style="margin-top:18px"><span class={lang}>{L("One idea. One tool. One woman. One opportunity.", "Una idea. Una herramienta. Una mujer. Una oportunidad.")}</span></h2></div>
+<div>
+<p class="lead"><span class={lang}>{L("A short email with what is worth your time, and what is happening in the community.", "Un email breve con lo que merece tu tiempo y lo que pasa en la comunidad.")}</span></p>
+<form class="inline-form" data-form="letter" novalidate><input aria-hidden="true" autocomplete="off" id="em-website" name="website" style="position:absolute;left:-9999px" tabindex="-1" type="text" />
+<label for="em-letter" style="position:absolute;left:-999px">Email</label>
+<input autocomplete="email" data-ph-en="Email" data-ph-es="Correo electrónico" id="em-letter" placeholder="Email" required type="email" />
+<button class="btn b-cream" type="submit"><span class={lang}>{L("Subscribe", "Suscribirme")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button>
+</form>
+<p class="ferr" hidden role="alert"><span class={lang}>{L("Something went wrong. Please try again or email us.", "Algo ha fallado. Inténtalo de nuevo o escríbenos por email.")}</span></p><div class="sent" role="status"><b><span class={lang}>{L("You are in.", "Ya estás dentro.")}</span></b><p><span class={lang}>{L("Look out for the next Letter in your inbox.", "Busca la próxima Letter en tu bandeja de entrada.")}</span></p></div>
+<p class="small" style="margin-top:16px"><span class={lang}>{L("Event updates and community news. Unsubscribe at any time.", "Novedades de eventos y de la comunidad. Puedes darte de baja cuando quieras.")}</span></p>
+</div>
+</div></div></section></div>
+</Base>

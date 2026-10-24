@@ -1,0 +1,60 @@
+---
+// Generated from html/about.html + html/es/about.html by scripts/migrate-from-html.mjs.
+import Base from '../layouts/Base.astro';
+import { localize, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L, u } = localize(lang);
+---
+
+<Base lang={lang} route="about">
+<div class="page on" id="p-about">
+<section class="open o-pink"><div aria-hidden="true" class="n">01</div><div class="t"><h1><span class={lang}>{L("Women were feeling alone.", "Muchas mujeres se sentían solas.")}</span></h1><span class="script"><span class={lang}>{L("So we made a place to find your people.", "Así que creamos un lugar para encontrar a tu gente.")}</span></span><p class="lead"><span class={lang}>{L("Not because they had no one around them, but because they were missing a space to connect, learn, ask questions and grow without feeling judged.", "No porque no tuvieran a nadie cerca, sino porque les faltaba un espacio para conectar, aprender, preguntar y crecer sin sentirse juzgadas.")}</span></p></div></section>
+<section class="man s-red on-d"><div class="w">
+<span class="script" style="margin:0 0 26px"><span class={lang}>{L("She wins when…", "Ella gana cuando…")}</span></span>
+<div style="margin-top:8px">
+<div class="rw"><p class="lab">01</p><div><p class="big" style="font-size:clamp(24px,3vw,44px)"><span class={lang}>{L("she knows her worth.", "conoce su valor.")}</span></p></div></div>
+<div class="rw"><p class="lab">02</p><div><p class="big" style="font-size:clamp(24px,3vw,44px)"><span class={lang}>{L("she asks for help.", "pide ayuda.")}</span></p></div></div>
+<div class="rw"><p class="lab">03</p><div><p class="big" style="font-size:clamp(24px,3vw,44px)"><span class={lang}>{L("she talks about what she does with confidence.", "habla con confianza de lo que hace.")}</span></p></div></div>
+<div class="rw"><p class="lab">04</p><div><p class="big" style="font-size:clamp(24px,3vw,44px)"><span class={lang}>{L("she charges what her work is worth.", "cobra lo que vale su trabajo.")}</span></p></div></div>
+<div class="rw"><p class="lab">05</p><div><p class="big" style="font-size:clamp(24px,3vw,44px)"><span class={lang}>{L("she takes the opportunity she was afraid to take.", "toma la oportunidad que le daba miedo.")}</span></p></div></div>
+<div class="rw"><p class="lab">06</p><div><p class="big" style="font-size:clamp(24px,3vw,44px)"><span class={lang}>{L("she helps another woman open a door.", "ayuda a otra mujer a abrir una puerta.")}</span></p></div></div>
+</div>
+<p class="lead" style="margin-top:34px"><span class={lang}>{L("Success does not have to be a competition.", "El éxito no tiene que ser una competición.")}</span></p>
+</div></section>
+<section class="sec s-cream"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L("We believe", "Creemos que")}</span></p></div><div class="rw"><p class="lab"><span class={lang}>{L("Connection", "Conectar")}</span></p><div><h3><span class={lang}>{L("Connection creates opportunity.", "Conectar crea oportunidades.")}</span></h3><p><span class={lang}>{L("The right people can change what feels possible.", "Las personas adecuadas cambian lo que parece posible.")}</span></p></div></div><div class="rw"><p class="lab"><span class={lang}>{L("Knowledge", "El conocimiento")}</span></p><div><h3><span class={lang}>{L("Knowledge creates confidence.", "El conocimiento crea confianza.")}</span></h3><p><span class={lang}>{L("Sharing what we know makes everyone stronger.", "Compartir lo que sabemos nos hace más fuertes a todas.")}</span></p></div></div><div class="rw"><p class="lab"><span class={lang}>{L("Action", "Actuar")}</span></p><div><h3><span class={lang}>{L("Action creates momentum.", "Actuar crea impulso.")}</span></h3><p><span class={lang}>{L("You do not need to be ready. You need to take the next step.", "No necesitas estar lista. Necesitas dar el siguiente paso.")}</span></p></div></div><div class="rw"><p class="lab"><span class={lang}>{L("Community", "La comunidad")}</span></p><div><h3><span class={lang}>{L("Community creates belonging.", "La comunidad crea pertenencia.")}</span></h3><p><span class={lang}>{L("You should not have to figure everything out alone.", "No deberías tener que resolverlo todo sola.")}</span></p></div></div><div class="rw"><p class="lab"><span class={lang}>{L("Imperfection", "La imperfección")}</span></p><div><h3><span class={lang}>{L("Imperfection creates possibility.", "La imperfección crea posibilidades.")}</span></h3><p><span class={lang}>{L("You can try before you feel ready.", "Puedes intentarlo antes de sentirte lista.")}</span></p></div></div></div></section>
+<section class="open o-grad"><div aria-hidden="true" class="n">“</div><div class="t">
+<p class="lab"><span class={lang}>{L("Language", "Idioma")}</span></p>
+<h2 class="m" style="max-width:18ch"><span class={lang}>{L("You can speak imperfect English. You can speak imperfect Spanish. You can ask the question and start again.", "Puedes hablar un inglés imperfecto. Puedes hablar un español imperfecto. Puedes preguntar y volver a empezar.")}</span></h2>
+<span class="script"><span class={lang}>{L("You do not have to be perfect", "No tienes que ser perfecta")}</span></span>
+</div></section>
+<section class="sec s-white"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L("A bridge", "Un puente")}</span></p><h2 class="l"><span class={lang}>{L("SheWins connects what is usually apart.", "SheWins une lo que suele estar separado.")}</span></h2></div><div class="pair"><div class="t"><span class={lang}>{L("International women", "Mujeres internacionales")}</span><em>↔</em>Málaga</div></div><div class="pair"><div class="t"><span class={lang}>{L("Knowledge", "Conocimiento")}</span><em>↔</em><span class={lang}>{L("Action", "Acción")}</span></div></div><div class="pair"><div class="t"><span class={lang}>{L("Talent", "Talento")}</span><em>↔</em><span class={lang}>{L("Opportunity", "Oportunidad")}</span></div></div><div class="pair"><div class="t"><span class={lang}>{L("Belonging", "Pertenencia")}</span><em>↔</em><span class={lang}>{L("Growth", "Crecimiento")}</span></div></div></div></section>
+<section class="s-cream" style="border-top:1px solid var(--ink)"><div class="w" style="padding-top:clamp(40px,6vw,80px);padding-bottom:clamp(28px,4vw,48px)">
+<div class="head" style="margin-bottom:0"><p class="lab"><span class={lang}>{L("After a year with SheWins", "Tras un año en SheWins")}</span></p><h2 class="l" style="max-width:14ch"><span class={lang}>{L("Not “I went to a lot of events.”", "No “fui a muchos eventos”.")}</span></h2></div>
+</div>
+<div class="notes">
+<div class="a"><span class="script"><span class={lang}>{L("I know my worth.", "Sé lo que valgo.")}</span></span></div>
+<div class="b"><span class="script"><span class={lang}>{L("I know how to price myself.", "Sé cómo poner precio a mi trabajo.")}</span></span></div>
+<div class="c"><span class="script"><span class={lang}>{L("I know what my next step is.", "Sé cuál es mi siguiente paso.")}</span></span></div>
+<div class="d"><span class="script"><span class={lang}>{L("I do not feel alone anymore.", "Ya no me siento sola.")}</span></span></div>
+</div></section>
+<section class="sec s-cream"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L("The women behind SheWins", "Las mujeres detrás de SheWins")}</span></p><h2 class="l"><span class={lang}>{L("People connect with people first.", "Las personas conectan primero con personas.")}</span></h2></div><div class="team"><div><img alt="Agnieszka Fronia" src="/assets/founder-agnieszka.jpg" /><div><h3>Agnieszka</h3><p class="lab"><span class={lang}>{L("Founder & Community Director", "Fundadora y directora de comunidad")}</span></p></div></div><div><img alt="Sophia Gruner" src="/assets/founder-sophia.jpg" /><div><h3>Sophia</h3><p class="lab"><span class={lang}>{L("Co-founder · Learning & Development", "Cofundadora · Learning & Development")}</span></p></div></div></div><p class="lead" style="margin-top:44px;max-width:50ch"><span class={lang}>{L("SheWins is not for everyone, and that is on purpose. It is for women who want to learn, take action and contribute. If you only want social events or expect everything to be free, another community may suit you better.", "SheWins no es para todo el mundo, y es a propósito. Es para mujeres que quieren aprender, actuar y aportar. Si solo buscas eventos sociales o esperas que todo sea gratis, quizá te encaje mejor otra comunidad.")}</span></p><div class="btns" style="margin-top:28px"><a class="btn b-red" href={u("/events")}><span class={lang}>{L("Come to a free event", "Ven a un evento gratuito")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a><a class="btn b-line" href={u("/membership")}><span class={lang}>{L("Membership", "Membresía")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a></div></div></section>
+<section class="s-red formband on-d"><div class="w"><div class="fgrid">
+<div><p class="lab"><span class={lang}>{L("The SheWins Letter", "La Letter de SheWins")}</span></p>
+<h2 class="l" style="margin-top:18px"><span class={lang}>{L("One idea. One tool. One woman. One opportunity.", "Una idea. Una herramienta. Una mujer. Una oportunidad.")}</span></h2></div>
+<div>
+<p class="lead"><span class={lang}>{L("A short email with what is worth your time, and what is happening in the community.", "Un email breve con lo que merece tu tiempo y lo que pasa en la comunidad.")}</span></p>
+<form class="inline-form" data-form="letter" novalidate><input aria-hidden="true" autocomplete="off" id="em-website" name="website" style="position:absolute;left:-9999px" tabindex="-1" type="text" />
+<label for="em-letter" style="position:absolute;left:-999px">Email</label>
+<input autocomplete="email" data-ph-en="Email" data-ph-es="Correo electrónico" id="em-letter" placeholder="Email" required type="email" />
+<button class="btn b-cream" type="submit"><span class={lang}>{L("Subscribe", "Suscribirme")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button>
+</form>
+<p class="ferr" hidden role="alert"><span class={lang}>{L("Something went wrong. Please try again or email us.", "Algo ha fallado. Inténtalo de nuevo o escríbenos por email.")}</span></p><div class="sent" role="status"><b><span class={lang}>{L("You are in.", "Ya estás dentro.")}</span></b><p><span class={lang}>{L("Look out for the next Letter in your inbox.", "Busca la próxima Letter en tu bandeja de entrada.")}</span></p></div>
+<p class="small" style="margin-top:16px"><span class={lang}>{L("Event updates and community news. Unsubscribe at any time.", "Novedades de eventos y de la comunidad. Puedes darte de baja cuando quieras.")}</span></p>
+</div>
+</div></div></section></div>
+</Base>

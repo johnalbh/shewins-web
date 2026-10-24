@@ -1,0 +1,6 @@
+/* Fixes to behaviour bugs in the original markup, kept apart from the designer's public/style.css. */
+
+/* Forms: after sending, the form hides (form.done) and the thank-you (.sent) should show.
+   The original rule was "form.done + .sent", but the error line (.ferr) sits between them in
+   all five forms, so the thank-you never appeared. */
+form.done ~ .sent { display: block; }

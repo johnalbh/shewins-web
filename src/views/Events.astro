@@ -1,0 +1,44 @@
+---
+// Generated from html/events.html + html/es/events.html by scripts/migrate-from-html.mjs.
+import Base from '../layouts/Base.astro';
+import NextEvent from '../components/events/NextEvent.astro';
+import PastEvents from '../components/events/PastEvents.astro';
+import ThisMonth from '../components/events/ThisMonth.astro';
+import { localize, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L, u } = localize(lang);
+---
+
+<Base lang={lang} route="events">
+<div class="page on" id="p-events">
+<section class="open o-red"><div aria-hidden="true" class="n">02</div><div class="t"><h1><span class={lang}>{L("Come to a free event.", "Ven a un evento gratuito.")}</span></h1><span class="script"><span class={lang}>{L("every month", "cada mes")}</span></span><p class="lead"><span class={lang}>{L("Talks, workshops and open conversations, in English, Spanish or both. Come alone. You will not stay that way.", "Charlas, talleres y conversaciones abiertas, en inglés, en español o en ambos. Ven sola. No te quedarás así.")}</span></p></div></section>
+<section class="sec s-cream"><div class="w"><div class="rw"><p class="lab"><span class={lang}>{L("Next event", "Próximo evento")}</span></p><div><h2 class="m" style="margin-bottom:12px"><span class={lang}>{L("Save your place.", "Reserva tu plaza.")}</span></h2><p class="lead" style="margin-bottom:26px"><span class={lang}>{L("Register on Meetup or Luma, whichever you prefer. Each event says which language it runs in.", "Regístrate en Meetup o en Luma, la que prefieras. Cada evento indica en qué idioma se celebra.")}</span></p><NextEvent lang={lang} /></div></div></div></section>
+<ThisMonth lang={lang} />
+<section class="sec s-pink"><div class="w">
+<div class="head"><p class="lab"><span class={lang}>{L("What to expect", "Qué esperar")}</span></p></div>
+<ul class="ck">
+<li><svg aria-hidden="true" viewBox="0 0 40 32"><path d="M4 18 L15 28 L36 4"></path></svg><span class={lang}>{L("Practical talks and workshops", "Charlas y talleres prácticos")}</span></li>
+<li><svg aria-hidden="true" viewBox="0 0 40 32"><path d="M4 18 L15 28 L36 4"></path></svg><span class={lang}>{L("Open conversations about work and life", "Conversaciones abiertas sobre trabajo y vida")}</span></li>
+<li><svg aria-hidden="true" viewBox="0 0 40 32"><path d="M4 18 L15 28 L36 4"></path></svg><span class={lang}>{L("A relaxed, international crowd", "Un ambiente relajado e internacional")}</span></li>
+<li><svg aria-hidden="true" viewBox="0 0 40 32"><path d="M4 18 L15 28 L36 4"></path></svg><span class={lang}>{L("Genuine connections, not business cards", "Conexiones reales, no tarjetas de visita")}</span></li>
+<li><svg aria-hidden="true" viewBox="0 0 40 32"><path d="M4 18 L15 28 L36 4"></path></svg><span class={lang}>{L("A space where you can show up as yourself", "Un espacio donde puedes ser tú misma")}</span></li>
+</ul>
+</div></section>
+<section class="sec s-cream"><div class="w">
+<div class="head"><p class="lab"><span class={lang}>{L("Past events", "Eventos pasados")}</span></p><h2 class="l"><span class={lang}>{L("Come back to what you missed.", "Ponte al día con lo que te perdiste.")}</span></h2></div>
+<PastEvents lang={lang} />
+</div></section>
+<section class="sec s-grad"><div class="w">
+<div class="fgrid">
+<div><p class="lab"><span class={lang}>{L("Beyond free events", "Más allá de los eventos gratuitos")}</span></p><h2 class="l" style="margin-top:18px"><span class={lang}>{L("Workshops, special events and more.", "Talleres, eventos especiales y más.")}</span></h2></div>
+<div><p class="lead" style="font-size:clamp(18px,1.8vw,22px)"><span class={lang}>{L("Paid workshops and masterclasses go deep on one specific challenge. Members get priority access to selected events and discounts on selected workshops.", "Los talleres y masterclasses de pago profundizan en un reto concreto. Las miembros tienen acceso prioritario a eventos seleccionados y descuentos en talleres seleccionados.")}</span></p>
+<div class="btns" style="margin-top:26px"><a class="btn b-cream" href={u("/membership")}><span class={lang}>{L("Membership", "Membresía")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a><a class="btn b-line" href={u("/partners")}><span class={lang}>{L("Speak or host", "Habla o acoge")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a></div></div>
+</div>
+</div></section>
+</div>
+</Base>

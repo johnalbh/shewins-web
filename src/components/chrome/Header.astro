@@ -1,0 +1,34 @@
+---
+// Generated from html/index.html + html/es/index.html by scripts/migrate-from-html.mjs.
+import { localize, type Lang } from '../../i18n';
+
+interface Props {
+  lang: Lang;
+  route: string;
+  /** Same page in each language, for the EN / ES buttons. */
+  alternates: { en: string; es: string };
+}
+
+const { lang, route, alternates } = Astro.props;
+const { L, u } = localize(lang);
+const section = route.startsWith('post-') ? 'blog' : route;
+const current = (r: string) => (r === section ? 'page' : undefined);
+---
+
+<a class="skip" href="#main"><span class={lang}>{L("Skip to content", "Saltar al contenido")}</span></a>
+<header class="hdr"><div class="in">
+<a aria-label="SheWins" class="brand" href={u("/")}><img alt="SheWins" src="/assets/logo-red.png" /></a>
+<nav aria-label="Main" class="nav">
+<a aria-current={current("home")} data-r="home" href={u("/")}>{L("Home", "Inicio")}</a><a aria-current={current("about")} data-r="about" href={u("/about")}><span class={lang}>{L("About", "Sobre nosotras")}</span></a><a aria-current={current("events")} data-r="events" href={u("/events")}><span class={lang}>{L("Events", "Eventos")}</span></a><a aria-current={current("membership")} data-r="membership" href={u("/membership")}><span class={lang}>{L("Membership", "Membresía")}</span></a><a aria-current={current("blog")} data-r="blog" href={u("/blog")}>Blog</a><a aria-current={current("partners")} data-r="partners" href={u("/partners")}><span class={lang}>{L("Partners", "Colabora")}</span></a>
+</nav>
+<div aria-label="Language" class="lang" role="group"><button aria-pressed={String(lang === "en")} data-href={alternates.en} data-lang="en" type="button">EN</button><button aria-pressed={String(lang === "es")} data-href={alternates.es} data-lang="es" type="button">ES</button></div>
+<a class="btn b-red hcta" href={u("/membership")}><span class={lang}>{L("Join the waitlist", "Lista de espera")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a>
+<button aria-controls="menu" aria-expanded="false" aria-label="Menu" class="burger" type="button"><span>Menu</span><i></i></button>
+</div></header>
+<div class="menu" hidden id="menu">
+<div class="top"><img alt="SheWins" src="/assets/logo-cream.png" /><button aria-label="Close menu" class="x" type="button">×</button></div>
+<nav aria-label="Menu">
+<a href={u("/")}>{L("Home", "Inicio")}</a><a href={u("/about")}><span class={lang}>{L("About", "Sobre nosotras")}</span></a><a href={u("/events")}><span class={lang}>{L("Events", "Eventos")}</span></a><a href={u("/membership")}><span class={lang}>{L("Membership", "Membresía")}</span> <small><span class={lang}>{L("Soon", "Pronto")}</span></small></a><a href={u("/blog")}>Blog</a><a href={u("/partners")}><span class={lang}>{L("Partners", "Colabora")}</span></a>
+</nav>
+<div class="mf"><span class="script"><span class={lang}>{L("Move forward. Together.", "Avanza. Juntas.")}</span></span><p class="lab"><span class={lang}>{L("A business community for women", "Una comunidad de negocios para mujeres")}</span></p></div>
+</div>

@@ -1,0 +1,25 @@
+---
+// Generated from html/index.html + html/es/index.html by scripts/migrate-from-html.mjs.
+import { localize, type Lang } from '../../i18n';
+import { getSettings } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L, u } = localize(lang);
+const settings = await getSettings();
+const year = new Date().getFullYear();
+---
+
+<footer class="s-red foot on-d"><div class="w">
+<span class="script big"><span class={lang}>{L("Move forward. Together.", "Avanza. Juntas.")}</span></span>
+<div class="top"><img alt="SheWins" src="/assets/logo-cream.png" /><p class="lab"><span class={lang}>{L("A business community for women", "Una comunidad de negocios para mujeres")}</span></p></div>
+<div class="fcols">
+<div><h4><span class={lang}>{L("Explore", "Explorar")}</span></h4><ul><li><a href={u("/about")}><span class={lang}>{L("About", "Sobre nosotras")}</span></a></li><li><a href={u("/events")}><span class={lang}>{L("Events", "Eventos")}</span></a></li><li><a href={u("/membership")}><span class={lang}>{L("Membership", "Membresía")}</span></a></li><li><a href={u("/blog")}>Blog</a></li><li><a href={u("/partners")}><span class={lang}>{L("Partners", "Colabora")}</span></a></li></ul></div>
+<div><h4><span class={lang}>{L("Follow", "Síguenos")}</span></h4><ul><li><a href={settings.instagram} rel="noopener" target="_blank">Instagram @shewins.es</a></li><li><a href={settings.linkedin} rel="noopener" target="_blank">LinkedIn</a></li><li><a href={settings.meetup} rel="noopener" target="_blank">Meetup</a></li></ul></div>
+<div><h4><span class={lang}>{L("Contact", "Contacto")}</span></h4><ul><li><a href={`mailto:${settings.email}`}>{settings.email}</a></li>{settings.emailSecondary && <li><a href={`mailto:${settings.emailSecondary}`}>{settings.emailSecondary}</a></li>}<li>www.shewins.es</li><li>Málaga, España</li></ul></div>
+</div>
+<div class="legal"><p class="cp">© {year} SheWins. <span class={lang}>{L("All rights reserved.", "Todos los derechos reservados.")}</span> · <span class={lang}>{L("Designed by", "Diseñado por")}</span> <a href="https://linktr.ee/virmessin" rel="noopener" target="_blank">Messin Virginia</a></p><a href={u("/privacy")}><span class={lang}>{L("Privacy policy", "Política de privacidad")}</span></a><a href={u("/legal")}><span class={lang}>{L("Legal notice", "Aviso legal")}</span></a><a href={u("/cookies")}><span class={lang}>{L("Cookie policy", "Política de cookies")}</span></a><button data-cookie-open type="button"><span class={lang}>{L("Cookie settings", "Configurar cookies")}</span></button></div>
+</div></footer>

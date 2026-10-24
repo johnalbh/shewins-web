@@ -1,0 +1,36 @@
+---
+// Generated from html/legal.html + html/es/legal.html by scripts/migrate-from-html.mjs.
+import Base from '../layouts/Base.astro';
+import { localize, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L, u } = localize(lang);
+---
+
+<Base lang={lang} route="legal">
+<div class="page on" id="p-legal">
+<section class="s-cream post-head"><div class="w"><a class="back" href={u("/")}>← <span class={lang}>{L("Home", "Inicio")}</span></a>
+<p class="lab" style="margin-top:34px"><span class={lang}>Legal</span> · <span class={lang}>{L("Updated October 2026", "Actualizado en octubre de 2026")}</span></p>
+<h1><span class={lang}>{L("Legal notice", "Aviso legal")}</span></h1></div></section>
+<section class="s-cream"><div class="w"><article class="post"><div class={lang}>
+<p>{L("In compliance with article 10 of Spanish Law 34/2002 on information society services and electronic commerce (LSSI-CE), the owner of this website is identified below.", "En cumplimiento del artículo 10 de la Ley 34/2002 de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), se identifica a continuación al titular de este sitio web.")}</p>
+<h2>{L("Owner", "Titular")}</h2>
+<ul><li>{L("Name: ", "Nombre: ")}<span class={lang}>Asociación She Wins</span></li><li>{L("Tax ID: ", "NIF: ")}<mark class="ph"><span class={lang}>{L("[Tax ID (NIF/CIF)]", "[NIF/CIF]")}</span></mark></li><li>{L("Address: ", "Domicilio: ")}<a href="https://maps.app.goo.gl/5uuXznP51vD8KBHQ7" rel="noopener" target="_blank">C/ Ancha del Carmen 32, 29002 Málaga (Niage Garage CoWorking)</a></li><li>Email: <a href="mailto:agnieszka@shewins.es">agnieszka@shewins.es</a></li><li>{L("Website: www.shewins.es", "Web: www.shewins.es")}</li><li>{L("Registry: association registered in the Register of Associations ", "Inscripción: asociación inscrita en el Registro de Asociaciones ")}<mark class="ph"><span class={lang}>{L("[which register and number]", "[registro y número]")}</span></mark></li></ul>
+<h2>{L("Purpose", "Objeto")}</h2>
+<p>{L("This website presents SheWins, a business community for women in Málaga: its events, membership, blog and ways to collaborate.", "Este sitio web presenta SheWins, una comunidad de negocios para mujeres en Málaga: sus eventos, la membresía, el blog y las formas de colaborar.")}</p>
+<h2>{L("Terms of use", "Condiciones de uso")}</h2>
+<p>{L("Using this website means accepting these terms. You agree to use it lawfully and not to harm SheWins or third parties.", "El uso de este sitio web implica la aceptación de estas condiciones. Te comprometes a usarlo de forma lícita y a no perjudicar a SheWins ni a terceros.")}</p>
+<h2>{L("Intellectual property", "Propiedad intelectual")}</h2>
+<p>{L("The brand SheWins, its logo, designs, texts and images belong to their owners and may not be reproduced, distributed or modified without written permission. Blog articles belong to their authors.", "La marca SheWins, su logotipo, diseños, textos e imágenes pertenecen a sus titulares y no pueden reproducirse, distribuirse ni modificarse sin autorización por escrito. Los artículos del blog pertenecen a sus autoras.")}</p>
+<h2>{L("Liability", "Responsabilidad")}</h2>
+<p>{L("We work to keep the information accurate and up to date, but we do not guarantee it is free of errors. Event details may change. We are not responsible for the content of third-party websites we link to, such as Meetup, Instagram or LinkedIn.", "Trabajamos para que la información sea exacta y esté actualizada, pero no garantizamos que carezca de errores. Los datos de los eventos pueden cambiar. No somos responsables del contenido de sitios web de terceros a los que enlazamos, como Meetup, Instagram o LinkedIn.")}</p>
+<h2>{L("Applicable law", "Legislación aplicable")}</h2>
+<p>{L("These terms are governed by Spanish law. For any dispute, the courts of Málaga will have jurisdiction, without prejudice to the rights of consumers.", "Estas condiciones se rigen por la ley española. Para cualquier controversia serán competentes los juzgados y tribunales de Málaga, sin perjuicio de los derechos de las personas consumidoras.")}</p>
+<h2>{L("Credits", "Créditos")}</h2>
+<p>{L("Designed by ", "Diseñado por ")}<a href="https://linktr.ee/virmessin" rel="noopener" target="_blank">Messin Virginia</a>.</p></div></article></div></section>
+</div>
+</Base>

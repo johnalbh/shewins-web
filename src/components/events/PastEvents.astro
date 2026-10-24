@@ -1,0 +1,28 @@
+---
+// Posters of the three most recent past events (home and events), each linking to its Instagram post.
+// Same one-line markup as html/events.html; images are resized and converted to WebP at build time.
+import { Image } from 'astro:assets';
+import { localize, type Lang } from '../../i18n';
+import { getEventsByTime, getSettings } from '../../lib/content';
+import { getImage } from '../../lib/images';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L } = localize(lang);
+const [{ past }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
+// The three most recent, shown oldest to newest like the original row.
+const posters = past
+  .map((ev) => ({ ev, image: getImage(ev.poster) }))
+  .filter((p) => p.image)
+  .slice(0, 3)
+  .reverse();
+const altText = (ev: (typeof past)[number]) => {
+  const what = ev.posterAlt || (ev.host ? L(`${ev.title} with ${ev.host}`, `${ev.title} con ${ev.host}`) : ev.title);
+  return L(`Event poster: ${what}`, `Póster del evento: ${what}`);
+};
+---
+
+<div class="posters three">{posters.map(({ ev, image }) => <figure><a href={ev.instagramUrl || settings.instagram} rel="noopener" target="_blank"><Image src={image!} alt={altText(ev)} widths={[360, 540, 720]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /></a><figcaption>{ev.title} <span aria-hidden="true">↗</span></figcaption></figure>)}</div>

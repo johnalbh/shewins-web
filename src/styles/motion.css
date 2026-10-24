@@ -1,0 +1,229 @@
+/* SheWins motion layer, loaded after public/style.css (which stays as the designer delivered it).
+
+   Thesis: "Move forward. Together."
+   - Focal moment: the script phrase writes itself left to right, then the circle arrows of the
+     main buttons move forward once. Opener pages raise their chapter numeral out of the band.
+   - Rows arrive by drawing their hairline, the brand book's signature line (scroll-driven, CSS only).
+   - Continuity: pages cross-fade with the header held in place; menu, cookie banner and FAQ
+     open with a transition instead of a jump.
+   Everything is visible by default: no script hides content, and browsers without
+   scroll-driven animations or view transitions simply show the page as it is. */
+
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.2s;
+  --dur-mid: 0.45s;
+  --dur-focal: 0.9s;
+  interpolate-size: allow-keywords;
+}
+
+/* ---------- Focal moment: page openers ---------- */
+
+/* The headline is the largest paint (LCP): it settles into place but is never hidden. */
+.cover h1,
+.open h1,
+.post-head h1 {
+  animation: sw-settle 0.7s var(--ease-out) both;
+}
+
+/* Handwritten accent: a left-to-right wipe, like the script being written. */
+.cover .script,
+.open .script {
+  animation: sw-write var(--dur-focal) var(--ease-out) 0.25s both;
+}
+
+/* Chapter numeral rises out of its band (decorative, aria-hidden). */
+.open .n {
+  animation: sw-rise 0.8s var(--ease-out) both;
+}
+
+/* Lead and actions follow the headline in one short sequence. */
+.cover .lead,
+.open .lead {
+  animation: sw-fade-up var(--dur-mid) var(--ease-out) 0.35s both;
+}
+.cover .btns {
+  animation: sw-fade-up var(--dur-mid) var(--ease-out) 0.45s both;
+}
+
+/* …and the arrows move forward once the phrase is written. */
+.cover .btns .btn .ar svg,
+.open + .sec .frame .btn .ar svg {
+  animation: sw-forward 0.7s var(--ease-out) 1.15s both;
+}
+
+@keyframes sw-settle {
+  from { transform: translateY(0.12em); }
+}
+@keyframes sw-write {
+  from { clip-path: inset(-0.4em 100% -0.4em 0); }
+  to { clip-path: inset(-0.4em -0.4em -0.4em 0); }
+}
+@keyframes sw-rise {
+  from { transform: translateY(100%); clip-path: inset(0 0 100% 0); }
+  to { transform: none; clip-path: inset(0 0 -10% 0); }
+}
+@keyframes sw-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+}
+@keyframes sw-forward {
+  0%, 100% { transform: none; }
+  45% { transform: translateX(4px); }
+}
+
+/* ---------- Rows arrive by drawing their hairline (scroll-driven) ---------- */
+
+@supports (animation-timeline: view()) {
+  .rw,
+  .ev,
+  .prow {
+    position: relative;
+    border-top-color: transparent;
+  }
+  .rw::before,
+  .ev::before,
+  .prow::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -1px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.18; /* = --line on ink */
+    transform-origin: left center;
+    animation: sw-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+  .rw:first-child::before { display: none; }
+  .s-red .rw::before,
+  .s-grad .rw::before { opacity: 0.4; } /* = --line-c on cream */
+  .ev:first-child::before,
+  .plist .prow:first-child::before { opacity: 1; }
+
+  /* Lists that read as lists settle in as they arrive. */
+  .ev > *,
+  .prow > *,
+  .posters figure {
+    animation: sw-arrive linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+  .posters figure:nth-child(2) { animation-range: entry 8% entry 53%; }
+  .posters figure:nth-child(3) { animation-range: entry 16% entry 61%; }
+
+  @keyframes sw-draw {
+    from { transform: scaleX(0); }
+  }
+  @keyframes sw-arrive {
+    from { opacity: 0; transform: translateY(14px); }
+  }
+}
+
+/* ---------- Feedback ---------- */
+
+.btn .ar svg,
+.go i,
+.posters figcaption span {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.btn:hover .ar svg { transform: translateX(3px); }
+.btn:active { transform: translateY(0) scale(0.98); }
+.start a:hover .go i,
+.prow:hover .go i { transform: translateX(3px); }
+
+.nav a { transition: opacity var(--dur-fast) ease, border-color var(--dur-fast) ease; }
+
+.posters figure a { overflow: hidden; }
+.posters img { transition: transform 0.6s var(--ease-out); }
+.posters figure a:hover img { transform: scale(1.03); }
+.posters figcaption span { display: inline-block; }
+.posters figure:hover figcaption span { transform: translate(2px, -2px); }
+
+/* ---------- Continuity ---------- */
+
+/* Cross-document view transition: a quick cross-fade between pages and between the EN/ES
+   twins of a page, with the header held still. Browsers without support navigate as before. */
+@view-transition {
+  navigation: auto;
+}
+.hdr { view-transition-name: sw-header; }
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+}
+
+/* Mobile menu: drops in instead of appearing at once; links follow. */
+.menu {
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.3s var(--ease-out),
+    display 0.3s allow-discrete;
+}
+.menu[hidden] { opacity: 0; transform: translateY(-16px); }
+@starting-style {
+  .menu:not([hidden]) { opacity: 0; transform: translateY(-16px); }
+}
+.menu nav a { transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out); }
+@starting-style {
+  .menu:not([hidden]) nav a { opacity: 0; transform: translateY(12px); }
+}
+.menu nav a:nth-child(2) { transition-delay: 40ms; }
+.menu nav a:nth-child(3) { transition-delay: 80ms; }
+.menu nav a:nth-child(4) { transition-delay: 120ms; }
+.menu nav a:nth-child(5) { transition-delay: 160ms; }
+.menu nav a:nth-child(6) { transition-delay: 200ms; }
+
+/* Cookie banner slides up from the bottom edge, and back down when answered. */
+.cb {
+  transition:
+    transform 0.4s var(--ease-out),
+    display 0.4s allow-discrete;
+}
+.cb[hidden] { transform: translateY(100%); }
+@starting-style {
+  .cb:not([hidden]) { transform: translateY(100%); }
+}
+
+/* FAQ answers open smoothly; the + / – mark turns as it changes. */
+details::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 0.35s var(--ease-out),
+    content-visibility 0.35s allow-discrete;
+}
+details[open]::details-content { block-size: auto; }
+summary::after { transition: transform 0.35s var(--ease-out); }
+details[open] summary::after { transform: rotate(180deg); }
+
+/* ---------- Reduced motion: no movement, final states straight away ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  ::before,
+  ::after {
+    animation: none !important;
+  }
+  .btn:hover .ar svg,
+  .btn:active,
+  .start a:hover .go i,
+  .prow:hover .go i,
+  .posters figure a:hover img,
+  .posters figure:hover figcaption span,
+  .menu[hidden],
+  .menu nav a,
+  .cb[hidden] {
+    transform: none !important;
+  }
+  @starting-style {
+    .menu:not([hidden]),
+    .menu:not([hidden]) nav a,
+    .cb:not([hidden]) { transform: none; }
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none !important; }
+}

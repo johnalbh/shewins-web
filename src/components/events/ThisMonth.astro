@@ -1,0 +1,21 @@
+---
+// "This month" schedule on the events page: events from the start of the current month onwards.
+// Past / Today / Upcoming pills are set in the browser from data-date (scripts/site.js), so the
+// page stays right between the daily rebuilds. Same one-line markup as html/events.html.
+import { localize, type Lang } from '../../i18n';
+import { getEventsByTime, getSettings } from '../../lib/content';
+import { dateParts } from '../../lib/dates';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L } = localize(lang);
+const [{ fromMonthStart, today }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
+const heading = dateParts(fromMonthStart[0]?.date ?? today, lang);
+const LANG_PILL = { es: 'ESP', en: 'ENG', both: 'ENG + ESP' };
+const rows = fromMonthStart.map((ev) => ({ ev, d: dateParts(ev.date!, lang), time: [ev.startTime, ev.endTime].filter(Boolean).join('–') }));
+---
+
+<section class="sec s-white"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L('This month', 'Este mes')}</span></p><h2 class="l"><span class={lang}>{L(`${heading.monthName} at SheWins.`, `${heading.monthName} en SheWins.`)}</span></h2></div>{rows.map(({ ev, d, time }) => <article class="ev show" data-date={ev.date}><div class="d"><small><span class={lang}>{d.weekday}</span>{d.month !== heading.month && <span class={lang}> · {d.monthShort}</span>}</small>{d.day}</div><div><h3>{ev.title}</h3><p>{ev.host || <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}<br />{ev.venue}</p><div class="tags"><span class="pill">{time}</span><span class="pill">{LANG_PILL[ev.language]}</span><span class="pill r status" hidden></span></div></div></article>)}{rows.length === 0 && <p class="lead"><span class={lang}>{L('New dates are on their way. Follow us on ', 'Las nuevas fechas están en camino. Síguenos en ')}<a href={settings.meetup} rel="noopener" target="_blank">Meetup</a>{L(' or ', ' o ')}<a href={settings.instagram} rel="noopener" target="_blank">Instagram</a>.</span></p>}</div></section>

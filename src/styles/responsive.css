@@ -1,0 +1,44 @@
+/* Responsive fixes on top of public/style.css, one block per issue found by
+   scripts/responsive-audit.mjs on the designer's original (audit/baseline). */
+
+/* 1. Phones ≤400px: long pills (event venue, partner door items) are nowrap and pushed their
+   grid column past the screen: the "Next free event" frame was 39px wider than a 320px screen,
+   the partner doors 18px (ES). Single-column grids may shrink, and pills may wrap. */
+@media (max-width: 759px) {
+  .rw,
+  .doors { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 400px) {
+  .pill { white-space: normal; }
+  /* Only these hold text long enough to wrap; two lines need air. */
+  .frame .mt .pill,
+  .door .pill { border-radius: 16px; line-height: 1.25; }
+}
+
+/* 2. Wide screens: "Sé la primera." at 168px was 10px wider than its form column (1920px).
+   Capped at 160px, which only changes the size above ~1450px. */
+.fgrid h2.xl { font-size: clamp(50px, 11vw, 160px); }
+
+/* 3. Touch targets. On the phone/tablet layout (menu button visible, < 1000px) the menu button
+   (37px) and EN/ES (31px) reach 44px. Footer links (21px) and "← Blog / Home" (16px) get larger
+   hit areas with no visual change: padding grows and negative margins give the space back.
+   Footer links are 30px apart, so 30px is their ceiling without overlapping each other
+   (≥24px, WCAG 2.5.8). */
+@media (max-width: 999px) {
+  .burger { min-height: 44px; }
+  /* Height only: wider buttons pushed the header past 280px at 320 and flex shrank the logo. */
+  .lang button { min-height: 44px; }
+}
+.hdr .brand { flex-shrink: 0; }
+.foot li a { display: inline-block; padding: 3px 0; margin: -3px 0; }
+.foot .legal a,
+.foot .legal button { padding: 4px 0; margin: -4px 0; }
+.back { display: inline-block; padding: 14px 0; margin: -14px 0; }
+
+/* 4. Form fields at 43px reach 44px. */
+.form select,
+.form input[type=text],
+.form input[type=email] { min-height: 44px; }
+
+/* 5. In-page jumps (sticky "Join the waitlist" → form) land below the sticky header. */
+#waitlist { scroll-margin-top: 140px; }

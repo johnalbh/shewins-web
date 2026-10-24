@@ -1,0 +1,22 @@
+# Rebuilds the site once a day so the "Next free event" box and the "This month" list move on
+# when an event date passes, even if nobody edits anything.
+# Setup: Vercel project > Settings > Git > Deploy Hooks > create one for "main", then save its URL
+# in GitHub > Settings > Secrets and variables > Actions as VERCEL_DEPLOY_HOOK.
+name: Daily rebuild
+
+on:
+  schedule:
+    # 23:15 UTC = 00:15 in Málaga in winter, 01:15 in summer: always just after midnight there.
+    - cron: '15 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "VERCEL_DEPLOY_HOOK secret is not set"; exit 1; fi
+          curl -fsS -X POST "$HOOK"

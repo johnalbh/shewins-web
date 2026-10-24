@@ -1,0 +1,50 @@
+---
+// Generated from html/partners.html + html/es/partners.html by scripts/migrate-from-html.mjs.
+import Base from '../layouts/Base.astro';
+import { localize, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L, u } = localize(lang);
+---
+
+<Base lang={lang} route="partners">
+<div class="page on" id="p-partners">
+<section class="open o-pink"><div aria-hidden="true" class="n">04</div><div class="t"><h1><span class={lang}>{L("Build with us.", "Construye con nosotras.")}</span></h1><p class="lead"><span class={lang}>{L("SheWins is an international and local network of women in Málaga. Together we connect talent with opportunity and help more people find their place in the city.", "SheWins es una red internacional y local de mujeres en Málaga. Juntas conectamos talento con oportunidades y ayudamos a que más personas encuentren su lugar en la ciudad.")}</span></p><div class="btns"><button class="btn b-red" data-scroll="contact" type="button"><span class={lang}>{L("Start a conversation", "Empezar una conversación")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div></div></section>
+<section class="sec s-cream"><div class="w">
+<div class="head"><p class="lab"><span class={lang}>{L("Why SheWins", "Por qué SheWins")}</span></p></div>
+<div class="pair"><div class="t"><span class={lang}>{L("International", "Internacional")}</span><em>+</em><span class={lang}>local</span></div><p><span class={lang}>{L("Women from abroad and from Málaga in the same room.", "Mujeres de fuera y de Málaga en la misma sala.")}</span></p></div>
+<div class="pair"><div class="t"><span class={lang}>{L("Community", "Comunidad")}</span><em>+</em><span class={lang}>{L("education", "formación")}</span></div><p><span class={lang}>{L("Not just meeting people: learning from them.", "No solo conocer gente: aprender de ella.")}</span></p></div>
+<div class="pair"><div class="t"><span class={lang}>{L("Connection", "Conexión")}</span><em>+</em><span class={lang}>{L("action", "acción")}</span></div><p><span class={lang}>{L("Moving from talking about possibilities to doing something.", "Pasar de hablar de posibilidades a hacer algo.")}</span></p></div>
+<div class="pair"><div class="t"><span class={lang}>{L("English", "Inglés")}</span><em>+</em><span class={lang}>{L("Spanish", "español")}</span></div><p><span class={lang}>{L("A genuinely bilingual space where perfection is not required.", "Un espacio bilingüe donde no se exige perfección.")}</span></p></div>
+</div></section>
+<section class="s-white"><div class="w" style="padding-top:clamp(40px,6vw,80px);padding-bottom:clamp(28px,4vw,44px)"><div class="head" style="margin-bottom:0"><p class="lab"><span class={lang}>{L("Ways to work together", "Formas de colaborar")}</span></p><h2 class="l"><span class={lang}>{L("Choose your door.", "Elige tu puerta.")}</span></h2></div></div>
+<div class="doors">
+<div class="door d-red"><div><p class="lab"><span class={lang}>{L("Sponsors and companies", "Patrocinadores y empresas")}</span></p><h3><span class={lang}>{L("Be in the room", "Estar en la sala")}</span></h3></div><div><p><span class={lang}>{L("Support an event, a workshop or a members session and meet women who are growing, changing and building.", "Apoya un evento, un taller o una sesión de miembros y conoce a mujeres que crecen, cambian y construyen.")}</span></p><ul><li class="pill"><span class={lang}>{L("Event sponsorship", "Patrocinio de eventos")}</span></li><li class="pill"><span class={lang}>{L("Talent connections", "Conexión con talento")}</span></li></ul></div></div>
+<div class="door d-pink"><div><p class="lab"><span class={lang}>{L("Partners and institutions", "Partners e instituciones")}</span></p><h3><span class={lang}>{L("Co-create", "Co-crear")}</span></h3></div><div><p><span class={lang}>{L("Build events, programmes and resources that help international and local women find their place in Málaga.", "Crea eventos, programas y recursos que ayuden a mujeres internacionales y locales a encontrar su lugar en Málaga.")}</span></p><ul><li class="pill"><span class={lang}>{L("Joint events", "Eventos conjuntos")}</span></li><li class="pill"><span class={lang}>{L("Resources and workshops", "Recursos y talleres")}</span></li></ul></div></div>
+<div class="door d-grad"><div><p class="lab"><span class={lang}>{L("Speakers, mentors and venues", "Ponentes, mentoras y espacios")}</span></p><h3><span class={lang}>{L("Share and host", "Compartir y acoger")}</span></h3></div><div><p><span class={lang}>{L("Share your knowledge, mentor members or open your space for a SheWins event.", "Comparte tu conocimiento, mentora a miembros o abre tu espacio para un evento de SheWins.")}</span></p><ul><li class="pill"><span class={lang}>{L("Speak at an event", "Hablar en un evento")}</span></li><li class="pill"><span class={lang}>{L("Host an event", "Acoger un evento")}</span></li></ul></div></div>
+<div class="door d-line"><div><p class="lab"><span class={lang}>{L("Investors and founders", "Inversores y fundadoras")}</span></p><h3><span class={lang}>{L("Meet the ecosystem", "Conocer el ecosistema")}</span></h3></div><div><p><span class={lang}>{L("Join conversations with founders and members, and help build the connections that move businesses forward.", "Participa en conversaciones con fundadoras y miembros y ayuda a crear las conexiones que hacen avanzar a los negocios.")}</span></p><ul><li class="pill"><span class={lang}>{L("Founder and investor conversations", "Conversaciones con fundadoras e inversores")}</span></li></ul></div></div>
+</div></section>
+<section class="sec s-pink"><div class="w">
+<div class="head"><p class="lab"><span class={lang}>{L("Already with us", "Ya están con nosotras")}</span></p></div>
+<div class="names"><div><p class="lab"><span class={lang}>Partners</span></p><p class="vals"><span>Femtech Spain</span><span>Talentina</span><span>Inception Women’s Lab</span></p></div><div><p class="lab"><span class={lang}>{L("Sponsor", "Patrocinio")}</span></p><p class="vals"><span>Memcyco</span></p></div><div><p class="lab"><span class={lang}>{L("Hosts", "Espacios")}</span></p><p class="vals"><span>Innovation Campus Málaga</span><span>Niage Garage</span><span>Workcafé Santander</span><span>Sharing Co·working</span></p></div></div>
+</div></section>
+<section class="s-red formband on-d" id="contact"><div class="w"><div class="fgrid">
+<div><p class="lab"><span class={lang}>{L("Contact", "Contacto")}</span></p><h2 class="l" style="margin-top:18px"><span class={lang}>{L("Tell us what you have in mind.", "Cuéntanos qué tienes en mente.")}</span></h2><p class="lead" style="margin-top:22px"><span class={lang}>{L("We read every message and reply personally.", "Leemos cada mensaje y respondemos personalmente.")}</span></p><p style="margin-top:14px"><span class={lang}>{L("Or write to", "O escribe a")}</span> <a href="mailto:agnieszka@shewins.es" style="font-weight:600">agnieszka@shewins.es</a></p></div>
+<div>
+<form class="form" data-form="contact" novalidate><input aria-hidden="true" autocomplete="off" id="c-website" name="website" style="position:absolute;left:-9999px" tabindex="-1" type="text" />
+<div class="fld"><label for="c-type"><span class={lang}>{L("I am a…", "Soy…")}</span></label><select id="c-type"><option data-en="Sponsor or company" data-es="Patrocinador o empresa">Sponsor or company</option><option data-en="Partner or institution" data-es="Partner o institución">Partner or institution</option><option data-en="Speaker or mentor" data-es="Ponente o mentora">Speaker or mentor</option><option data-en="Venue" data-es="Espacio">Venue</option><option data-en="Investor" data-es="Inversor/a">Investor</option><option data-en="Other" data-es="Otro">Other</option></select></div>
+<div class="fld"><label for="c-name"><span class={lang}>{L("Name", "Nombre")}</span></label><input autocomplete="name" id="c-name" required type="text" /></div>
+<div class="fld"><label for="c-org"><span class={lang}>{L("Organisation", "Organización")}</span></label><input autocomplete="organization" id="c-org" type="text" /></div>
+<div class="fld"><label for="c-mail">Email</label><input autocomplete="email" id="c-mail" required type="email" /></div>
+<div class="fld"><label for="c-msg"><span class={lang}>{L("Message", "Mensaje")}</span></label><textarea id="c-msg" required></textarea></div>
+<div><button class="btn b-cream" type="submit"><span class={lang}>{L("Send message", "Enviar mensaje")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div>
+</form>
+<p class="ferr" hidden role="alert"><span class={lang}>{L("Something went wrong. Please try again or email us.", "Algo ha fallado. Inténtalo de nuevo o escríbenos por email.")}</span></p><div class="sent" role="status"><b><span class={lang}>{L("Thank you.", "Gracias.")}</span></b><p><span class={lang}>{L("We will reply to you soon.", "Te responderemos pronto.")}</span></p></div>
+</div>
+</div></div></section>
+</div>
+</Base>

@@ -1,0 +1,40 @@
+{
+  "name": "shewins-web",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/fetch-brand-font.mjs && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "migrate": "node scripts/migrate-from-html.mjs",
+    "audit:responsive": "node scripts/responsive-audit.mjs"
+  },
+  "dependencies": {
+    "@astrojs/react": "7.1.1",
+    "@astrojs/vercel": "11.0.16",
+    "@keystatic/astro": "6.0.0",
+    "@keystatic/core": "0.6.9",
+    "@markdoc/markdoc": "0.4.0",
+    "astro": "7.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "overrides": {
+    "@vercel/routing-utils": { "path-to-regexp": "6.3.0" },
+    "@vercel/cli-config": { "zod": "4.6.7" }
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "cheerio": "1.2.0",
+    "js-yaml": "4.3.2",
+    "playwright": "1.64.1",
+    "serve": "14.2.6",
+    "turndown": "7.2.4"
+  }
+}

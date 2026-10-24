@@ -1,0 +1,65 @@
+---
+// Blog article page, same markup as html/blog/*.html. Content comes from src/content/posts.
+import Base from '../layouts/Base.astro';
+import { SITE, localize, type Lang } from '../i18n';
+import { getPosts, type Post } from '../lib/content';
+import { renderMarkdoc } from '../lib/markdoc';
+
+interface Props {
+  lang: Lang;
+  post: Post;
+}
+
+const { lang, post } = Astro.props;
+const { L, u } = localize(lang);
+const posts = await getPosts();
+const next = posts[(posts.findIndex((p) => p.slug === post.slug) + 1) % posts.length];
+
+const path = `/blog/${post.slug}`;
+const url = SITE + u(path);
+const title = L(post.title, post.titleEs);
+const description = L(post.excerptEn, post.excerptEs);
+const author = post.authorEntry?.name ?? '';
+const role = L(post.authorEntry?.roleEn, post.authorEntry?.roleEs);
+const body = renderMarkdoc(L(post.bodyEn.node, post.bodyEs.node), lang);
+
+const seo = {
+  title: `${title} | ${L('SheWins Blog', 'Blog de SheWins')}`,
+  description,
+  ogType: 'article',
+  jsonLd: {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@id': `${SITE}/#org`, '@type': 'Organization', name: 'SheWins', url: `${SITE}/` },
+      {
+        '@type': 'BlogPosting',
+        headline: title,
+        description,
+        inLanguage: lang,
+        url,
+        mainEntityOfPage: url,
+        image: `${SITE}/assets/og-image.jpg`,
+        datePublished: post.publishedAt,
+        author: { '@type': 'Person', name: author },
+        publisher: { '@id': `${SITE}/#org` },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'SheWins', item: SITE + (lang === 'es' ? '/es' : '/') },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: SITE + u('/blog') },
+          { '@type': 'ListItem', position: 3, name: title, item: url },
+        ],
+      },
+    ],
+  },
+};
+---
+
+<Base lang={lang} route={`post-${post.slug}`} seo={seo} path={path}>
+<div class="page on" id={`p-post-${post.slug}`}>
+<section class="s-cream post-head"><div class="w"><a class="back" href={u('/blog')}>← <span class={lang}>Blog</span></a> <p class="lab" style="margin-top:34px"><span class={lang}>{L('By', 'Por')}</span> {author} · {post.readingTime} <span class={lang}>{L('min read', 'min de lectura')}</span></p> <h1><span class={lang}>{title}</span></h1></div></section>
+<section class="s-cream"><div class="w"><article class="post"><div class={lang}><Fragment set:html={body} /></div><div class="byline"><p class="lab"><span class={lang}>{L('Written by', 'Escrito por')}</span></p><p class="nm">{author}</p>{role && <p class="lab" style="margin-top:6px"><span class={lang}>{role}</span></p>}</div></article></div></section>
+<section class="s-white nextp"><div class="w"><p class="lab"><span class={lang}>{L('Next article', 'Siguiente artículo')}</span></p><a class="prow" href={u(`/blog/${next.slug}`)}><div class="lab">{next.authorEntry?.name}</div><div><h3><span class={lang}>{L(next.title, next.titleEs)}</span></h3><span class="go"><i>→</i><span class={lang}>{L('Read article', 'Leer artículo')}</span></span></div></a></div></section>
+</div>
+</Base>
