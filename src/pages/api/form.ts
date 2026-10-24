@@ -1,15 +1,19 @@
 import type { APIRoute } from 'astro';
 
-// Receives the three site forms (same JSON as html/README.md §5) and hands them to Brevo:
-//   waitlist → contact in the "Waitlist" list + notification email
-//   contact  → notification email
-//   letter   → newsletter double opt-in (Brevo sends the confirmation email)
+// Receives the three site forms (same JSON as html/README.md §5):
+//   letter   → MailerLite group "Newsletter" (double opt-in: MailerLite sends the confirmation)
+//   waitlist → MailerLite group "Waitlist" + a notification to the team (MailerSend)
+//   contact  → a notification to the team (MailerSend), reply-to the sender
+// Double opt-in is the MailerLite account setting "Double opt-in for API and integrations".
 export const prerender = false;
 
 const env = (key: string) => import.meta.env[key] ?? process.env[key];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const str = (v: unknown, max = 500) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+
+const MAILERLITE = env('MAILERLITE_API_URL') || 'https://connect.mailerlite.com/api';
+const MAILERSEND = env('MAILERSEND_API_URL') || 'https://api.mailersend.com/v1';
 
 type Payload = Record<string, unknown>;
 
@@ -32,31 +36,49 @@ function validate(d: Payload): string | null {
   }
 }
 
-async function brevo(path: string, body: unknown) {
-  const res = await fetch(`https://api.brevo.com/v3${path}`, {
+async function post(url: string, token: string, body: unknown) {
+  return fetch(url, {
     method: 'POST',
-    headers: { 'api-key': env('BREVO_API_KEY'), 'content-type': 'application/json', accept: 'application/json' },
+    headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json', accept: 'application/json' },
     body: JSON.stringify(body),
   });
-  // 204 = contact updated, 400 "duplicate_parameter" = already subscribed: both fine for the visitor.
-  if (!res.ok && res.status !== 204) {
-    const text = await res.text();
-    if (!text.includes('duplicate_parameter')) throw new Error(`Brevo ${path} ${res.status}: ${text}`);
-  }
 }
 
-function notify(d: Payload, replyTo: string) {
+// "2026-10-24T10:00:00.000Z" → "2026-10-24 10:00:00", the format MailerLite expects.
+const mlDate = (iso: string) => (iso ? new Date(iso).toISOString().slice(0, 19).replace('T', ' ') : undefined);
+
+/** Adds or updates a subscriber in a MailerLite group (an upsert: an existing email is fine). */
+async function subscribe(email: string, group: string, fields: Record<string, string>, optedInAt?: string) {
+  const body = (f: Record<string, string>) => ({ email, groups: [group], fields: f, ...(optedInAt ? { opted_in_at: optedInAt } : {}) });
+  let res = await post(`${MAILERLITE}/subscribers`, env('MAILERLITE_API_KEY'), body(fields));
+  // 422 can mean a custom field (language, stage) is not created in MailerLite yet. Keep the
+  // signup anyway with the default name field, and log it so the field gets added.
+  if (res.status === 422) {
+    console.warn('[form] MailerLite rejected custom fields, retrying with name only:', await res.text());
+    res = await post(`${MAILERLITE}/subscribers`, env('MAILERLITE_API_KEY'), body(fields.name ? { name: fields.name } : {}));
+  }
+  if (!res.ok) throw new Error(`MailerLite ${res.status}: ${await res.text()}`);
+}
+
+/** Emails the form contents to the team through MailerSend. */
+async function notify(d: Payload, replyTo: string) {
   const rows = Object.entries(d)
     .filter(([k]) => !k.endsWith('-website'))
     .map(([k, v]) => `<tr><td><b>${esc(k)}</b></td><td>${esc(String(v))}</td></tr>`)
     .join('');
-  return brevo('/smtp/email', {
-    sender: { name: 'SheWins web', email: env('FORM_FROM') || 'web@shewins.es' },
+  const text = Object.entries(d)
+    .filter(([k]) => !k.endsWith('-website'))
+    .map(([k, v]) => `${k}: ${String(v)}`)
+    .join('\n');
+  const res = await post(`${MAILERSEND}/email`, env('MAILERSEND_API_KEY'), {
+    from: { email: env('FORM_FROM') || 'web@shewins.es', name: 'SheWins web' },
     to: [{ email: env('FORM_TO') || 'agnieszka@shewins.es' }],
-    replyTo: { email: replyTo },
+    reply_to: { email: replyTo },
     subject: `New ${d.form} form`,
-    htmlContent: `<table>${rows}</table>`,
+    html: `<table>${rows}</table>`,
+    text,
   });
+  if (res.status !== 202 && !res.ok) throw new Error(`MailerSend ${res.status}: ${await res.text()}`);
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -73,7 +95,8 @@ export const POST: APIRoute = async ({ request }) => {
   const invalid = validate(d);
   if (invalid) return Response.json({ ok: false, invalid }, { status: 400 });
 
-  if (!env('BREVO_API_KEY')) {
+  const needs = { letter: ['MAILERLITE_API_KEY'], waitlist: ['MAILERLITE_API_KEY'], contact: ['MAILERSEND_API_KEY'] }[d.form as string]!;
+  if (needs.some((k) => !env(k))) {
     if (import.meta.env.DEV) {
       console.log('[form] (dev, not sent)', d);
       return Response.json({ ok: true, dev: true });
@@ -81,28 +104,18 @@ export const POST: APIRoute = async ({ request }) => {
     return Response.json({ ok: false }, { status: 503 });
   }
 
+  const language = d.lang === 'es' ? 'es' : 'en';
   try {
-    if (d.form === 'waitlist') {
+    if (d.form === 'letter') {
+      await subscribe(str(d['em-letter']), env('MAILERLITE_GROUP_NEWSLETTER'), { language });
+    } else if (d.form === 'waitlist') {
       const email = str(d['w-mail']);
-      await brevo('/contacts', {
-        email,
-        listIds: [Number(env('BREVO_LIST_WAITLIST'))],
-        updateEnabled: true,
-        // Consent and time are kept as proof of consent (GDPR).
-        attributes: { FIRSTNAME: str(d['w-name']), WHERE: str(d['w-where']), CONSENT: true, CONSENT_AT: str(d.sent), LANG: str(d.lang) },
-      });
-      await notify(d, email);
-    } else if (d.form === 'contact') {
-      await notify(d, str(d['c-mail']));
+      // opted_in_at keeps the time of the consent box as proof of consent (GDPR).
+      await subscribe(email, env('MAILERLITE_GROUP_WAITLIST'), { name: str(d['w-name']), language, stage: str(d['w-where']) }, mlDate(str(d.sent)));
+      // The signup is stored; the team notification is best effort and must not fail it.
+      if (env('MAILERSEND_API_KEY')) await notify(d, email).catch((err) => console.error('[form] notification', err));
     } else {
-      const lang = d.lang === 'es' ? 'es' : 'en';
-      await brevo('/contacts/doubleOptinConfirmation', {
-        email: str(d['em-letter']),
-        includeListIds: [Number(env('BREVO_LIST_NEWSLETTER'))],
-        templateId: Number(env('BREVO_DOI_TEMPLATE')),
-        redirectionUrl: `https://www.shewins.es${lang === 'es' ? '/es' : '/'}`,
-        attributes: { LANG: lang },
-      });
+      await notify(d, str(d['c-mail']));
     }
     return Response.json({ ok: true });
   } catch (err) {

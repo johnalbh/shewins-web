@@ -65,7 +65,7 @@ Event attendance and the membership waitlist remain supporting goals.
   - Hosting: Vercel project `agnieszka-fronias-projects/shewins-web`.
   - Domain: `www.shewins.es`.
   - The site rebuilds every night so past events move on.
-  - Form delivery goes through Brevo (setup pending).
+  - Forms: the newsletter and the membership waitlist are MailerLite groups (double opt-in); team notifications for contact and waitlist go through MailerSend (setup pending: tokens, groups and the domain).
 
 ## Capabilities and Constraints
 
