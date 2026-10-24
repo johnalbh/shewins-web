@@ -137,4 +137,5 @@ Event attendance and the membership waitlist remain supporting goals.
   - skip link;
   - checked colour contrast;
   - reduced motion respected.
-- **Working target in audits so far:** WCAG 2.2 AA. Known gaps inherited from the design are the contrast of the inactive language button and the heading order in the footer.
+- **Working target in audits so far:** WCAG 2.2 AA. Lighthouse accessibility scores 100 on the main pages (October 2026).
+- **Known gap:** cream text over the brand gradient, measured below AA in 27 places. It is pending a decision with the designer (see DESIGN.md, The Gradient Text Rule).

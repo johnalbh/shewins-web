@@ -207,6 +207,16 @@ Pink text on Cream is forbidden (2.3:1).
 
 **The Gradient Text Rule.** On the gradient, cream text must be large (display or headline). The pink end drops to 2.3:1, so small labels or body copy go on the red half or on a solid block.
 
+Known gap, pending a decision with Messin Virginia (October 2026): the current pages break this rule in 27 places, measured at 390 and 1280px:
+
+- home cover: lead, line button, footer labels;
+- membership opener: title at 2.8:1;
+- About language quote: 2.5–2.7:1;
+- the events and partners gradient blocks;
+- the "Move" tile.
+
+Cream reaches 4.5:1 only on the first ~27% of the gradient. Leave existing pages as they are until the designer decides, and do not add new small cream text on the gradient.
+
 **The Flat Block Rule.** Colour arrives as full flat blocks and bands, never as tints, translucent washes or new gradients. The brand gradient is the only gradient and is never applied to text.
 
 **The Muted Text Rule.** Secondary text may be quieter, but never below 4.5:1:

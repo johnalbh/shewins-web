@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T18:26:44.194Z",
+  "generatedAt": "2026-10-24T18:27:52.956Z",
   "title": "Design System: SheWins",
   "extensions": {
     "colorMeta": {
@@ -338,7 +338,7 @@
       },
       {
         "name": "The Gradient Text Rule",
-        "body": "On the gradient, cream text must be large (display or headline). The pink end drops to 2.3:1, so small labels or body copy go on the red half or on a solid block.",
+        "body": "On the gradient, cream text must be large (display or headline). The pink end drops to 2.3:1, so small labels or body copy go on the red half or on a solid block.\n\nKnown gap, pending a decision with Messin Virginia (October 2026): the current pages break this rule in 27 places, measured at 390 and 1280px:\n\n- home cover: lead, line button, footer labels;\n- membership opener: title at 2.8:1;\n- About language quote: 2.5–2.7:1;\n- the events and partners gradient blocks;\n- the \"Move\" tile.\n\nCream reaches 4.5:1 only on the first ~27% of the gradient. Leave existing pages as they are until the designer decides, and do not add new small cream text on the gradient.",
         "section": "colors"
       },
       {
