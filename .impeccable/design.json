@@ -1,0 +1,410 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T18:26:44.194Z",
+  "title": "Design System: SheWins",
+  "extensions": {
+    "colorMeta": {
+      "red": {
+        "role": "primary",
+        "displayName": "Red",
+        "canonical": "oklch(52.2% 0.213 27.8)",
+        "tonalRamp": [
+          "oklch(15% 0.119 27.8)",
+          "oklch(26% 0.139 27.8)",
+          "oklch(37% 0.159 27.8)",
+          "oklch(48% 0.178 27.8)",
+          "oklch(60% 0.200 27.8)",
+          "oklch(72% 0.178 27.8)",
+          "oklch(84% 0.157 27.8)",
+          "oklch(95% 0.137 27.8)"
+        ]
+      },
+      "gradient-mid": {
+        "role": "tertiary",
+        "displayName": "Gradient mid",
+        "canonical": "oklch(61.3% 0.207 6.8)",
+        "tonalRamp": [
+          "oklch(15% 0.119 6.8)",
+          "oklch(26% 0.139 6.8)",
+          "oklch(37% 0.159 6.8)",
+          "oklch(48% 0.178 6.8)",
+          "oklch(60% 0.200 6.8)",
+          "oklch(72% 0.178 6.8)",
+          "oklch(84% 0.157 6.8)",
+          "oklch(95% 0.137 6.8)"
+        ]
+      },
+      "pink": {
+        "role": "secondary",
+        "displayName": "Pink",
+        "canonical": "oklch(73.7% 0.181 356.3)",
+        "tonalRamp": [
+          "oklch(15% 0.108 356.3)",
+          "oklch(26% 0.126 356.3)",
+          "oklch(37% 0.144 356.3)",
+          "oklch(48% 0.162 356.3)",
+          "oklch(60% 0.181 356.3)",
+          "oklch(72% 0.162 356.3)",
+          "oklch(84% 0.142 356.3)",
+          "oklch(95% 0.124 356.3)"
+        ]
+      },
+      "cream": {
+        "role": "neutral",
+        "displayName": "Cream",
+        "canonical": "oklch(96.8% 0.010 81.8)",
+        "tonalRamp": [
+          "oklch(15% 0.006 81.8)",
+          "oklch(26% 0.007 81.8)",
+          "oklch(37% 0.008 81.8)",
+          "oklch(48% 0.009 81.8)",
+          "oklch(60% 0.010 81.8)",
+          "oklch(72% 0.009 81.8)",
+          "oklch(84% 0.008 81.8)",
+          "oklch(95% 0.007 81.8)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(21.8% 0.000 89.9)",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(26% 0.000 89.9)",
+          "oklch(37% 0.000 89.9)",
+          "oklch(48% 0.000 89.9)",
+          "oklch(60% 0.000 89.9)",
+          "oklch(72% 0.000 89.9)",
+          "oklch(84% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ]
+      },
+      "black": {
+        "role": "neutral",
+        "displayName": "Black",
+        "canonical": "oklch(0.0% 0.000 0.0)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0.0)",
+          "oklch(26% 0.000 0.0)",
+          "oklch(37% 0.000 0.0)",
+          "oklch(48% 0.000 0.0)",
+          "oklch(60% 0.000 0.0)",
+          "oklch(72% 0.000 0.0)",
+          "oklch(84% 0.000 0.0)",
+          "oklch(95% 0.000 0.0)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(26% 0.000 89.9)",
+          "oklch(37% 0.000 89.9)",
+          "oklch(48% 0.000 89.9)",
+          "oklch(60% 0.000 89.9)",
+          "oklch(72% 0.000 89.9)",
+          "oklch(84% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "canonical": "rgba(26, 26, 26, 0.18)"
+      },
+      "line-on-dark": {
+        "role": "neutral",
+        "displayName": "Line on dark",
+        "canonical": "rgba(248, 244, 237, 0.4)"
+      }
+    },
+    "typographyMeta": {
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Chapter numbers in opener bands, the event date, trio figures. Decorative."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "Home cover headline and waitlist closers."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings and opener titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Sub-section, row and card titles."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "First paragraph under a headline, max 44ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text; articles at 17–19px / 1.75, max 70ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase row, section and form labels; footer."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Pill button text."
+      },
+      "pill": {
+        "displayName": "Pill",
+        "purpose": "Tags for time, language, venue and status."
+      },
+      "script": {
+        "displayName": "Script",
+        "purpose": "One handwritten phrase per chapter; never UI text."
+      }
+    },
+    "shadows": [
+      {
+        "name": "overlay-lift",
+        "value": "0 -10px 40px rgba(0,0,0,.15)",
+        "purpose": "Cookie banner only; the page itself is flat."
+      }
+    ],
+    "gradients": [
+      {
+        "name": "brand",
+        "value": "linear-gradient(135deg, #C7010F 0%, #E2386F 55%, #FF72AD 100%)",
+        "purpose": "Home cover, gradient bands and tiles. The only gradient; never on text."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All arrivals and state changes."
+      },
+      {
+        "name": "dur-fast",
+        "value": "0.2s",
+        "purpose": "Hover feedback: arrow forward, nav opacity."
+      },
+      {
+        "name": "dur-mid",
+        "value": "0.45s",
+        "purpose": "Lead and actions following the headline."
+      },
+      {
+        "name": "dur-focal",
+        "value": "0.9s",
+        "purpose": "Script phrase writing itself in."
+      },
+      {
+        "name": "button-lift",
+        "value": "transform .15s; hover translateY(-1px)",
+        "purpose": "Pill buttons on hover (from the original style.css)."
+      },
+      {
+        "name": "hairline-draw",
+        "value": "scroll-driven, animation-range: entry 0% entry 60%",
+        "purpose": "Row hairlines draw left to right as rows enter."
+      },
+      {
+        "name": "page-crossfade",
+        "value": "@view-transition navigation:auto, 0.25s, header held",
+        "purpose": "Continuity between pages and EN/ES twins."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "640",
+        "value": "640px"
+      },
+      {
+        "name": "760",
+        "value": "760px"
+      },
+      {
+        "name": "860",
+        "value": "860px"
+      },
+      {
+        "name": "900",
+        "value": "900px"
+      },
+      {
+        "name": "1000",
+        "value": "1000px"
+      },
+      {
+        "name": "1100",
+        "value": "1100px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button · Red",
+      "kind": "button",
+      "refersTo": "button-red",
+      "description": "Primary action on light surfaces; the circle arrow moves forward on hover.",
+      "html": "<a class=\"ds-btn-red\" href=\"#\">Join the waitlist<span class=\"ds-ar\"><svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 8h11M9 3.5 13.5 8 9 12.5\"/></svg></span></a>",
+      "css": ".ds-btn-red{display:inline-flex;align-items:center;gap:14px;min-height:48px;padding:8px 8px 8px 24px;border:1.5px solid transparent;border-radius:999px;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-weight:500;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;transition:transform .15s;background:var(--red, #C7010F);color:var(--cream, #F8F4ED)}.ds-btn-red:hover{transform:translateY(-1px)}.ds-btn-red:hover .ds-ar svg{transform:translateX(3px)}.ds-btn-red:active{transform:scale(.98)}.ds-btn-red:focus-visible{outline:2px solid var(--ink, #1A1A1A);outline-offset:3px}.ds-ar{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1.5px solid currentColor;flex:none}.ds-ar svg{width:15px;height:15px;transition:transform .2s cubic-bezier(.16,1,.3,1)}"
+    },
+    {
+      "name": "Button · Cream on red",
+      "kind": "button",
+      "refersTo": "button-cream",
+      "description": "Primary action on red and gradient surfaces.",
+      "html": "<div class=\"ds-on-red\"><a class=\"ds-btn-cream\" href=\"#\">Come to a free event<span class=\"ds-ar\"><svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 8h11M9 3.5 13.5 8 9 12.5\"/></svg></span></a></div>",
+      "css": ".ds-on-red{background:var(--red, #C7010F);padding:24px}.ds-btn-cream{display:inline-flex;align-items:center;gap:14px;min-height:48px;padding:8px 8px 8px 24px;border:1.5px solid transparent;border-radius:999px;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-weight:500;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;transition:transform .15s;background:var(--cream, #F8F4ED);color:var(--red, #C7010F)}.ds-btn-cream:hover{transform:translateY(-1px)}.ds-btn-cream:hover .ds-ar svg{transform:translateX(3px)}.ds-btn-cream:focus-visible{outline:2px solid var(--cream, #F8F4ED);outline-offset:3px}.ds-ar{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1.5px solid currentColor;flex:none}.ds-ar svg{width:15px;height:15px;transition:transform .2s cubic-bezier(.16,1,.3,1)}"
+    },
+    {
+      "name": "Button · Line",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Secondary action beside a filled button; inherits the surface text colour.",
+      "html": "<a class=\"ds-btn-line\" href=\"#\">RSVP on Luma<span class=\"ds-ar\"><svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 8h11M9 3.5 13.5 8 9 12.5\"/></svg></span></a>",
+      "css": ".ds-btn-line{display:inline-flex;align-items:center;gap:14px;min-height:48px;padding:8px 8px 8px 24px;border:1.5px solid transparent;border-radius:999px;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-weight:500;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;transition:transform .15s;background:transparent;color:var(--ink, #1A1A1A);border-color:currentColor}.ds-btn-line:hover{transform:translateY(-1px)}.ds-btn-line:hover .ds-ar svg{transform:translateX(3px)}.ds-btn-line:focus-visible{outline:2px solid var(--ink, #1A1A1A);outline-offset:3px}.ds-ar{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1.5px solid currentColor;flex:none}.ds-ar svg{width:15px;height:15px;transition:transform .2s cubic-bezier(.16,1,.3,1)}"
+    },
+    {
+      "name": "Pills",
+      "kind": "chip",
+      "refersTo": "pill",
+      "description": "Outline tags for time, language and venue; filled red for status.",
+      "html": "<div class=\"ds-tags\"><span class=\"ds-pill\">18:30–21:30</span><span class=\"ds-pill\">ESP</span><span class=\"ds-pill ds-pill-f\">Upcoming</span></div>",
+      "css": ".ds-tags{display:flex;flex-wrap:wrap;gap:8px}.ds-pill{display:inline-block;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-size:12px;font-weight:500;line-height:1;border:1.5px solid currentColor;border-radius:99px;padding:7px 14px;white-space:nowrap;color:var(--ink, #1A1A1A)}.ds-pill-f{background:var(--red, #C7010F);border-color:var(--red, #C7010F);color:var(--cream, #F8F4ED)}"
+    },
+    {
+      "name": "Input · Underline",
+      "kind": "input",
+      "refersTo": "input-underline",
+      "description": "Underline-only field with an uppercase label; the line thickens on focus, turns pink on error.",
+      "html": "<label class=\"ds-fld\"><span>Email</span><input class=\"ds-input\" type=\"email\" placeholder=\"you@example.com\"></label>",
+      "css": ".ds-fld{display:grid;gap:6px;color:var(--ink, #1A1A1A);font-family:var(--body, \"Inter\",system-ui,sans-serif)}.ds-fld span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500}.ds-input{font:inherit;font-size:16px;color:inherit;background:transparent;border:0;border-bottom:1.5px solid currentColor;border-radius:0;padding:10px 0;min-height:44px;width:100%}.ds-input:focus{outline:0;border-bottom-width:3px}.ds-input[aria-invalid=true]{border-bottom:3px solid var(--pink, #FF72AD)}.ds-input::placeholder{color:inherit;opacity:.6}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Desktop header links: 60% opacity, current page bold with a red underline; EN / ES switch.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Home</a><a href=\"#\" aria-current=\"page\">Events</a><a href=\"#\">Blog</a><span class=\"ds-lang\"><b>EN</b><i>ES</i></span></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:26px;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-size:14px;color:var(--ink, #1A1A1A);background:var(--cream, #F8F4ED);padding:12px 20px;border-bottom:1px solid var(--line, rgba(26,26,26,.18))}.ds-nav a{text-decoration:none;color:inherit;opacity:.6;padding:6px 0;border-bottom:1.5px solid transparent;transition:opacity .2s}.ds-nav a:hover{opacity:1}.ds-nav a[aria-current]{opacity:1;font-weight:600;border-color:var(--red, #C7010F)}.ds-lang{display:flex;gap:12px;font-size:12px;font-weight:600;letter-spacing:.08em}.ds-lang b{color:var(--red, #C7010F)}.ds-lang i{font-style:normal;opacity:.45}"
+    },
+    {
+      "name": "Hairline Row",
+      "kind": "custom",
+      "description": "The brand-book index line: hairline on top, uppercase label column, content right.",
+      "html": "<div class=\"ds-rw\"><p class=\"ds-lab\">Next event</p><div><h3>Save your place.</h3><p>Register on Meetup or Luma, whichever you prefer.</p></div></div>",
+      "css": ".ds-rw{display:grid;grid-template-columns:200px minmax(0,1fr);gap:10px 32px;padding:26px 0;border-top:1px solid var(--line, rgba(26,26,26,.18));color:var(--ink, #1A1A1A);background:var(--cream, #F8F4ED);font-family:var(--body, \"Inter\",system-ui,sans-serif)}.ds-lab{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;padding-top:6px;margin:0}.ds-rw h3{font-family:var(--display, \"Archivo\",\"Helvetica Neue\",Arial,sans-serif);font-weight:700;font-stretch:96%;letter-spacing:-.04em;line-height:.98;font-size:34px;margin:0 0 12px}.ds-rw p{margin:0}"
+    },
+    {
+      "name": "Chapter Opener",
+      "kind": "custom",
+      "description": "Numeral + headline + one script phrase + lead on a brand band.",
+      "html": "<section class=\"ds-open\"><div class=\"ds-n\" aria-hidden=\"true\">02</div><div class=\"ds-t\"><h1>Come to a free event.</h1><span class=\"ds-script\">every month</span><p>Talks, workshops and open conversations, in English, Spanish or both.</p></div></section>",
+      "css": ".ds-open{display:grid;grid-template-columns:1fr 1fr;background:var(--red, #C7010F);color:var(--cream, #F8F4ED);min-height:320px}.ds-n{font-family:var(--display, \"Archivo\",\"Helvetica Neue\",Arial,sans-serif);font-weight:700;font-stretch:96%;letter-spacing:-.06em;line-height:.8;font-size:160px;padding:24px}.ds-t{padding:32px;display:flex;flex-direction:column;justify-content:flex-end;gap:18px}.ds-t h1{font-family:var(--display, \"Archivo\",\"Helvetica Neue\",Arial,sans-serif);font-weight:700;font-stretch:96%;letter-spacing:-.05em;line-height:.92;font-size:56px;margin:0}.ds-script{font-family:var(--script, \"Wonderful Branding\",\"Snell Roundhand\",cursive);font-size:28px;line-height:1.45;padding-left:.3em;margin-top:.3em}.ds-t p{font-family:var(--body, \"Inter\",system-ui,sans-serif);font-size:18px;line-height:1.55;max-width:36ch;margin:0}"
+    },
+    {
+      "name": "Event Frame",
+      "kind": "card",
+      "refersTo": "event-frame",
+      "description": "The next event: a red frame around a pink panel with a giant date numeral.",
+      "html": "<div class=\"ds-frame\"><div class=\"ds-pn\"><div class=\"ds-dt\"><small>Thu · Oct</small>29</div><div><p class=\"ds-lab\">Next free event</p><h3>Claridad bajo presión</h3><p><b>Estíbaliz Bilbao</b> · Consultant &amp; strategist</p></div></div></div>",
+      "css": ".ds-frame{background:var(--red, #C7010F);padding:16px}.ds-pn{background:var(--pink, #FF72AD);color:var(--black, #000);padding:32px;display:grid;grid-template-columns:.7fr 1.3fr;gap:26px;align-items:end;font-family:var(--body, \"Inter\",system-ui,sans-serif)}.ds-dt{font-family:var(--display, \"Archivo\",\"Helvetica Neue\",Arial,sans-serif);font-weight:700;font-stretch:96%;letter-spacing:-.06em;line-height:.8;font-size:120px}.ds-dt small{display:block;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-weight:500;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}.ds-lab{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin:0 0 14px}.ds-pn h3{font-family:var(--display, \"Archivo\",\"Helvetica Neue\",Arial,sans-serif);font-weight:700;font-stretch:96%;letter-spacing:-.045em;line-height:.95;font-size:44px;margin:0 0 14px}.ds-pn p{margin:0}"
+    },
+    {
+      "name": "Colour-block Tile",
+      "kind": "card",
+      "description": "A square block in a brand colour with content pushed to its edges (\"doors\", trio, notes).",
+      "html": "<div class=\"ds-doors\"><div class=\"ds-door ds-d-red\"><p class=\"ds-lab\">Sponsors and companies</p><h3>Be in the room</h3></div><div class=\"ds-door ds-d-grad\"><p class=\"ds-lab\">Speakers, mentors and venues</p><h3>Share and host</h3></div></div>",
+      "css": ".ds-doors{display:grid;grid-template-columns:1fr 1fr}.ds-door{padding:36px;min-height:240px;display:flex;flex-direction:column;justify-content:space-between;gap:26px;font-family:var(--body, \"Inter\",system-ui,sans-serif)}.ds-d-red{background:var(--red, #C7010F);color:var(--cream, #F8F4ED)}.ds-d-grad{background:var(--grad, linear-gradient(135deg,#C7010F 0%,#E2386F 55%,#FF72AD 100%));color:var(--cream, #F8F4ED)}.ds-lab{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;margin:0}.ds-door h3{font-family:var(--display, \"Archivo\",\"Helvetica Neue\",Arial,sans-serif);font-weight:700;font-stretch:96%;letter-spacing:-.05em;line-height:.92;font-size:48px;margin:0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Chapter Book",
+    "overview": "Every page of SheWins opens like a chapter of its brand book. A full-width band in a brand colour carries a giant two-digit numeral, a tight display headline and one handwritten phrase. The content below reads like the book's index: hairline rows, each with a small uppercase label in a left column and the substance on the right. The system was designed by Messin Virginia from the SheWins brand book. `public/style.css` is that work, and later layers (fixes, responsive, motion) extend it without editing it.\n\nThe personality is editorial structure with a bold voice:\n\n- **Structure:** cream paper, ink type, 1px hairlines, underline-only fields and small uppercase labels. These keep the page calm and scannable.\n- **Voice:** the emotion comes from flat blocks of red, pink and the one brand gradient; oversized Archivo display type set tight; pill buttons that end in a circle arrow; and a single script phrase per chapter.\n\nDensity is generous: sections breathe (48–104px vertical), headlines are very large, and body copy stays short. Corners are square on everything that holds content, fully round on everything you press. Nothing floats: the page is flat, and depth comes from colour blocks, hairlines and the red frame around the next event.",
+    "keyCharacteristics": [
+      "Chapter openers: a numeral (01–04), headline, script phrase and lead on a red, pink, gradient or cream band.",
+      "Hairline rows with a 200px uppercase label column, stacked on phones.",
+      "Archivo 700 at 96% width with negative tracking for all display type. Inter for everything you read.",
+      "One script phrase per chapter (Wonderful Branding), always small and never for UI.",
+      "Flat colour blocks and one 135° gradient. No shadows on content.",
+      "Square blocks and images, round pills and circle arrows.",
+      "Motion that writes, draws and settles: the script writes itself in, hairlines draw on scroll, and pages cross-fade. Reduced motion shows final states."
+    ],
+    "rules": [
+      {
+        "name": "The Approved Pairs Rule",
+        "body": "Text sits only on these pairs:\n\n- Cream on Red (5.6:1).\n- Black on Pink (8.3:1).\n- Red on Cream (5.6:1).\n- Ink or Black on Cream (15.9:1).\n\nPink text on Cream is forbidden (2.3:1).",
+        "section": "colors"
+      },
+      {
+        "name": "The Gradient Text Rule",
+        "body": "On the gradient, cream text must be large (display or headline). The pink end drops to 2.3:1, so small labels or body copy go on the red half or on a solid block.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat Block Rule",
+        "body": "Colour arrives as full flat blocks and bands, never as tints, translucent washes or new gradients. The brand gradient is the only gradient and is never applied to text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Muted Text Rule",
+        "body": "Secondary text may be quieter, but never below 4.5:1:\n\n- cream on red stays at 90% opacity or more (the minimum is 89%);\n- ink on cream or white stays at 65% or more.\n\nTo mark something as inactive or past, dim only large type (display, titles, numerals, which need 3:1) and keep small text at full contrast.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tight Display Rule",
+        "body": "Display type is always Archivo 700 at 96% width, tracked from −0.035em down to −0.06em, with line-height at or below 1. Default tracking or a lighter weight breaks the voice.",
+        "section": "typography"
+      },
+      {
+        "name": "The Accent Script Rule",
+        "body": "Wonderful Branding is used for one short phrase per chapter, and never for body copy, labels, buttons or navigation. It needs room:\n\n- a 0.3em indent so its loops stay inside the column;\n- 0.3em above it, under the headline;\n- 1.45 line-height when it wraps;\n- never clipped.",
+        "section": "typography"
+      },
+      {
+        "name": "The Readable Text Rule",
+        "body": "Inter carries everything a visitor has to read or operate. Inputs stay at 16px or more so phones do not zoom in.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline Row Rule",
+        "body": "Lists of facts, events, articles and FAQs are rows separated by 1px hairlines, never cards. The first row of a list takes a full-strength ink rule.",
+        "section": "layout"
+      },
+      {
+        "name": "The Chapter Opener Rule",
+        "body": "Every main page starts with a band: a numeral, a headline, one script phrase and a lead, on one of red, pink, gradient or cream.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Page Rule",
+        "body": "No shadows, glows or blur on page content. If something needs separation, use a hairline, a colour block or the red frame.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Square-and-Pill Rule",
+        "body": "Content containers are square and interactive controls are round. Nothing in between: no 8–16px rounded cards.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do keep `public/style.css` exactly as the designer delivered it. Add changes in `src/styles/fixes.css`, `responsive.css` or `motion.css`.",
+      "Do use only the approved text/background pairs: Cream on Red, Black on Pink, Red on Cream, Ink on Cream.",
+      "Do open every main page with a chapter band (numeral, headline, one script phrase, lead).",
+      "Do organise lists as hairline rows with the uppercase label in the left column.",
+      "Do end every action button with the 32px circle arrow.",
+      "Do give the script room: a 0.3em indent, 0.3em above it and 1.45 line-height when it wraps.",
+      "Do keep content visible by default. Motion only enhances, and `prefers-reduced-motion` shows final states.",
+      "Do keep touch targets at 44px on the phone layout (menu, EN / ES, fields) and at least 24px everywhere."
+    ],
+    "donts": [
+      "Don't put pink text on cream (2.3:1), or small cream text over the pink end of the gradient.",
+      "Don't add shadows, glows, glass or blur to page content. The cookie banner is the only shadow.",
+      "Don't round content containers. Corners are 0 for blocks and images, and fully round for controls.",
+      "Don't introduce new colours, tints or gradients, or put the brand gradient on text.",
+      "Don't use the script for more than one short phrase per chapter, or for any UI text.",
+      "Don't clip the script with overflow or a persistent clip-path; its loops reach past its box.",
+      "Don't loosen display tracking or lighten its weight; Archivo stays 700 at 96% width."
+    ]
+  }
+}
