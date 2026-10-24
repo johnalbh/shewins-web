@@ -216,7 +216,7 @@ Five brand colours from the brand book, used as flat blocks. There are no tints 
 
 - **Cream** (#F8F4ED): the page paper. Default background, text on red and gradient, and the header and sticky bars.
 - **Ink** (#1A1A1A): all body and display text on cream and white, and strong rules.
-- **Black** (#000000): text on pink only.
+- **Black** (#000000): text on pink, and the surface of the event facts strip.
 - **White** (#FFFFFF): an alternate light surface for section rhythm (schedule, next article, team cards, a "line" door).
 - **Line** (rgba(26,26,26,0.18)): the hairline between rows on light surfaces.
 - **Line on dark** (rgba(248,244,237,0.4)): the hairline on red and gradient surfaces.
@@ -229,6 +229,7 @@ Five brand colours from the brand book, used as flat blocks. There are no tints 
 - Black on Pink (8.3:1).
 - Red on Cream (5.6:1).
 - Ink or Black on Cream (15.9:1).
+- Cream on Black (19:1), for the event facts strip.
 
 Pink text on Cream is forbidden (2.3:1).
 
@@ -401,7 +402,7 @@ The next event, held in a red frame (12–22px border of red) around a pink pane
 - a giant date numeral with a weekday and month label;
 - an uppercase "Next free event" label;
 - the title, a topic line, and the host and role;
-- a facts row: When, Language and Where. Each fact is an uppercase label over a 15px 600 value, divided by 1px black hairlines; on phones each fact becomes its own row;
+- a facts strip in black with cream text: When, Language and Where. Each fact is an uppercase label over a 15px 600 value, divided by line-on-dark rules; on phones each fact becomes its own row;
 - red and line buttons to Meetup and Luma.
 
 ### Colour-block Tiles

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T19:06:44.333Z",
+  "generatedAt": "2026-10-24T19:09:31.486Z",
   "title": "Design System: SheWins",
   "extensions": {
     "colorMeta": {
@@ -349,7 +349,7 @@
     "rules": [
       {
         "name": "The Approved Pairs Rule",
-        "body": "Text sits only on these pairs:\n\n- Cream on Red (5.6:1).\n- Black on Pink (8.3:1).\n- Red on Cream (5.6:1).\n- Ink or Black on Cream (15.9:1).\n\nPink text on Cream is forbidden (2.3:1).",
+        "body": "Text sits only on these pairs:\n\n- Cream on Red (5.6:1).\n- Black on Pink (8.3:1).\n- Red on Cream (5.6:1).\n- Ink or Black on Cream (15.9:1).\n- Cream on Black (19:1), for the event facts strip.\n\nPink text on Cream is forbidden (2.3:1).",
         "section": "colors"
       },
       {

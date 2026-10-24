@@ -76,34 +76,41 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
   .pair { align-items: end; align-items: last baseline; }
 }
 
-/* Next event facts: when / language / where as a ticket row (small label over a 15px value,
-   divided by hairlines) instead of three outline pills, which read weakly on the saturated pink
-   and competed with the buttons. Black on pink, 8.3:1. On phones each fact becomes a row. */
+/* Next event facts: when / language / where as a ticket strip (small label over a 15px value,
+   divided by rules) instead of three outline pills, which read weakly on the saturated pink and
+   competed with the buttons. Cream on black, 19:1, set apart from the red RSVP button below.
+   On phones each fact becomes a row. */
 .frame .facts {
   display: grid;
   grid-template-columns: auto auto minmax(0, 1fr);
   margin: 22px 0 26px;
-  border-top: 1px solid currentColor;
-  border-bottom: 1px solid currentColor;
+  padding: 0 20px;
+  background: var(--black);
+  color: var(--cream);
 }
-.frame .facts > div { padding: 12px 20px; border-left: 1px solid currentColor; }
+.frame .facts > div { padding: 14px 20px; border-left: 1px solid var(--line-c); }
 .frame .facts > div:first-child { padding-left: 0; border-left: 0; }
 .frame .facts dt { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; line-height: 1.5; margin-bottom: 4px; }
 .frame .facts dd { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.35; }
 @media (max-width: 560px) {
-  .frame .facts { grid-template-columns: minmax(0, 1fr); }
+  .frame .facts { grid-template-columns: minmax(0, 1fr); padding: 0 16px; }
   .frame .facts > div,
   .frame .facts > div:first-child {
     display: grid;
     grid-template-columns: 88px minmax(0, 1fr);
     gap: 12px;
     align-items: baseline;
-    padding: 10px 0;
+    padding: 12px 0;
     border-left: 0;
-    border-top: 1px solid currentColor;
+    border-top: 1px solid var(--line-c);
   }
   .frame .facts > div:first-child { border-top: 0; }
   .frame .facts dt { margin: 0; }
+}
+/* Narrow phones: label above value, so the venue does not break into five lines. */
+@media (max-width: 380px) {
+  .frame .facts > div,
+  .frame .facts > div:first-child { grid-template-columns: minmax(0, 1fr); gap: 2px; }
 }
 
 /* Blog list: a calmer index. Titles step down to 36px on a 28ch measure (two lines instead of
