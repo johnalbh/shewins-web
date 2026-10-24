@@ -30,7 +30,7 @@ const time = ev && [ev.startTime, ev.endTime].filter(Boolean).join('–');
 <div class="dt"><small><span class={lang}>{when.weekday}</span> · <span class={lang}>{when.monthShort}</span></small>{when.day}</div>
 <div>
 <p class="lab" style="margin-bottom:14px"><span class={lang}>{L('Next free event', 'Próximo evento gratuito')}</span></p>
-<h3>{ev.title}</h3>
+<h2>{ev.title}</h2>
 <p class="who">{topic && <Fragment><span class={lang}>{topic}</span><br /></Fragment>}{ev.host ? <b>{ev.host}</b> : <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}{ev.host && role && <Fragment> · <span class={lang}>{role}</span></Fragment>}</p>
 <div class="mt"><span class="pill">{time}</span><span class="pill"><span class={lang}>{inLanguage[ev.language]}</span></span><span class="pill">{ev.venue}</span></div>
 <div class="btns"><a class="btn b-red" href={ev.meetupUrl || settings.meetup} rel="noopener" target="_blank"><span class={lang}>{L('RSVP on Meetup', 'Apúntate en Meetup')}</span><Fragment set:html={ARROW} /></a><a class="btn b-line" href={ev.lumaUrl || settings.luma} rel="noopener" target="_blank"><span class={lang}>{L('RSVP on Luma', 'Apúntate en Luma')}</span><Fragment set:html={ARROW} /></a></div>
@@ -41,7 +41,7 @@ const time = ev && [ev.startTime, ev.endTime].filter(Boolean).join('–');
 <div class="dt"><small><span class={lang}>{L('Coming soon', 'Muy pronto')}</span></small>{when.monthShort}</div>
 <div>
 <p class="lab" style="margin-bottom:14px"><span class={lang}>{L('Next free event', 'Próximo evento gratuito')}</span></p>
-<h3>{L('New date coming soon.', 'Nueva fecha muy pronto.')}</h3>
+<h2>{L('New date coming soon.', 'Nueva fecha muy pronto.')}</h2>
 <p class="who"><span class={lang}>{L('Follow us on Meetup or Instagram to hear first.', 'Síguenos en Meetup o Instagram para enterarte la primera.')}</span></p>
 <div class="btns" style="margin-top:26px"><a class="btn b-red" href={settings.meetup} rel="noopener" target="_blank"><span>Meetup</span><Fragment set:html={ARROW} /></a><a class="btn b-line" href={settings.instagram} rel="noopener" target="_blank"><span>Instagram</span><Fragment set:html={ARROW} /></a></div>
 </div>

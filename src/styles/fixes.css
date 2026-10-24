@@ -5,6 +5,31 @@
    all five forms, so the thank-you never appeared. */
 form.done ~ .sent { display: block; }
 
+/* ---------- Accessibility (WCAG 2.2 AA, found by Lighthouse / axe) ---------- */
+
+/* Heading order. Some headings skipped a level (h1 → h3, h2 → h4). They now use the right level
+   and keep exactly the look of the original rule they replace. */
+.frame h2 { font-size: clamp(34px, 4.6vw, 70px); letter-spacing: -0.045em; line-height: 0.95; margin-bottom: 14px; } /* was .frame h3 */
+.plist .prow h2 { font-size: clamp(26px, 3.2vw, 46px); letter-spacing: -0.04em; margin-bottom: 12px; max-width: 22ch; } /* was .prow h3 */
+.foot h2 { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; font-family: var(--body); margin-bottom: 12px; } /* was .foot h4 */
+h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promoted to h2 ("We believe") */
+
+/* Contrast. Muted text dropped below 4.5:1:
+   - inactive EN / ES button: ink at 45% on cream, 2.83:1 → 65%, 5.2:1;
+   - secondary cream text on red (footer headings, copyright, form small print): 75–80%,
+     3.5–3.8:1 → 90%, 4.65:1 (the minimum is 89%). */
+.lang button[aria-pressed="false"] { opacity: 0.65; }
+.foot h2,
+.foot .legal .cp,
+.s-red .small { opacity: 0.9; }
+
+/* Past events: the whole row was dimmed to 55%, taking venue, host and pills to about 3:1.
+   Only the large type dims now (title and day number, 3.9:1 as large text); the details stay
+   at full contrast. The red weekday label keeps its own colour. */
+.ev.past { opacity: 1; }
+.ev.past h3,
+.ev.past .d { color: rgba(26, 26, 26, 0.55); }
+
 /* ---------- Adjustments requested by the team ---------- */
 
 /* Partners / sponsor / hosts: one name per line, each starting with "+". The original ran the
