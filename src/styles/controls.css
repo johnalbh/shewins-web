@@ -1,0 +1,78 @@
+/* Controls as editorial blocks (team decision, October 2026).
+   The brand book's round pills and circle arrows give way to square controls in the site's own
+   language: square corners like the colour blocks and posters, and the arrow in its own cell,
+   divided by a rule like the hairline rows. Colours are unchanged. Tags (.pill) and photos keep
+   their round shape. Loaded after public/style.css and before motion.css. */
+
+/* ---------- Buttons ---------- */
+
+/* Label on the left, a square arrow cell on the right that runs the full height of the button.
+   Vertical padding lets long labels wrap on narrow phones; the cell's negative margins give it
+   back, so the cell always reaches the edges. */
+.btn {
+  border-radius: 0;
+  min-height: 52px;
+  max-width: 100%;
+  padding: 10px 22px;
+  gap: 18px;
+  text-align: left;
+}
+.btn .ar {
+  align-self: stretch;
+  width: 52px;
+  height: auto;
+  margin: -10px -22px -10px 0;
+  border: 0;
+  border-left: 1.5px solid currentColor;
+  border-radius: 0;
+  transition: background-color 0.2s ease;
+}
+.btn .ar svg { width: 16px; height: 16px; }
+
+/* Hover: the cell takes a tint of the text colour and the arrow steps forward (motion.css).
+   No lift: blocks stay on the page. */
+.btn:hover { transform: none; }
+.btn:hover .ar { background-color: color-mix(in srgb, currentColor 14%, transparent); }
+.btn:disabled { cursor: progress; opacity: 0.75; }
+
+/* Header CTA: the compact size. */
+.hcta { min-height: 40px; padding: 0 16px; gap: 14px; }
+.hcta .ar { width: 40px; margin: 0 -16px 0 0; }
+
+/* ---------- Menu, close, go arrows, FAQ, skip link ---------- */
+
+.burger,
+.menu .x,
+.skip,
+.start .go i,
+.prow .go i,
+summary::after { border-radius: 0; }
+
+/* Close: a drawn × instead of the text glyph. */
+.menu .x { display: grid; place-items: center; }
+.menu .x svg { width: 18px; height: 18px; }
+
+/* Go arrows (start cards, blog rows): the same drawn arrow as the buttons. */
+.go i svg { width: 15px; height: 15px; }
+
+/* FAQ: a drawn plus that becomes a minus when the answer is open (the vertical bar folds away
+   in motion.css), instead of the "+" / "–" characters. */
+summary::after,
+details[open] summary::after {
+  content: "";
+  background:
+    linear-gradient(currentColor, currentColor) center / 12px 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 12px no-repeat;
+}
+details[open] summary::after { background-size: 12px 1.5px, 1.5px 0; }
+
+/* ---------- Focus ---------- */
+
+/* The global focus style rounds the focused element to 4px; square controls keep their corners. */
+.btn:focus-visible,
+.burger:focus-visible,
+.menu .x:focus-visible,
+.skip:focus-visible,
+.start a:focus-visible,
+.prow:focus-visible,
+summary:focus-visible { border-radius: 0; }

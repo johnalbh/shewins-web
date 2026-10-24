@@ -76,7 +76,6 @@ rounded:
   mark: "3px"
   focus: "4px"
   pill: "999px"
-  circle: "50%"
 spacing:
   gutter: "20px"
   row: "26px"
@@ -89,30 +88,30 @@ components:
     backgroundColor: "{colors.red}"
     textColor: "{colors.cream}"
     typography: "{typography.button}"
-    rounded: "{rounded.pill}"
-    padding: "8px 8px 8px 24px"
-    height: "48px"
+    rounded: "{rounded.none}"
+    padding: "10px 22px"
+    height: "52px"
   button-cream:
     backgroundColor: "{colors.cream}"
     textColor: "{colors.red}"
     typography: "{typography.button}"
-    rounded: "{rounded.pill}"
-    padding: "8px 8px 8px 24px"
-    height: "48px"
+    rounded: "{rounded.none}"
+    padding: "10px 22px"
+    height: "52px"
   button-pink:
     backgroundColor: "{colors.pink}"
     textColor: "{colors.black}"
     typography: "{typography.button}"
-    rounded: "{rounded.pill}"
-    padding: "8px 8px 8px 24px"
-    height: "48px"
+    rounded: "{rounded.none}"
+    padding: "10px 22px"
+    height: "52px"
   button-line:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
     typography: "{typography.button}"
-    rounded: "{rounded.pill}"
-    padding: "8px 8px 8px 24px"
-    height: "48px"
+    rounded: "{rounded.none}"
+    padding: "10px 22px"
+    height: "52px"
   pill:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
@@ -155,9 +154,9 @@ Every page of SheWins opens like a chapter of its brand book. A full-width band 
 The personality is editorial structure with a bold voice:
 
 - **Structure:** cream paper, ink type, 1px hairlines, underline-only fields and small uppercase labels. These keep the page calm and scannable.
-- **Voice:** the emotion comes from flat blocks of red, pink and the one brand gradient; oversized Archivo display type set tight; pill buttons that end in a circle arrow; and a single script phrase per chapter.
+- **Voice:** the emotion comes from flat blocks of red, pink and the one brand gradient; oversized Archivo display type set tight; square buttons that end in an arrow cell; and a single script phrase per chapter.
 
-Density is generous: sections breathe (48–104px vertical), headlines are very large, and body copy stays short. Corners are square on everything that holds content, fully round on everything you press. Nothing floats: the page is flat, and depth comes from colour blocks, hairlines and the red frame around the next event.
+Density is generous: sections breathe (48–104px vertical), headlines are very large, and body copy stays short. Corners are square on blocks and on every control; only the small tags are round. Nothing floats: the page is flat, and depth comes from colour blocks, hairlines and the red frame around the next event.
 
 **Key Characteristics:**
 
@@ -166,7 +165,7 @@ Density is generous: sections breathe (48–104px vertical), headlines are very 
 - Archivo 700 at 96% width with negative tracking for all display type. Inter for everything you read.
 - One script phrase per chapter (Wonderful Branding), always small and never for UI.
 - Flat colour blocks and one 135° gradient. No shadows on content.
-- Square blocks and images, round pills and circle arrows.
+- Square blocks, images and controls. Only tags are round pills.
 - Motion that writes, draws and settles: the script writes itself in, hairlines draw on scroll, and pages cross-fade. Reduced motion shows final states.
 
 ## Colors
@@ -288,31 +287,35 @@ The system is flat. Depth comes from colour blocks meeting edge to edge, hairlin
 
 ## Shapes
 
-The form language is square blocks and round controls:
+The form language is square throughout, with round tags as the one exception:
 
-- **Square (0):** bands, tiles, frames, images, posters and inputs.
-- **Fully round (999px / 50%):** everything you press or that labels a value, meaning pills, buttons and arrow circles.
+- **Square (0):** bands, tiles, frames, images, posters, inputs and every control (buttons, arrow cells, the menu and close buttons, go arrows, FAQ toggles).
+- **Fully round (999px):** tags only, the pills that label time, language, venue and status.
 - **Small exceptions:** 3px for the pink placeholder marks in legal text and 4px for the focus ring.
-- **Borders:** 1.5px currentColor on outline pills, line buttons, arrow circles and input underlines (3px on focus or error). 1px hairlines between rows.
+- **Borders:** 1.5px currentColor on outline pills, line buttons, arrow-cell dividers, go arrows and input underlines (3px on focus or error). 1px hairlines between rows.
 - **Images:** posters are cropped to 3:4 (4:5 in the four-up grid) with object-fit cover.
 
 ### Named Rules
 
-**The Square-and-Pill Rule.** Content containers are square and interactive controls are round. Nothing in between: no 8–16px rounded cards.
+**The Square Controls Rule.** Blocks, images and every control are square. Only tags are round pills. Nothing in between: no 4–16px rounded buttons or cards. (Team decision, October 2026: replaces the brand book's round pill buttons and circle arrows.)
 
 ## Components
 
 ### Buttons
 
-The circle-arrow pill: confident, warm and always pointing forward.
+The editorial block: square like the colour blocks, and always pointing forward.
 
-- **Shape:** a full pill (999px), 48px minimum height, with 24px padding on the left and 8px on the right. It ends in a 32px circle with a 1.5px currentColor border holding a right arrow.
+- **Shape:** square corners (0), 52px minimum height, 22px horizontal padding. The label sits on the left. A square arrow cell (52px wide) runs the full height on the right, divided from the label by a 1.5px currentColor rule. Long labels wrap inside the block on narrow phones.
 - **Red:** red fill, cream text. The primary action on light surfaces and in the header ("Join the waitlist").
 - **Cream:** cream fill, red text. The primary action on red and gradient surfaces.
 - **Pink:** pink fill, black text.
-- **Line:** a transparent pill with a 1.5px currentColor outline, inheriting the surface's text colour. The secondary action beside a filled one.
-- **Hover / Active:** the pill lifts 1px (0.15s) and the arrow moves forward 3px (0.2s, ease-out). On press the pill settles back and scales to 0.98.
-- **Header:** a compact variant, 40px high with a 28px circle.
+- **Line:** a transparent block with a 1.5px currentColor outline, inheriting the surface's text colour. The secondary action beside a filled one.
+- **Hover / Active:** the arrow cell takes a 14% tint of the text colour and the arrow steps forward 4px (0.2s, ease-out). There is no lift. On press the block sinks 1px.
+- **Focus:** the 2px ink (or cream) outline at a 3px offset, with square corners.
+- **Disabled (sending a form):** 75% opacity and a progress cursor.
+- **Header:** a compact variant, 40px high with a 40px arrow cell.
+- **Cookie banner:** plain square buttons with no arrow cell.
+- **Go arrow:** links in start cards and blog rows end in a 34px square outline cell holding the same drawn arrow. It fills red with a cream arrow on hover, and the arrow steps forward 3px.
 
 ### Pills
 
@@ -327,15 +330,21 @@ The circle-arrow pill: confident, warm and always pointing forward.
 - **Error:** the underline turns pink at 3px. A cream error line in red text appears under the form.
 - **Checkbox:** a native 20px box with an accent colour.
 
+### Disclosure (FAQ)
+
+- **Row:** questions are hairline rows. The question is in display type at clamp(20px, 2vw, 26px), 600 weight.
+- **Toggle:** a 34px square outline cell with a drawn plus.
+- **Open:** the plus folds its vertical bar away into a minus (0.35s), and the answer opens smoothly.
+
 ### Navigation
 
 - **Desktop (1000px and up):**
   - 14px Inter links at 60% opacity, 100% on hover.
   - The current page is 600 weight with a 1.5px red underline.
   - An EN / ES switch (12px, 600, +0.08em) with the active language in red.
-  - A compact red "Join the waitlist" pill.
+  - A compact red "Join the waitlist" button.
 - **Header:** sticky on cream, with a hairline below it.
-- **Mobile:** an outline "Menu" pill opens a full-screen red layer. Inside it, links are giant display type (clamp(36px, 11vw, 60px)) on line-on-dark hairlines, with small uppercase notes ("Soon") and the cream logo and script tagline at the foot. It drops in and the links follow in sequence.
+- **Mobile:** a square outline "Menu" button opens a full-screen red layer, closed by a square button with a drawn ×. Inside it, links are giant display type (clamp(36px, 11vw, 60px)) on line-on-dark hairlines, with small uppercase notes ("Soon") and the cream logo and script tagline at the foot. It drops in and the links follow in sequence.
 
 ### Hairline Row (signature)
 
@@ -372,7 +381,7 @@ The next event, held in a red frame (12–22px border of red) around a pink pane
 - **Do** use only the approved text/background pairs: Cream on Red, Black on Pink, Red on Cream, Ink on Cream.
 - **Do** open every main page with a chapter band (numeral, headline, one script phrase, lead).
 - **Do** organise lists as hairline rows with the uppercase label in the left column.
-- **Do** end every action button with the 32px circle arrow.
+- **Do** end every action button with the square arrow cell, divided by a 1.5px rule.
 - **Do** give the script room: a 0.3em indent, 0.3em above it and 1.45 line-height when it wraps.
 - **Do** keep content visible by default. Motion only enhances, and `prefers-reduced-motion` shows final states.
 - **Do** keep touch targets at 44px on the phone layout (menu, EN / ES, fields) and at least 24px everywhere.
@@ -381,7 +390,8 @@ The next event, held in a red frame (12–22px border of red) around a pink pane
 
 - **Don't** put pink text on cream (2.3:1), or small cream text over the pink end of the gradient.
 - **Don't** add shadows, glows, glass or blur to page content. The cookie banner is the only shadow.
-- **Don't** round content containers. Corners are 0 for blocks and images, and fully round for controls.
+- **Don't** round blocks, images or controls. Corners are 0 everywhere; fully round is for tags only.
+- **Don't** use text characters (→, ×, +) as icons. Arrows, close and FAQ toggles are drawn, in one stroke weight.
 - **Don't** introduce new colours, tints or gradients, or put the brand gradient on text.
 - **Don't** use the script for more than one short phrase per chapter, or for any UI text.
 - **Don't** clip the script with overflow or a persistent clip-path; its loops reach past its box.

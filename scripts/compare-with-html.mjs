@@ -45,7 +45,8 @@ const text = ($, sel) => {
   el.find(BLOCKS).each((_, b) => {
     $(b).before(' ').after(' ');
   });
-  return el.text().replace(/\s+/g, ' ').trim();
+  // The original used the characters → and × as icons; they are drawn SVG now (DESIGN.md).
+  return el.text().replace(/[→×]/g, '').replace(/\s+/g, ' ').trim();
 };
 
 let problems = 0;

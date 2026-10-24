@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T18:27:52.956Z",
+  "generatedAt": "2026-10-24T18:36:42.715Z",
   "title": "Design System: SheWins",
   "extensions": {
     "colorMeta": {
@@ -245,9 +245,9 @@
       "name": "Button · Red",
       "kind": "button",
       "refersTo": "button-red",
-      "description": "Primary action on light surfaces; the circle arrow moves forward on hover.",
+      "description": "Primary action on light surfaces: a square block with the arrow in its own cell, which steps forward on hover.",
       "html": "<a class=\"ds-btn-red\" href=\"#\">Join the waitlist<span class=\"ds-ar\"><svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 8h11M9 3.5 13.5 8 9 12.5\"/></svg></span></a>",
-      "css": ".ds-btn-red{display:inline-flex;align-items:center;gap:14px;min-height:48px;padding:8px 8px 8px 24px;border:1.5px solid transparent;border-radius:999px;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-weight:500;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;transition:transform .15s;background:var(--red, #C7010F);color:var(--cream, #F8F4ED)}.ds-btn-red:hover{transform:translateY(-1px)}.ds-btn-red:hover .ds-ar svg{transform:translateX(3px)}.ds-btn-red:active{transform:scale(.98)}.ds-btn-red:focus-visible{outline:2px solid var(--ink, #1A1A1A);outline-offset:3px}.ds-ar{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1.5px solid currentColor;flex:none}.ds-ar svg{width:15px;height:15px;transition:transform .2s cubic-bezier(.16,1,.3,1)}"
+      "css": ".ds-btn-red{display:inline-flex;align-items:center;gap:18px;min-height:52px;padding:10px 22px;border:1.5px solid transparent;border-radius:0;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-weight:500;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;transition:transform .15s;background:var(--red, #C7010F);color:var(--cream, #F8F4ED)}.ds-btn-red:hover .ds-ar{background:color-mix(in srgb,currentColor 14%,transparent)}.ds-btn-red:hover .ds-ar svg{transform:translateX(4px)}.ds-btn-red:active{transform:translateY(1px)}.ds-btn-red:focus-visible{outline:2px solid var(--ink, #1A1A1A);outline-offset:3px}.ds-ar{display:grid;place-items:center;align-self:stretch;width:52px;margin:-10px -22px -10px 0;border-left:1.5px solid currentColor;flex:none;transition:background-color .2s}.ds-ar svg{width:16px;height:16px;transition:transform .2s cubic-bezier(.16,1,.3,1)}"
     },
     {
       "name": "Button · Cream on red",
@@ -255,7 +255,7 @@
       "refersTo": "button-cream",
       "description": "Primary action on red and gradient surfaces.",
       "html": "<div class=\"ds-on-red\"><a class=\"ds-btn-cream\" href=\"#\">Come to a free event<span class=\"ds-ar\"><svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 8h11M9 3.5 13.5 8 9 12.5\"/></svg></span></a></div>",
-      "css": ".ds-on-red{background:var(--red, #C7010F);padding:24px}.ds-btn-cream{display:inline-flex;align-items:center;gap:14px;min-height:48px;padding:8px 8px 8px 24px;border:1.5px solid transparent;border-radius:999px;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-weight:500;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;transition:transform .15s;background:var(--cream, #F8F4ED);color:var(--red, #C7010F)}.ds-btn-cream:hover{transform:translateY(-1px)}.ds-btn-cream:hover .ds-ar svg{transform:translateX(3px)}.ds-btn-cream:focus-visible{outline:2px solid var(--cream, #F8F4ED);outline-offset:3px}.ds-ar{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1.5px solid currentColor;flex:none}.ds-ar svg{width:15px;height:15px;transition:transform .2s cubic-bezier(.16,1,.3,1)}"
+      "css": ".ds-on-red{background:var(--red, #C7010F);padding:24px}.ds-btn-cream{display:inline-flex;align-items:center;gap:18px;min-height:52px;padding:10px 22px;border:1.5px solid transparent;border-radius:0;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-weight:500;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;transition:transform .15s;background:var(--cream, #F8F4ED);color:var(--red, #C7010F)}.ds-btn-cream:hover .ds-ar{background:color-mix(in srgb,currentColor 14%,transparent)}.ds-btn-cream:hover .ds-ar svg{transform:translateX(4px)}.ds-btn-cream:active{transform:translateY(1px)}.ds-btn-cream:focus-visible{outline:2px solid var(--cream, #F8F4ED);outline-offset:3px}.ds-ar{display:grid;place-items:center;align-self:stretch;width:52px;margin:-10px -22px -10px 0;border-left:1.5px solid currentColor;flex:none;transition:background-color .2s}.ds-ar svg{width:16px;height:16px;transition:transform .2s cubic-bezier(.16,1,.3,1)}"
     },
     {
       "name": "Button · Line",
@@ -263,7 +263,7 @@
       "refersTo": "button-line",
       "description": "Secondary action beside a filled button; inherits the surface text colour.",
       "html": "<a class=\"ds-btn-line\" href=\"#\">RSVP on Luma<span class=\"ds-ar\"><svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 8h11M9 3.5 13.5 8 9 12.5\"/></svg></span></a>",
-      "css": ".ds-btn-line{display:inline-flex;align-items:center;gap:14px;min-height:48px;padding:8px 8px 8px 24px;border:1.5px solid transparent;border-radius:999px;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-weight:500;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;transition:transform .15s;background:transparent;color:var(--ink, #1A1A1A);border-color:currentColor}.ds-btn-line:hover{transform:translateY(-1px)}.ds-btn-line:hover .ds-ar svg{transform:translateX(3px)}.ds-btn-line:focus-visible{outline:2px solid var(--ink, #1A1A1A);outline-offset:3px}.ds-ar{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;border:1.5px solid currentColor;flex:none}.ds-ar svg{width:15px;height:15px;transition:transform .2s cubic-bezier(.16,1,.3,1)}"
+      "css": ".ds-btn-line{display:inline-flex;align-items:center;gap:18px;min-height:52px;padding:10px 22px;border:1.5px solid transparent;border-radius:0;font-family:var(--body, \"Inter\",system-ui,sans-serif);font-weight:500;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;transition:transform .15s;background:transparent;color:var(--ink, #1A1A1A);border-color:currentColor}.ds-btn-line:hover .ds-ar{background:color-mix(in srgb,currentColor 14%,transparent)}.ds-btn-line:hover .ds-ar svg{transform:translateX(4px)}.ds-btn-line:active{transform:translateY(1px)}.ds-btn-line:focus-visible{outline:2px solid var(--ink, #1A1A1A);outline-offset:3px}.ds-ar{display:grid;place-items:center;align-self:stretch;width:52px;margin:-10px -22px -10px 0;border-left:1.5px solid currentColor;flex:none;transition:background-color .2s}.ds-ar svg{width:16px;height:16px;transition:transform .2s cubic-bezier(.16,1,.3,1)}"
     },
     {
       "name": "Pills",
@@ -320,14 +320,14 @@
   ],
   "narrative": {
     "northStar": "The Chapter Book",
-    "overview": "Every page of SheWins opens like a chapter of its brand book. A full-width band in a brand colour carries a giant two-digit numeral, a tight display headline and one handwritten phrase. The content below reads like the book's index: hairline rows, each with a small uppercase label in a left column and the substance on the right. The system was designed by Messin Virginia from the SheWins brand book. `public/style.css` is that work, and later layers (fixes, responsive, motion) extend it without editing it.\n\nThe personality is editorial structure with a bold voice:\n\n- **Structure:** cream paper, ink type, 1px hairlines, underline-only fields and small uppercase labels. These keep the page calm and scannable.\n- **Voice:** the emotion comes from flat blocks of red, pink and the one brand gradient; oversized Archivo display type set tight; pill buttons that end in a circle arrow; and a single script phrase per chapter.\n\nDensity is generous: sections breathe (48–104px vertical), headlines are very large, and body copy stays short. Corners are square on everything that holds content, fully round on everything you press. Nothing floats: the page is flat, and depth comes from colour blocks, hairlines and the red frame around the next event.",
+    "overview": "Every page of SheWins opens like a chapter of its brand book. A full-width band in a brand colour carries a giant two-digit numeral, a tight display headline and one handwritten phrase. The content below reads like the book's index: hairline rows, each with a small uppercase label in a left column and the substance on the right. The system was designed by Messin Virginia from the SheWins brand book. `public/style.css` is that work, and later layers (fixes, responsive, motion) extend it without editing it.\n\nThe personality is editorial structure with a bold voice:\n\n- **Structure:** cream paper, ink type, 1px hairlines, underline-only fields and small uppercase labels. These keep the page calm and scannable.\n- **Voice:** the emotion comes from flat blocks of red, pink and the one brand gradient; oversized Archivo display type set tight; square buttons that end in an arrow cell; and a single script phrase per chapter.\n\nDensity is generous: sections breathe (48–104px vertical), headlines are very large, and body copy stays short. Corners are square on blocks and on every control; only the small tags are round. Nothing floats: the page is flat, and depth comes from colour blocks, hairlines and the red frame around the next event.",
     "keyCharacteristics": [
       "Chapter openers: a numeral (01–04), headline, script phrase and lead on a red, pink, gradient or cream band.",
       "Hairline rows with a 200px uppercase label column, stacked on phones.",
       "Archivo 700 at 96% width with negative tracking for all display type. Inter for everything you read.",
       "One script phrase per chapter (Wonderful Branding), always small and never for UI.",
       "Flat colour blocks and one 135° gradient. No shadows on content.",
-      "Square blocks and images, round pills and circle arrows.",
+      "Square blocks, images and controls. Only tags are round pills.",
       "Motion that writes, draws and settles: the script writes itself in, hairlines draw on scroll, and pages cross-fade. Reduced motion shows final states."
     ],
     "rules": [
@@ -382,8 +382,8 @@
         "section": "elevation"
       },
       {
-        "name": "The Square-and-Pill Rule",
-        "body": "Content containers are square and interactive controls are round. Nothing in between: no 8–16px rounded cards.",
+        "name": "The Square Controls Rule",
+        "body": "Blocks, images and every control are square. Only tags are round pills. Nothing in between: no 4–16px rounded buttons or cards. (Team decision, October 2026: replaces the brand book's round pill buttons and circle arrows.)",
         "section": "shapes"
       }
     ],
@@ -392,7 +392,7 @@
       "Do use only the approved text/background pairs: Cream on Red, Black on Pink, Red on Cream, Ink on Cream.",
       "Do open every main page with a chapter band (numeral, headline, one script phrase, lead).",
       "Do organise lists as hairline rows with the uppercase label in the left column.",
-      "Do end every action button with the 32px circle arrow.",
+      "Do end every action button with the square arrow cell, divided by a 1.5px rule.",
       "Do give the script room: a 0.3em indent, 0.3em above it and 1.45 line-height when it wraps.",
       "Do keep content visible by default. Motion only enhances, and `prefers-reduced-motion` shows final states.",
       "Do keep touch targets at 44px on the phone layout (menu, EN / ES, fields) and at least 24px everywhere."
@@ -400,7 +400,8 @@
     "donts": [
       "Don't put pink text on cream (2.3:1), or small cream text over the pink end of the gradient.",
       "Don't add shadows, glows, glass or blur to page content. The cookie banner is the only shadow.",
-      "Don't round content containers. Corners are 0 for blocks and images, and fully round for controls.",
+      "Don't round blocks, images or controls. Corners are 0 everywhere; fully round is for tags only.",
+      "Don't use text characters (→, ×, +) as icons. Arrows, close and FAQ toggles are drawn, in one stroke weight.",
       "Don't introduce new colours, tints or gradients, or put the brand gradient on text.",
       "Don't use the script for more than one short phrase per chapter, or for any UI text.",
       "Don't clip the script with overflow or a persistent clip-path; its loops reach past its box.",

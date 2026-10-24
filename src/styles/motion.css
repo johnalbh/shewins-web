@@ -127,14 +127,15 @@
 /* ---------- Feedback ---------- */
 
 .btn .ar svg,
-.go i,
+.go i svg,
 .posters figcaption span {
   transition: transform var(--dur-fast) var(--ease-out);
 }
-.btn:hover .ar svg { transform: translateX(3px); }
-.btn:active { transform: translateY(0) scale(0.98); }
-.start a:hover .go i,
-.prow:hover .go i { transform: translateX(3px); }
+/* The arrow steps forward inside its cell; a press sinks the block 1px. */
+.btn:hover .ar svg { transform: translateX(4px); }
+.btn:active { transform: translateY(1px); }
+.start a:hover .go i svg,
+.prow:hover .go i svg { transform: translateX(3px); }
 
 .nav a { transition: opacity var(--dur-fast) ease, border-color var(--dur-fast) ease; }
 
@@ -199,8 +200,8 @@ details::details-content {
     content-visibility 0.35s allow-discrete;
 }
 details[open]::details-content { block-size: auto; }
-summary::after { transition: transform 0.35s var(--ease-out); }
-details[open] summary::after { transform: rotate(180deg); }
+/* The drawn plus folds its vertical bar away to become a minus (controls.css). */
+summary::after { transition: background-size 0.35s var(--ease-out); }
 
 /* ---------- Reduced motion: no movement, final states straight away ---------- */
 
@@ -213,8 +214,8 @@ details[open] summary::after { transform: rotate(180deg); }
   }
   .btn:hover .ar svg,
   .btn:active,
-  .start a:hover .go i,
-  .prow:hover .go i,
+  .start a:hover .go i svg,
+  .prow:hover .go i svg,
   .posters figure a:hover img,
   .posters figure:hover figcaption span,
   .menu[hidden],
