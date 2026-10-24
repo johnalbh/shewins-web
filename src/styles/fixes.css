@@ -4,3 +4,11 @@
    The original rule was "form.done + .sent", but the error line (.ferr) sits between them in
    all five forms, so the thank-you never appeared. */
 form.done ~ .sent { display: block; }
+
+/* ---------- Adjustments requested by the team ---------- */
+
+/* Partners / sponsor / hosts: every name starts with "+". The original only put it between names
+   (span + span), so the first name of each row had none and, when a line wrapped, the "+" looked
+   attached to the end of the previous name. The wider gap keeps each "+" with its own name. */
+.names .vals { gap: 0 0.6em; }
+.names .vals span::before { content: "+"; font-weight: 400; padding-right: 0.35em; opacity: 0.6; }
