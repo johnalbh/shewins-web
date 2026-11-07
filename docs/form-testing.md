@@ -91,6 +91,10 @@ campaigns (see open points).
 | D5 | `dig +short TXT _dmarc.shewins.es` | A `v=DMARC1` record |
 | D6 | `dig +short TXT shewins.es` | One SPF record with `_spf.mlsend.com` |
 
+Some networks answer port 53 themselves and keep old answers, so `dig` can show a record as missing
+long after it is published. If `dig @192.0.2.1 example.com` answers, yours does: ask Google over
+HTTPS instead, `curl -s 'https://dns.google/resolve?name=_dmarc.shewins.es&type=TXT'`.
+
 ## Results, 7 November 2026
 
 Run locally against the real MailerLite account with Gmail aliases. The first three signups went to
@@ -105,24 +109,23 @@ the real groups before the Test group was wired in; they were deleted right afte
 | M5 | Pass. Name kept, confirmation sent again |
 | M6 | Pass. Nothing changed, no email |
 | M7 | MailerLite answers 422 "unsubscribed and cannot be imported"; the site shows a generic error |
-| M8 | Checked against a fake MailerSend only: no `MAILERSEND_API_KEY` yet |
+| M8 | Pass once MailerSend was set up the same day: contact and waitlist notifications sent, "[TEST]" subject, Reply-To the sender; in Gmail: Inbox, SPF, DKIM (`ms1`) and DMARC pass, all for `shewins.es` |
 | D1 | Pass for Gmail: every confirmation (9 that day) in Inbox, mostly Primary, marked important, within 2 seconds |
-| D2 | SPF pass, DKIM pass signed by `shewins.es`. **No DMARC** |
-| D4, D5 | **Fail**: no MX record and no DMARC record for `shewins.es` |
+| D2 | SPF pass, DKIM pass signed by `shewins.es`. DMARC pass since the record was added the same day |
+| D4, D5 | Failed in the morning (no MX, no DMARC). Fixed the same day: MX to Private Email, its DKIM (`privateemail._domainkey`) and `p=none` DMARC; a test email to `hola@` did not bounce |
+| Vercel preview deployment (Preview variables, Test group) | Pass: Letter, waitlist with and without the Letter box, contact. Subscribers only in Test, one confirmation each in Gmail's Inbox, notifications sent with no errors in the logs |
 | U1–U3, D3, Outlook, Yahoo | Not run yet |
 
 ## Open points
 
-1. **`shewins.es` has no MX record**, so `hola@shewins.es` and `agnieszka@shewins.es` cannot
-   receive mail. Replies to the confirmation emails bounce, and team notifications (`FORM_TO`)
-   would bounce. The SPF record includes `spf.privateemail.com`, so add the MX records of that
-   mailbox (Namecheap Private Email) in Namecheap's DNS.
-2. **No DMARC record.** Once the MX works, add `TXT _dmarc.shewins.es`
-   `v=DMARC1; p=none; rua=mailto:hola@shewins.es` and move to `p=quarantine` after a few weeks of
-   clean reports.
-3. **MailerSend is not set up.** `MAILERSEND_API_KEY` is not in Vercel, so the contact form answers
-   503 in production and waitlist notifications are skipped. No MailerSend DKIM record was found
-   for `shewins.es` either: verify the domain in MailerSend, add its DNS records, then the key.
+1. ~~No MX record~~. Done on 7 November: `mx1`/`mx2.privateemail.com`. Check that the mailboxes
+   `hola@` and `agnieszka@` exist in Private Email.
+2. ~~No DMARC record~~. Done on 7 November with `p=none`. Move to `p=quarantine` after a few weeks
+   of clean reports in `hola@`, and only once MailerSend signs with DKIM for `shewins.es`.
+3. **MailerSend in production.** The domain is verified (DKIM `ms1`/`ms2`, Return-Path `mta`) and
+   the token works locally. Until `MAILERSEND_API_KEY` is in Vercel and production is redeployed,
+   the contact form answers 503 there. The account is on a 14-day trial: switch it to the Free plan
+   before it ends.
 4. **Confirmation email.** One MailerLite template serves both lists. Its subject is
    "Confirmation email", it is in English only and it says "your interest in our newsletter" to
    waitlist signups too; the thank-you page is MailerLite's default. Edit it in MailerLite ›
