@@ -191,6 +191,18 @@
   .cb:not([hidden]) { transform: translateY(100%); }
 }
 
+/* Letter invitation card: slides up from the bottom edge, like the cookie banner, and back down
+   when closed. */
+.invite {
+  transition:
+    transform 0.45s var(--ease-out),
+    display 0.45s allow-discrete;
+}
+.invite[hidden] { transform: translateY(calc(100% + 32px)); }
+@starting-style {
+  .invite:not([hidden]) { transform: translateY(calc(100% + 32px)); }
+}
+
 /* Signup dialog: rises in while the backdrop fades in. Under reduced motion it simply appears. */
 @media (prefers-reduced-motion: no-preference) {
   .ask[open] { animation: sw-fade-up 0.35s var(--ease-out) both; }
@@ -229,13 +241,15 @@ summary::after { transition: background-size 0.35s var(--ease-out); }
   .posters figure:hover figcaption span,
   .menu[hidden],
   .menu nav a,
-  .cb[hidden] {
+  .cb[hidden],
+  .invite[hidden] {
     transform: none !important;
   }
   @starting-style {
     .menu:not([hidden]),
     .menu:not([hidden]) nav a,
-    .cb:not([hidden]) { transform: none; }
+    .cb:not([hidden]),
+    .invite:not([hidden]) { transform: none; }
   }
   ::view-transition-old(root),
   ::view-transition-new(root) { animation: none !important; }

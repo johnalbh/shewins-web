@@ -102,7 +102,8 @@ summary:focus-visible { border-radius: 0; }
 .ask h2 { font-size: clamp(30px, 4vw, 44px); line-height: 0.98; letter-spacing: -0.045em; padding-right: 52px; }
 .ask-to { margin-top: -4px; font-size: 15px; overflow-wrap: anywhere; }
 .ask-to b { font-weight: 600; }
-.ask .x {
+.ask .x,
+.invite .x {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -117,7 +118,8 @@ summary:focus-visible { border-radius: 0; }
   color: inherit;
   cursor: pointer;
 }
-.ask .x svg { width: 18px; height: 18px; }
+.ask .x svg,
+.invite .x svg { width: 18px; height: 18px; }
 .ask :focus-visible { outline-color: var(--ink); }
 .ask .chk input { accent-color: var(--red); }
 .ask .ferr { margin-top: 0; background: var(--red); color: var(--cream); }
@@ -134,3 +136,60 @@ summary:focus-visible { border-radius: 0; }
 .form .opts { display: flex; flex-wrap: wrap; column-gap: 32px; }
 .form .opts .chk { align-items: center; min-height: 44px; font-size: 16px; letter-spacing: normal; text-transform: none; font-weight: 400; cursor: pointer; }
 .form .opts .chk input { margin: 0; }
+
+/* ---------- Letter invitation card ---------- */
+
+/* A small card that invites visitors to The SheWins Letter and links to /letter (team request,
+   November 2026). It does not block the page: no backdrop, no focus trap, and it waits for the
+   cookie choice (src/scripts/letter-invite.js). It is a flat red block like the Letter band,
+   cream on red, with no shadow; a 2px ink border keeps it apart from whatever band it sits on,
+   red included. It sits above the header (50) and the sticky CTA (60), and below the menu (90)
+   and the cookie banner (120). On phones it becomes a strip along the bottom edge, like the
+   cookie banner, so it never covers the middle of the page. */
+.invite {
+  position: fixed;
+  z-index: 80;
+  right: max(16px, env(safe-area-inset-right, 0px));
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  width: min(380px, calc(100vw - 32px));
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  padding: 24px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--red);
+  color: var(--cream);
+}
+.invite[hidden] { display: none; }
+.invite .x { top: 10px; right: 10px; }
+.invite-t {
+  padding-right: 48px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-stretch: 96%;
+  letter-spacing: -0.04em;
+  font-size: clamp(24px, 2.2vw, 28px);
+  line-height: 1;
+}
+.invite-d { font-size: 15px; line-height: 1.5; }
+.invite .btn { margin-top: 6px; }
+.invite :focus-visible { outline-color: var(--cream); }
+@media (max-width: 639px) {
+  .invite {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    gap: 10px;
+    border-width: 2px 0 0;
+    padding: 18px max(var(--gut), env(safe-area-inset-right, 0px)) max(18px, env(safe-area-inset-bottom, 0px)) max(var(--gut), env(safe-area-inset-left, 0px));
+  }
+  /* Kept short on phones so it covers little of the screen: the label shares its line with the
+     close button, the sentence takes the full width, and the description is left to /letter. */
+  .invite .lab { display: flex; align-items: center; min-height: 44px; padding-right: 56px; }
+  .invite .x { top: 18px; right: max(var(--gut), env(safe-area-inset-right, 0px)); }
+  .invite-t { padding-right: 0; font-size: 22px; }
+  .invite-d { display: none; }
+  .invite .btn { margin-top: 4px; }
+}

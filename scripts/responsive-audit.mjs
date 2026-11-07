@@ -98,10 +98,12 @@ function inspect() {
 
 const browser = await chromium.launch({ channel: 'chrome' });
 const context = await browser.newContext({ reducedMotion: 'reduce', deviceScaleFactor: 1 });
-// Hide the cookie banner (its own check is below) so it does not cover the pages.
+// Hide the cookie banner (its own check is below) and the Letter invitation card, so neither
+// covers the pages or turns up in some screenshots and not others.
 await context.addInitScript(() => {
   try {
     localStorage.setItem('sw-consent', JSON.stringify({ an: false, mk: false, t: Date.now() }));
+    localStorage.setItem('sw-letter', JSON.stringify({ s: 'closed', t: Date.now() }));
   } catch {}
 });
 const page = await context.newPage();

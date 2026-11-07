@@ -50,6 +50,8 @@ $$('form[data-form]').forEach(function(f){
     ask.addEventListener('close',function(){if(sentOk)f.classList.add('done')});
   }
   function done(){
+    /* Announce the send: letter-invite.js stops inviting someone who has just subscribed. */
+    try{document.dispatchEvent(new CustomEvent('sw-form-sent',{detail:{form:f.getAttribute('data-form')}}))}catch(x){}
     if(!ask){f.classList.add('done');return}
     sentOk=true;
     var s=own('.sent'),box=$('.ask-done',ask);
