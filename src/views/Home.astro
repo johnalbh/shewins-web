@@ -3,6 +3,7 @@
 import Base from '../layouts/Base.astro';
 import NextEvent from '../components/events/NextEvent.astro';
 import PastEvents from '../components/events/PastEvents.astro';
+import LetterSignup from '../components/forms/LetterSignup.astro';
 import { localize, type Lang } from '../i18n';
 
 interface Props {
@@ -66,27 +67,7 @@ const { L, u } = localize(lang);
 <h2 class="l" style="margin-top:18px"><span class={lang}>{L("One idea. One tool. One woman. One opportunity.", "Una idea. Una herramienta. Una mujer. Una oportunidad.")}</span></h2></div>
 <div>
 <p class="lead"><span class={lang}>{L("A short email with what is worth your time, and what is happening in the community.", "Un email breve con lo que merece tu tiempo y lo que pasa en la comunidad.")}</span></p>
-<form class="form" data-form="letter" novalidate><input aria-hidden="true" autocomplete="off" id="em-website" name="website" style="position:absolute;left:-9999px" tabindex="-1" type="text" />
-<div class="inline-form"><label for="em-letter" style="position:absolute;left:-999px">Email</label>
-<input autocomplete="email" data-ph-en="Email" data-ph-es="Correo electrónico" id="em-letter" placeholder="Email" required type="email" />
-<button class="btn b-cream" type="submit"><span class={lang}>{L("Subscribe", "Suscribirme")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div>
-<dialog aria-labelledby="em-ask-t" class="ask">
-<button aria-label={L("Close", "Cerrar")} class="x" data-close type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"></path></svg></button>
-<div class="ask-q">
-<p class="lab"><span class={lang}>{L("The SheWins Letter", "La Letter de SheWins")}</span></p>
-<h2 id="em-ask-t"><span class={lang}>{L("Just two more questions.", "Solo dos preguntas más.")}</span></h2>
-<p class="ask-to"><span class={lang}>{L("We will write to", "Te escribiremos a")}</span> <b data-mail></b></p>
-<div class="fld"><label for="em-name"><span class={lang}>{L("Your name", "Tu nombre")}</span></label><input autocomplete="name" id="em-name" maxlength="40" required type="text" /></div>
-<fieldset class="fld"><legend><span class={lang}>{L("Send me emails in", "Quiero los emails en")}</span></legend><div class="opts"><label class="chk"><input checked={lang === "en"} name="em-lang" type="radio" value="en" /><span lang="en">English</span></label><label class="chk"><input checked={lang === "es"} name="em-lang" type="radio" value="es" /><span lang="es">Español</span></label></div></fieldset>
-<div><button class="btn b-red" type="submit"><span class={lang}>{L("Complete subscription", "Completar suscripción")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div>
-<p class="ferr" hidden role="alert"></p>
-</div>
-<div class="ask-done" role="status"></div>
-<div class="ask-end" hidden><button class="btn b-red" data-close type="button"><span class={lang}>{L("Close", "Cerrar")}</span></button></div>
-</dialog>
-</form>
-<p class="ferr" hidden role="alert"><span class={lang}>{L("Something went wrong. Please try again or email us.", "Algo ha fallado. Inténtalo de nuevo o escríbenos por email.")}</span></p><div class="sent" role="status"><b><span class={lang}>{L("Almost there.", "Ya casi está.")}</span></b><p><span class={lang}>{L("Check your inbox and confirm your email to start getting the Letter.", "Revisa tu bandeja de entrada y confirma tu email para empezar a recibir la Letter.")}</span></p></div>
-<p class="small" style="margin-top:16px"><span class={lang}>{L("Event updates and community news. Unsubscribe at any time.", "Novedades de eventos y de la comunidad. Puedes darte de baja cuando quieras.")}</span></p>
+<LetterSignup lang={lang} />
 </div>
 </div></div></section></div>
 </Base>
