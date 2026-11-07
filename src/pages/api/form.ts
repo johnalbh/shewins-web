@@ -26,6 +26,12 @@ const TIMEOUT_MS = 8_000;
 const MAILERLITE = env('MAILERLITE_API_URL') || 'https://connect.mailerlite.com/api';
 const MAILERSEND = env('MAILERSEND_API_URL') || 'https://api.mailersend.com/v1';
 
+// Tests never touch the real lists. In local dev and on Vercel preview deployments, a set
+// MAILERLITE_GROUP_TEST takes the place of every group. Production always uses the real groups,
+// even when the variable is set there, and a missing VERCEL_ENV counts as production.
+const TESTING = import.meta.env.DEV || env('VERCEL_ENV') === 'preview';
+const setting = (key: string) => (TESTING && key.startsWith('MAILERLITE_GROUP_') && env('MAILERLITE_GROUP_TEST')) || env(key);
+
 const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 
@@ -144,7 +150,7 @@ async function notify(s: Submission) {
     from: { email: env('FORM_FROM') || 'web@shewins.es', name: 'SheWins web' },
     to: [{ email: env('FORM_TO') || 'agnieszka@shewins.es' }],
     reply_to: { email: s.email },
-    subject: `New ${s.form} form`,
+    subject: `${TESTING ? '[TEST] ' : ''}New ${s.form} form`,
     html: `<table>${rows.map(([k, v]) => `<tr><td><b>${esc(k)}</b></td><td>${esc(v)}</td></tr>`).join('')}</table>`,
     text: rows.map(([k, v]) => `${k}: ${v}`).join('\n'),
   });
@@ -187,25 +193,27 @@ export const POST: APIRoute = async ({ request, url }) => {
   const s = parse(d);
   if ('invalid' in s) return fail(400, { invalid: s.invalid });
 
-  if (NEEDS[s.form].some((k) => !env(k))) {
+  if (NEEDS[s.form].some((k) => !setting(k))) {
     if (import.meta.env.DEV) {
       console.log('[form] (dev, not sent)', s);
       return Response.json({ ok: true, dev: true });
     }
-    console.error(`[form] ${s.form}: missing ${NEEDS[s.form].filter((k) => !env(k)).join(', ')}`);
+    console.error(`[form] ${s.form}: missing ${NEEDS[s.form].filter((k) => !setting(k)).join(', ')}`);
     return fail(503);
   }
 
   try {
     if (s.form === 'letter') {
-      await subscribe(s.email, [env('MAILERLITE_GROUP_NEWSLETTER')!], { name: s.name, language: s.language });
+      await subscribe(s.email, [setting('MAILERLITE_GROUP_NEWSLETTER')!], { name: s.name, language: s.language });
     } else if (s.form === 'waitlist') {
-      const groups = [env('MAILERLITE_GROUP_WAITLIST')!];
+      const groups = [setting('MAILERLITE_GROUP_WAITLIST')!];
       if (s.letter) {
-        const newsletter = env('MAILERLITE_GROUP_NEWSLETTER');
+        const newsletter = setting('MAILERLITE_GROUP_NEWSLETTER');
         // A missing newsletter group must not lose the waitlist signup; log it so it gets set.
-        if (newsletter) groups.push(newsletter);
-        else console.error('[form] waitlist: Letter box ticked but MAILERLITE_GROUP_NEWSLETTER is missing');
+        // In tests both are the Test group, which is sent once.
+        if (newsletter) {
+          if (!groups.includes(newsletter)) groups.push(newsletter);
+        } else console.error('[form] waitlist: Letter box ticked but MAILERLITE_GROUP_NEWSLETTER is missing');
       }
       // opted_in_at records when the consent box was ticked, as proof of consent (GDPR).
       await subscribe(s.email, groups, { name: s.name, language: s.language, stage: s.stage }, new Date());

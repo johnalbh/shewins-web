@@ -77,6 +77,7 @@ The tags must match the `articleBlocks` in `keystatic.config.ts`. `@markdoc/mark
 - The Letter form is one component, `src/components/forms/LetterSignup.astro`. Use it at most once per page: `api/form.ts` reads the fixed ids `em-letter`, `em-name` and `em-lang`. Other places link to `/letter` instead.
 - `site.js` fires `sw-form-sent` (`detail.form`, and `detail.data` with the fields sent) after a successful send. `src/scripts/letter-invite.js` listens for it, so the Letter invitation card (`LetterInvite.astro`) stops showing after a signup. The card skips the routes listed in its component and keeps its state in localStorage `sw-letter`.
 - With no API keys, dev logs the submission and returns ok. See `.env.example`.
+- `MAILERLITE_GROUP_TEST` (the MailerLite group "Test") replaces every group in `npm run dev` and on Vercel preview deployments, so tests never reach the real lists, which have real subscribers. Production ignores it, and a missing `VERCEL_ENV` counts as production. `docs/form-testing.md` lists every form and email check.
 - To test against fake APIs, point `MAILERLITE_API_URL` and `MAILERSEND_API_URL` at a local mock server. If a dev server is already running, Astro 7 refuses to start a second one unless you pass `astro dev --port <n> --ignore-lock`.
 
 **Brand font.** Wonderful Branding is licensed and must never be committed (it is gitignored). `scripts/fetch-brand-font.mjs` downloads it from `BRAND_FONT_URL` (Vercel Blob) at build time. For local work, copy it into `public/fonts/`.
