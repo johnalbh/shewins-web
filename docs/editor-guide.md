@@ -41,6 +41,15 @@ You don't need to do anything when an event is over. Every night the site moves 
 
 **Contact and links** → edit → **Save**. It changes everywhere on the site (footer and links).
 
+## Share the Letter
+
+The SheWins Letter has its own page, made to be shared on Instagram, WhatsApp or by email:
+
+- English: **www.shewins.es/letter**
+- Spanish: **www.shewins.es/es/letter**
+
+People subscribe there and choose whether they want the Letter in English or in Spanish. The site also invites visitors with a small card, and every blog article ends with a link to this page.
+
 ## Good to know
 
 - Every save is kept in the history, so nothing is lost. If something looks wrong, tell John and he can bring back the previous version.

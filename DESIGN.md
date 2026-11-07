@@ -335,7 +335,7 @@ To mark something as inactive or past, dim only large type (display, titles, num
 
 ## Elevation & Depth
 
-The system is flat. Depth comes from colour blocks meeting edge to edge, hairlines, and the red frame that holds the next event's pink panel. The sticky header is separated by a hairline, not a shadow. There are two exceptions. The cookie banner is a layer over the page, marked by a 2px ink top border and a soft upward shadow. The signup dialog sits over an ink backdrop at 72% (team decision, November 2026). The backdrop is the one translucent layer on the site, and the dialog itself stays flat, with no shadow.
+The system is flat. Depth comes from colour blocks meeting edge to edge, hairlines, and the red frame that holds the next event's pink panel. The sticky header is separated by a hairline, not a shadow. There are three exceptions. The cookie banner is a layer over the page, marked by a 2px ink top border and a soft upward shadow. The signup dialog sits over an ink backdrop at 72% (team decision, November 2026). The backdrop is the one translucent layer on the site, and the dialog itself stays flat, with no shadow. The Letter invitation card sits over the page too, as a flat red block held apart by a 2px ink border, with no shadow and no backdrop.
 
 ### Shadow Vocabulary
 
@@ -442,6 +442,17 @@ The reading page, centred as one composition.
 - **Text:** the opening paragraph is a lead, a size up. Pull quotes are red display type between two ink hairlines, with no side bar. Text selection is pink with black text.
 - **Reading progress:** a 3px red line along the top of the window fills as the article is read. It is scroll-driven, uses no script, and is hidden under reduced motion.
 - **Below 1100px:** one column; the share buttons follow the article in a 2×2 grid.
+- **The Letter:** the article ends, after the byline, with a row under a full ink hairline: the "The SheWins Letter" label, one display line ("Liked this article? Get one email a month with more like it.") and a red button to /letter.
+
+### Letter Invitation Card
+
+A small card that invites visitors to The SheWins Letter (team request, November 2026). It links to /letter and holds no form, so the Letter's fields appear only once on a page.
+
+- **Look:** a flat red block with cream text, 2px ink border, square corners and no shadow. It holds the label, one sentence in display type (24–28px), a short line in Inter and a cream button with the arrow cell. The drawn × is the same 44px square as in the signup dialog. No script: it is UI.
+- **Place:** fixed at the bottom right, 380px wide, 16px from the edges. Under 640px it is a full-width strip along the bottom edge with only a 2px ink top border, and the short line is dropped so it covers little of the screen. It sits above the header and the sticky CTA, below the menu and the cookie banner.
+- **When:** only after the cookie choice, and after 40% of the page is read or 20 seconds, whichever comes first. Never on /letter, Membership, the legal pages or the 404. It does not take focus, and it waits while the menu or a dialog is open.
+- **Closing:** the × or Esc. Closing it or following the link keeps it away for 30 days; a Letter signup keeps it away for good (localStorage `sw-letter`, listed in the cookie policy).
+- **Motion:** it slides up from the bottom edge like the cookie banner. Under reduced motion it simply appears.
 
 ### Colour-block Tiles
 
@@ -464,6 +475,7 @@ The reading page, centred as one composition.
 
 - **Don't** put pink text on cream (2.3:1), or small cream text over the pink end of the gradient.
 - **Don't** add shadows, glows, glass or blur to page content. The cookie banner is the only shadow.
+- **Don't** add pop-ups that block the page or ask for attention on arrival. The Letter invitation card is the only unrequested layer, and it follows its rules: after the cookie choice, never focused, gone for 30 days once closed.
 - **Don't** round blocks, images or controls. Corners are 0 everywhere; fully round is for tags only.
 - **Don't** use text characters (→, ×, +) as icons. Arrows, close and FAQ toggles are drawn, in one stroke weight.
 - **Don't** introduce new colours, tints or gradients, or put the brand gradient on text.

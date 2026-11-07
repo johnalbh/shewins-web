@@ -35,6 +35,7 @@ There is no test suite and no linter. `npm run build` is the type and content ch
 - an entry in `src/data/seo.json`;
 - the sitemap priority map in `src/pages/sitemap.xml.ts`;
 - `src/pages/llms.txt.ts` if it is a main page.
+- the page list in `scripts/responsive-audit.mjs`, or `--pages` cannot reach it.
 
 The `seo.json` key is the `route` prop of `Base.astro`. It is also the `body[data-route]` that the scripts read. `Base.astro` builds the whole `<head>` from it: canonical, hreflang, OG and JSON-LD. Blog posts pass `seo` and `path` overrides instead.
 
@@ -72,6 +73,8 @@ The tags must match the `articleBlocks` in `keystatic.config.ts`. `@markdoc/mark
 - The newsletter and waitlist forms show only the email at first. In `site.js`, a form that contains a `dialog.ask` opens that dialog on its first submit instead of sending. Validation skips fields inside a closed dialog. The form is then sent from the dialog, and the thank-you (`.sent`, copied in) shows there. The form switches to `.done` only when the dialog closes, because a `display: none` form would also hide its open dialog. A radio group is sent as `{name: checked value}`, and every other field as `{id: value}`.
 - Both signup forms ask for the name and the language of the emails (`em-lang`, `w-lang`). That chosen language, not the page language, is what goes to the MailerLite `language` field.
 - A field whose id ends in `-website` is a honeypot.
+- The Letter form is one component, `src/components/forms/LetterSignup.astro`. Use it at most once per page: `api/form.ts` reads the fixed ids `em-letter`, `em-name` and `em-lang`. Other places link to `/letter` instead.
+- `site.js` fires `sw-form-sent` (`detail.form`) after a successful send. `src/scripts/letter-invite.js` listens for it, so the Letter invitation card (`LetterInvite.astro`) stops showing after a signup. The card skips the routes listed in its component and keeps its state in localStorage `sw-letter`.
 - With no API keys, dev logs the submission and returns ok. See `.env.example`.
 - To test against fake APIs, point `MAILERLITE_API_URL` and `MAILERSEND_API_URL` at a local mock server. If a dev server is already running, Astro 7 refuses to start a second one unless you pass `astro dev --port <n> --ignore-lock`.
 

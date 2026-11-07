@@ -58,7 +58,7 @@ Event attendance and the membership waitlist remain supporting goals.
 ## Operating Context
 
 - **Events:** an in-person event every month, free. Talks, workshops and open conversations, each in Spanish, English or both. Registration is on Meetup (`meetup.com/she_wins_malaga`) and Luma (`luma.com/user/SheWins`). Venues are partner coworking and innovation spaces in Málaga and Marbella. Event posters are shared on Instagram (`@shewins.es`).
-- **Community channels:** The SheWins Letter ("One idea. One tool. One woman. One opportunity."), Instagram and LinkedIn.
+- **Community channels:** The SheWins Letter ("One idea. One tool. One woman. One opportunity."), a free email once a month, in English or Spanish as each subscriber chooses; Instagram and LinkedIn. The Letter has its own page to share: `www.shewins.es/letter` (Spanish: `www.shewins.es/es/letter`).
 - **Blog:** articles by the founders on confidence, perfectionism, self-talk, wellbeing, sleep and networking, each published in English and Spanish.
 - **Website operations:**
   - Content is edited in Keystatic Cloud (project `shewins-website/shewins-web`). Each save is a commit to `johnalbh/shewins-web`, and Vercel rebuilds the site.
