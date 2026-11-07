@@ -60,6 +60,25 @@
 .post ::selection,
 .post-head ::selection { background: var(--pink); color: var(--black); }
 
+/* ---------- The Letter, at the end of the article ---------- */
+
+/* Readers who reach the end are the likeliest to subscribe (team request, November 2026), so every
+   post ends with a link to /letter. It is a hairline row, not a card. .post p and .post a would
+   otherwise turn the label into body text and the button text red on red. */
+.post .post-letter { margin-top: 3em; padding-top: 26px; border-top: 1px solid var(--ink); }
+.post .post-letter .lab { font-size: 11px; line-height: 1.5; margin: 0; }
+.post .post-letter .pl-t {
+  font-family: var(--display);
+  font-weight: 700;
+  font-stretch: 96%;
+  letter-spacing: -0.035em;
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.1;
+  max-width: 26ch;
+  margin: 12px 0 22px;
+}
+.post .post-letter .btn.b-red { color: var(--cream); text-decoration: none; }
+
 /* ---------- Side column: author, reading time, share ---------- */
 
 .post-rail { margin-bottom: clamp(56px, 8vw, 112px); }
