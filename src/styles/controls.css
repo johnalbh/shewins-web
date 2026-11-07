@@ -76,3 +76,21 @@ details[open] summary::after { background-size: 12px 1.5px, 1.5px 0; }
 .start a:focus-visible,
 .prow:focus-visible,
 summary:focus-visible { border-radius: 0; }
+
+/* ---------- Signup questions: name and language of the emails ---------- */
+
+/* Newsletter: the form starts as the inline email field. The first "Subscribe" shows the two
+   questions below it, in place (no modal: nothing floats on this site), and the last button
+   sends. */
+.form .more { display: grid; gap: 18px; }
+.form .more[hidden],
+.form .btn[hidden] { display: none; }
+
+/* Language of the emails (newsletter and waitlist): two radio buttons under a field label. The
+   legend takes the style of .fld label, and each option reuses the .chk checkbox and is at least
+   44px tall so it is easy to tap. */
+.form fieldset.fld { border: 0; margin: 0; padding: 0; min-width: 0; }
+.form fieldset.fld legend { padding: 0; margin-bottom: 6px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; }
+.form .opts { display: flex; flex-wrap: wrap; column-gap: 32px; }
+.form .opts .chk { align-items: center; min-height: 44px; font-size: 16px; letter-spacing: normal; text-transform: none; font-weight: 400; cursor: pointer; }
+.form .opts .chk input { margin: 0; }

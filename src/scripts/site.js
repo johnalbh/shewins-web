@@ -43,15 +43,20 @@ $$('form[data-form]').forEach(function(f){
     e.preventDefault();
     var ok=true;
     $$('input[required],textarea[required]',f).forEach(function(i){
+      if(i.closest('[hidden]'))return;
       var bad=i.type==='checkbox'?!i.checked:!i.value.trim()||(i.type==='email'&&i.value.indexOf('@')<1);
       i.setAttribute('aria-invalid',bad?'true':'false');
       if(bad&&ok){ok=false;i.focus()}
     });
     if(!ok)return;
+    /* Two-step forms (newsletter): the first submit only checks the email, then shows the other
+       questions in place, hides the first button and moves focus to the first new field. */
+    var more=$('[data-more]',f);
+    if(more&&more.hidden){more.hidden=false;var nx=$('[data-next]',f);if(nx)nx.hidden=true;var first=$('input',more);if(first)first.focus();return}
     var kind=f.getAttribute('data-form'),cfg=(window.SW_FORMS||{}),url=cfg[kind];
     if(!url){f.classList.add('done');return}
     var data={form:kind,lang:document.documentElement.lang,page:location.href,sent:new Date().toISOString()};
-    $$('input,select,textarea',f).forEach(function(i){if(!i.id)return;data[i.id]=i.type==='checkbox'?i.checked:i.value});
+    $$('input,select,textarea',f).forEach(function(i){if(i.type==='radio'){if(i.checked)data[i.name]=i.value;return}if(!i.id)return;data[i.id]=i.type==='checkbox'?i.checked:i.value});
     var btn=$('button[type=submit]',f);if(btn)btn.disabled=true;
     var err=$('.ferr',f.parentNode);if(err)err.hidden=true;
     fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})

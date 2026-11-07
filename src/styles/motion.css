@@ -191,6 +191,9 @@
   .cb:not([hidden]) { transform: translateY(100%); }
 }
 
+/* Newsletter questions rise in when the first "Subscribe" shows them. */
+.form .more:not([hidden]) { animation: sw-fade-up 0.4s var(--ease-out) both; }
+
 /* FAQ answers open smoothly; the + / – mark turns as it changes. */
 details::details-content {
   block-size: 0;

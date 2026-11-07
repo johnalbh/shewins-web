@@ -80,8 +80,8 @@ function inspect() {
   const targets = all
     .filter((el) => el.matches('a[href], button, input:not([type=hidden]), select, textarea, summary, [role=button]') && !inline(el))
     .map((el) => {
-      // A label wrapping a checkbox counts as its target.
-      const box = (el.type === 'checkbox' && el.closest('label')) || el;
+      // A label wrapping a checkbox or a radio button counts as its target (clicking it selects it).
+      const box = ((el.type === 'checkbox' || el.type === 'radio') && el.closest('label')) || el;
       const r = box.getBoundingClientRect();
       return { el: label(el), w: Math.round(r.width), h: Math.round(r.height) };
     });

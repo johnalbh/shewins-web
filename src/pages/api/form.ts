@@ -1,125 +1,210 @@
 import type { APIRoute } from 'astro';
 
-// Receives the three site forms (same JSON as html/README.md §5):
+// Receives the three site forms, posted as JSON by src/scripts/site.js:
 //   letter   → MailerLite group "Newsletter" (double opt-in: MailerLite sends the confirmation)
 //   waitlist → MailerLite group "Waitlist" + a notification to the team (MailerSend)
 //   contact  → a notification to the team (MailerSend), reply-to the sender
 // Double opt-in is the MailerLite account setting "Double opt-in for API and integrations".
+//
+// The endpoint is public, so it trusts nothing the browser sends:
+//   - it accepts only JSON from a page of this same site, up to MAX_BODY;
+//   - each form keeps only its own fields, cut to a maximum length;
+//   - the consent time is the server's clock, not the browser's;
+//   - an email that is already in MailerLite is only added to the group. Its name and fields are
+//     never overwritten, so nobody can change a subscriber's data by typing her email.
+// The number of requests per IP is limited by a Vercel Firewall rule on /api/form (see README).
 export const prerender = false;
 
-const env = (key: string) => import.meta.env[key] ?? process.env[key];
+const env = (key: string): string | undefined => import.meta.env[key] || process.env[key];
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const str = (v: unknown, max = 500) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
-const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+// The longest form is contact, with a message of up to 5,000 characters.
+const MAX_BODY = 16_000;
+// A slow MailerLite or MailerSend must not hold the function open.
+const TIMEOUT_MS = 8_000;
 
 const MAILERLITE = env('MAILERLITE_API_URL') || 'https://connect.mailerlite.com/api';
 const MAILERSEND = env('MAILERSEND_API_URL') || 'https://api.mailersend.com/v1';
 
-type Payload = Record<string, unknown>;
+const str = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
+const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
 
-function validate(d: Payload): string | null {
+// "Where are you right now?" on the waitlist form. The browser sends the label in the page's
+// language; MailerLite always stores the English one, so one segment covers both languages.
+const STAGES = new Map(
+  [
+    ['Starting something', 'Empezando algo'],
+    ['Changing career', 'Cambiando de carrera'],
+    ['Growing a business', 'Haciendo crecer un negocio'],
+    ['Looking for opportunities', 'Buscando oportunidades'],
+    ['Looking for community', 'Buscando comunidad'],
+    ['Exploring what is next', 'Explorando qué viene'],
+  ].flatMap(([en, es]) => [
+    [en, en],
+    [es, en],
+  ]),
+);
+
+type Lang = 'en' | 'es';
+// lang is the language of the page the form was sent from; language is the one the person chose
+// for the emails, and the one stored in MailerLite.
+type Base = { lang: Lang; page: string; email: string };
+type Submission =
+  | (Base & { form: 'letter'; name: string; language: Lang })
+  | (Base & { form: 'waitlist'; name: string; language: Lang; stage: string })
+  | (Base & { form: 'contact'; name: string; type: string; organisation: string; message: string });
+
+const language = (v: unknown): Lang | null => (v === 'en' || v === 'es' ? v : null);
+
+/** Keeps only the fields of the form that was sent, or names the first invalid one. */
+function parse(d: Record<string, unknown>): Submission | { invalid: string } {
+  const base = { lang: language(d.lang) ?? 'en', page: str(d.page, 300) };
   switch (d.form) {
-    case 'waitlist':
-      if (!str(d['w-name'])) return 'name';
-      if (!EMAIL.test(str(d['w-mail']))) return 'email';
-      if (d['w-ok'] !== true) return 'consent';
-      return null;
-    case 'contact':
-      if (!str(d['c-name'])) return 'name';
-      if (!EMAIL.test(str(d['c-mail']))) return 'email';
-      if (!str(d['c-msg'], 5000)) return 'message';
-      return null;
-    case 'letter':
-      return EMAIL.test(str(d['em-letter'])) ? null : 'email';
+    case 'letter': {
+      const name = str(d['em-name'], 80);
+      const email = str(d['em-letter'], 254);
+      const lang = language(d['em-lang']);
+      if (!EMAIL.test(email)) return { invalid: 'email' };
+      if (!name) return { invalid: 'name' };
+      if (!lang) return { invalid: 'language' };
+      return { form: 'letter', ...base, email, name, language: lang };
+    }
+    case 'waitlist': {
+      const name = str(d['w-name'], 80);
+      const email = str(d['w-mail'], 254);
+      const lang = language(d['w-lang']);
+      if (!name) return { invalid: 'name' };
+      if (!EMAIL.test(email)) return { invalid: 'email' };
+      if (!lang) return { invalid: 'language' };
+      if (d['w-ok'] !== true) return { invalid: 'consent' };
+      return { form: 'waitlist', ...base, email, name, language: lang, stage: STAGES.get(str(d['w-where'], 80)) ?? '' };
+    }
+    case 'contact': {
+      const name = str(d['c-name'], 120);
+      const email = str(d['c-mail'], 254);
+      const message = str(d['c-msg'], 5000);
+      if (!name) return { invalid: 'name' };
+      if (!EMAIL.test(email)) return { invalid: 'email' };
+      if (!message) return { invalid: 'message' };
+      return { form: 'contact', ...base, email, name, message, type: str(d['c-type'], 80), organisation: str(d['c-org'], 160) };
+    }
     default:
-      return 'form';
+      return { invalid: 'form' };
   }
 }
 
-async function post(url: string, token: string, body: unknown) {
+async function call(method: 'GET' | 'POST', url: string, token: string, body?: unknown) {
   return fetch(url, {
-    method: 'POST',
+    method,
     headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json', accept: 'application/json' },
-    body: JSON.stringify(body),
+    body: body === undefined ? undefined : JSON.stringify(body),
+    signal: AbortSignal.timeout(TIMEOUT_MS),
   });
 }
 
 // "2026-10-24T10:00:00.000Z" → "2026-10-24 10:00:00", the format MailerLite expects.
-const mlDate = (iso: string) => (iso ? new Date(iso).toISOString().slice(0, 19).replace('T', ' ') : undefined);
+const mlDate = (d: Date) => d.toISOString().slice(0, 19).replace('T', ' ');
 
-/** Adds or updates a subscriber in a MailerLite group (an upsert: an existing email is fine). */
-async function subscribe(email: string, group: string, fields: Record<string, string>, optedInAt?: string) {
-  const body = (f: Record<string, string>) => ({ email, groups: [group], fields: f, ...(optedInAt ? { opted_in_at: optedInAt } : {}) });
-  let res = await post(`${MAILERLITE}/subscribers`, env('MAILERLITE_API_KEY'), body(fields));
+/**
+ * Adds an email to a MailerLite group.
+ * - A new email is created with its fields and consent time. MailerLite then sends the
+ *   double opt-in email.
+ * - An existing email is only added to the group. Its name, fields and status stay as they are,
+ *   and an email that unsubscribed stays unsubscribed.
+ */
+async function subscribe(email: string, group: string, fields: Record<string, string>, optedInAt?: Date) {
+  const key = env('MAILERLITE_API_KEY')!;
+  const found = await call('GET', `${MAILERLITE}/subscribers/${encodeURIComponent(email)}`, key);
+  if (found.ok) {
+    const res = await call('POST', `${MAILERLITE}/subscribers`, key, { email, groups: [group] });
+    if (!res.ok) throw new Error(`MailerLite add to group ${res.status}: ${await res.text()}`);
+    return;
+  }
+  if (found.status !== 404) throw new Error(`MailerLite lookup ${found.status}: ${await found.text()}`);
+
+  const body = (f: Record<string, string>) => ({ email, groups: [group], fields: f, ...(optedInAt ? { opted_in_at: mlDate(optedInAt) } : {}) });
+  let res = await call('POST', `${MAILERLITE}/subscribers`, key, body(fields));
   // 422 can mean a custom field (language, stage) is not created in MailerLite yet. Keep the
   // signup anyway with the default name field, and log it so the field gets added.
   if (res.status === 422) {
     console.warn('[form] MailerLite rejected custom fields, retrying with name only:', await res.text());
-    res = await post(`${MAILERLITE}/subscribers`, env('MAILERLITE_API_KEY'), body(fields.name ? { name: fields.name } : {}));
+    res = await call('POST', `${MAILERLITE}/subscribers`, key, body(fields.name ? { name: fields.name } : {}));
   }
-  if (!res.ok) throw new Error(`MailerLite ${res.status}: ${await res.text()}`);
+  if (!res.ok) throw new Error(`MailerLite create ${res.status}: ${await res.text()}`);
 }
 
 /** Emails the form contents to the team through MailerSend. */
-async function notify(d: Payload, replyTo: string) {
-  const rows = Object.entries(d)
-    .filter(([k]) => !k.endsWith('-website'))
-    .map(([k, v]) => `<tr><td><b>${esc(k)}</b></td><td>${esc(String(v))}</td></tr>`)
-    .join('');
-  const text = Object.entries(d)
-    .filter(([k]) => !k.endsWith('-website'))
-    .map(([k, v]) => `${k}: ${String(v)}`)
-    .join('\n');
-  const res = await post(`${MAILERSEND}/email`, env('MAILERSEND_API_KEY'), {
+async function notify(s: Submission) {
+  const rows = Object.entries(s);
+  const res = await call('POST', `${MAILERSEND}/email`, env('MAILERSEND_API_KEY')!, {
     from: { email: env('FORM_FROM') || 'web@shewins.es', name: 'SheWins web' },
     to: [{ email: env('FORM_TO') || 'agnieszka@shewins.es' }],
-    reply_to: { email: replyTo },
-    subject: `New ${d.form} form`,
-    html: `<table>${rows}</table>`,
-    text,
+    reply_to: { email: s.email },
+    subject: `New ${s.form} form`,
+    html: `<table>${rows.map(([k, v]) => `<tr><td><b>${esc(k)}</b></td><td>${esc(v)}</td></tr>`).join('')}</table>`,
+    text: rows.map(([k, v]) => `${k}: ${v}`).join('\n'),
   });
-  if (res.status !== 202 && !res.ok) throw new Error(`MailerSend ${res.status}: ${await res.text()}`);
+  if (!res.ok) throw new Error(`MailerSend ${res.status}: ${await res.text()}`);
 }
 
-export const POST: APIRoute = async ({ request }) => {
-  let d: Payload;
+const NEEDS = {
+  letter: ['MAILERLITE_API_KEY', 'MAILERLITE_GROUP_NEWSLETTER'],
+  waitlist: ['MAILERLITE_API_KEY', 'MAILERLITE_GROUP_WAITLIST'],
+  contact: ['MAILERSEND_API_KEY'],
+};
+
+const fail = (status: number, extra: Record<string, unknown> = {}) => Response.json({ ok: false, ...extra }, { status });
+
+export const POST: APIRoute = async ({ request, url }) => {
+  // Only the site's own pages may post. Browsers always send Origin on a POST, and a JSON body
+  // from another site needs a CORS preflight, which this endpoint never grants. The host is
+  // compared rather than the full origin, so the check does not depend on the proxy's scheme.
+  const origin = request.headers.get('origin');
+  let originHost = '';
   try {
-    d = await request.json();
+    originHost = origin ? new URL(origin).host : '';
+  } catch {}
+  if (originHost !== url.host) return fail(403);
+  if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return fail(415);
+
+  const raw = await request.text();
+  if (raw.length > MAX_BODY) return fail(413);
+  let d: Record<string, unknown>;
+  try {
+    d = JSON.parse(raw);
+    if (!d || typeof d !== 'object' || Array.isArray(d)) throw new Error('not an object');
   } catch {
-    return Response.json({ ok: false }, { status: 400 });
+    return fail(400);
   }
 
   // Honeypot: a hidden field people never see. Bots fill it; pretend it worked.
   if (Object.entries(d).some(([k, v]) => k.endsWith('-website') && v)) return Response.json({ ok: true });
 
-  const invalid = validate(d);
-  if (invalid) return Response.json({ ok: false, invalid }, { status: 400 });
+  const s = parse(d);
+  if ('invalid' in s) return fail(400, { invalid: s.invalid });
 
-  const needs = { letter: ['MAILERLITE_API_KEY'], waitlist: ['MAILERLITE_API_KEY'], contact: ['MAILERSEND_API_KEY'] }[d.form as string]!;
-  if (needs.some((k) => !env(k))) {
+  if (NEEDS[s.form].some((k) => !env(k))) {
     if (import.meta.env.DEV) {
-      console.log('[form] (dev, not sent)', d);
+      console.log('[form] (dev, not sent)', s);
       return Response.json({ ok: true, dev: true });
     }
-    return Response.json({ ok: false }, { status: 503 });
+    console.error(`[form] ${s.form}: missing ${NEEDS[s.form].filter((k) => !env(k)).join(', ')}`);
+    return fail(503);
   }
 
-  const language = d.lang === 'es' ? 'es' : 'en';
   try {
-    if (d.form === 'letter') {
-      await subscribe(str(d['em-letter']), env('MAILERLITE_GROUP_NEWSLETTER'), { language });
-    } else if (d.form === 'waitlist') {
-      const email = str(d['w-mail']);
-      // opted_in_at keeps the time of the consent box as proof of consent (GDPR).
-      await subscribe(email, env('MAILERLITE_GROUP_WAITLIST'), { name: str(d['w-name']), language, stage: str(d['w-where']) }, mlDate(str(d.sent)));
+    if (s.form === 'letter') {
+      await subscribe(s.email, env('MAILERLITE_GROUP_NEWSLETTER')!, { name: s.name, language: s.language });
+    } else if (s.form === 'waitlist') {
+      // opted_in_at records when the consent box was ticked, as proof of consent (GDPR).
+      await subscribe(s.email, env('MAILERLITE_GROUP_WAITLIST')!, { name: s.name, language: s.language, stage: s.stage }, new Date());
       // The signup is stored; the team notification is best effort and must not fail it.
-      if (env('MAILERSEND_API_KEY')) await notify(d, email).catch((err) => console.error('[form] notification', err));
+      if (env('MAILERSEND_API_KEY')) await notify(s).catch((err) => console.error('[form] notification', err));
     } else {
-      await notify(d, str(d['c-mail']));
+      await notify(s);
     }
     return Response.json({ ok: true });
   } catch (err) {
-    console.error('[form]', err);
-    return Response.json({ ok: false }, { status: 502 });
+    console.error(`[form] ${s.form}`, err);
+    return fail(502);
   }
 };

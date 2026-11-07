@@ -389,6 +389,8 @@ The editorial block: square like the colour blocks, and always pointing forward.
 - **Focus:** the underline thickens to 3px. There is no glow.
 - **Error:** the underline turns pink at 3px. A cream error line in red text appears under the form.
 - **Checkbox:** a native 20px box with an accent colour.
+- **Choice of two (radio):** the language of the emails. It uses a fieldset whose legend is styled like a field label, and the options sit side by side on one line. Each option is a `.chk` label (native 20px radio and 16px text), at least 44px tall, and the whole label is the tap target. The page language is selected by default.
+- **Signup in two steps (newsletter):** the band first shows only the inline email field and the button. The first submit checks the email and then opens the other questions in place, under the email: a short sentence, then name, language and the final button. The questions rise in with `sw-fade-up`. There is no modal: nothing floats.
 
 ### Disclosure (FAQ)
 
