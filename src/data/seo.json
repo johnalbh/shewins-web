@@ -558,6 +558,75 @@
       }
     }
   },
+  "letter": {
+    "path": "/letter",
+    "en": {
+      "title": "The SheWins Letter | One email a month",
+      "description": "One idea, one tool, one woman and one opportunity, once a month. The SheWins Letter is free, in English or Spanish, and you can unsubscribe at any time.",
+      "ogType": "website",
+      "jsonLd": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@id": "https://www.shewins.es/#org",
+            "@type": "Organization",
+            "name": "SheWins",
+            "url": "https://www.shewins.es/"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "SheWins",
+                "item": "https://www.shewins.es/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "The SheWins Letter",
+                "item": "https://www.shewins.es/letter"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "es": {
+      "title": "La Letter de SheWins | Un email al mes",
+      "description": "Una idea, una herramienta, una mujer y una oportunidad, una vez al mes. La Letter de SheWins es gratuita, en inglés o en español, y puedes darte de baja cuando quieras.",
+      "ogType": "website",
+      "jsonLd": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@id": "https://www.shewins.es/#org",
+            "@type": "Organization",
+            "name": "SheWins",
+            "url": "https://www.shewins.es/"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "SheWins",
+                "item": "https://www.shewins.es/es"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "La Letter de SheWins",
+                "item": "https://www.shewins.es/es/letter"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
   "privacy": {
     "path": "/privacy",
     "en": {

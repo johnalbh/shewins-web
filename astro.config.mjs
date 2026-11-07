@@ -12,6 +12,8 @@ export default defineConfig({
   build: { format: 'file' },
   // Keep the whitespace of the original markup as it is (inline spacing in the designer's HTML).
   compressHTML: false,
+  // The Letter page is /letter, but people type "newsletter" when they guess the link.
+  redirects: { '/newsletter': '/letter', '/es/newsletter': '/es/letter' },
   integrations: [react(), keystatic()],
   adapter: vercel(),
 });

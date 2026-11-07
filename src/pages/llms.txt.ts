@@ -4,7 +4,7 @@ import { SITE, localePath } from '../i18n';
 import { getPosts, getSettings } from '../lib/content';
 
 // Plain summary for AI assistants, built from the same data as the pages (was html/llms.txt).
-const MAIN = ['home', 'about', 'events', 'membership', 'blog', 'partners'] as const;
+const MAIN = ['home', 'about', 'events', 'membership', 'blog', 'letter', 'partners'] as const;
 const LEGAL = ['privacy', 'legal', 'cookies'] as const;
 
 export const GET: APIRoute = async () => {
@@ -24,7 +24,7 @@ export const GET: APIRoute = async () => {
 
 > ${seo.home.en.description} Run by Asociación She Wins, Málaga, Spain. Content available in English and Spanish (Spanish under /es).
 
-SheWins offers a free in-person event every month, workshops, and a membership (waitlist open). Contact: ${contacts}. Instagram: ${settings.instagram}
+SheWins offers a free in-person event every month, workshops, a membership (waitlist open) and The SheWins Letter, a free monthly email in English or Spanish. Contact: ${contacts}. Instagram: ${settings.instagram}
 
 ## Main pages
 ${main.join('\n')}

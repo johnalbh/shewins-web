@@ -22,7 +22,7 @@ const OUT = path.resolve(arg('out', 'audit/run'));
 const ONLY = arg('pages', '');
 
 const SLUGS = fs.readdirSync(path.resolve('src/content/posts'));
-const PAGES = ['/', '/about', '/events', '/membership', '/partners', '/blog', '/privacy', '/legal', '/cookies', ...SLUGS.map((s) => `/blog/${s}`)]
+const PAGES = ['/', '/about', '/events', '/membership', '/partners', '/blog', '/letter', '/privacy', '/legal', '/cookies', ...SLUGS.map((s) => `/blog/${s}`)]
   .flatMap((p) => [p, p === '/' ? '/es' : `/es${p}`])
   .filter((p) => !ONLY || ONLY.split(',').includes(p));
 

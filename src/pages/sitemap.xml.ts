@@ -4,7 +4,7 @@ import { SITE, alternatesFor } from '../i18n';
 import { getPosts } from '../lib/content';
 
 // Same shape as the original sitemap.xml: one <url> per page and language, with hreflang alternates.
-const PRIORITY: Record<string, string> = { home: '1.0', about: '0.8', events: '0.8', membership: '0.8', blog: '0.8', partners: '0.6', privacy: '0.5', legal: '0.5', cookies: '0.5' };
+const PRIORITY: Record<string, string> = { home: '1.0', about: '0.8', events: '0.8', membership: '0.8', blog: '0.8', letter: '0.7', partners: '0.6', privacy: '0.5', legal: '0.5', cookies: '0.5' };
 
 export const GET: APIRoute = async () => {
   const posts = await getPosts();

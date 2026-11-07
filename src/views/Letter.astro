@@ -1,0 +1,43 @@
+---
+// The SheWins Letter landing page: one link (/letter, /es/letter) the team can share on its own,
+// on Instagram, WhatsApp or by email. The signup is the main action, so it follows the lead in the
+// chapter opener. Below it, what each Letter holds and the questions people ask before signing up.
+import Base from '../layouts/Base.astro';
+import LetterSignup from '../components/forms/LetterSignup.astro';
+import { localize, type Lang } from '../i18n';
+import { getSettings } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L, u } = localize(lang);
+const settings = await getSettings();
+---
+
+<Base lang={lang} route="letter">
+<div class="page on" id="p-letter">
+<section class="open o-red"><div aria-hidden="true" class="n">06</div><div class="t"><h1><span class={lang}>{L("One idea. One tool. One woman. One opportunity.", "Una idea. Una herramienta. Una mujer. Una oportunidad.")}</span></h1><span class="script"><span class={lang}>{L("once a month", "una vez al mes")}</span></span><p class="lead"><span class={lang}>{L("A short email with what is worth your time, and what is happening in the community. In English or Spanish, you choose.", "Un email breve con lo que merece tu tiempo y lo que pasa en la comunidad. En inglés o en español, tú eliges.")}</span></p>
+<div class="letter-signup">
+<LetterSignup lang={lang} />
+</div></div></section>
+<section class="sec s-cream"><div class="w">
+<div class="head"><p class="lab"><span class={lang}>{L("In every Letter", "En cada Letter")}</span></p><h2 class="l" style="max-width:14ch"><span class={lang}>{L("Short, useful, once a month.", "Breve, útil, una vez al mes.")}</span></h2></div>
+<div class="rw"><p class="lab"><span class={lang}>{L("One idea", "Una idea")}</span></p><div><h3><span class={lang}>{L("Something worth thinking about this month.", "Algo en lo que merece la pena pensar este mes.")}</span></h3></div></div>
+<div class="rw"><p class="lab"><span class={lang}>{L("One tool", "Una herramienta")}</span></p><div><h3><span class={lang}>{L("Something practical you can use straight away.", "Algo práctico que puedes usar desde ya.")}</span></h3></div></div>
+<div class="rw"><p class="lab"><span class={lang}>{L("One woman", "Una mujer")}</span></p><div><h3><span class={lang}>{L("A woman worth knowing, and what her path can teach us.", "Una mujer a la que merece la pena conocer, y lo que su camino nos enseña.")}</span></h3></div></div>
+<div class="rw"><p class="lab"><span class={lang}>{L("One opportunity", "Una oportunidad")}</span></p><div><h3><span class={lang}>{L("An event, a call or a programme you can say yes to.", "Un evento, una convocatoria o un programa al que puedes decir que sí.")}</span></h3></div></div>
+<div class="rw"><p class="lab"><span class={lang}>{L("And more", "Y además")}</span></p><div><h3><span class={lang}>{L("What is coming up in the community, starting with the next free event.", "Lo que viene en la comunidad, empezando por el próximo evento gratuito.")}</span></h3></div></div>
+</div></section>
+<section class="sec s-white"><div class="w">
+<div class="head"><p class="lab"><span class={lang}>{L("Questions", "Preguntas")}</span></p><h2 class="l"><span class={lang}>{L("Good to know.", "Bueno saber.")}</span></h2></div>
+<details><summary><span class={lang}>{L("How often does it arrive?", "¿Cada cuánto llega?")}</span></summary><p><span class={lang}>{L("Once a month, and the email is short.", "Una vez al mes, y el email es breve.")}</span></p></details>
+<details><summary><span class={lang}>{L("In English or in Spanish?", "¿En inglés o en español?")}</span></summary><p><span class={lang}>{L("You choose. After your email we ask which language you want the Letter in.", "Tú eliges. Después de tu email te preguntamos en qué idioma quieres recibir la Letter.")}</span></p></details>
+<details><summary><span class={lang}>{L("Is it free?", "¿Es gratis?")}</span></summary><p><span class={lang}>{L("Yes. You only need an email address.", "Sí. Solo necesitas un email.")}</span></p></details>
+<details><summary><span class={lang}>{L("What happens to my data?", "¿Qué pasa con mis datos?")}</span></summary><p><span class={lang}>{L("We keep your name, your email and the language you chose, only to send you the Letter, until you unsubscribe. ", "Guardamos tu nombre, tu email y el idioma que elegiste, solo para enviarte la Letter, hasta que te des de baja. ")}<a href={u("/privacy")}>{L("Read our privacy policy", "Lee nuestra política de privacidad")}</a>.</span></p></details>
+<details><summary><span class={lang}>{L("How do I unsubscribe?", "¿Cómo me doy de baja?")}</span></summary><p><span class={lang}>{L("Every Letter has an unsubscribe link at the bottom. One click is enough.", "Cada Letter tiene un enlace para darte de baja al final. Basta con un clic.")}</span></p></details>
+<details><summary><span class={lang}>{L("I did not get the confirmation email.", "No me ha llegado el email de confirmación.")}</span></summary><p><span class={lang}>{L("Check your spam or promotions folder. If it is not there, write to us at ", "Revisa la carpeta de spam o de promociones. Si no está, escríbenos a ")}<a href={`mailto:${settings.email}`}>{settings.email}</a>.</span></p></details>
+</div></section>
+</div>
+</Base>
