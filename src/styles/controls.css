@@ -77,14 +77,54 @@ details[open] summary::after { background-size: 12px 1.5px, 1.5px 0; }
 .prow:focus-visible,
 summary:focus-visible { border-radius: 0; }
 
-/* ---------- Signup questions: name and language of the emails ---------- */
+/* ---------- Signup dialog: newsletter and waitlist ---------- */
 
-/* Newsletter: the form starts as the inline email field. The first "Subscribe" shows the two
-   questions below it, in place (no modal: nothing floats on this site), and the last button
-   sends. */
-.form .more { display: grid; gap: 18px; }
-.form .more[hidden],
-.form .btn[hidden] { display: none; }
+/* The signup forms start with the email only. Their first button opens this dialog with the other
+   questions; the form is sent from here and the confirmation shows here (team decision, November
+   2026). It keeps the system: a flat cream block with square corners and no shadow, ink text and
+   red actions. The backdrop is the site's one translucent layer, so the page stays in view.
+   In the markup the dialog sits inside the red band, so the band's cream focus ring and cream
+   checkbox accent are set back to ink and red here. */
+.ask {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  padding: clamp(28px, 4vw, 44px);
+  border: 0;
+  border-radius: 0;
+  background: var(--cream);
+  color: var(--ink);
+}
+.ask::backdrop { background: rgba(26, 26, 26, 0.72); }
+.ask [hidden] { display: none; }
+.ask-q { display: grid; gap: 18px; }
+.ask-q .lab + h2 { margin-top: -8px; }
+.ask h2 { font-size: clamp(30px, 4vw, 44px); line-height: 0.98; letter-spacing: -0.045em; padding-right: 52px; }
+.ask-to { margin-top: -4px; font-size: 15px; overflow-wrap: anywhere; }
+.ask-to b { font-weight: 600; }
+.ask .x {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1.5px solid currentColor;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.ask .x svg { width: 18px; height: 18px; }
+.ask :focus-visible { outline-color: var(--ink); }
+.ask .chk input { accent-color: var(--red); }
+.ask .ferr { margin-top: 0; background: var(--red); color: var(--cream); }
+/* The confirmation is the form's own thank-you (.sent), copied in by site.js. */
+.ask .sent { display: block; padding: 0 52px 0 0; border-top: 0; }
+.ask-end { margin-top: 24px; }
+.ask-end .btn { padding: 6px 22px; }
 
 /* Language of the emails (newsletter and waitlist): two radio buttons under a field label. The
    legend takes the style of .fld label, and each option reuses the .chk checkbox and is at least

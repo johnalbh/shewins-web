@@ -60,13 +60,26 @@ const { L, u } = localize(lang);
 <div><p class="lab"><span class={lang}>{L("Waitlist", "Lista de espera")}</span></p><h2 class="xl" style="margin-top:18px"><span class={lang}>{L("Be first in line.", "Sé la primera.")}</span></h2><p class="lead" style="margin-top:22px"><span class={lang}>{L("We will email you when membership opens, with founding member details.", "Te escribiremos cuando abra la membresía, con los detalles para miembros fundadoras.")}</span></p></div>
 <div>
 <form class="form" data-form="waitlist" novalidate><input aria-hidden="true" autocomplete="off" id="w-website" name="website" style="position:absolute;left:-9999px" tabindex="-1" type="text" />
+<div class="inline-form"><label for="w-mail" style="position:absolute;left:-999px">Email</label>
+<input autocomplete="email" data-ph-en="Email" data-ph-es="Correo electrónico" id="w-mail" placeholder="Email" required type="email" />
+<button class="btn b-cream" type="submit"><span class={lang}>{L("Join the waitlist", "Unirme a la lista de espera")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div>
+<dialog aria-labelledby="w-ask-t" class="ask">
+<button aria-label={L("Close", "Cerrar")} class="x" data-close type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"></path></svg></button>
+<div class="ask-q">
+<p class="lab"><span class={lang}>{L("Waitlist", "Lista de espera")}</span></p>
+<h2 id="w-ask-t"><span class={lang}>{L("Tell us a little about you.", "Cuéntanos un poco sobre ti.")}</span></h2>
+<p class="ask-to"><span class={lang}>{L("We will write to", "Te escribiremos a")}</span> <b data-mail></b></p>
 <div class="fld"><label for="w-name"><span class={lang}>{L("Name", "Nombre")}</span></label><input autocomplete="name" id="w-name" maxlength="40" required type="text" /></div>
-<div class="fld"><label for="w-mail">Email</label><input autocomplete="email" id="w-mail" required type="email" /></div>
 <fieldset class="fld"><legend><span class={lang}>{L("Send me emails in", "Quiero los emails en")}</span></legend><div class="opts"><label class="chk"><input checked={lang === "en"} name="w-lang" type="radio" value="en" /><span lang="en">English</span></label><label class="chk"><input checked={lang === "es"} name="w-lang" type="radio" value="es" /><span lang="es">Español</span></label></div></fieldset>
 <div class="fld"><label for="w-where"><span class={lang}>{L("Where are you right now?", "¿Dónde estás ahora mismo?")}</span></label><select id="w-where">
 <option data-en="Starting something" data-es="Empezando algo">Starting something</option><option data-en="Changing career" data-es="Cambiando de carrera">Changing career</option><option data-en="Growing a business" data-es="Haciendo crecer un negocio">Growing a business</option><option data-en="Looking for opportunities" data-es="Buscando oportunidades">Looking for opportunities</option><option data-en="Looking for community" data-es="Buscando comunidad">Looking for community</option><option data-en="Exploring what is next" data-es="Explorando qué viene">Exploring what is next</option></select></div>
 <label class="chk" for="w-ok"><input id="w-ok" required type="checkbox" /><span><span class={lang}>{L("I agree to receive emails about SheWins membership. I can unsubscribe at any time.", "Acepto recibir emails sobre la membresía de SheWins. Puedo darme de baja cuando quiera.")}</span></span></label>
-<div><button class="btn b-cream" type="submit"><span class={lang}>{L("Join the waitlist", "Unirme a la lista de espera")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div>
+<div><button class="btn b-red" type="submit"><span class={lang}>{L("Join the waitlist", "Unirme a la lista de espera")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div>
+<p class="ferr" hidden role="alert"></p>
+</div>
+<div class="ask-done" role="status"></div>
+<div class="ask-end" hidden><button class="btn b-red" data-close type="button"><span class={lang}>{L("Close", "Cerrar")}</span></button></div>
+</dialog>
 </form>
 <p class="ferr" hidden role="alert"><span class={lang}>{L("Something went wrong. Please try again or email us.", "Algo ha fallado. Inténtalo de nuevo o escríbenos por email.")}</span></p><div class="sent" role="status"><b><span class={lang}>{L("One last step.", "Un último paso.")}</span></b><p><span class={lang}>{L("Check your inbox and confirm your email to keep your place. We will write to you when membership opens.", "Revisa tu bandeja de entrada y confirma tu email para guardar tu sitio. Te escribiremos cuando abra la membresía.")}</span></p></div>
 </div>

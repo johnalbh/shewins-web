@@ -38,30 +38,51 @@ function setLang(l){
 }
 $$('.lang button').forEach(function(b){b.addEventListener('click',function(){var h=b.getAttribute('data-href');try{localStorage.setItem('sw-lang',b.getAttribute('data-lang'))}catch(x){}if(h&&b.getAttribute('data-lang')!==document.documentElement.lang)location.href=h})});
 setLang(document.documentElement.lang==='es'?'es':'en');
+/* Forms. The signup forms (newsletter, waitlist) start with the email only: their first button
+   opens the dialog (.ask) with the other questions, the form is sent from the dialog and the
+   confirmation shows there. When the dialog closes after a successful send, the form switches to
+   its thank-you state. The contact form sends straight away. */
 $$('form[data-form]').forEach(function(f){
+  var ask=$('dialog.ask',f),sentOk=false;
+  function own(sel){return f.parentNode.querySelector(':scope > '+sel)}
+  if(ask){
+    $$('[data-close]',ask).forEach(function(b){b.addEventListener('click',function(){ask.close()})});
+    ask.addEventListener('close',function(){if(sentOk)f.classList.add('done')});
+  }
+  function done(){
+    if(!ask){f.classList.add('done');return}
+    sentOk=true;
+    var s=own('.sent'),box=$('.ask-done',ask);
+    if(s&&box){var c=s.cloneNode(true);c.removeAttribute('role');box.appendChild(c)}
+    $('.ask-q',ask).hidden=true;
+    var end=$('.ask-end',ask);end.hidden=false;$('button',end).focus();
+  }
   f.addEventListener('submit',function(e){
     e.preventDefault();
     var ok=true;
     $$('input[required],textarea[required]',f).forEach(function(i){
-      if(i.closest('[hidden]'))return;
+      var d=i.closest('dialog');if(d&&!d.open)return;
       var bad=i.type==='checkbox'?!i.checked:!i.value.trim()||(i.type==='email'&&i.value.indexOf('@')<1);
       i.setAttribute('aria-invalid',bad?'true':'false');
       if(bad&&ok){ok=false;i.focus()}
     });
     if(!ok)return;
-    /* Two-step forms (newsletter): the first submit only checks the email, then shows the other
-       questions in place, hides the first button and moves focus to the first new field. */
-    var more=$('[data-more]',f);
-    if(more&&more.hidden){more.hidden=false;var nx=$('[data-next]',f);if(nx)nx.hidden=true;var first=$('input',more);if(first)first.focus();return}
+    if(ask&&!ask.open){
+      var m=$('[data-mail]',ask),em=$('input[type=email]',f);if(m&&em)m.textContent=em.value.trim();
+      ask.showModal();
+      var first=$('.ask-q input[type=text],.ask-q select',ask);if(first)first.focus();
+      return;
+    }
+    if(sentOk)return;
     var kind=f.getAttribute('data-form'),cfg=(window.SW_FORMS||{}),url=cfg[kind];
-    if(!url){f.classList.add('done');return}
+    if(!url){done();return}
     var data={form:kind,lang:document.documentElement.lang,page:location.href,sent:new Date().toISOString()};
     $$('input,select,textarea',f).forEach(function(i){if(i.type==='radio'){if(i.checked)data[i.name]=i.value;return}if(!i.id)return;data[i.id]=i.type==='checkbox'?i.checked:i.value});
-    var btn=$('button[type=submit]',f);if(btn)btn.disabled=true;
-    var err=$('.ferr',f.parentNode);if(err)err.hidden=true;
+    var btn=ask?$('.ask-q button[type=submit]',ask):$('button[type=submit]',f);if(btn)btn.disabled=true;
+    var err=ask?$('.ferr',ask):$('.ferr',f.parentNode);if(err)err.hidden=true;
     fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
-      .then(function(r){if(!r.ok)throw 0;f.classList.add('done')})
-      .catch(function(){if(err)err.hidden=false})
+      .then(function(r){if(!r.ok)throw 0;done()})
+      .catch(function(){if(!err)return;var src=own('.ferr');if(ask&&src&&!err.innerHTML)err.innerHTML=src.innerHTML;err.hidden=false})
       .then(function(){if(btn)btn.disabled=false});
   });
 });

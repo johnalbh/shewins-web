@@ -335,7 +335,7 @@ To mark something as inactive or past, dim only large type (display, titles, num
 
 ## Elevation & Depth
 
-The system is flat. Depth comes from colour blocks meeting edge to edge, hairlines, and the red frame that holds the next event's pink panel. The sticky header is separated by a hairline, not a shadow. The single exception is the cookie banner: a layer over the page, marked by a 2px ink top border and a soft upward shadow.
+The system is flat. Depth comes from colour blocks meeting edge to edge, hairlines, and the red frame that holds the next event's pink panel. The sticky header is separated by a hairline, not a shadow. There are two exceptions. The cookie banner is a layer over the page, marked by a 2px ink top border and a soft upward shadow. The signup dialog sits over an ink backdrop at 72% (team decision, November 2026). The backdrop is the one translucent layer on the site, and the dialog itself stays flat, with no shadow.
 
 ### Shadow Vocabulary
 
@@ -390,7 +390,7 @@ The editorial block: square like the colour blocks, and always pointing forward.
 - **Error:** the underline turns pink at 3px. A cream error line in red text appears under the form.
 - **Checkbox:** a native 20px box with an accent colour.
 - **Choice of two (radio):** the language of the emails. It uses a fieldset whose legend is styled like a field label, and the options sit side by side on one line. Each option is a `.chk` label (native 20px radio and 16px text), at least 44px tall, and the whole label is the tap target. The page language is selected by default.
-- **Signup in two steps (newsletter):** the band first shows only the inline email field and the button. The first submit checks the email and then opens the other questions in place, under the email: a short sentence, then name, language and the final button. The questions rise in with `sw-fade-up`. There is no modal: nothing floats.
+- **Signup dialog (newsletter and waitlist):** the band shows only the inline email field and its button. The button checks the email, then opens a dialog with the other questions. The dialog is a flat cream block with square corners and no shadow. It holds a label, a title, "We will write to <email>", the fields and a red button. The form is sent from the dialog, and the thank-you shows there with a Close button. After the dialog closes, the band shows the thank-you too. It closes with Esc or the square drawn ×, and it rises in with `sw-fade-up`.
 
 ### Disclosure (FAQ)
 
