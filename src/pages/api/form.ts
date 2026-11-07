@@ -2,7 +2,8 @@ import type { APIRoute } from 'astro';
 
 // Receives the three site forms, posted as JSON by src/scripts/site.js:
 //   letter   → MailerLite group "Newsletter" (double opt-in: MailerLite sends the confirmation)
-//   waitlist → MailerLite group "Waitlist" + a notification to the team (MailerSend)
+//   waitlist → MailerLite group "Waitlist" + a notification to the team (MailerSend), and also
+//              the group "Newsletter" when the optional Letter box (w-letter) is ticked
 //   contact  → a notification to the team (MailerSend), reply-to the sender
 // Double opt-in is the MailerLite account setting "Double opt-in for API and integrations".
 //
@@ -50,7 +51,7 @@ type Lang = 'en' | 'es';
 type Base = { lang: Lang; page: string; email: string };
 type Submission =
   | (Base & { form: 'letter'; name: string; language: Lang })
-  | (Base & { form: 'waitlist'; name: string; language: Lang; stage: string })
+  | (Base & { form: 'waitlist'; name: string; language: Lang; stage: string; letter: boolean })
   | (Base & { form: 'contact'; name: string; type: string; organisation: string; message: string });
 
 const language = (v: unknown): Lang | null => (v === 'en' || v === 'es' ? v : null);
@@ -76,7 +77,9 @@ function parse(d: Record<string, unknown>): Submission | { invalid: string } {
       if (!EMAIL.test(email)) return { invalid: 'email' };
       if (!lang) return { invalid: 'language' };
       if (d['w-ok'] !== true) return { invalid: 'consent' };
-      return { form: 'waitlist', ...base, email, name, language: lang, stage: STAGES.get(str(d['w-where'], 80)) ?? '' };
+      // The Letter box is a separate, optional consent: only an explicit true counts.
+      const letter = d['w-letter'] === true;
+      return { form: 'waitlist', ...base, email, name, language: lang, stage: STAGES.get(str(d['w-where'], 80)) ?? '', letter };
     }
     case 'contact': {
       const name = str(d['c-name'], 120);
@@ -105,23 +108,24 @@ async function call(method: 'GET' | 'POST', url: string, token: string, body?: u
 const mlDate = (d: Date) => d.toISOString().slice(0, 19).replace('T', ' ');
 
 /**
- * Adds an email to a MailerLite group.
+ * Adds an email to one or more MailerLite groups in a single request, so a waitlist signup that
+ * also asks for the Letter gets one confirmation email, not two.
  * - A new email is created with its fields and consent time. MailerLite then sends the
  *   double opt-in email.
- * - An existing email is only added to the group. Its name, fields and status stay as they are,
+ * - An existing email is only added to the groups. Its name, fields and status stay as they are,
  *   and an email that unsubscribed stays unsubscribed.
  */
-async function subscribe(email: string, group: string, fields: Record<string, string>, optedInAt?: Date) {
+async function subscribe(email: string, groups: string[], fields: Record<string, string>, optedInAt?: Date) {
   const key = env('MAILERLITE_API_KEY')!;
   const found = await call('GET', `${MAILERLITE}/subscribers/${encodeURIComponent(email)}`, key);
   if (found.ok) {
-    const res = await call('POST', `${MAILERLITE}/subscribers`, key, { email, groups: [group] });
+    const res = await call('POST', `${MAILERLITE}/subscribers`, key, { email, groups });
     if (!res.ok) throw new Error(`MailerLite add to group ${res.status}: ${await res.text()}`);
     return;
   }
   if (found.status !== 404) throw new Error(`MailerLite lookup ${found.status}: ${await found.text()}`);
 
-  const body = (f: Record<string, string>) => ({ email, groups: [group], fields: f, ...(optedInAt ? { opted_in_at: mlDate(optedInAt) } : {}) });
+  const body = (f: Record<string, string>) => ({ email, groups, fields: f, ...(optedInAt ? { opted_in_at: mlDate(optedInAt) } : {}) });
   let res = await call('POST', `${MAILERLITE}/subscribers`, key, body(fields));
   // 422 can mean a custom field (language, stage) is not created in MailerLite yet. Keep the
   // signup anyway with the default name field, and log it so the field gets added.
@@ -134,7 +138,8 @@ async function subscribe(email: string, group: string, fields: Record<string, st
 
 /** Emails the form contents to the team through MailerSend. */
 async function notify(s: Submission) {
-  const rows = Object.entries(s);
+  // Every value as text: the waitlist's letter flag is a boolean.
+  const rows = Object.entries(s).map(([k, v]) => [k, String(v)]);
   const res = await call('POST', `${MAILERSEND}/email`, env('MAILERSEND_API_KEY')!, {
     from: { email: env('FORM_FROM') || 'web@shewins.es', name: 'SheWins web' },
     to: [{ email: env('FORM_TO') || 'agnieszka@shewins.es' }],
@@ -193,10 +198,17 @@ export const POST: APIRoute = async ({ request, url }) => {
 
   try {
     if (s.form === 'letter') {
-      await subscribe(s.email, env('MAILERLITE_GROUP_NEWSLETTER')!, { name: s.name, language: s.language });
+      await subscribe(s.email, [env('MAILERLITE_GROUP_NEWSLETTER')!], { name: s.name, language: s.language });
     } else if (s.form === 'waitlist') {
+      const groups = [env('MAILERLITE_GROUP_WAITLIST')!];
+      if (s.letter) {
+        const newsletter = env('MAILERLITE_GROUP_NEWSLETTER');
+        // A missing newsletter group must not lose the waitlist signup; log it so it gets set.
+        if (newsletter) groups.push(newsletter);
+        else console.error('[form] waitlist: Letter box ticked but MAILERLITE_GROUP_NEWSLETTER is missing');
+      }
       // opted_in_at records when the consent box was ticked, as proof of consent (GDPR).
-      await subscribe(s.email, env('MAILERLITE_GROUP_WAITLIST')!, { name: s.name, language: s.language, stage: s.stage }, new Date());
+      await subscribe(s.email, groups, { name: s.name, language: s.language, stage: s.stage }, new Date());
       // The signup is stored; the team notification is best effort and must not fail it.
       if (env('MAILERSEND_API_KEY')) await notify(s).catch((err) => console.error('[form] notification', err));
     } else {

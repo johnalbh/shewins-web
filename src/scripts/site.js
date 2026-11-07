@@ -49,9 +49,10 @@ $$('form[data-form]').forEach(function(f){
     $$('[data-close]',ask).forEach(function(b){b.addEventListener('click',function(){ask.close()})});
     ask.addEventListener('close',function(){if(sentOk)f.classList.add('done')});
   }
-  function done(){
-    /* Announce the send: letter-invite.js stops inviting someone who has just subscribed. */
-    try{document.dispatchEvent(new CustomEvent('sw-form-sent',{detail:{form:f.getAttribute('data-form')}}))}catch(x){}
+  function done(data){
+    /* Announce the send with what was sent: letter-invite.js stops inviting someone who has just
+       subscribed, from the Letter form or from the Letter box of the waitlist. */
+    try{document.dispatchEvent(new CustomEvent('sw-form-sent',{detail:{form:f.getAttribute('data-form'),data:data||{}}}))}catch(x){}
     if(!ask){f.classList.add('done');return}
     sentOk=true;
     var s=own('.sent'),box=$('.ask-done',ask);
@@ -83,7 +84,7 @@ $$('form[data-form]').forEach(function(f){
     var btn=ask?$('.ask-q button[type=submit]',ask):$('button[type=submit]',f);if(btn)btn.disabled=true;
     var err=ask?$('.ferr',ask):$('.ferr',f.parentNode);if(err)err.hidden=true;
     fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
-      .then(function(r){if(!r.ok)throw 0;done()})
+      .then(function(r){if(!r.ok)throw 0;done(data)})
       .catch(function(){if(!err)return;var src=own('.ferr');if(ask&&src&&!err.innerHTML)err.innerHTML=src.innerHTML;err.hidden=false})
       .then(function(){if(btn)btn.disabled=false});
   });
