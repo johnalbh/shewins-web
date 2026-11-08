@@ -222,12 +222,27 @@ summary:focus-visible { border-radius: 0; }
 
 /* The home's "Recent events" shows the latest events of the She Wins group on Meetup (team request,
    November 2026; PastEvents.astro). Meetup's images are 16:9 posters with their own text (title,
-   date, speaker), so they keep that shape instead of the 3:4 crop of the Keystatic posters. Under
-   the title, a button to the event on Meetup and one to Instagram, each with its platform mark,
-   as in the "Next free event" frame. In the narrow columns they wrap one under the other. */
+   date, speaker), so they keep that shape instead of the 3:4 crop of the Keystatic posters.
+   Under the title, two quiet links on one line (team request: discreet, not buttons): the
+   platform mark and its underlined name, ink on white. */
 .posters.three.wide img { aspect-ratio: 16 / 9; }
-.posters.wide figcaption { padding-top: 14px; }
-.posters.wide .btns { margin-top: 16px; gap: 10px; }
-/* The original row makes every link in it a block (.posters.three a), which would undo the
-   buttons' own layout. */
-.posters.three.wide .btn { display: inline-flex; }
+.posters.wide .ev-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+/* The original row makes every link in it a block (.posters.three a). */
+.posters.three.wide .ev-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.posters.wide .ev-links a:hover { text-decoration-thickness: 2px; }
+.posters.wide .ev-links .lg { width: 16px; height: 16px; flex: none; }
