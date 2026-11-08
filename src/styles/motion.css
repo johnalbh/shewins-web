@@ -241,6 +241,22 @@ details[open]::details-content { block-size: auto; }
 /* The drawn plus folds its vertical bar away to become a minus (controls.css). */
 summary::after { transition: background-size 0.35s var(--ease-out); }
 
+/* ---------- Event rows that open Meetup ---------- */
+
+/* The ↗ after each event title on the events page (ThisMonth.astro) nudges up and right twice every
+   few seconds, then rests, so the rows read as links (team request, November 2026); every other row
+   starts a little later, so they do not move as one. On hover it steps that way and stays. */
+.ev.go h3 .ext {
+  transition: transform var(--dur-fast) var(--ease-out);
+  animation: sw-ext 4s var(--ease-out) 1s infinite;
+}
+.ev.go:nth-of-type(2n) h3 .ext { animation-delay: 2.2s; }
+.ev.go:hover h3 .ext { animation: none; transform: translate(3px, -3px); }
+@keyframes sw-ext {
+  0%, 16%, 32%, 100% { transform: none; }
+  8%, 24% { transform: translate(4px, -4px); }
+}
+
 /* ---------- Reduced motion: no movement, final states straight away ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -256,6 +272,7 @@ summary::after { transition: background-size 0.35s var(--ease-out); }
   .prow:hover .go i svg,
   .posters figure a:hover img,
   .posters figure:hover figcaption span,
+  .ev.go:hover h3 .ext,
   .menu[hidden],
   .menu nav a,
   .cb[hidden],

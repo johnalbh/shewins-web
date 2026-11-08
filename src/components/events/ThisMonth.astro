@@ -2,13 +2,17 @@
 // "This month" schedule on the events page: events from the start of the current month onwards.
 // Past / Today / Upcoming pills are set in the browser from data-date (scripts/site.js), so the
 // page stays right between the daily rebuilds. Same one-line markup as html/events.html.
+// With `meetup` (the events page and the lab, team request of November 2026), the events come from
+// the She Wins group on Meetup alone, with their price, and each row opens the event on Meetup:
+// its title is the link and stretches over the row's text. Without Meetup there are no rows, and
+// the section says new dates are on their way.
 import { localize, type Lang } from '../../i18n';
 import { getEventsByTime, getSettings } from '../../lib/content';
 import { dateParts } from '../../lib/dates';
 
 interface Props {
   lang: Lang;
-  /** Merge the Meetup events in (lab page). */
+  /** Take the events from Meetup instead of Keystatic, each row linking to its Meetup page. */
   meetup?: boolean;
 }
 
@@ -23,4 +27,4 @@ const price = (ev: (typeof fromMonthStart)[number]) =>
 const rows = fromMonthStart.map((ev) => ({ ev, d: dateParts(ev.date!, lang), time: [ev.startTime, ev.endTime].filter(Boolean).join('–'), fee: price(ev) }));
 ---
 
-<section class="sec s-white"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L('This month', 'Este mes')}</span></p><h2 class="l"><span class={lang}>{L(`${heading.monthName} at She Wins.`, `${heading.monthName} en She Wins.`)}</span></h2></div>{rows.map(({ ev, d, time, fee }) => <article class="ev show" data-date={ev.date}><div class="d"><small><span class={lang}>{d.weekday}</span>{d.month !== heading.month && <span class={lang}> · {d.monthShort}</span>}</small>{d.day}</div><div><h3>{ev.title}</h3><p>{ev.host || <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}<br />{ev.venue}</p><div class="tags"><span class="pill">{time}</span><span class="pill">{LANG_PILL[ev.language]}</span>{fee && <span class="pill">{fee}</span>}<span class="pill r status" hidden></span></div></div></article>)}{rows.length === 0 && <p class="lead"><span class={lang}>{L('New dates are on their way. Follow us on ', 'Las nuevas fechas están en camino. Síguenos en ')}<a href={settings.meetup} rel="noopener" target="_blank">Meetup</a>{L(' or ', ' o ')}<a href={settings.instagram} rel="noopener" target="_blank">Instagram</a>.</span></p>}</div></section>
+<section class="sec s-white"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L('This month', 'Este mes')}</span></p><h2 class="l"><span class={lang}>{L(`${heading.monthName} at She Wins.`, `${heading.monthName} en She Wins.`)}</span></h2></div>{rows.map(({ ev, d, time, fee }) => <article class={meetup && ev.meetupUrl ? 'ev show go' : 'ev show'} data-date={ev.date}><div class="d"><small><span class={lang}>{d.weekday}</span>{d.month !== heading.month && <span class={lang}> · {d.monthShort}</span>}</small>{d.day}</div><div><h3>{meetup && ev.meetupUrl ? <a href={ev.meetupUrl} rel="noopener" target="_blank">{ev.title}<span aria-hidden="true" class="ext">↗</span></a> : ev.title}</h3><p>{ev.host || <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}<br />{ev.venue}</p><div class="tags"><span class="pill">{time}</span><span class="pill">{LANG_PILL[ev.language]}</span>{fee && <span class="pill">{fee}</span>}<span class="pill r status" hidden></span></div></div></article>)}{rows.length === 0 && <p class="lead"><span class={lang}>{L('New dates are on their way. Follow us on ', 'Las nuevas fechas están en camino. Síguenos en ')}<a href={settings.meetup} rel="noopener" target="_blank">Meetup</a>{L(' or ', ' o ')}<a href={settings.instagram} rel="noopener" target="_blank">Instagram</a>.</span></p>}</div></section>

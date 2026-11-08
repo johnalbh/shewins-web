@@ -254,3 +254,17 @@ summary:focus-visible { border-radius: 0; }
 .frame .dtw .dt { font-size: clamp(80px, 9vw, 130px); }
 .frame .dtw figure { margin: 0; }
 .frame .ev-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+
+/* ---------- This month from Meetup (events page) ---------- */
+
+/* Each event row opens the event on Meetup (team request, November 2026; ThisMonth.astro). The
+   title is the link; its ::after stretches over the row's text column (title, host, place,
+   pills), so the whole block is a target while there is one link per row. The day column stays
+   out: the rows' arrival animation (motion.css) moves that column on its own. On hover the title
+   is underlined; the small red ↗ says it leaves for Meetup. */
+.ev.go > div:last-child { position: relative; }
+.ev.go h3 a { color: inherit; text-decoration: none; }
+.ev.go h3 a::after { content: ""; position: absolute; inset: 0; }
+.ev.go:hover h3 a { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.12em; }
+/* Red, like the day labels: an approved pair on white. Its nudge is in motion.css. */
+.ev.go h3 .ext { display: inline-block; margin-left: 0.2em; font-size: 0.55em; vertical-align: 0.4em; color: var(--red); }
