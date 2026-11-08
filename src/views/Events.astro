@@ -18,8 +18,8 @@ const { L, u } = localize(lang);
 // Event structured data for the upcoming events this page shows: the next free event (NextEvent)
 // and the rest of this month's events (ThisMonth). Past events are not marked up: search engines
 // only list events that have not happened yet.
-const { upcoming, fromMonthStart, today } = await getEventsByTime();
-const shown = new Set([upcoming.find((e) => !e.fee), ...fromMonthStart.filter((e) => e.date >= today)]);
+const { nextFree, fromMonthStart, today } = await getEventsByTime();
+const shown = new Set([nextFree, ...fromMonthStart.filter((e) => e.date >= today)]);
 const jsonLd = [...shown].filter((e) => e !== undefined).map(eventNode);
 ---
 

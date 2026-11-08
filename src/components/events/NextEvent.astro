@@ -17,9 +17,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const { L } = localize(lang);
-const [{ upcoming }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
-// The frame says "free": paid events are skipped.
-const ev = upcoming.find((e) => !e.fee);
+const [{ nextFree: ev }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
 const when = dateParts(ev?.date ?? todayInMadrid(), lang);
 const language = {
   es: L('Spanish', 'Español'),

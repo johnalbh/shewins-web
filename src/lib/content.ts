@@ -40,9 +40,13 @@ export type Post = Awaited<ReturnType<typeof getPosts>>[number];
 export async function getEventsByTime() {
   const today = todayInMadrid();
   const events = (await getMeetupEvents((await getSettings()).meetup)) ?? [];
+  const upcoming = events.filter((e) => e.date >= today);
   return {
     today,
-    upcoming: events.filter((e) => e.date >= today),
+    upcoming,
+    // The event of the "Next free event" frame (home and events). The frame says "free", so paid
+    // events are skipped. This month leaves it out of its tiles, so the one place to work it out.
+    nextFree: upcoming.find((e) => !e.fee),
     past: events.filter((e) => e.date < today).reverse(),
     fromMonthStart: events.filter((e) => e.date >= `${today.slice(0, 7)}-01`),
   };

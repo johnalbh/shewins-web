@@ -1,8 +1,10 @@
 ---
 // "This month" on the events page: the She Wins events on Meetup from the start of the current
 // month, each as a colour-block tile that frames its poster (team request, November 2026: the list
-// of what is coming should show the images, not text rows, and invite people in). The nearest
-// upcoming event is the red tile; the others are cream, with a gap between them (team request).
+// of what is coming should show the images, not text rows, and invite people in). The event of the
+// "Next free event" frame above this section is not listed again: shown twice, with the same
+// poster, it read as two events (team request, November 2026). The nearest upcoming tile is red;
+// the others are cream, with a gap between them (team request).
 // Each holds, in the block's own colour of text, the date of the schedule rows (weekday label, day
 // numeral) with the status pill beside it, Meetup's 16:9 poster whole (it carries its own text),
 // the title as the link to Meetup (it stretches over the tile), the host, the place and the pills
@@ -21,18 +23,21 @@ interface Props {
 
 const { lang } = Astro.props;
 const { L } = localize(lang);
-const [{ fromMonthStart, today }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
+const [{ fromMonthStart, nextFree, today }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
+// The heading takes its month from the whole list, so it still says this month when the only event
+// left in it is the one in the frame above.
 const heading = dateParts(fromMonthStart[0]?.date ?? today, lang);
+const listed = fromMonthStart.filter((e) => e !== nextFree);
 const LANG_PILL = { es: 'ESP', en: 'ENG' };
 const price = (ev: Event) =>
   ev.fee && new Intl.NumberFormat(lang === 'es' ? 'es-ES' : 'en-GB', { style: 'currency', currency: ev.fee.currency, maximumFractionDigits: 0 }).format(ev.fee.amount);
-const rows = fromMonthStart.map((ev) => ({ ev, d: dateParts(ev.date, lang), time: [ev.startTime, ev.endTime].filter(Boolean).join('–'), fee: price(ev) }));
+const rows = listed.map((ev) => ({ ev, d: dateParts(ev.date, lang), time: [ev.startTime, ev.endTime].filter(Boolean).join('–'), fee: price(ev) }));
 const altText = (ev: Event) => {
   const what = ev.speaker ? L(`${ev.title} with ${ev.speaker}`, `${ev.title} con ${ev.speaker}`) : ev.title;
   return L(`Event poster: ${what}`, `Póster del evento: ${what}`);
 };
-// The next event from today on is the red tile, a dark surface (on-d: its pills and focus ring invert).
-const next = fromMonthStart.find((e) => e.date >= today);
+// The next listed event from today on is the red tile, a dark surface (on-d: its pills and focus ring invert).
+const next = listed.find((e) => e.date >= today);
 const tile = (ev: Event) => (ev === next ? 't-red on-d' : 't-cream');
 ---
 
