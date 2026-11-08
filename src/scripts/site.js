@@ -49,6 +49,42 @@ setLang(document.documentElement.lang==='es'?'es':'en');
    opens the dialog (.ask) with the other questions, the form is sent from the dialog and the
    confirmation shows there. When the dialog closes after a successful send, the form switches to
    its thank-you state. The contact form sends straight away. */
+/* Every form checks its required fields the same way and says under each one what is missing
+   (team request, November 2026). The email check is the same pattern as api/form.ts. A field can
+   carry its own words in data-err-en / data-err-es; the others get the words for their type. */
+var MAIL=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+var SAY={
+  empty:['Fill in this field.','Rellena este campo.'],
+  mail:['Enter your email.','Escribe tu email.'],
+  badmail:['Enter a valid email, like name@example.com.','Escribe un email válido, como nombre@ejemplo.com.'],
+  box:['Tick the box to continue.','Marca la casilla para continuar.']
+};
+/* What is wrong with a field: '' when it is fine, otherwise a key of SAY. */
+function problem(i,f){
+  if(i.type==='checkbox')return i.checked?'':'box';
+  if(i.type==='radio')return f.querySelector('input[name="'+i.name+'"]:checked')?'':'empty';
+  var v=i.value.trim();
+  if(i.type==='email')return !v?'mail':MAIL.test(v)?'':'badmail';
+  return v?'':'empty';
+}
+/* Marks a field and shows or hides its line. The line goes inside the field's .fld, or right after
+   its .chk. In a band's .inline-form it goes under the email: inside the row when the button has
+   wrapped below the field (phones), after the row when both share a line. The field points to the
+   line with aria-describedby. */
+function mark(i,p){
+  var id=(i.id||i.name)+'-err',m=document.getElementById(id);
+  i.setAttribute('aria-invalid',p?'true':'false');
+  if(!p){if(m)m.hidden=true;i.removeAttribute('aria-describedby');return}
+  if(!m){m=document.createElement('p');m.className='fmsg';m.id=id}
+  var host=i.closest('.fld,.inline-form,.chk')||i,b=host.classList.contains('inline-form')&&$('button',host);
+  if(host.classList.contains('fld'))host.appendChild(m);
+  else if(b&&b.offsetTop>i.offsetTop)host.insertBefore(m,b);
+  else host.parentNode.insertBefore(m,host.nextSibling);
+  var own=p!=='badmail',w=[(own&&i.getAttribute('data-err-en'))||SAY[p][0],(own&&i.getAttribute('data-err-es'))||SAY[p][1]];
+  m.textContent='';
+  ['en','es'].forEach(function(l,k){var s=document.createElement('span');s.className=l;s.textContent=w[k];m.appendChild(s)});
+  m.hidden=false;i.setAttribute('aria-describedby',id);
+}
 /* The endpoint turns away an email whose domain takes no mail (a typo such as gmail.con), so the
    person gets a message of its own instead of the general error. */
 var BADMAIL='<span class="en">That email address does not seem to exist. Please check it.</span><span class="es">Esa dirección de email no parece existir. Revísala, por favor.</span>';
@@ -58,6 +94,10 @@ $$('form[data-form]').forEach(function(f){
   function own(sel){return f.parentNode.querySelector(':scope > '+sel)}
   /* The error line under the form, and its general text, kept before badMail() replaces it. */
   var fe=own('.ferr'),general=fe?fe.innerHTML:'';
+  /* A marked field is checked again as the person fixes it, so its line goes as soon as it is right. */
+  $$('input,textarea',f).forEach(function(i){
+    i.addEventListener(i.type==='checkbox'?'change':'input',function(){if(i.getAttribute('aria-invalid')==='true')mark(i,problem(i,f))});
+  });
   if(ask){
     $$('[data-close]',ask).forEach(function(b){b.addEventListener('click',function(){ask.close()})});
     ask.addEventListener('close',function(){if(sentOk)f.classList.add('done')});
@@ -74,7 +114,7 @@ $$('form[data-form]').forEach(function(f){
   }
   function done(data){
     /* Announce the send with what was sent: letter-invite.js stops inviting someone who has just
-       subscribed, from the Letter form or from the Letter box of the waitlist. */
+       subscribed, from the Letter form or from the waitlist, whose consent covers the Letter. */
     try{document.dispatchEvent(new CustomEvent('sw-form-sent',{detail:{form:f.getAttribute('data-form'),data:data||{}}}))}catch(x){}
     if(!ask){f.classList.add('done');return}
     sentOk=true;
@@ -101,9 +141,8 @@ $$('form[data-form]').forEach(function(f){
       var d=i.closest('dialog');if(d&&!d.open)return;
       /* Opened from a button, the dialog asks for the email itself and copies it here. */
       if(i===em&&mi&&mi.required)return;
-      var bad=i.type==='checkbox'?!i.checked:i.type==='radio'?!f.querySelector('input[name="'+i.name+'"]:checked'):!i.value.trim()||(i.type==='email'&&i.value.indexOf('@')<1);
-      i.setAttribute('aria-invalid',bad?'true':'false');
-      if(bad&&ok){ok=false;i.focus()}
+      var p=problem(i,f);mark(i,p);
+      if(p&&ok){ok=false;i.focus()}
     });
     if(!ok)return;
     if(ask&&!ask.open){f.openAsk(false);return}

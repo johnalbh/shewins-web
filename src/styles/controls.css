@@ -126,6 +126,17 @@ summary:focus-visible { border-radius: 0; }
 .ask :focus-visible { outline-color: var(--ink); }
 .ask .chk input { accent-color: var(--red); }
 .ask .ferr { margin-top: 0; background: var(--red); color: var(--cream); }
+/* Every form says under a field what is missing (team request, November 2026; site.js adds the
+   .fmsg line). The line keeps the text colour of its block, cream on the red form bands, and is
+   red on the cream dialog: both approved pairs. A message, not a disabled button, because a
+   disabled button does not say why. The waitlist consent box, required and unticked at first,
+   also gets a red ring, since a native checkbox has no underline to turn pink. */
+.form .fmsg { font-size: 14px; font-weight: 600; line-height: 1.4; }
+.form > .fmsg, .ask-q > .fmsg { margin-top: -10px; }
+.chk + .fmsg { padding-left: 32px; }
+.inline-form .fmsg { flex: 1 0 100%; margin-top: -4px; }
+.ask .fmsg { color: var(--red); }
+.ask .chk input[aria-invalid="true"] { outline: 2px solid var(--red); outline-offset: 2px; }
 /* The confirmation is the form's own thank-you (.sent), copied in by site.js. */
 .ask .sent { display: block; padding: 0 52px 0 0; border-top: 0; }
 .ask-end { margin-top: 24px; }

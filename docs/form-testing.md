@@ -23,15 +23,15 @@ Run each case on an English and a Spanish page (`/membership`, `/es/membership`,
 
 | # | Do | Expect |
 |---|----|--------|
-| F1 | Letter: send with the email empty, then with `ana@` | Field marked invalid and focused, no dialog |
+| F1 | Letter: send with the email empty, then with `ana@` | Field focused, "Enter your email.", then "Enter a valid email…" under it; no dialog |
 | F2 | Letter: valid email | Dialog opens and shows the email; the page language is preselected |
-| F3 | Letter: send the dialog with the name empty | Name marked invalid, nothing sent |
+| F3 | Letter: send the dialog with the name empty | "Enter your name." under the name, nothing sent; typing a name removes it |
 | F4 | Letter: complete it | "Almost there" in the dialog; after closing, the form shows its thank-you |
 | F5 | After F4, open other pages | The Letter invitation card never shows (localStorage `sw-letter` is `sub`) |
 | F6 | Waitlist: open the dialog | One consent box, **unticked**; no Letter box |
-| F7 | Waitlist: send without ticking the consent box | Consent marked invalid, nothing sent |
+| F7 | Waitlist: send without ticking the consent box | Red ring and "Tick the box to join the waitlist." under the box, nothing sent; ticking it removes them |
 | F8 | Waitlist: tick the consent box and send | Sent with `w-ok: true` and no `w-letter`; the invitation card stops, as in F5 |
-| F10 | Contact (`/partners`): empty name, bad email, empty message | Each blocks the send |
+| F10 | Contact (`/partners`): empty name, bad email, empty message | Each shows its line under the field and blocks the send |
 | F11 | Any form with the network off (DevTools › Offline) | "Something went wrong…" shows, the button works again, a retry sends |
 | F12 | Keyboard only: Tab through the dialog, Escape | Focus stays in the dialog; Escape closes it |
 | F13 | Letter, waitlist and contact with `ana@gmail.con` (domain without MX) | "That email address does not seem to exist…", nothing sent. Letter: the dialog closes and the band's email is marked and focused. Waitlist: the dialog shows its own email field, marked. Contact: the email is marked |

@@ -24,7 +24,7 @@ const { L } = localize(lang);
 <p class="lab"><span class={lang}>{L("The She Wins Letter", "La Letter de She Wins")}</span></p>
 <h2 id="em-ask-t"><span class={lang}>{L("Just two more questions.", "Solo dos preguntas más.")}</span></h2>
 <p class="ask-to"><span class={lang}>{L("We will write to", "Te escribiremos a")}</span> <b data-mail></b></p>
-<div class="fld"><label for="em-name"><span class={lang}>{L("Your name", "Tu nombre")}</span></label><input autocomplete="name" id="em-name" maxlength="40" required type="text" /></div>
+<div class="fld"><label for="em-name"><span class={lang}>{L("Your name", "Tu nombre")}</span></label><input autocomplete="name" data-err-en="Enter your name." data-err-es="Escribe tu nombre." id="em-name" maxlength="40" required type="text" /></div>
 <fieldset class="fld"><legend><span class={lang}>{L("Send me emails in", "Quiero los emails en")}</span></legend><div class="opts"><label class="chk"><input checked={lang === "en"} name="em-lang" type="radio" value="en" /><span lang="en">English</span></label><label class="chk"><input checked={lang === "es"} name="em-lang" type="radio" value="es" /><span lang="es">Español</span></label></div></fieldset>
 <div><button class="btn b-red" type="submit"><span class={lang}>{L("Complete subscription", "Completar suscripción")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div>
 <p class="ferr" hidden role="alert"></p>
