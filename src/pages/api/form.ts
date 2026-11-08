@@ -1,4 +1,6 @@
 import type { APIRoute } from 'astro';
+import { checkBotId } from 'botid/server';
+import { Resolver } from 'node:dns/promises';
 
 // Receives the three site forms, posted as JSON by src/scripts/site.js:
 //   letter   → MailerLite group "Newsletter" (double opt-in: MailerLite sends the confirmation)
@@ -13,6 +15,14 @@ import type { APIRoute } from 'astro';
 //   - the consent time is the server's clock, not the browser's;
 //   - an email that is already in MailerLite is only added to the group. Its name and fields are
 //     never overwritten, so nobody can change a subscriber's data by typing her email.
+//
+// Against spam, in the order the checks run:
+//   - a honeypot field (any id ending in -website) catches bots that fill in the page's form;
+//   - Vercel BotID catches scripts that post straight to this endpoint: src/scripts/botid.js
+//     makes the browser solve an invisible challenge, and checkBotId() verifies it;
+//   - the email's domain must accept mail (MX record), so MailerLite never sends a confirmation
+//     to an address that bounces. Bounces hurt the account's sending reputation;
+//   - contact messages that look like link spam still reach the team, marked in the subject.
 // The number of requests per IP is limited by a Vercel Firewall rule on /api/form (see README).
 export const prerender = false;
 
@@ -102,6 +112,44 @@ function parse(d: Record<string, unknown>): Submission | { invalid: string } {
   }
 }
 
+// Each lookup gets 1.5 s, tried twice, so a slow DNS server cannot hold the form for long.
+const dns = new Resolver({ timeout: 1500, tries: 2 });
+
+/**
+ * Whether the email's domain accepts mail. False when the domain does not exist (a typo such as
+ * gmail.con), has no MX record, or publishes a "null MX" (RFC 7505), which says it takes no mail.
+ * A domain without MX could in theory receive mail at its own address, but real mailboxes publish
+ * MX, and typo domains parked on a web server (hotmial.com) only have that address.
+ * Any other DNS error lets the email through, so a person is never turned away for our problem.
+ */
+async function acceptsMail(email: string): Promise<boolean> {
+  const domain = email.slice(email.lastIndexOf('@') + 1).toLowerCase();
+  try {
+    const mx = await dns.resolveMx(domain);
+    return mx.some((r) => r.exchange !== '' && r.exchange !== '.');
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException).code;
+    if (code === 'ENOTFOUND' || code === 'ENODATA') return false;
+    console.warn(`[form] MX lookup for ${domain} failed (${code}), accepting the email`);
+    return true;
+  }
+}
+
+// Links in a contact message, counted the way spammers write them.
+const links = (t: string) => t.match(/https?:\/\/|www\./gi)?.length ?? 0;
+
+/**
+ * Why a contact message looks like spam, or null. A message is never dropped for its content,
+ * because a real partner must not be lost: the reason only marks the team notification.
+ * Real enquiries rarely carry more than a link or two, and never a link in the name.
+ */
+function spamSign(s: Submission): string | null {
+  if (s.form !== 'contact') return null;
+  if (links(s.name) || links(s.organisation)) return 'a link in the name or organisation';
+  if (links(s.message) >= 3) return `${links(s.message)} links in the message`;
+  return null;
+}
+
 async function call(method: 'GET' | 'POST', url: string, token: string, body?: unknown) {
   return fetch(url, {
     method,
@@ -145,13 +193,16 @@ async function subscribe(email: string, groups: string[], fields: Record<string,
 
 /** Emails the form contents to the team through MailerSend. */
 async function notify(s: Submission) {
+  const spam = spamSign(s);
   // Every value as text: the waitlist's letter flag is a boolean.
   const rows = Object.entries(s).map(([k, v]) => [k, String(v)]);
+  if (spam) rows.push(['possible spam', spam]);
   const res = await call('POST', `${MAILERSEND}/email`, env('MAILERSEND_API_KEY')!, {
     from: { email: env('FORM_FROM') || 'web@shewins.es', name: 'SheWins web' },
     to: [{ email: env('FORM_TO') || 'agnieszka@shewins.es' }],
     reply_to: { email: s.email },
-    subject: `${TESTING ? '[TEST] ' : ''}New ${s.form} form`,
+    // A fixed tag the team can filter on in the inbox.
+    subject: `${TESTING ? '[TEST] ' : ''}${spam ? '[Possible spam] ' : ''}New ${s.form} form`,
     html: `<table>${rows.map(([k, v]) => `<tr><td><b>${esc(k)}</b></td><td>${esc(v)}</td></tr>`).join('')}</table>`,
     text: rows.map(([k, v]) => `${k}: ${v}`).join('\n'),
   });
@@ -191,12 +242,29 @@ export const POST: APIRoute = async ({ request, url }) => {
   // Honeypot: a hidden field people never see. Bots fill it; pretend it worked.
   if (Object.entries(d).some(([k, v]) => k.endsWith('-website') && v)) return Response.json({ ok: true });
 
+  // BotID: a request without the solved browser challenge comes from a script, not from the
+  // site's pages. It gets a plain 403, which also shows the error line to a person in the rare
+  // case of a false positive. In `npm run dev` checkBotId() always answers human (set here from
+  // Astro rather than from NODE_ENV, which the check reads by default).
+  // If the check itself fails (Vercel API, OIDC token), the request goes on: the other checks
+  // and the rate limit still apply, and a fault on our side never loses a signup.
+  try {
+    const bot = await checkBotId({ developmentOptions: { isDevelopment: import.meta.env.DEV } });
+    if (bot.isBot) {
+      console.warn(`[form] BotID: bot rejected (${d.form})`);
+      return fail(403);
+    }
+  } catch (err) {
+    console.error('[form] BotID check failed, request accepted', err);
+  }
+
   const s = parse(d);
   if ('invalid' in s) return fail(400, { invalid: s.invalid });
+  if (!(await acceptsMail(s.email))) return fail(400, { invalid: 'email' });
 
   if (NEEDS[s.form].some((k) => !setting(k))) {
     if (import.meta.env.DEV) {
-      console.log('[form] (dev, not sent)', s);
+      console.log('[form] (dev, not sent)', s, spamSign(s) ?? '');
       return Response.json({ ok: true, dev: true });
     }
     console.error(`[form] ${s.form}: missing ${NEEDS[s.form].filter((k) => !setting(k)).join(', ')}`);

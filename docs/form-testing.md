@@ -35,10 +35,13 @@ Run each case on an English and a Spanish page (`/membership`, `/es/membership`,
 | F10 | Contact (`/partners`): empty name, bad email, empty message | Each blocks the send |
 | F11 | Any form with the network off (DevTools › Offline) | "Something went wrong…" shows, the button works again, a retry sends |
 | F12 | Keyboard only: Tab through the dialog, Escape | Focus stays in the dialog; Escape closes it |
+| F13 | Letter, waitlist and contact with `ana@gmail.con` (domain without MX) | "That email address does not seem to exist…", nothing sent. Letter: the dialog closes and the band's email is marked and focused. Waitlist: the dialog shows its own email field, marked. Contact: the email is marked |
+| F14 | After F13, fix the email and send again | The message goes away and the form sends |
 
 ## 2. The endpoint (nothing is sent)
 
-With `npm run dev` running (`B=http://localhost:4321`):
+With `npm run dev` running (`B=http://localhost:4321`). In dev, BotID always answers human. On a
+Vercel deployment, every call that gets past the honeypot answers 403 from BotID instead (see 6).
 
 ```bash
 j='content-type: application/json'
@@ -48,6 +51,7 @@ curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d "{\"x\":\"$(head -c 17000 
 curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d 'not json'                        # 400
 curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"waitlist","w-mail":"a@b.co","w-name":"A","w-lang":"en","w-ok":false}'  # 400 consent
 curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"letter","em-letter":"a@b","em-name":"A","em-lang":"en"}'               # 400 email
+curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"letter","em-letter":"a@gmail.con","em-name":"A","em-lang":"en"}'       # 400 email (no MX)
 curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"letter","em-letter":"a@b.co","em-name":"A","em-lang":"fr"}'            # 400 language
 curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"letter","em-website":"spam","em-letter":"a@b.co"}'                     # 200, nothing created (honeypot)
 ```
@@ -66,6 +70,7 @@ curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"letter","em-webs
 | M6 | M4's address again (active), another name | Name and status unchanged | Nothing |
 | M7 | Set an address to unsubscribed, then sign up again | Stays unsubscribed | Nothing; the site shows "Something went wrong" (see open points) |
 | M8 | Waitlist and contact with `MAILERSEND_API_KEY` set | — | Team email "[TEST] New waitlist form" with `letter: true/false`; replying goes to the sender |
+| M9 | Contact with three links in the message, or one in the name | — | Team email "[TEST] [Possible spam] New contact form", with a `possible spam` row giving the reason |
 
 ## 4. Unsubscribing (must always work)
 
@@ -94,6 +99,17 @@ campaigns (see open points).
 Some networks answer port 53 themselves and keep old answers, so `dig` can show a record as missing
 long after it is published. If `dig @192.0.2.1 example.com` answers, yours does: ask Google over
 HTTPS instead, `curl -s 'https://dns.google/resolve?name=_dmarc.shewins.es&type=TXT'`.
+
+## 6. Bots (on a Vercel deployment)
+
+BotID only runs on Vercel, so these checks need a preview deployment (`P=https://<preview-url>`).
+
+| # | Do | Expect |
+|---|----|--------|
+| B1 | `curl -s -XPOST $P/api/form -H "origin: $P" -H 'content-type: application/json' -d '{"form":"letter","em-letter":"you+sw-b1@gmail.com","em-name":"A","em-lang":"en"}'` | 403, nothing created; the function log says `[form] BotID: bot rejected`. A 401 means the preview is behind Vercel Authentication: run it with `vercel curl` |
+| B2 | Send each form from the preview in the browser | Works as in section 1 |
+| B3 | Vercel › Firewall › Traffic, filter BotID | B1 shows as a bot and B2 as human |
+| B4 | Function logs after B2 | No `BotID check failed` error (that would mean OIDC is off and every request skips the check) |
 
 ## Results, 7 November 2026
 

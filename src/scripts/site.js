@@ -49,10 +49,15 @@ setLang(document.documentElement.lang==='es'?'es':'en');
    opens the dialog (.ask) with the other questions, the form is sent from the dialog and the
    confirmation shows there. When the dialog closes after a successful send, the form switches to
    its thank-you state. The contact form sends straight away. */
+/* The endpoint turns away an email whose domain takes no mail (a typo such as gmail.con), so the
+   person gets a message of its own instead of the general error. */
+var BADMAIL='<span class="en">That email address does not seem to exist. Please check it.</span><span class="es">Esa dirección de email no parece existir. Revísala, por favor.</span>';
 $$('form[data-form]').forEach(function(f){
   var ask=$('dialog.ask',f),sentOk=false;
   var em=$('input[type=email]',f),box=ask&&$('.ask-mail',ask),mi=box&&$('input',box);
   function own(sel){return f.parentNode.querySelector(':scope > '+sel)}
+  /* The error line under the form, and its general text, kept before badMail() replaces it. */
+  var fe=own('.ferr'),general=fe?fe.innerHTML:'';
   if(ask){
     $$('[data-close]',ask).forEach(function(b){b.addEventListener('click',function(){ask.close()})});
     ask.addEventListener('close',function(){if(sentOk)f.classList.add('done')});
@@ -78,8 +83,19 @@ $$('form[data-form]').forEach(function(f){
     $('.ask-q',ask).hidden=true;
     var end=$('.ask-end',ask);end.hidden=false;$('button',end).focus();
   }
+  /* The email to fix, marked and focused next to its message. The waitlist dialog has an email
+     field of its own; the Letter dialog does not, so it closes and the field in the band is fixed. */
+  function badMail(){
+    var line=ask?$('.ferr',ask):fe,i=em;
+    if(ask&&box){box.hidden=false;mi.required=true;mi.value=em?em.value:'';var to=$('.ask-to',ask);if(to)to.hidden=true;i=mi}
+    else if(ask){ask.close();line=fe}
+    if(line){line.innerHTML=BADMAIL;line.hidden=false}
+    if(i){i.setAttribute('aria-invalid','true');i.focus()}
+  }
   f.addEventListener('submit',function(e){
     e.preventDefault();
+    /* A new try clears the line under the form (the email message, or a past error). */
+    if(fe)fe.hidden=true;
     var ok=true;
     $$('input[required],textarea[required]',f).forEach(function(i){
       var d=i.closest('dialog');if(d&&!d.open)return;
@@ -99,8 +115,8 @@ $$('form[data-form]').forEach(function(f){
     var btn=ask?$('.ask-q button[type=submit]',ask):$('button[type=submit]',f);if(btn)btn.disabled=true;
     var err=ask?$('.ferr',ask):$('.ferr',f.parentNode);if(err)err.hidden=true;
     fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
-      .then(function(r){if(!r.ok)throw 0;done(data)})
-      .catch(function(){if(!err)return;var src=own('.ferr');if(ask&&src&&!err.innerHTML)err.innerHTML=src.innerHTML;err.hidden=false})
+      .then(function(r){if(r.ok){done(data);return}return r.json().then(function(j){throw j},function(){throw 0})})
+      .catch(function(x){if(x&&x.invalid==='email'){badMail();return}if(!err)return;err.innerHTML=general;err.hidden=false})
       .then(function(){if(btn)btn.disabled=false});
   });
 });

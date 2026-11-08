@@ -75,6 +75,11 @@ The tags must match the `articleBlocks` in `keystatic.config.ts`. `@markdoc/mark
 - "Join the waitlist" buttons (the Membership opener, the sticky bar, the header) open the waitlist dialog directly instead of scrolling to the form; from another page, `/membership#waitlist` opens it on arrival. Opened this way, the dialog asks for the email itself (`w-mail-ask`, copied into `w-mail`).
 - Both signup forms ask for the name and the language of the emails (`em-lang`, `w-lang`). That chosen language, not the page language, is what goes to the MailerLite `language` field.
 - A field whose id ends in `-website` is a honeypot.
+- Spam checks in `api/form.ts`, besides the honeypot:
+  - Vercel BotID. `src/scripts/botid.js` (the one module script) makes every POST to `/api/form` carry a solved invisible challenge, and `checkBotId()` rejects requests without it with 403. A failed check lets the request through. In dev it always answers human. On Vercel, a `curl` to the endpoint gets 403, and so does a form sent from `astro preview`.
+  - The email domain must have an MX record. Otherwise the endpoint answers `{invalid: 'email'}` and `site.js` asks the person to fix the address.
+  - A contact message with a link in the name or organisation, or 3 links or more, still reaches the team, with `[Possible spam]` in the subject.
+  - A Vercel Firewall rule limits POST `/api/form` per IP (README).
 - The Letter form is one component, `src/components/forms/LetterSignup.astro`. Use it at most once per page: `api/form.ts` reads the fixed ids `em-letter`, `em-name` and `em-lang`. Other places link to `/letter` instead.
 - `site.js` fires `sw-form-sent` (`detail.form`, and `detail.data` with the fields sent) after a successful send. `src/scripts/letter-invite.js` listens for it, so the Letter invitation card (`LetterInvite.astro`) stops showing after a signup. The card skips the routes listed in its component and keeps its state in localStorage `sw-letter`.
 - With no API keys, dev logs the submission and returns ok. See `.env.example`.
