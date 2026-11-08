@@ -15,8 +15,11 @@
 }
 
 /* 2. Wide screens: "Sé la primera." at 168px was 10px wider than its form column (1920px).
-   Capped at 160px, which only changes the size above ~1450px. */
-.fgrid h2.xl { font-size: clamp(50px, 11vw, 160px); }
+   Capped at 160px, which only changed the size above ~1450px. Later, at the team's request
+   (November 2026), the closer stepped down about 15% so it no longer outweighs the page title:
+   clamp(48px, 9.4vw, 136px), 135px at 1440 instead of 158px. Balanced, so the smaller size
+   keeps "Be first / in line." instead of leaving "line." alone. */
+.fgrid h2.xl { font-size: clamp(48px, 9.4vw, 136px); text-wrap: balance; }
 
 /* 3. Touch targets. On the phone/tablet layout (menu button visible, < 1000px) the menu button
    (37px) and EN/ES (31px) reach 44px. Footer links (21px) and "← Blog / Home" (16px) get larger

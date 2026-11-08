@@ -5,6 +5,7 @@
 // children of the form's parent. Use it at most once per page: api/form.ts reads the fixed ids
 // em-letter, em-name and em-lang, so a second copy would repeat them.
 import { localize, type Lang } from '../../i18n';
+import FieldArrow from './FieldArrow.astro';
 
 interface Props {
   lang: Lang;
@@ -14,7 +15,7 @@ const { lang } = Astro.props;
 const { L } = localize(lang);
 ---
 <form class="form" data-form="letter" novalidate><input aria-hidden="true" autocomplete="off" id="em-website" name="website" style="position:absolute;left:-9999px" tabindex="-1" type="text" />
-<div class="inline-form"><label for="em-letter" style="position:absolute;left:-999px">Email</label>
+<div class="inline-form"><FieldArrow /><label for="em-letter" style="position:absolute;left:-999px">Email</label>
 <input autocomplete="email" data-ph-en="Email" data-ph-es="Correo electrónico" id="em-letter" placeholder="Email" required type="email" />
 <button class="btn b-cream" type="submit"><span class={lang}>{L("Subscribe", "Suscribirme")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div>
 <dialog aria-labelledby="em-ask-t" class="ask">

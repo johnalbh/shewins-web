@@ -105,4 +105,18 @@ function stick(){
 }
 window.addEventListener('scroll',stick,{passive:true});
 stick();
+
+/* Closing form blocks: the drawn arrow by the email field (FieldArrow.astro) stays unwritten
+   ("arm") until the field is half on screen, then writes itself in and nudges toward it
+   (motion.css). Without this script, or with reduced motion, it simply shows. */
+if(!reduce&&'IntersectionObserver' in window){
+  $$('.formband .nudge').forEach(function(n){
+    var band=n.closest('.formband'),field=n.parentNode;
+    band.classList.add('arm');
+    var io=new IntersectionObserver(function(es){
+      if(es[0].isIntersecting){band.classList.add('seen');io.disconnect()}
+    },{threshold:0.5});
+    io.observe(field);
+  });
+}
 })();

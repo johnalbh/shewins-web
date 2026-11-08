@@ -113,6 +113,61 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
   .frame .facts > div:first-child { grid-template-columns: minmax(0, 1fr); gap: 2px; }
 }
 
+/* Next event date column. With no date announced, the frame shows the month ("Nov") instead of a
+   two-digit day, and the word was wider than its 0.7fr column: it ran under "Follow us on Meetup…".
+   The column is now at least as wide as the date it holds. */
+@media (min-width: 860px) {
+  .frame .pn { grid-template-columns: minmax(max-content, 0.7fr) minmax(0, 1.3fr); }
+}
+
+/* A section label with nothing else in its head ("Next free event", "Community voices", "Built
+   with people") kept the head's full margin, 52px, so it sat twice as far from its frame or list
+   as "Start here" sits from its heading. It now keeps the same distance: the head's 14px gap plus
+   the room above the heading's capitals (0.11em of the .l heading size). */
+.head:has(> .lab:only-child) { margin-bottom: calc(14px + 0.11 * clamp(38px, 6.4vw, 92px)); }
+
+/* Closing form bands (waitlist, the Letter, partner contact). They were full-width red bands
+   right above the red footer, so the page's main action ran into the footer as one block, and
+   the form floated at the top of an empty column. Each is now a red block set into the cream
+   paper, with the container's margins and a strip of cream above and below, so it reads as its
+   own last page before the footer. Cream on red (5.6:1) with cream buttons, as before. The title
+   sits on the left and the text and form on the right, both ending on the same line; the long
+   contact form keeps its heading at the top instead. */
+.formband { background: var(--cream); }
+.formband .fgrid {
+  background: var(--red);
+  color: var(--cream);
+  padding: clamp(34px, 4.8vw, 74px);
+}
+.formband .fgrid :focus-visible { outline-color: var(--cream); }
+@media (min-width: 860px) {
+  .formband .fgrid { align-items: end; }
+  .formband.long .fgrid { align-items: start; }
+}
+
+/* The drawn arrow (FieldArrow.astro) that points at the email field, in the 72px gap between the
+   columns. Its tip (51, 79 of the 58×94 drawing) lands 17px before "Email", level with the
+   field's text. Once the field has focus or an email, it has done its job and steps aside. */
+.nudge { display: none; }
+@media (min-width: 860px) {
+  .formband .inline-form { position: relative; }
+  .formband .nudge {
+    display: block;
+    position: absolute;
+    right: calc(100% + 10px);
+    top: -49px;
+    width: 58px;
+    height: 94px;
+    overflow: visible;
+    transition: opacity 0.3s ease-out, translate 0.3s ease-out;
+  }
+  .formband .inline-form:focus-within .nudge,
+  .formband .inline-form:has(input:not(:placeholder-shown)) .nudge { opacity: 0; translate: 8px 0; }
+}
+/* Titles in the panel's half column. The Letter's four sentences each take a line, and the
+   longest ("Una oportunidad.", 7.3em) must fit a column that narrows to ~490px: 64px at most. */
+.formband h2.l { font-size: clamp(32px, 5vw, 64px); }
+
 /* Blog list: a calmer index. Titles step down to 36px on a 28ch measure (two lines instead of
    three or four), and from 760px the "Read article" arrow moves to the end of the row as a quiet
    square cell; the label stays for screen readers, and the whole row is the link. */
@@ -143,3 +198,45 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
 .cover .script,
 .open .script { padding-left: 0.3em; }
 .open .script { margin-top: 0.3em; line-height: 1.45; }
+
+/* Chapter openers: the numeral and the title read as one pair, in the same place on every page.
+   The original split the band into two equal halves, so on desktop the title started at the
+   middle of the screen, 290–350px after the numeral, and it sat at the bottom of its half: a
+   one-line title ("Blog", "Come to a free event.") landed lower than a four-line one, and the
+   cross-fade between pages made the title jump. Now:
+   - the numeral column is as wide as two digits (1.04em of the numeral) plus a gap of 0.24em,
+     so the text starts at the same x on every page, close to the numeral;
+   - the title starts at the top, and its cap height lines up with the top of the digits (0.034
+     and 0.095 are where Archivo's caps start inside each line box, at 0.8 and 0.92 line-height);
+   - the title is a little smaller (84px at most instead of 100px) and runs to the container's
+     right edge. The narrowest the text column gets is 9.2em of the title (from 1580px, where the
+     numeral stops growing), so "Come to a free event." (8.6em) holds one line on every desktop. */
+.open {
+  --n-size: clamp(120px, 19vw, 300px);
+  --h-size: clamp(40px, 5.8vw, 84px);
+  --n-top: clamp(24px, 3vw, 40px);
+}
+.open .n { font-size: var(--n-size); }
+.open h1 { font-size: var(--h-size); }
+@media (min-width: 860px) {
+  .open {
+    --n-x: max(40px, calc((100vw - 1240px) / 2 + 40px));
+    grid-template-columns: calc(var(--n-x) + 1.28 * var(--n-size)) minmax(0, 1fr);
+  }
+  .open .n { padding: var(--n-top) 0 0 var(--n-x); }
+  .open .t { padding-left: 0; padding-right: var(--n-x); }
+  .open .t:has(> h1) {
+    justify-content: flex-start;
+    padding-top: calc(var(--n-top) + 0.034 * var(--n-size) - 0.095 * var(--h-size));
+  }
+}
+
+/* Home cover title in two lines, broken where the phrase breaks ("A business community / for
+   women in Málaga."), as the team asked. At 128px with a 15ch cap it took three lines. The longest
+   line, "Una comunidad de negocios", is 11.6em, so the title tops out at 100px to fit the 1200px
+   column. Below 640px the break is dropped and the title flows, because each half would wrap
+   on its own anyway. */
+.cover h1 { font-size: clamp(46px, 7vw, 100px); max-width: none; }
+@media (max-width: 639px) {
+  .cover h1 br { display: none; }
+}

@@ -28,7 +28,7 @@ typography:
     fontVariation: "'wdth' 96"
   display-closer:
     fontFamily: "Archivo, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(50px, 11vw, 160px)"
+    fontSize: "clamp(48px, 9.4vw, 136px)"
     fontWeight: 700
     lineHeight: 0.88
     letterSpacing: "-0.055em"
@@ -287,8 +287,8 @@ To mark something as inactive or past, dim only large type (display, titles, num
 ### Hierarchy
 
 - **Numeral** (700, clamp(120px, 19vw, 300px), 0.8, −0.06em): the chapter number in opener bands (01–04), the event date and the trio figures. Decorative (`aria-hidden`).
-- **Display** (700, clamp(50px, 11vw, 168px), 0.88, −0.055em): the home cover headline (tuned to clamp(46px, 8.6vw, 128px) at 0.96) and the waitlist closers. In the two-column form band, closers cap at 160px (display-closer) so the longest word fits its column.
-- **Headline** (700, clamp(38px, 6.4vw, 92px), 0.94, −0.045em): section headings ("October at SheWins.") and opener titles (clamp(44px, 6.4vw, 100px)).
+- **Display** (700, clamp(50px, 11vw, 168px), 0.88, −0.055em): the home cover headline (tuned to clamp(46px, 7vw, 100px) at 0.96, in two lines broken at the phrase from 640px up) and the waitlist closers. In the two-column form band, the closer is display-closer (clamp(48px, 9.4vw, 136px), balanced), a step below the cover so it does not outweigh the page title.
+- **Headline** (700, clamp(38px, 6.4vw, 92px), 0.94, −0.045em): section headings ("October at SheWins.") and opener titles (clamp(40px, 5.8vw, 84px), at most two lines on desktop where the copy allows).
 - **Title** (700, clamp(28px, 4vw, 56px), 1, −0.04em): sub-section heads. Row and card titles step down to clamp(24px, 2.6vw, 38px).
 - **Feature titles** (700, display face): the next-event title (clamp(34px, 4.6vw, 70px), 0.95); blog list titles (clamp(24px, 2.6vw, 36px), max 28ch, two or three lines); "Why SheWins" pair titles (clamp(28px, 5.2vw, 68px)), capped so the longest pair holds one line with no hyphenation.
 - **Lead** (400, clamp(17px, 1.6vw, 20px), 1.55): the first paragraph under a headline, max 44ch (36ch in openers).
@@ -316,7 +316,7 @@ To mark something as inactive or past, dim only large type (display, titles, num
 - **Container:** content sits in a centred container of 1240px max, with a 20px gutter that respects safe-area insets. The header row widens to 1500px.
 - **Sections:** vertical padding of clamp(48px, 7vw, 104px). Section backgrounds alternate cream, white and the colour bands to pace the page.
 - **Rows:** the core unit is the row. A 1px hairline sits on top and 26px of padding below. From 760px up, a 200px label column sits on the left and the content on the right, with a 32px gap. On phones they stack.
-- **Chapter openers:** one column on phones. From 860px they split into two equal halves (numeral left, text right, minimum height 440px), and the numeral aligns to the 1240px container edge.
+- **Chapter openers:** one column on phones. From 860px the numeral sits on the left, aligned to the 1240px container edge, in a column two digits wide (1.04em of the numeral) plus a 0.24em gap; the text takes the rest, up to the container's right edge (minimum height 440px). The title starts at the top, its cap height level with the top of the digits, so the numeral and title sit in the same place on every page and the cross-fade between pages does not move them.
 - **Grids:** tiles ("doors", trio, notes, team) use 2–4 columns that collapse to one. Gaps are zero between colour blocks, so blocks meet edge to edge.
 - **Breakpoints:** mobile-first at 640, 760, 860, 900, 1000 and 1100px. The desktop navigation appears at 1000px; below that, a full-screen red menu.
 - **Single-column grids** use minmax(0, 1fr) so long pills wrap instead of overflowing at 320px.
@@ -430,6 +430,18 @@ The next event, held in a red frame (12–22px border of red) around a pink pane
 - the title, a topic line, and the host and role;
 - a facts strip in black with cream text: When, Language and Where. Each fact is an uppercase label over a 15px 600 value, divided by line-on-dark rules; on phones each fact becomes its own row;
 - red and line buttons to Meetup and Luma.
+
+The date column is at least as wide as the date it holds, so the month shown before a date is announced ("Nov") never runs under the text. On the home page the "Next free event" label sits above the frame, like every other section label.
+
+### Closing Form Block
+
+The page's last action before the footer: the waitlist (Membership), the Letter (Home, About, Blog) and the partner contact form (Partners). Team decision, November 2026: the full-width red band ran into the red footer, so it is now a red block set into the cream paper.
+
+- **Look:** a flat red block with cream text and square corners, inside the 1240px container, with cream above and below (section padding) so the footer stays a separate block. Padding clamp(34px, 4.8vw, 74px). No border and no shadow.
+- **Layout:** from 860px, two equal columns. Label and title on the left; lead, inline form and note on the right, both ending on the same line. The long contact form keeps its heading at the top.
+- **Title:** the waitlist uses display-closer ("Be first / in line."). The Letter's four sentences each take a line ("One idea. / One tool. / One woman. / One opportunity."), at clamp(32px, 5vw, 64px) so the longest fits the half column.
+- **Controls:** cream buttons with the arrow cell, cream underline fields, the pink error underline and the cream error line, as on any red surface.
+- **Drawn arrow (waitlist and the Letter, from 860px):** a hand-drawn cream arrow with a loop, in the brush hand of the script (3.2px stroke, lightly roughened), sits in the gap left of the email field and points at it. When the field is half on screen it writes itself in (0.8s, then the head), nudges toward the field three times and rests. It fades away once the field has focus or an email. It is illustration, not a UI icon, so it is the one drawn mark heavier than the 2px icon stroke. Under reduced motion it simply shows.
 
 ### Article Page (signature)
 

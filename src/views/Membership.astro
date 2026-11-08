@@ -1,5 +1,6 @@
 ---
 // Generated from html/membership.html + html/es/membership.html by scripts/migrate-from-html.mjs.
+import FieldArrow from '../components/forms/FieldArrow.astro';
 import Base from '../layouts/Base.astro';
 import { localize, type Lang } from '../i18n';
 
@@ -13,7 +14,7 @@ const { L, u } = localize(lang);
 
 <Base lang={lang} route="membership">
 <div class="page on" id="p-membership">
-<section class="open o-grad"><div aria-hidden="true" class="n">03</div><div class="t"><h1><span class={lang}>{L("Free is the front door. Membership is home.", "Lo gratuito es la puerta. La membresía es tu casa.")}</span></h1><span class="script"><span class={lang}>{L("opening soon", "abre pronto")}</span></span><p class="lead"><span class={lang}>{L("A community for women who want to connect, grow and move forward, together.", "Una comunidad para mujeres que quieren conectar, crecer y avanzar, juntas.")}</span></p><div class="btns"><button class="btn b-cream" data-scroll="waitlist" type="button"><span class={lang}>{L("Join the waitlist", "Unirme a la lista de espera")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button><span class="pill"><span class={lang}>{L("Opening soon", "Abre pronto")}</span></span></div></div></section>
+<section class="open o-grad"><div aria-hidden="true" class="n">03</div><div class="t"><h1><span class={lang}>{L("Free is the door.", "Lo gratis es la puerta.")} <br />{L("Membership is home.", "Membresía, tu casa.")}</span></h1><span class="script"><span class={lang}>{L("opening soon", "abre pronto")}</span></span><p class="lead"><span class={lang}>{L("A community for women who want to connect, grow and move forward, together.", "Una comunidad para mujeres que quieren conectar, crecer y avanzar, juntas.")}</span></p><div class="btns"><button class="btn b-cream" data-scroll="waitlist" type="button"><span class={lang}>{L("Join the waitlist", "Unirme a la lista de espera")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button><span class="pill"><span class={lang}>{L("Opening soon", "Abre pronto")}</span></span></div></div></section>
 <section class="sec s-cream"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L("Why stay", "Por qué quedarte")}</span></p><h2 class="l" style="max-width:16ch"><span class={lang}>{L("Because SheWins helps you keep moving forward.", "Porque SheWins te ayuda a seguir avanzando.")}</span></h2></div><p class="lead" style="font-size:clamp(18px,1.8vw,22px);max-width:50ch"><span class={lang}>{L("With the right people, the right opportunities and practical support around you. Not more events. More belonging.", "Con las personas adecuadas, las oportunidades adecuadas y apoyo práctico a tu alrededor. No más eventos. Más pertenencia.")}</span></p></div></section>
 <section class="sec s-white" style="padding-top:clamp(40px,6vw,80px)"><div class="w">
 <div class="head"><p class="lab"><span class={lang}>{L("Four pillars", "Cuatro pilares")}</span></p></div>
@@ -56,11 +57,12 @@ const { L, u } = localize(lang);
 <details><summary><span class={lang}>{L("Can I try SheWins before I join?", "¿Puedo probar SheWins antes de unirme?")}</span></summary><p><span class={lang}>{L("Yes. There is a free community event every month.", "Sí. Hay un evento gratuito de comunidad cada mes.")}</span></p></details>
 <details><summary><span class={lang}>{L("Who is it for?", "¿Para quién es?")}</span></summary><p><span class={lang}>{L("Women who want to grow: starting something, changing career, growing a business or looking for community.", "Mujeres que quieren crecer: empezando algo, cambiando de carrera, haciendo crecer un negocio o buscando comunidad.")}</span></p></details>
 </div></section>
-<section class="s-red formband on-d" id="waitlist"><div class="w"><div class="fgrid">
-<div><p class="lab"><span class={lang}>{L("Waitlist", "Lista de espera")}</span></p><h2 class="xl" style="margin-top:18px"><span class={lang}>{L("Be first in line.", "Sé la primera.")}</span></h2><p class="lead" style="margin-top:22px"><span class={lang}>{L("We will email you when membership opens, with founding member details.", "Te escribiremos cuando abra la membresía, con los detalles para miembros fundadoras.")}</span></p></div>
+<section class="formband" id="waitlist"><div class="w"><div class="fgrid">
+<div><p class="lab"><span class={lang}>{L("Waitlist", "Lista de espera")}</span></p><h2 class="xl" style="margin-top:18px"><span class={lang}>{L("Be first in line.", "Sé la primera.")}</span></h2></div>
 <div>
+<p class="lead"><span class={lang}>{L("We will email you when membership opens, with founding member details.", "Te escribiremos cuando abra la membresía, con los detalles para miembros fundadoras.")}</span></p>
 <form class="form" data-form="waitlist" novalidate><input aria-hidden="true" autocomplete="off" id="w-website" name="website" style="position:absolute;left:-9999px" tabindex="-1" type="text" />
-<div class="inline-form"><label for="w-mail" style="position:absolute;left:-999px">Email</label>
+<div class="inline-form"><FieldArrow /><label for="w-mail" style="position:absolute;left:-999px">Email</label>
 <input autocomplete="email" data-ph-en="Email" data-ph-es="Correo electrónico" id="w-mail" placeholder="Email" required type="email" />
 <button class="btn b-cream" type="submit"><span class={lang}>{L("Join the waitlist", "Unirme a la lista de espera")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></button></div>
 <dialog aria-labelledby="w-ask-t" class="ask">
