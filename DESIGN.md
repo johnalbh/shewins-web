@@ -392,7 +392,7 @@ The editorial block: square like the colour blocks, and always pointing forward.
 - **Checkbox:** a native 20px box with an accent colour.
 - **Choice of two (radio):** the language of the emails. It uses a fieldset whose legend is styled like a field label, and the options sit side by side on one line. Each option is a `.chk` label (native 20px radio and 16px text), at least 44px tall, and the whole label is the tap target. The page language is selected by default.
 - **Signup dialog (newsletter and waitlist):** the band shows only the inline email field and its button. The button checks the email, then opens a dialog with the other questions. The dialog is a flat cream block with square corners and no shadow. It holds a label, a title, "We will write to <email>", the fields and a red button. The form is sent from the dialog, and the thank-you shows there with a Close button. After the dialog closes, the band shows the thank-you too. It closes with Esc or the square drawn ×, and it rises in with `sw-fade-up`. "Join the waitlist" buttons open the waitlist dialog directly; opened that way it asks for the email first, in place of "We will write to …".
-- **Consent box (waitlist dialog):** a single checkbox, ticked by default (team decision, November 2026): "I agree to receive emails from She Wins. I can unsubscribe anytime." It covers the membership news and The She Wins Letter; there is no separate Letter box.
+- **Consent box (waitlist dialog):** a single required checkbox, unticked by default (team decision, November 2026): "I agree to receive emails from She Wins. I can unsubscribe anytime." It covers the membership news and The She Wins Letter; there is no separate Letter box.
 
 ### Disclosure (FAQ)
 
