@@ -28,10 +28,10 @@ Run each case on an English and a Spanish page (`/membership`, `/es/membership`,
 | F3 | Letter: send the dialog with the name empty | Name marked invalid, nothing sent |
 | F4 | Letter: complete it | "Almost there" in the dialog; after closing, the form shows its thank-you |
 | F5 | After F4, open other pages | The Letter invitation card never shows (localStorage `sw-letter` is `sub`) |
-| F6 | Waitlist: open the dialog | Consent box and Letter box are both **unticked** |
-| F7 | Waitlist: send without the consent box | Consent marked invalid, nothing sent |
-| F8 | Waitlist: consent only | Sent with `w-letter: false`; the invitation card still works on other pages |
-| F9 | Waitlist: consent + Letter box | Sent with `w-letter: true`; the invitation card stops, as in F5 |
+| F6 | Waitlist: open the dialog | Consent box **unticked**; Letter question with **no answer chosen** |
+| F7 | Waitlist: send without the consent box, or without a Letter answer | That field marked invalid, nothing sent |
+| F8 | Waitlist: consent, Letter "No, thanks" | Sent with `w-letter: "no"`; the invitation card still works on other pages |
+| F9 | Waitlist: consent, Letter "Yes" | Sent with `w-letter: "yes"`; the invitation card stops, as in F5 |
 | F10 | Contact (`/partners`): empty name, bad email, empty message | Each blocks the send |
 | F11 | Any form with the network off (DevTools › Offline) | "Something went wrong…" shows, the button works again, a retry sends |
 | F12 | Keyboard only: Tab through the dialog, Escape | Focus stays in the dialog; Escape closes it |
@@ -52,7 +52,7 @@ curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"letter","em-lett
 curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"letter","em-website":"spam","em-letter":"a@b.co"}'                     # 200, nothing created (honeypot)
 ```
 
-`w-letter` only counts when it is the JSON value `true`; the string `"true"` is ignored.
+`w-letter` only counts when it is `"yes"` (or the JSON value `true`, from pages cached before the yes / no question); anything else is no.
 
 ## 3. MailerLite, with real emails (Test group)
 

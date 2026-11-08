@@ -9,8 +9,15 @@ function $(s,r){return (r||document).querySelector(s)}
 function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
 
 document.addEventListener('click',function(e){
-  var s=e.target.closest&&e.target.closest('[data-scroll]');
-  if(s){var el=document.getElementById(s.getAttribute('data-scroll'));if(el)el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})}
+  var s=e.target.closest&&e.target.closest('[data-scroll],a[href$="#waitlist"]');
+  if(!s)return;
+  var id=s.getAttribute('data-scroll')||'waitlist',el=document.getElementById(id);
+  if(!el)return;
+  /* A section that holds a signup dialog (the waitlist) opens it straight away: the button says
+     "Join the waitlist", so the form comes to her instead of sending her to the end of the page. */
+  var fm=$('form[data-form]',el);
+  if(fm&&fm.openAsk){e.preventDefault();fm.openAsk(true);return}
+  if(s.hasAttribute('data-scroll'))el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})
 });
 var menu=$('#menu'),burger=$('.burger');
 function openMenu(){menu.hidden=false;burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';var x=$('.x',menu);if(x)x.focus()}
@@ -44,10 +51,21 @@ setLang(document.documentElement.lang==='es'?'es':'en');
    its thank-you state. The contact form sends straight away. */
 $$('form[data-form]').forEach(function(f){
   var ask=$('dialog.ask',f),sentOk=false;
+  var em=$('input[type=email]',f),box=ask&&$('.ask-mail',ask),mi=box&&$('input',box);
   function own(sel){return f.parentNode.querySelector(':scope > '+sel)}
   if(ask){
     $$('[data-close]',ask).forEach(function(b){b.addEventListener('click',function(){ask.close()})});
     ask.addEventListener('close',function(){if(sentOk)f.classList.add('done')});
+    if(mi&&em)mi.addEventListener('input',function(){em.value=mi.value});
+    f.openAsk=function(direct){
+      if(sentOk||ask.open)return;
+      var has=em&&em.value.indexOf('@')>0,need=!!(direct&&box&&!has);
+      if(box){box.hidden=!need;mi.required=need;if(need)mi.value=em?em.value:''}
+      var to=$('.ask-to',ask);if(to)to.hidden=need;
+      var m=$('[data-mail]',ask);if(m&&em)m.textContent=em.value.trim();
+      ask.showModal();
+      var first=need?mi:$('.ask-q input[type=text],.ask-q select',ask);if(first)first.focus();
+    };
   }
   function done(data){
     /* Announce the send with what was sent: letter-invite.js stops inviting someone who has just
@@ -65,17 +83,14 @@ $$('form[data-form]').forEach(function(f){
     var ok=true;
     $$('input[required],textarea[required]',f).forEach(function(i){
       var d=i.closest('dialog');if(d&&!d.open)return;
-      var bad=i.type==='checkbox'?!i.checked:!i.value.trim()||(i.type==='email'&&i.value.indexOf('@')<1);
+      /* Opened from a button, the dialog asks for the email itself and copies it here. */
+      if(i===em&&mi&&mi.required)return;
+      var bad=i.type==='checkbox'?!i.checked:i.type==='radio'?!f.querySelector('input[name="'+i.name+'"]:checked'):!i.value.trim()||(i.type==='email'&&i.value.indexOf('@')<1);
       i.setAttribute('aria-invalid',bad?'true':'false');
       if(bad&&ok){ok=false;i.focus()}
     });
     if(!ok)return;
-    if(ask&&!ask.open){
-      var m=$('[data-mail]',ask),em=$('input[type=email]',f);if(m&&em)m.textContent=em.value.trim();
-      ask.showModal();
-      var first=$('.ask-q input[type=text],.ask-q select',ask);if(first)first.focus();
-      return;
-    }
+    if(ask&&!ask.open){f.openAsk(false);return}
     if(sentOk)return;
     var kind=f.getAttribute('data-form'),cfg=(window.SW_FORMS||{}),url=cfg[kind];
     if(!url){done();return}
@@ -105,6 +120,11 @@ function stick(){
 }
 window.addEventListener('scroll',stick,{passive:true});
 stick();
+
+if(location.hash==='#waitlist'){
+  var wf=$('#waitlist form[data-form]');
+  if(wf&&wf.openAsk){try{history.replaceState(null,'',location.pathname+location.search)}catch(x){}window.scrollTo(0,0);wf.openAsk(true)}
+}
 
 /* Closing form blocks: the drawn arrow by the email field (FieldArrow.astro) stays unwritten
    ("arm") until the field is half on screen, then writes itself in and nudges toward it

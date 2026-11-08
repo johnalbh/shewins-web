@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 // Receives the three site forms, posted as JSON by src/scripts/site.js:
 //   letter   → MailerLite group "Newsletter" (double opt-in: MailerLite sends the confirmation)
 //   waitlist → MailerLite group "Waitlist" + a notification to the team (MailerSend), and also
-//              the group "Newsletter" when the optional Letter box (w-letter) is ticked
+//              the group "Newsletter" when she answers "yes" to the Letter question (w-letter)
 //   contact  → a notification to the team (MailerSend), reply-to the sender
 // Double opt-in is the MailerLite account setting "Double opt-in for API and integrations".
 //
@@ -83,8 +83,9 @@ function parse(d: Record<string, unknown>): Submission | { invalid: string } {
       if (!EMAIL.test(email)) return { invalid: 'email' };
       if (!lang) return { invalid: 'language' };
       if (d['w-ok'] !== true) return { invalid: 'consent' };
-      // The Letter box is a separate, optional consent: only an explicit true counts.
-      const letter = d['w-letter'] === true;
+      // The Letter is a separate consent, asked as a required yes / no with nothing pre-selected:
+      // only an explicit "yes" counts. true is the old checkbox, from pages cached before the change.
+      const letter = d['w-letter'] === 'yes' || d['w-letter'] === true;
       return { form: 'waitlist', ...base, email, name, language: lang, stage: STAGES.get(str(d['w-where'], 80)) ?? '', letter };
     }
     case 'contact': {
