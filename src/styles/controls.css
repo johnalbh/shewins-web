@@ -137,39 +137,6 @@ summary:focus-visible { border-radius: 0; }
 .form .opts .chk { align-items: center; min-height: 44px; font-size: 16px; letter-spacing: normal; text-transform: none; font-weight: 400; cursor: pointer; }
 .form .opts .chk input { margin: 0; }
 
-/* The Letter in the waitlist dialog (team request, November 2026): a question of its own, set off
-   by a hairline, with two square answers. It is a separate consent, so nothing is pre-selected
-   and one answer is required (GDPR: a pre-ticked box is not consent). "Yes" leads in red; "No,
-   thanks" stays just as easy to read and tap. The chosen answer fills red with cream text. */
-.form fieldset.ask-letter { padding-top: 18px; border-top: 1px solid var(--ink); }
-.form fieldset.ask-letter legend {
-  float: left;
-  width: 100%;
-  margin-bottom: 6px;
-  font-family: var(--display);
-  font-size: 22px;
-  font-weight: 700;
-  font-stretch: 96%;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  text-transform: none;
-}
-.ask-note { clear: both; font-size: 14px; line-height: 1.5; margin-bottom: 12px; }
-.form .choice { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
-.form .choice .chk {
-  min-height: 52px;
-  padding: 10px 14px;
-  border: 1.5px solid currentColor;
-  line-height: 1.3;
-  transition: background-color 0.2s ease-out, color 0.2s ease-out, border-color 0.2s ease-out;
-}
-.form .choice .chk:first-child { border-color: var(--red); color: var(--red); font-weight: 600; }
-.form .choice .chk:hover { background: color-mix(in srgb, currentColor 8%, transparent); }
-.form .choice .chk:has(input:checked) { background: var(--red); border-color: var(--red); color: var(--cream); }
-.form .choice .chk:has(input:checked) input { accent-color: var(--cream); }
-/* Sent without an answer: both answers take the 3px error edge until one is chosen. */
-.form .choice:has([aria-invalid="true"]):not(:has(:checked)) .chk { border-width: 3px; }
-
 /* ---------- Letter invitation card ---------- */
 
 /* A small card that invites visitors to The SheWins Letter and links to /letter (team request,

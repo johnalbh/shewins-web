@@ -3,7 +3,7 @@
    a sign of interest, 40% of the page read or 20 seconds on it. It does not take focus, and it
    waits while the menu or a dialog is open. Closing it or following its link keeps it away for
    30 days. A Letter signup on any page (the "sw-form-sent" event from site.js), from the Letter
-   form or a "yes" to the Letter in the waitlist, keeps it away for good. The choice is kept in localStorage "sw-letter", listed in the cookie policy. */
+   form or the Letter box of the waitlist, keeps it away for good. The choice is kept in localStorage "sw-letter", listed in the cookie policy. */
 (function(){
 var card=document.getElementById('letter-invite');
 var KEY='sw-letter',QUIET=30*86400000,WAIT=20000,READ=0.4;
@@ -31,7 +31,7 @@ function arm(){
   timer=setTimeout(show,WAIT);
   window.addEventListener('scroll',onScroll,{passive:true});
 }
-document.addEventListener('sw-form-sent',function(e){var d=e.detail||{};if(d.form==='letter'||(d.data&&(d.data['w-letter']==='yes'||d.data['w-letter']===true))){put('sub');hide()}});
+document.addEventListener('sw-form-sent',function(e){var d=e.detail||{};if(d.form==='letter'||(d.data&&d.data['w-letter']===true)){put('sub');hide()}});
 if(!card)return;
 card.addEventListener('click',function(e){
   if(e.target.closest('[data-invite-close]')){put('closed');hide()}
