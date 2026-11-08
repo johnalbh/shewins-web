@@ -58,6 +58,12 @@ The tags must match the `articleBlocks` in `keystatic.config.ts`. `@markdoc/mark
 - `.github/workflows/daily-rebuild.yml` calls a Vercel deploy hook every night so that past events move on.
 - `site.js` also sets the event status pills on the client.
 
+**Events from Meetup.**
+- The team publishes its events on Meetup. `src/lib/meetup.ts` reads the group's events at build time from Meetup's public GraphQL endpoint (no key; Meetup only documents its API for Pro, so it may stop). A failed request gets 3 tries; after that the build goes on without Meetup.
+- The home's "Recent events" row (`PastEvents` with `meetup`) shows the last three Meetup events: Meetup's 16:9 image (never cropped, it has text on it), a button to the event and one to Instagram. Without Meetup it falls back to the Keystatic posters. The events page still uses Keystatic.
+- `/lab/meetup` (noindex, not in the sitemap) is the test page: the whole home with events from Meetup alone, never mixed with Keystatic (team decision, November 2026).
+- `astro.config.mjs` allows `secure.meetupstatic.com` images, so `astro:assets` downloads and optimises them; a running dev server must be restarted after a change there.
+
 **CSS layers.** `public/style.css` is the designer's original (Messin Virginia) and is never edited. Changes go in `src/styles/`, imported by `Base.astro` in this order:
 1. `fixes.css`: bugs and accessibility in the original markup;
 2. `responsive.css`: one numbered block per audit finding;

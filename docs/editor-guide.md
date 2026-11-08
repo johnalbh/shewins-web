@@ -30,7 +30,7 @@ You will see four sections on the left: **Blog articles**, **Events**, **Authors
    - **Speaker or host**. Leave it empty for a community session.
    - **Speaker role** and **One line about the talk**, in both languages. They show in the "Next free event" box.
    - **Meetup link** and **Luma link** for this event. If empty, the buttons go to the She Wins pages.
-   - **Poster** (portrait image). After the event it appears under "Past events".
+   - **Poster** (portrait image). After the event it appears under "Past events" on the events page. The home's "Recent events" row takes its images from Meetup instead: there it shows the image of the event on Meetup.
    - **Poster description**: what the poster shows, for people who cannot see it.
    - **Instagram post**: the link to the post about this event. The poster links to it.
 4. **Save**.

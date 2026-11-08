@@ -1,42 +1,49 @@
 ---
-// Posters of the three most recent past events (home and events), each linking to its Instagram post.
-// Same one-line markup as html/events.html; images are resized and converted to WebP at build time.
+// The three most recent past events (home and events), shown oldest to newest like the original row.
+// Images are resized and converted to WebP at build time.
+//
+// With `meetup` (the home, team request of November 2026), they are the events of the She Wins
+// group on Meetup, with Meetup's own image, a button to the event on Meetup and one to Instagram.
+// Meetup's images are 16:9 posters with their own text, so they are shown whole, never cropped to
+// the 3:4 of the Keystatic posters. If Meetup did not answer during the build, the row falls back
+// to the Keystatic posters, as before, rather than leave the section empty.
+//
+// Without it (the events page), the Keystatic posters, each linking to its Instagram post: the same
+// one-line markup as html/events.html.
 import { Image } from 'astro:assets';
 import { localize, type Lang } from '../../i18n';
-import { getEventsByTime, getSettings } from '../../lib/content';
+import { getEventsByTime, getSettings, type Event } from '../../lib/content';
 import { getImage } from '../../lib/images';
+import { ARROW, INSTAGRAM, MEETUP } from '../../lib/markup';
 
 interface Props {
   lang: Lang;
-  /** Merge the Meetup events in (lab page). */
+  /** Show the latest events from Meetup instead of the Keystatic posters. */
   meetup?: boolean;
 }
 
 const { lang, meetup = false } = Astro.props;
 const { L } = localize(lang);
-const [{ past }, settings] = await Promise.all([getEventsByTime({ meetup }), getSettings()]);
-// The three most recent, shown oldest to newest like the original row.
+const [{ past }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
 const posters = past
   .map((ev) => ({ ev, image: getImage(ev.poster) }))
   .filter((p) => p.image)
   .slice(0, 3)
   .reverse();
-// Lab page: Meetup's 16:9 event images instead of the portrait posters, shown whole and linking to
-// the event on Meetup. Falls back to the posters when Meetup did not answer.
-const wide = meetup
-  ? past
+const fromMeetup = meetup
+  ? (await getEventsByTime({ meetup: true })).past
       .filter((ev) => ev.meetup?.photo)
       .slice(0, 3)
       .reverse()
   : [];
-const altText = (ev: (typeof past)[number]) => {
+const altText = (ev: Event) => {
   const what = ev.posterAlt || (ev.host ? L(`${ev.title} with ${ev.host}`, `${ev.title} con ${ev.host}`) : ev.title);
   return L(`Event poster: ${what}`, `Póster del evento: ${what}`);
 };
 ---
 
-{wide.length > 0 ? (
-<div class="posters three wide">{wide.map((ev) => <figure><a href={ev.meetup!.url} rel="noopener" target="_blank"><Image src={ev.meetup!.photo!} inferSize alt={altText(ev)} widths={[400, 600, 800]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /></a><figcaption>{ev.title} <span aria-hidden="true">↗</span></figcaption></figure>)}</div>
+{fromMeetup.length > 0 ? (
+<div class="posters three wide">{fromMeetup.map((ev) => <figure><a aria-hidden="true" href={ev.meetup!.url} rel="noopener" tabindex="-1" target="_blank"><Image src={ev.meetup!.photo!} inferSize alt={altText(ev)} widths={[400, 600, 800]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /></a><figcaption>{ev.title}</figcaption><div class="btns"><a class="btn b-red" href={ev.meetup!.url} rel="noopener" target="_blank"><Fragment set:html={MEETUP} /><span class={lang}>{L('View on Meetup', 'Ver en Meetup')}</span><Fragment set:html={ARROW} /></a><a class="btn b-line" href={ev.instagramUrl || settings.instagram} rel="noopener" target="_blank"><Fragment set:html={INSTAGRAM} /><span>Instagram</span><Fragment set:html={ARROW} /></a></div></figure>)}</div>
 ) : (
 <div class="posters three">{posters.map(({ ev, image }) => <figure><a href={ev.instagramUrl || settings.instagram} rel="noopener" target="_blank"><Image src={image!} alt={altText(ev)} widths={[360, 540, 720]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /></a><figcaption>{ev.title} <span aria-hidden="true">↗</span></figcaption></figure>)}</div>
 )}

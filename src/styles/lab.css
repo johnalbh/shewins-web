@@ -4,4 +4,3 @@
 .mu-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
 .frame .dtw { display: grid; gap: 22px; }
 .frame .dtw figure { margin: 0; }
-.posters.three.wide img { aspect-ratio: 16 / 9; }
