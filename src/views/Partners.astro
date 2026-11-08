@@ -47,6 +47,12 @@ const settings = await getSettings();
 </form>
 <p class="ferr" hidden role="alert"><span class={lang}>{L("Something went wrong. Please try again or email us.", "Algo ha fallado. Inténtalo de nuevo o escríbenos por email.")}</span></p><div class="sent" role="status"><b><span class={lang}>{L("Thank you.", "Gracias.")}</span></b><p><span class={lang}>{L("We will reply to you soon.", "Te responderemos pronto.")}</span></p></div>
 </div>
-</div></div></section>
+</div></div>
+<dialog aria-labelledby="c-ask-t" class="ask ask-form">
+<button aria-label={L("Close", "Cerrar")} class="x" data-close type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"></path></svg></button>
+<div class="ask-q"><p class="lab"><span class={lang}>{L("Contact", "Contacto")}</span></p><h2 id="c-ask-t"><span class={lang}>{L("Tell us what you have in mind.", "Cuéntanos qué tienes en mente.")}</span></h2><p class="ask-to"><span class={lang}>{L("We read every message and reply personally.", "Leemos cada mensaje y respondemos personalmente.")}</span></p></div>
+<div class="ask-body"></div>
+</dialog>
+</section>
 </div>
 </Base>

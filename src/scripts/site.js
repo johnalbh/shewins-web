@@ -17,6 +17,7 @@ document.addEventListener('click',function(e){
      "Join the waitlist", so the form comes to her instead of sending her to the end of the page. */
   var fm=$('form[data-form]',el);
   if(fm&&fm.openAsk){e.preventDefault();fm.openAsk(true);return}
+  if(el.openForm){e.preventDefault();el.openForm();return}
   if(s.hasAttribute('data-scroll'))el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})
 });
 var menu=$('#menu'),burger=$('.burger');
@@ -116,7 +117,8 @@ $$('form[data-form]').forEach(function(f){
     /* Announce the send with what was sent: letter-invite.js stops inviting someone who has just
        subscribed, from the Letter form or from the waitlist, whose consent covers the Letter. */
     try{document.dispatchEvent(new CustomEvent('sw-form-sent',{detail:{form:f.getAttribute('data-form'),data:data||{}}}))}catch(x){}
-    if(!ask){f.classList.add('done');return}
+    /* Sent from the contact dialog: the thank-you shows there and the close button takes the focus. */
+    if(!ask){f.classList.add('done');var pd=f.closest('dialog'),px=pd&&$('.x',pd);if(px)px.focus();return}
     sentOk=true;
     var s=own('.sent'),box=$('.ask-done',ask);
     if(s&&box){var c=s.cloneNode(true);c.removeAttribute('role');box.appendChild(c)}
@@ -158,6 +160,22 @@ $$('form[data-form]').forEach(function(f){
       .catch(function(x){if(x&&x.invalid==='email'){badMail();return}if(!err)return;err.innerHTML=general;err.hidden=false})
       .then(function(){if(btn)btn.disabled=false});
   });
+});
+/* "Start a conversation" (Partners) opens the contact form in a dialog instead of sending her to the
+   end of the page (team request, November 2026). The form's column moves into the dialog and back
+   into the band when the dialog closes, so there is one form, with the ids api/form.ts reads,
+   wherever it is filled in, and a sent form shows its thank-you in both places. */
+$$('dialog.ask-form').forEach(function(d){
+  var sec=d.parentNode,f=$('form[data-form]',sec),col=f&&f.parentNode,body=$('.ask-body',d),spot=document.createComment('form');
+  if(!col||!body)return;
+  $$('[data-close]',d).forEach(function(b){b.addEventListener('click',function(){d.close()})});
+  d.addEventListener('close',function(){if(spot.parentNode){spot.parentNode.insertBefore(col,spot);spot.parentNode.removeChild(spot)}});
+  sec.openForm=function(){
+    if(d.open)return;
+    col.parentNode.insertBefore(spot,col);body.appendChild(col);
+    d.showModal();
+    var first=f.classList.contains('done')?$('.x',d):$('select,textarea,input:not([tabindex="-1"])',f);if(first)first.focus();
+  };
 });
 var now=new Date();now.setHours(0,0,0,0);
 $$('.show').forEach(function(s){

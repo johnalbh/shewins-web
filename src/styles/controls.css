@@ -142,6 +142,16 @@ summary:focus-visible { border-radius: 0; }
 .ask-end { margin-top: 24px; }
 .ask-end .btn { padding: 6px 22px; }
 
+/* The contact form in its dialog (Partners, team request, November 2026). It is the red band's own
+   form, moved in by site.js, so on the cream dialog its cream button turns red (cream on red, the
+   action colour) and a field to fix is underlined in red, not pink, which is too faint on cream.
+   Its thank-you shows only once it is sent: unlike the signup dialogs, nothing is copied in. */
+.ask-body { margin-top: 24px; }
+.ask-form .b-cream { background: var(--red); color: var(--cream); }
+.ask-form [aria-invalid="true"] { border-bottom-color: var(--red); }
+.ask-form .sent { display: none; padding: 0; }
+.ask-form form.done ~ .sent { display: block; }
+
 /* Language of the emails (newsletter and waitlist): two radio buttons under a field label. The
    legend takes the style of .fld label, and each option reuses the .chk checkbox and is at least
    44px tall so it is easy to tap. */
