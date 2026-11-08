@@ -260,18 +260,17 @@ summary:focus-visible { border-radius: 0; }
 
 /* The month's events are colour-block tiles that frame Meetup's posters, instead of text rows
    (team request, November 2026: images, so the list of what is coming invites people in;
-   ThisMonth.astro). Like the doors on Partners, the tiles meet edge to edge and take turns in
-   red (cream text), pink (black text) and cream (ink text, red title and numeral): the approved
-   pairs, no gradient, because the tiles carry small text. Inside each: the date of the schedule
-   rows with the status pill beside it, the 16:9 poster whole, the title, host, place and pills.
-   The title is the link; its ::after stretches over the tile, so the whole block opens the event
-   on Meetup. On hover the poster grows a little and the title is underlined; the small ↗ says it
-   leaves the site. */
-.month { display: grid; grid-template-columns: minmax(0, 1fr); }
-@media (min-width: 760px) { .month { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+   ThisMonth.astro). The nearest upcoming event is the red tile (cream text); the others are
+   cream (ink text, red title and numeral): approved pairs, no gradient, because the tiles carry
+   small text. The tiles sit apart, with the gap of the poster grid (team request). Inside each:
+   the date of the schedule rows with the status pill beside it, the 16:9 poster whole, the
+   title, host, place and pills. The title is the link; its ::after stretches over the tile, so
+   the whole block opens the event on Meetup. On hover the poster grows a little and the title is
+   underlined; the small ↗ says it leaves the site. */
+.month { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+@media (min-width: 760px) { .month { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
 .month .evt { position: relative; display: flex; flex-direction: column; gap: 16px; padding: clamp(18px, 2.4vw, 28px); }
 .month .t-red { background: var(--red); color: var(--cream); }
-.month .t-pink { background: var(--pink); color: var(--black); }
 .month .t-cream { background: var(--cream); color: var(--ink); }
 .month .t-cream h3,
 .month .t-cream .d { color: var(--red); }
