@@ -17,23 +17,14 @@ const pages = ['', 'es/']
     ...fs.readdirSync(path.join(ORIGINAL, `${dir}blog`)).map((f) => `${dir}blog/${f}`),
   ]);
 
-// Intended changes in the articles' structured data: a publish date and the author's full name.
-const normalizeLd = (ld) => {
-  for (const node of ld?.['@graph'] ?? []) {
-    if (node['@type'] !== 'BlogPosting') continue;
-    delete node.datePublished;
-    node.author.name = node.author.name.split(' ')[0];
-  }
-  return JSON.stringify(ld);
-};
-
+// The head is compared on what fixes the site's URL structure: canonical, language twins, og:url
+// and type, <html lang> and the body route. Titles, descriptions and the JSON-LD were rewritten
+// on purpose in the SEO work of November 2026 (src/data/seo.json, src/lib/seo.ts), so they are
+// not expected to match the original files any more.
 const head = ($) => ({
-  title: $('title').text(),
-  description: $('meta[name=description]').attr('content'),
   canonical: $('link[rel=canonical]').attr('href'),
-  hreflang: $('link[rel=alternate]').map((_, l) => `${l.attribs.hreflang}=${l.attribs.href}`).get().join(' '),
-  og: $('meta[property^="og:"]').map((_, m) => `${m.attribs.property}=${m.attribs.content}`).get().join(' | '),
-  jsonLd: normalizeLd(JSON.parse($('script[type="application/ld+json"]').html() || 'null')),
+  hreflang: $('link[rel=alternate][hreflang]').map((_, l) => `${l.attribs.hreflang}=${l.attribs.href}`).get().join(' '),
+  og: $('meta[property="og:url"], meta[property="og:type"]').map((_, m) => `${m.attribs.property}=${m.attribs.content}`).get().join(' | '),
   lang: $('html').attr('lang'),
   route: $('body').attr('data-route'),
 });

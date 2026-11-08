@@ -32,12 +32,20 @@ There is no test suite and no linter. `npm run build` is the type and content ch
 **Adding a fixed page** touches several places:
 - a view;
 - two page wrappers (EN and ES);
-- an entry in `src/data/seo.json`;
+- an entry in `src/data/seo.json` (title, description, `ogType`, optional schema.org `pageType`);
 - the sitemap priority map in `src/pages/sitemap.xml.ts`;
 - `src/pages/llms.txt.ts` if it is a main page.
 - the page list in `scripts/responsive-audit.mjs`, or `--pages` cannot reach it.
 
-The `seo.json` key is the `route` prop of `Base.astro`. It is also the `body[data-route]` that the scripts read. `Base.astro` builds the whole `<head>` from it: canonical, hreflang, OG and JSON-LD. Blog posts pass `seo` and `path` overrides instead.
+The `seo.json` key is the `route` prop of `Base.astro`. It is also the `body[data-route]` that the scripts read. `Base.astro` builds the whole `<head>` from it: canonical, hreflang, OG, the RSS link and JSON-LD. Blog posts pass `seo`, `path` and `crumbs` overrides instead.
+
+**SEO rules.**
+- The JSON-LD is built by `src/lib/seo.ts`, not written by hand: every page gets `Organization` (links and email from Keystatic settings), `WebSite`, `WebPage` and `BreadcrumbList`; a view adds its own nodes through the `jsonLd` prop of `Base.astro` (`blogPosting` on articles, `eventNode` for the upcoming Meetup events a page shows: the next free event on the home, that plus this month's on Events). Mark up only events visible on the page.
+- Titles stay under about 60 characters; article titles get the short suffix `| She Wins`.
+- The 404 (`route="404"`) is `noindex` and has no canonical or hreflang. `robots.txt` and the `X-Robots-Tag` headers in `vercel.json` keep `/keystatic` and `/api/` out of the index. `vercel.json` also redirects `/index.html`, `/es/index.html` and the `shewins-web.vercel.app` alias to the real URLs.
+- The sitemap gives `lastmod` only to articles (their publish date). Never put the build date there.
+- `/rss.xml` and `/es/rss.xml` (`src/lib/rss.ts`) list the articles for feed readers and crawlers.
+- `scripts/compare-with-html.mjs` compares the head only on URL structure (canonical, hreflang, og:url, lang, route): titles, descriptions and structured data differ from `../html` on purpose.
 
 **Content (Keystatic).** `keystatic.config.ts` defines the panel and `src/content/` holds the files. The storage is `local` in dev and `cloud` in production, where every save in the panel is a commit and Vercel rebuilds. `src/lib/content.ts` reads the content at build time with `createReader`:
 - A post keeps both languages in one entry: `index.yaml` plus `bodyEn.mdoc` and `bodyEs.mdoc`.

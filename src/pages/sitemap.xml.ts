@@ -8,12 +8,14 @@ const PRIORITY: Record<string, string> = { home: '1.0', about: '0.8', events: '0
 
 export const GET: APIRoute = async () => {
   const posts = await getPosts();
-  const buildDate = new Date().toISOString().slice(0, 10);
+  // Only the articles carry <lastmod>, from their publish date. The fixed pages used to say
+  // "modified today" on every nightly rebuild, which is not true and makes search engines
+  // distrust the dates. A page without <lastmod> is fine; a wrong one is not.
   const pages = [
     ...Object.entries(seo)
       .filter(([route]) => route in PRIORITY)
-      .map(([route, page]) => ({ path: page.path, priority: PRIORITY[route], lastmod: buildDate })),
-    ...posts.map((p) => ({ path: `/blog/${p.slug}`, priority: '0.6', lastmod: p.publishedAt ?? buildDate })),
+      .map(([route, page]) => ({ path: page.path, priority: PRIORITY[route], lastmod: undefined as string | undefined })),
+    ...posts.map((p) => ({ path: `/blog/${p.slug}`, priority: '0.6', lastmod: p.publishedAt ?? undefined })),
   ];
 
   const urls = pages.flatMap(({ path, priority, lastmod }) => {
@@ -23,7 +25,8 @@ export const GET: APIRoute = async () => {
       `<xhtml:link rel="alternate" hreflang="es" href="${SITE}${alt.es}"/>`,
       `<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${alt.en}"/>`,
     ].join('');
-    return [alt.en, alt.es].map((p) => `<url><loc>${SITE}${p}</loc><lastmod>${lastmod}</lastmod><priority>${priority}</priority>${links}</url>`);
+    const mod = lastmod ? `<lastmod>${lastmod}</lastmod>` : '';
+    return [alt.en, alt.es].map((p) => `<url><loc>${SITE}${p}</loc>${mod}<priority>${priority}</priority>${links}</url>`);
   });
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

@@ -120,7 +120,8 @@ function normalise(e: RawEvent): MeetupEvent {
     online,
     venueName: online ? 'Online' : v.name.trim(),
     venue: online ? 'Online' : [v.name.trim(), street].filter(Boolean).join(', '),
-    address: v && !online ? { street, city: v.city, postalCode: v.postalCode ?? '', country: v.country ?? 'ES', lat: v.lat, lon: v.lon } : null,
+    // Meetup's postal code is sometimes a placeholder ("meetup6") and its country code lower case.
+    address: v && !online ? { street, city: v.city, postalCode: /^\d{4,6}$/.test(v.postalCode ?? '') ? v.postalCode! : '', country: (v.country ?? 'ES').toUpperCase(), lat: v.lat, lon: v.lon } : null,
     photo: e.featuredEventPhoto?.highResUrl ?? null,
     fee: e.feeSettings && e.feeSettings.amount > 0 ? e.feeSettings : null,
     speaker: e.speakerDetails?.name.trim() ?? '',

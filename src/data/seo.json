@@ -3,352 +3,54 @@
     "path": "/",
     "en": {
       "title": "Page not found | She Wins",
-      "description": "She Wins is a business community for women in Málaga: a free event every month, workshops and a membership opening soon. In English and Spanish.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es",
-            "logo": "https://www.shewins.es/assets/logo-red.png",
-            "sameAs": [
-              "https://www.instagram.com/shewins.es/",
-              "https://www.linkedin.com/company/she-wins-networking-education-for-women",
-              "https://www.meetup.com/she_wins_malaga/",
-              "https://luma.com/user/SheWins"
-            ],
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "C/ Ancha del Carmen 32",
-              "postalCode": "29002",
-              "addressLocality": "Málaga",
-              "addressCountry": "ES"
-            },
-            "@id": "https://www.shewins.es/#org",
-            "description": "She Wins is a business community for women in Málaga: a free event every month, workshops and a membership opening soon. In English and Spanish.",
-            "areaServed": "Málaga",
-            "knowsLanguage": [
-              "en",
-              "es"
-            ],
-            "email": "hola@shewins.es"
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "@id": "https://www.shewins.es/#site",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/",
-            "inLanguage": [
-              "en",
-              "es"
-            ],
-            "publisher": {
-              "@id": "https://www.shewins.es/#org"
-            }
-          }
-        ]
-      }
+      "description": "She Wins is a business community for women in Málaga: a free networking event every month, workshops and a membership opening soon. In English and Spanish.",
+      "ogType": "website"
     },
     "es": {
-      "title": "Page not found | She Wins",
-      "description": "She Wins is a business community for women in Málaga: a free event every month, workshops and a membership opening soon. In English and Spanish.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es",
-            "logo": "https://www.shewins.es/assets/logo-red.png",
-            "sameAs": [
-              "https://www.instagram.com/shewins.es/",
-              "https://www.linkedin.com/company/she-wins-networking-education-for-women",
-              "https://www.meetup.com/she_wins_malaga/",
-              "https://luma.com/user/SheWins"
-            ],
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "C/ Ancha del Carmen 32",
-              "postalCode": "29002",
-              "addressLocality": "Málaga",
-              "addressCountry": "ES"
-            },
-            "@id": "https://www.shewins.es/#org",
-            "description": "She Wins is a business community for women in Málaga: a free event every month, workshops and a membership opening soon. In English and Spanish.",
-            "areaServed": "Málaga",
-            "knowsLanguage": [
-              "en",
-              "es"
-            ],
-            "email": "hola@shewins.es"
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "@id": "https://www.shewins.es/#site",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/",
-            "inLanguage": [
-              "en",
-              "es"
-            ],
-            "publisher": {
-              "@id": "https://www.shewins.es/#org"
-            }
-          }
-        ]
-      }
+      "title": "Página no encontrada | She Wins",
+      "description": "She Wins es una comunidad de negocios para mujeres en Málaga: un evento de networking gratuito cada mes, talleres y pronto una membresía. En inglés y español.",
+      "ogType": "website"
     }
   },
   "home": {
     "path": "/",
     "en": {
-      "title": "She Wins Málaga | A business community for women",
-      "description": "She Wins is a business community for women in Málaga: a free event every month, workshops and a membership opening soon. In English and Spanish.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es",
-            "logo": "https://www.shewins.es/assets/logo-red.png",
-            "sameAs": [
-              "https://www.instagram.com/shewins.es/",
-              "https://www.linkedin.com/company/she-wins-networking-education-for-women",
-              "https://www.meetup.com/she_wins_malaga/",
-              "https://luma.com/user/SheWins"
-            ],
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "C/ Ancha del Carmen 32",
-              "postalCode": "29002",
-              "addressLocality": "Málaga",
-              "addressCountry": "ES"
-            },
-            "@id": "https://www.shewins.es/#org",
-            "description": "She Wins is a business community for women in Málaga: a free event every month, workshops and a membership opening soon. In English and Spanish.",
-            "areaServed": "Málaga",
-            "knowsLanguage": [
-              "en",
-              "es"
-            ],
-            "email": "hola@shewins.es"
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "@id": "https://www.shewins.es/#site",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/",
-            "inLanguage": [
-              "en",
-              "es"
-            ],
-            "publisher": {
-              "@id": "https://www.shewins.es/#org"
-            }
-          }
-        ]
-      }
+      "title": "She Wins Málaga | Women's business and networking community",
+      "description": "She Wins is a business community for women in Málaga: a free networking event every month, workshops and a membership opening soon. In English and Spanish.",
+      "ogType": "website"
     },
     "es": {
-      "title": "She Wins Málaga | Una comunidad de negocios para mujeres",
-      "description": "She Wins es una comunidad de negocios para mujeres en Málaga: un evento gratuito cada mes, talleres y pronto una membresía. En inglés y español.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es",
-            "logo": "https://www.shewins.es/assets/logo-red.png",
-            "sameAs": [
-              "https://www.instagram.com/shewins.es/",
-              "https://www.linkedin.com/company/she-wins-networking-education-for-women",
-              "https://www.meetup.com/she_wins_malaga/",
-              "https://luma.com/user/SheWins"
-            ],
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "C/ Ancha del Carmen 32",
-              "postalCode": "29002",
-              "addressLocality": "Málaga",
-              "addressCountry": "ES"
-            },
-            "@id": "https://www.shewins.es/#org",
-            "description": "She Wins is a business community for women in Málaga: a free event every month, workshops and a membership opening soon. In English and Spanish.",
-            "areaServed": "Málaga",
-            "knowsLanguage": [
-              "en",
-              "es"
-            ],
-            "email": "hola@shewins.es"
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "@id": "https://www.shewins.es/#site",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/",
-            "inLanguage": [
-              "en",
-              "es"
-            ],
-            "publisher": {
-              "@id": "https://www.shewins.es/#org"
-            }
-          }
-        ]
-      }
+      "title": "She Wins Málaga | Networking para mujeres emprendedoras",
+      "description": "She Wins es una comunidad de negocios para mujeres en Málaga: un evento de networking gratuito cada mes, talleres y pronto una membresía. En inglés y español.",
+      "ogType": "website"
     }
   },
   "about": {
     "path": "/about",
+    "pageType": "AboutPage",
     "en": {
       "title": "About She Wins | Our story and team in Málaga",
       "description": "Meet the founders and the story behind She Wins, the bilingual business community for women in Málaga, and the values that guide it.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "About She Wins",
-                "item": "https://www.shewins.es/about"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     },
     "es": {
       "title": "Sobre She Wins | Nuestra historia y equipo en Málaga",
       "description": "Conoce a las fundadoras y la historia de She Wins, la comunidad de negocios bilingüe para mujeres en Málaga, y los valores que la guían.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/es"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Sobre She Wins",
-                "item": "https://www.shewins.es/es/about"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     }
   },
   "events": {
     "path": "/events",
+    "pageType": "CollectionPage",
     "en": {
-      "title": "Events in Málaga for women in business | She Wins",
-      "description": "Free monthly networking events and workshops for women who want to start or grow a business in Málaga. See upcoming dates and recent events.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Events in Málaga for women in business",
-                "item": "https://www.shewins.es/events"
-              }
-            ]
-          }
-        ]
-      }
+      "title": "Free networking events for women in Málaga | She Wins",
+      "description": "Free monthly networking events and workshops for women who want to start or grow a business in Málaga, in English and Spanish. See the upcoming dates.",
+      "ogType": "website"
     },
     "es": {
-      "title": "Eventos en Málaga para mujeres emprendedoras | She Wins",
-      "description": "Eventos de networking gratuitos cada mes y talleres para mujeres que quieren empezar o hacer crecer su negocio en Málaga. Próximas fechas y eventos recientes.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/es"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Eventos en Málaga para mujeres emprendedoras",
-                "item": "https://www.shewins.es/es/events"
-              }
-            ]
-          }
-        ]
-      }
+      "title": "Eventos de networking para mujeres en Málaga | She Wins",
+      "description": "Eventos de networking gratuitos cada mes y talleres para mujeres que quieren empezar o hacer crecer su negocio en Málaga, en inglés y español. Próximas fechas.",
+      "ogType": "website"
     }
   },
   "membership": {
@@ -356,206 +58,39 @@
     "en": {
       "title": "She Wins Membership | Join the waitlist",
       "description": "The She Wins membership opens soon. Join the waitlist for a community of women building businesses in Málaga, in English and Spanish.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "She Wins Membership",
-                "item": "https://www.shewins.es/membership"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     },
     "es": {
       "title": "Membresía She Wins | Únete a la lista de espera",
       "description": "La membresía de She Wins abre pronto. Apúntate a la lista de espera de una comunidad de mujeres que construyen negocios en Málaga, en inglés y español.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/es"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Membresía She Wins",
-                "item": "https://www.shewins.es/es/membership"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     }
   },
   "partners": {
     "path": "/partners",
     "en": {
-      "title": "Partners and hosts | She Wins Málaga",
-      "description": "Work with She Wins: partner, sponsor or host an event for the community of women in business in Málaga.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Partners and hosts",
-                "item": "https://www.shewins.es/partners"
-              }
-            ]
-          }
-        ]
-      }
+      "title": "Partners, sponsors and hosts | She Wins Málaga",
+      "description": "Work with She Wins: partner, sponsor, speak at or host an event for the community of women in business in Málaga.",
+      "ogType": "website"
     },
     "es": {
-      "title": "Aliados y anfitriones | She Wins Málaga",
-      "description": "Colabora con She Wins: sé aliada, patrocinadora o anfitriona de un evento para la comunidad de mujeres de negocios en Málaga.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/es"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Aliados y anfitriones",
-                "item": "https://www.shewins.es/es/partners"
-              }
-            ]
-          }
-        ]
-      }
+      "title": "Aliados, patrocinadores y anfitriones | She Wins Málaga",
+      "description": "Colabora con She Wins: sé aliada, patrocinadora, ponente o anfitriona de un evento para la comunidad de mujeres de negocios en Málaga.",
+      "ogType": "website"
     }
   },
   "blog": {
     "path": "/blog",
+    "pageType": "CollectionPage",
     "en": {
       "title": "She Wins Blog | Ideas for women building businesses",
       "description": "Articles on confidence, perfectionism, wellbeing, sleep and networking for women who start and grow businesses. In English and Spanish.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "She Wins Blog",
-                "item": "https://www.shewins.es/blog"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     },
     "es": {
-      "title": "Blog de She Wins | Ideas para mujeres que construyen negocios",
+      "title": "Blog de She Wins | Ideas para mujeres emprendedoras",
       "description": "Artículos sobre confianza, perfeccionismo, bienestar, sueño y networking para mujeres que empiezan y hacen crecer su negocio. En inglés y español.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/es"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Blog de She Wins",
-                "item": "https://www.shewins.es/es/blog"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     }
   },
   "letter": {
@@ -563,68 +98,12 @@
     "en": {
       "title": "The She Wins Letter | One email a month",
       "description": "One idea, one tool, one woman and one opportunity, once a month. The She Wins Letter is free, in English or Spanish, and you can unsubscribe at any time.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "The She Wins Letter",
-                "item": "https://www.shewins.es/letter"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     },
     "es": {
       "title": "La Letter de She Wins | Un email al mes",
-      "description": "Una idea, una herramienta, una mujer y una oportunidad, una vez al mes. La Letter de She Wins es gratuita, en inglés o en español, y puedes darte de baja cuando quieras.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/es"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "La Letter de She Wins",
-                "item": "https://www.shewins.es/es/letter"
-              }
-            ]
-          }
-        ]
-      }
+      "description": "Una idea, una herramienta, una mujer y una oportunidad, una vez al mes. La Letter de She Wins es gratuita, en inglés o en español. Date de baja cuando quieras.",
+      "ogType": "website"
     }
   },
   "privacy": {
@@ -632,68 +111,12 @@
     "en": {
       "title": "Privacy policy | She Wins",
       "description": "How She Wins collects and uses personal data, and how to exercise your rights under the GDPR.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Privacy policy",
-                "item": "https://www.shewins.es/privacy"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     },
     "es": {
       "title": "Política de privacidad | She Wins",
       "description": "Cómo She Wins recoge y usa los datos personales y cómo ejercer tus derechos según el RGPD.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/es"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Política de privacidad",
-                "item": "https://www.shewins.es/es/privacy"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     }
   },
   "legal": {
@@ -701,68 +124,12 @@
     "en": {
       "title": "Legal notice | She Wins",
       "description": "Legal notice and ownership details of the She Wins website.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Legal notice",
-                "item": "https://www.shewins.es/legal"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     },
     "es": {
       "title": "Aviso legal | She Wins",
       "description": "Aviso legal y datos del titular del sitio web de She Wins.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/es"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Aviso legal",
-                "item": "https://www.shewins.es/es/legal"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     }
   },
   "cookies": {
@@ -770,68 +137,12 @@
     "en": {
       "title": "Cookie policy | She Wins",
       "description": "The cookies She Wins uses, what they are for and how to change your choice.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Cookie policy",
-                "item": "https://www.shewins.es/cookies"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     },
     "es": {
       "title": "Política de cookies | She Wins",
       "description": "Qué cookies usa She Wins, para qué sirven y cómo cambiar tu elección.",
-      "ogType": "website",
-      "jsonLd": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": "https://www.shewins.es/#org",
-            "@type": "Organization",
-            "name": "She Wins",
-            "url": "https://www.shewins.es/"
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "She Wins",
-                "item": "https://www.shewins.es/es"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Política de cookies",
-                "item": "https://www.shewins.es/es/cookies"
-              }
-            ]
-          }
-        ]
-      }
+      "ogType": "website"
     }
   }
 }

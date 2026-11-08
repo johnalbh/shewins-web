@@ -6,6 +6,7 @@ import '../styles/article.css';
 import { SITE, localize, type Lang } from '../i18n';
 import { getPosts, type Post } from '../lib/content';
 import { renderMarkdoc } from '../lib/markdoc';
+import { blogPosting } from '../lib/seo';
 
 interface Props {
   lang: Lang;
@@ -25,40 +26,17 @@ const author = post.authorEntry?.name ?? '';
 const role = L(post.authorEntry?.roleEn, post.authorEntry?.roleEs);
 const body = renderMarkdoc(L(post.bodyEn.node, post.bodyEs.node), lang);
 
-const seo = {
-  title: `${title} | ${L('She Wins Blog', 'Blog de She Wins')}`,
-  description,
-  ogType: 'article',
-  jsonLd: {
-    '@context': 'https://schema.org',
-    '@graph': [
-      { '@id': `${SITE}/#org`, '@type': 'Organization', name: 'She Wins', url: `${SITE}/` },
-      {
-        '@type': 'BlogPosting',
-        headline: title,
-        description,
-        inLanguage: lang,
-        url,
-        mainEntityOfPage: url,
-        image: `${SITE}/assets/og-image.jpg`,
-        datePublished: post.publishedAt,
-        author: { '@type': 'Person', name: author },
-        publisher: { '@id': `${SITE}/#org` },
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'She Wins', item: SITE + (lang === 'es' ? '/es' : '/') },
-          { '@type': 'ListItem', position: 2, name: 'Blog', item: SITE + u('/blog') },
-          { '@type': 'ListItem', position: 3, name: title, item: url },
-        ],
-      },
-    ],
-  },
-};
+// Google shows about 60 characters of a title. The brand suffix is added only when it fits; a long
+// article title stands alone (Google shows the site name next to it anyway).
+const seo = { title: title.length > 48 ? title : `${title} | She Wins`, description, ogType: 'article' };
+const crumbs = [
+  { name: 'Blog', url: SITE + u('/blog') },
+  { name: title, url },
+];
+const jsonLd = [blogPosting({ url, title, description, lang, datePublished: post.publishedAt, author: { name: author, jobTitle: role } })];
 ---
 
-<Base lang={lang} route={`post-${post.slug}`} seo={seo} path={path}>
+<Base lang={lang} route={`post-${post.slug}`} seo={seo} path={path} crumbs={crumbs} jsonLd={jsonLd}>
 <div class="read-progress" aria-hidden="true"></div>
 <div class="page on" id={`p-post-${post.slug}`}>
 <section class="s-cream post-head"><div class="w post-grid"><div class="post-rail-head"><a class="back" href={u('/blog')}><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M14 8H3M7 3.5 2.5 8 7 12.5"></path></svg><span class={lang}>Blog</span></a></div><div class="post-title"><p class="lab"><span class={lang}>{L('By', 'Por')}</span> {author} · {post.readingTime} <span class={lang}>{L('min read', 'min de lectura')}</span></p> <h1><span class={lang}>{title}</span></h1></div></div></section>
