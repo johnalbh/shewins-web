@@ -28,6 +28,9 @@
   transition: background-color 0.2s ease;
 }
 .btn .ar svg { width: 16px; height: 16px; }
+/* The Meetup or Instagram mark before the label (src/lib/markup.ts), so people see at a glance
+   where the button goes. In the label's colour, 20px, 10px from the label. */
+.btn .lg { width: 20px; height: 20px; flex: none; margin-right: -8px; }
 
 /* Hover: the cell takes a tint of the text colour and the arrow steps forward (motion.css).
    No lift: blocks stay on the page. */

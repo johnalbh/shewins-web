@@ -376,6 +376,7 @@ The editorial block: square like the colour blocks, and always pointing forward.
 - **Header:** a compact variant, 40px high with a 40px arrow cell.
 - **Cookie banner:** plain square buttons with no arrow cell.
 - **Go arrow:** links in start cards and blog rows end in a 34px square outline cell holding the same drawn arrow. It fills red with a cream arrow on hover, and the arrow steps forward 3px.
+- **Platform marks:** buttons that lead to Meetup or Instagram carry that platform's one-colour mark (Simple Icons, CC0) before the label: 20px, 10px from the label, in the label's colour (cream on red, black on the line button), so people see at a glance where they go. Luma has no such mark, so its button stays text only.
 
 ### Pills
 
