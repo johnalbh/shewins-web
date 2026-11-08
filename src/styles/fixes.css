@@ -68,7 +68,7 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
   .quotes p { grid-column: 2; grid-row: 1; max-width: 46ch; }
 }
 
-/* Why SheWins pairs: each title holds one line (68px max fits the longest, "Comunidad +
+/* Why She Wins pairs: each title holds one line (68px max fits the longest, "Comunidad +
    formación", in its column at every width), with no forced hyphenation ("educa-tion"), and the
    description sits on the title's baseline. */
 .pair .t { font-size: clamp(28px, 5.2vw, 68px); hyphens: manual; overflow-wrap: break-word; }

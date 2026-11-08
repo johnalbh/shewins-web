@@ -4,8 +4,8 @@ import { Resolver } from 'node:dns/promises';
 
 // Receives the three site forms, posted as JSON by src/scripts/site.js:
 //   letter   → MailerLite group "Newsletter" (double opt-in: MailerLite sends the confirmation)
-//   waitlist → MailerLite group "Waitlist" + a notification to the team (MailerSend), and also
-//              the group "Newsletter" when the Letter box (w-letter) is left ticked
+//   waitlist → MailerLite groups "Waitlist" and "Newsletter" (its consent box covers both)
+//              + a notification to the team (MailerSend)
 //   contact  → a notification to the team (MailerSend), reply-to the sender
 // Double opt-in is the MailerLite account setting "Double opt-in for API and integrations".
 //
@@ -93,9 +93,10 @@ function parse(d: Record<string, unknown>): Submission | { invalid: string } {
       if (!EMAIL.test(email)) return { invalid: 'email' };
       if (!lang) return { invalid: 'language' };
       if (d['w-ok'] !== true) return { invalid: 'consent' };
-      // The Letter box is ticked by default (team decision, November 2026) and can be unticked:
-      // only an explicit true counts. "yes" comes from pages cached with the earlier yes / no question.
-      const letter = d['w-letter'] === true || d['w-letter'] === 'yes';
+      // The single consent box covers "emails from She Wins": the membership news and The She Wins
+      // Letter (team decision, November 2026). A page loaded before that change still has the
+      // separate Letter box, and an unticked one arrives as false and is respected.
+      const letter = d['w-letter'] !== false;
       return { form: 'waitlist', ...base, email, name, language: lang, stage: STAGES.get(str(d['w-where'], 80)) ?? '', letter };
     }
     case 'contact': {
@@ -198,7 +199,7 @@ async function notify(s: Submission) {
   const rows = Object.entries(s).map(([k, v]) => [k, String(v)]);
   if (spam) rows.push(['possible spam', spam]);
   const res = await call('POST', `${MAILERSEND}/email`, env('MAILERSEND_API_KEY')!, {
-    from: { email: env('FORM_FROM') || 'web@shewins.es', name: 'SheWins web' },
+    from: { email: env('FORM_FROM') || 'web@shewins.es', name: 'She Wins web' },
     to: [{ email: env('FORM_TO') || 'agnieszka@shewins.es' }],
     reply_to: { email: s.email },
     // A fixed tag the team can filter on in the inbox.
@@ -282,7 +283,7 @@ export const POST: APIRoute = async ({ request, url }) => {
         // In tests both are the Test group, which is sent once.
         if (newsletter) {
           if (!groups.includes(newsletter)) groups.push(newsletter);
-        } else console.error('[form] waitlist: Letter box ticked but MAILERLITE_GROUP_NEWSLETTER is missing');
+        } else console.error('[form] waitlist: MAILERLITE_GROUP_NEWSLETTER is missing, signup kept without the Letter');
       }
       // opted_in_at records when the consent box was ticked, as proof of consent (GDPR).
       await subscribe(s.email, groups, { name: s.name, language: s.language, stage: s.stage }, new Date());

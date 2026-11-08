@@ -1,4 +1,4 @@
-/* SheWins website configuration.
+/* She Wins website configuration.
    Form endpoints: all three forms post JSON to the site's own endpoint (src/pages/api/form.ts),
    which hands them to MailerLite (newsletter, waitlist)
    and MailerSend (team notifications). Leave a value empty and that form just shows its success message

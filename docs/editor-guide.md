@@ -1,4 +1,4 @@
-# Editing the SheWins website
+# Editing the She Wins website
 
 A one-page guide for Agnieszka and Sophia.
 
@@ -29,7 +29,7 @@ You will see four sections on the left: **Blog articles**, **Events**, **Authors
 3. Optional:
    - **Speaker or host**. Leave it empty for a community session.
    - **Speaker role** and **One line about the talk**, in both languages. They show in the "Next free event" box.
-   - **Meetup link** and **Luma link** for this event. If empty, the buttons go to the SheWins pages.
+   - **Meetup link** and **Luma link** for this event. If empty, the buttons go to the She Wins pages.
    - **Poster** (portrait image). After the event it appears under "Past events".
    - **Poster description**: what the poster shows, for people who cannot see it.
    - **Instagram post**: the link to the post about this event. The poster links to it.
@@ -43,7 +43,7 @@ You don't need to do anything when an event is over. Every night the site moves 
 
 ## Share the Letter
 
-The SheWins Letter has its own page, made to be shared on Instagram, WhatsApp or by email:
+The She Wins Letter has its own page, made to be shared on Instagram, WhatsApp or by email:
 
 - English: **www.shewins.es/letter**
 - Spanish: **www.shewins.es/es/letter**

@@ -28,10 +28,9 @@ Run each case on an English and a Spanish page (`/membership`, `/es/membership`,
 | F3 | Letter: send the dialog with the name empty | Name marked invalid, nothing sent |
 | F4 | Letter: complete it | "Almost there" in the dialog; after closing, the form shows its thank-you |
 | F5 | After F4, open other pages | The Letter invitation card never shows (localStorage `sw-letter` is `sub`) |
-| F6 | Waitlist: open the dialog | Consent box **unticked**; Letter box **ticked** |
-| F7 | Waitlist: send without the consent box | Consent marked invalid, nothing sent |
-| F8 | Waitlist: consent, Letter box unticked | Sent with `w-letter: false`; the invitation card still works on other pages |
-| F9 | Waitlist: consent, Letter box left ticked | Sent with `w-letter: true`; the invitation card stops, as in F5 |
+| F6 | Waitlist: open the dialog | One consent box, **ticked**; no Letter box |
+| F7 | Waitlist: untick the consent box and send | Consent marked invalid, nothing sent |
+| F8 | Waitlist: complete it with the consent box ticked | Sent with `w-ok: true` and no `w-letter`; the invitation card stops, as in F5 |
 | F10 | Contact (`/partners`): empty name, bad email, empty message | Each blocks the send |
 | F11 | Any form with the network off (DevTools › Offline) | "Something went wrong…" shows, the button works again, a retry sends |
 | F12 | Keyboard only: Tab through the dialog, Escape | Focus stays in the dialog; Escape closes it |
@@ -56,7 +55,7 @@ curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"letter","em-lett
 curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"letter","em-website":"spam","em-letter":"a@b.co"}'                     # 200, nothing created (honeypot)
 ```
 
-`w-letter` only counts when it is the JSON value `true` (or `"yes"`, from pages cached with the short-lived yes / no question); the string `"true"` is ignored.
+A waitlist signup also joins the Newsletter group. Only the JSON value `w-letter: false`, sent by a page loaded before the Letter box was removed, keeps it out.
 
 ## 3. MailerLite, with real emails (Test group)
 
@@ -64,7 +63,7 @@ curl -s -XPOST $B/api/form -H "origin: $B" -H "$j" -d '{"form":"letter","em-webs
 |---|----|----------------------|---------------------|
 | M1 | New Letter signup, emails in Spanish | Unconfirmed; name and `language: es` | One confirmation email |
 | M2 | New waitlist signup, consent only, Spanish page | Unconfirmed; `stage` stored in English (e.g. "Changing career"); `opted_in_at` set | One confirmation email |
-| M3 | New waitlist signup with the Letter box | Unconfirmed; in production: Waitlist **and** Newsletter | **One** confirmation email, not two |
+| M3 | New waitlist signup | Unconfirmed; in production: Waitlist **and** Newsletter | **One** confirmation email, not two |
 | M4 | Open the confirmation link | Active; `opted_in_at` and `optin_ip` filled (proof of consent) | Thank-you page |
 | M5 | M2's address again (still unconfirmed), another name | Name unchanged | The confirmation is sent again |
 | M6 | M4's address again (active), another name | Name and status unchanged | Nothing |
@@ -119,7 +118,7 @@ the real groups before the Test group was wired in; they were deleted right afte
 | Case | Result |
 |------|--------|
 | F6, F8, F9 (Chrome, 1280 and 390 px) | Pass |
-| Endpoint validation, honeypot, `w-letter` as a string | Pass |
+| Endpoint validation, honeypot | Pass |
 | M1–M3 | Pass. M3 put the address in Waitlist and Newsletter with a single email |
 | M4 | Pass. Active, `optin_ip` and `opted_in_at` recorded |
 | M5 | Pass. Name kept, confirmation sent again |
@@ -146,7 +145,7 @@ the real groups before the Test group was wired in; they were deleted right afte
    "Confirmation email", it is in English only and it says "your interest in our newsletter" to
    waitlist signups too; the thank-you page is MailerLite's default. Edit it in MailerLite ›
    Settings › Subscribe settings (double opt-in for API): a bilingual subject and text that names
-   SheWins and not one list, and a redirect to a page on shewins.es.
+   She Wins and not one list, and a redirect to a page on shewins.es.
 5. **Coming back after unsubscribing** (M7): today the person sees "Something went wrong". Either
    show a clear message ("this email unsubscribed earlier, write to us to come back"), or set the
    subscriber back to unconfirmed so MailerLite asks her to confirm again by email.

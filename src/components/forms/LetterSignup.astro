@@ -1,5 +1,5 @@
 ---
-// The SheWins Letter signup: the inline email, the dialog with the other two questions, and the
+// The She Wins Letter signup: the inline email, the dialog with the other two questions, and the
 // error and thank-you lines. It was pasted in Home, About and Blog, and the /letter page needs it
 // too. It renders siblings, not a wrapper, because site.js finds .ferr and .sent as direct
 // children of the form's parent. Use it at most once per page: api/form.ts reads the fixed ids
@@ -21,7 +21,7 @@ const { L } = localize(lang);
 <dialog aria-labelledby="em-ask-t" class="ask">
 <button aria-label={L("Close", "Cerrar")} class="x" data-close type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"></path></svg></button>
 <div class="ask-q">
-<p class="lab"><span class={lang}>{L("The SheWins Letter", "La Letter de SheWins")}</span></p>
+<p class="lab"><span class={lang}>{L("The She Wins Letter", "La Letter de She Wins")}</span></p>
 <h2 id="em-ask-t"><span class={lang}>{L("Just two more questions.", "Solo dos preguntas más.")}</span></h2>
 <p class="ask-to"><span class={lang}>{L("We will write to", "Te escribiremos a")}</span> <b data-mail></b></p>
 <div class="fld"><label for="em-name"><span class={lang}>{L("Your name", "Tu nombre")}</span></label><input autocomplete="name" id="em-name" maxlength="40" required type="text" /></div>

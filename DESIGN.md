@@ -1,5 +1,5 @@
 ---
-name: SheWins
+name: She Wins
 description: A business community for women in Málaga, designed as the brand book's chapters.
 colors:
   red: "#C7010F"
@@ -193,13 +193,13 @@ components:
     padding: "clamp(22px, 3.2vw, 52px)"
 ---
 
-# Design System: SheWins
+# Design System: She Wins
 
 ## Overview
 
 **Creative North Star: "The Chapter Book"**
 
-Every page of SheWins opens like a chapter of its brand book. A full-width band in a brand colour carries a giant two-digit numeral, a tight display headline and one handwritten phrase. The content below reads like the book's index: hairline rows, each with a small uppercase label in a left column and the substance on the right. The system was designed by Messin Virginia from the SheWins brand book. `public/style.css` is that work, and later layers (fixes, responsive, motion) extend it without editing it.
+Every page of She Wins opens like a chapter of its brand book. A full-width band in a brand colour carries a giant two-digit numeral, a tight display headline and one handwritten phrase. The content below reads like the book's index: hairline rows, each with a small uppercase label in a left column and the substance on the right. The system was designed by Messin Virginia from the She Wins brand book. `public/style.css` is that work, and later layers (fixes, responsive, motion) extend it without editing it.
 
 The personality is editorial structure with a bold voice:
 
@@ -288,9 +288,9 @@ To mark something as inactive or past, dim only large type (display, titles, num
 
 - **Numeral** (700, clamp(120px, 19vw, 300px), 0.8, −0.06em): the chapter number in opener bands (01–04), the event date and the trio figures. Decorative (`aria-hidden`).
 - **Display** (700, clamp(50px, 11vw, 168px), 0.88, −0.055em): the home cover headline (tuned to clamp(46px, 7vw, 100px) at 0.96, in two lines broken at the phrase from 640px up) and the waitlist closers. In the two-column form band, the closer is display-closer (clamp(48px, 9.4vw, 136px), balanced), a step below the cover so it does not outweigh the page title.
-- **Headline** (700, clamp(38px, 6.4vw, 92px), 0.94, −0.045em): section headings ("October at SheWins.") and opener titles (clamp(40px, 5.8vw, 84px), at most two lines on desktop where the copy allows).
+- **Headline** (700, clamp(38px, 6.4vw, 92px), 0.94, −0.045em): section headings ("October at She Wins.") and opener titles (clamp(40px, 5.8vw, 84px), at most two lines on desktop where the copy allows).
 - **Title** (700, clamp(28px, 4vw, 56px), 1, −0.04em): sub-section heads. Row and card titles step down to clamp(24px, 2.6vw, 38px).
-- **Feature titles** (700, display face): the next-event title (clamp(34px, 4.6vw, 70px), 0.95); blog list titles (clamp(24px, 2.6vw, 36px), max 28ch, two or three lines); "Why SheWins" pair titles (clamp(28px, 5.2vw, 68px)), capped so the longest pair holds one line with no hyphenation.
+- **Feature titles** (700, display face): the next-event title (clamp(34px, 4.6vw, 70px), 0.95); blog list titles (clamp(24px, 2.6vw, 36px), max 28ch, two or three lines); "Why She Wins" pair titles (clamp(28px, 5.2vw, 68px)), capped so the longest pair holds one line with no hyphenation.
 - **Lead** (400, clamp(17px, 1.6vw, 20px), 1.55): the first paragraph under a headline, max 44ch (36ch in openers).
 - **Body** (400, 16px, 1.6): running text. Article paragraphs use clamp(17px, 1.4vw, 19px) at 1.8, on a 68ch column, 1.45em apart.
 - **Article** (the reading page): title in red at clamp(34px, 4.4vw, 64px), max 18ch; the opening paragraph as a lead at clamp(19px, 1.75vw, 23px), 1.6; section heads at clamp(24px, 2.4vw, 32px) with 2.4em above.
@@ -392,7 +392,7 @@ The editorial block: square like the colour blocks, and always pointing forward.
 - **Checkbox:** a native 20px box with an accent colour.
 - **Choice of two (radio):** the language of the emails. It uses a fieldset whose legend is styled like a field label, and the options sit side by side on one line. Each option is a `.chk` label (native 20px radio and 16px text), at least 44px tall, and the whole label is the tap target. The page language is selected by default.
 - **Signup dialog (newsletter and waitlist):** the band shows only the inline email field and its button. The button checks the email, then opens a dialog with the other questions. The dialog is a flat cream block with square corners and no shadow. It holds a label, a title, "We will write to <email>", the fields and a red button. The form is sent from the dialog, and the thank-you shows there with a Close button. After the dialog closes, the band shows the thank-you too. It closes with Esc or the square drawn ×, and it rises in with `sw-fade-up`. "Join the waitlist" buttons open the waitlist dialog directly; opened that way it asks for the email first, in place of "We will write to …".
-- **Letter box (waitlist dialog):** a checkbox under the consent box, ticked by default (team decision, November 2026): "Also send me The SheWins Letter, one email a month. Untick it if you prefer not to."
+- **Consent box (waitlist dialog):** a single checkbox, ticked by default (team decision, November 2026): "I agree to receive emails from She Wins. I can unsubscribe anytime." It covers the membership news and The She Wins Letter; there is no separate Letter box.
 
 ### Disclosure (FAQ)
 
@@ -456,11 +456,11 @@ The reading page, centred as one composition.
 - **Text:** the opening paragraph is a lead, a size up. Pull quotes are red display type between two ink hairlines, with no side bar. Text selection is pink with black text.
 - **Reading progress:** a 3px red line along the top of the window fills as the article is read. It is scroll-driven, uses no script, and is hidden under reduced motion.
 - **Below 1100px:** one column; the share buttons follow the article in a 2×2 grid.
-- **The Letter:** the article ends, after the byline, with a row under a full ink hairline: the "The SheWins Letter" label, one display line ("Liked this article? Get one email a month with more like it.") and a red button to /letter.
+- **The Letter:** the article ends, after the byline, with a row under a full ink hairline: the "The She Wins Letter" label, one display line ("Liked this article? Get one email a month with more like it.") and a red button to /letter.
 
 ### Letter Invitation Card
 
-A small card that invites visitors to The SheWins Letter (team request, November 2026). It links to /letter and holds no form, so the Letter's fields appear only once on a page.
+A small card that invites visitors to The She Wins Letter (team request, November 2026). It links to /letter and holds no form, so the Letter's fields appear only once on a page.
 
 - **Look:** a flat red block with cream text, 2px ink border, square corners and no shadow. It holds the label, one sentence in display type (24–28px), a short line in Inter and a cream button with the arrow cell. The drawn × is the same 44px square as in the signup dialog. No script: it is UI.
 - **Place:** fixed at the bottom right, 380px wide, 16px from the edges. Under 640px it is a full-width strip along the bottom edge with only a 2px ink top border, and the short line is dropped so it covers little of the screen. It sits above the header and the sticky CTA, below the menu and the cookie banner.

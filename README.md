@@ -1,4 +1,4 @@
-# SheWins website
+# She Wins website
 
 Source of **www.shewins.es**: the bilingual (EN / ES) site of Asociación She Wins, Málaga.
 

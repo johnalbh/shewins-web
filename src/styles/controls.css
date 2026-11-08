@@ -142,7 +142,7 @@ summary:focus-visible { border-radius: 0; }
 
 /* ---------- Letter invitation card ---------- */
 
-/* A small card that invites visitors to The SheWins Letter and links to /letter (team request,
+/* A small card that invites visitors to The She Wins Letter and links to /letter (team request,
    November 2026). It does not block the page: no backdrop, no focus trap, and it waits for the
    cookie choice (src/scripts/letter-invite.js). It is a flat red block like the Letter band,
    cream on red, with no shadow; a 2px ink border keeps it apart from whatever band it sits on,

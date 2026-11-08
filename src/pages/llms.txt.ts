@@ -20,11 +20,11 @@ export const GET: APIRoute = async () => {
   const legal = LEGAL.map((r) => `- [${name(seo[r].en.title)}](${url(seo[r].path)})`);
   const contacts = [settings.email, settings.emailSecondary].filter(Boolean).join(', ');
 
-  const txt = `# SheWins
+  const txt = `# She Wins
 
 > ${seo.home.en.description} Run by Asociación She Wins, Málaga, Spain. Content available in English and Spanish (Spanish under /es).
 
-SheWins offers a free in-person event every month, workshops, a membership (waitlist open) and The SheWins Letter, a free monthly email in English or Spanish. Contact: ${contacts}. Instagram: ${settings.instagram}
+She Wins offers a free in-person event every month, workshops, a membership (waitlist open) and The She Wins Letter, a free monthly email in English or Spanish. Contact: ${contacts}. Instagram: ${settings.instagram}
 
 ## Main pages
 ${main.join('\n')}

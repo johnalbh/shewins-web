@@ -39,7 +39,7 @@ export default config({
   // Project key from keystatic.cloud (team "shewins/website" → slug shewins-website).
   cloud: { project: 'shewins-website/shewins-web' },
   ui: {
-    brand: { name: 'SheWins' },
+    brand: { name: 'She Wins' },
     navigation: { Content: ['posts', 'events'], Settings: ['authors', 'settings'] },
   },
   collections: {
@@ -110,8 +110,8 @@ export default config({
         hostRoleEs: fields.text({ label: 'Speaker role (Spanish)', description: 'Opcional, por ejemplo: Consultora y estratega' }),
         topicEn: fields.text({ label: 'One line about the talk (English)', description: 'Optional. Shown in the "Next free event" box.' }),
         topicEs: fields.text({ label: 'One line about the talk (Spanish)', description: 'Opcional. Aparece en el recuadro "Próximo evento gratuito".' }),
-        meetupUrl: fields.url({ label: 'Meetup link', description: 'If empty, the button goes to the SheWins Meetup page.' }),
-        lumaUrl: fields.url({ label: 'Luma link', description: 'If empty, the button goes to the SheWins Luma page.' }),
+        meetupUrl: fields.url({ label: 'Meetup link', description: 'If empty, the button goes to the She Wins Meetup page.' }),
+        lumaUrl: fields.url({ label: 'Luma link', description: 'If empty, the button goes to the She Wins Luma page.' }),
         poster: fields.image({
           label: 'Poster',
           description: 'Portrait image (3:4). After the event it appears under "Past events".',
@@ -128,8 +128,8 @@ export default config({
       path: 'src/content/authors/*',
       schema: {
         name: fields.slug({ name: { label: 'Name', validation: { isRequired: true } } }),
-        roleEn: fields.text({ label: 'Role (English)', description: 'For example: Co-founder, SheWins' }),
-        roleEs: fields.text({ label: 'Role (Spanish)', description: 'Por ejemplo: Cofundadora, SheWins' }),
+        roleEn: fields.text({ label: 'Role (English)', description: 'For example: Co-founder, She Wins' }),
+        roleEs: fields.text({ label: 'Role (Spanish)', description: 'Por ejemplo: Cofundadora, She Wins' }),
         photo: fields.image({ label: 'Photo', directory: 'src/assets/team', publicPath: '/src/assets/team/' }),
       },
     }),

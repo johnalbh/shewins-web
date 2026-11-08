@@ -28,7 +28,7 @@ Many arrive new to the city, not knowing anyone, and come to a first event alone
 
 ## Product Purpose
 
-SheWins is a bilingual business community for women in Málaga, run by Asociación She Wins. The website explains the community and moves people along its ladder:
+She Wins is a bilingual business community for women in Málaga, run by Asociación She Wins. The website explains the community and moves people along its ladder:
 
 1. **Free event**, every month: the front door.
 2. **Paid workshops**: practical learning on one specific challenge.
@@ -38,7 +38,7 @@ SheWins is a bilingual business community for women in Málaga, run by Asociaci�
 **Priority for the next 6–12 months** (confirmed 2026-10-24):
 
 - Win partners and sponsors.
-- Grow the community base: subscribers to The SheWins Letter and followers.
+- Grow the community base: subscribers to The She Wins Letter and followers.
 
 Event attendance and the membership waitlist remain supporting goals.
 
@@ -58,7 +58,7 @@ Event attendance and the membership waitlist remain supporting goals.
 ## Operating Context
 
 - **Events:** an in-person event every month, free. Talks, workshops and open conversations, each in Spanish, English or both. Registration is on Meetup (`meetup.com/she_wins_malaga`) and Luma (`luma.com/user/SheWins`). Venues are partner coworking and innovation spaces in Málaga and Marbella. Event posters are shared on Instagram (`@shewins.es`).
-- **Community channels:** The SheWins Letter ("One idea. One tool. One woman. One opportunity."), a free email once a month, in English or Spanish as each subscriber chooses; Instagram and LinkedIn. The Letter has its own page to share: `www.shewins.es/letter` (Spanish: `www.shewins.es/es/letter`).
+- **Community channels:** The She Wins Letter ("One idea. One tool. One woman. One opportunity."), a free email once a month, in English or Spanish as each subscriber chooses; Instagram and LinkedIn. The Letter has its own page to share: `www.shewins.es/letter` (Spanish: `www.shewins.es/es/letter`).
 - **Blog:** articles by the founders on confidence, perfectionism, self-talk, wellbeing, sleep and networking, each published in English and Spanish.
 - **Website operations:**
   - Content is edited in Keystatic Cloud (project `shewins-website/shewins-web`). Each save is a commit to `johnalbh/shewins-web`, and Vercel rebuilds the site.
@@ -95,7 +95,7 @@ Event attendance and the membership waitlist remain supporting goals.
 
 ## Brand Commitments
 
-- **Name:** SheWins. Legal holder: Asociación She Wins, C/ Ancha del Carmen 32, 29002 Málaga (exact legal name to be confirmed from the statutes).
+- **Name:** She Wins, always two words and never with the logo's exclamation mark (team request, November 2026, for SEO). Only URLs and handles keep their own spelling (`luma.com/user/SheWins`, `shewins.es`). Legal holder: Asociación She Wins, C/ Ancha del Carmen 32, 29002 Málaga (exact legal name to be confirmed from the statutes).
 - **Tagline:** "Move forward. Together." / "Avanza. Juntas."
 - **Design authority:** the brand book and the website design by Messin Virginia are the binding identity. Changes extend that work rather than replace it.
 - **Voice, as written across the site:**

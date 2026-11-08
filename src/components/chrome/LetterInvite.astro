@@ -20,8 +20,8 @@ const { L, u } = localize(lang);
 {!SKIP.includes(route) && (
 <aside aria-labelledby="invite-t" aria-modal="false" class="invite" hidden id="letter-invite" role="dialog">
 <button aria-label={L("Close", "Cerrar")} class="x" data-invite-close type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 16 16"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"></path></svg></button>
-<p class="lab"><span class={lang}>{L("The SheWins Letter", "La Letter de SheWins")}</span></p>
-<p class="invite-t" id="invite-t"><span class={lang}>{L("Psst. The best part of SheWins fits in one email.", "Psst. Lo mejor de SheWins cabe en un email.")}</span></p>
+<p class="lab"><span class={lang}>{L("The She Wins Letter", "La Letter de She Wins")}</span></p>
+<p class="invite-t" id="invite-t"><span class={lang}>{L("Psst. The best part of She Wins fits in one email.", "Psst. Lo mejor de She Wins cabe en un email.")}</span></p>
 <p class="invite-d"><span class={lang}>{L("One idea, one tool, one woman, one opportunity. Once a month, in English or Spanish.", "Una idea, una herramienta, una mujer, una oportunidad. Una vez al mes, en inglés o en español.")}</span></p>
 <a class="btn b-cream" data-invite-go href={u("/letter")}><span class={lang}>{L("Subscribe", "Suscribirme")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a>
 </aside>
