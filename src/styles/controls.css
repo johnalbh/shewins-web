@@ -249,5 +249,8 @@ summary:focus-visible { border-radius: 0; }
    November 2026), with Meetup's image under the date. The image is a 16:9 poster with its own
    text, so it is shown whole; the date and the image share the frame's left column. */
 .frame .dtw { display: grid; gap: 22px; }
+/* With the image below it, the day numeral is smaller than the original 200px, so the date does not
+   push the frame's content down (team request). */
+.frame .dtw .dt { font-size: clamp(80px, 9vw, 130px); }
 .frame .dtw figure { margin: 0; }
 .frame .ev-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
