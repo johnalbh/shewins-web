@@ -293,3 +293,33 @@ summary:focus-visible { border-radius: 0; }
 /* An event earlier this month that has happened: its poster fades a little; the text keeps its
    contrast and the pill says "Past". */
 .month .past .pic { opacity: 0.7; }
+
+/* ---------- Scroll cue on the home cover ---------- */
+
+/* The cover fills most of the first screen, so a visitor may not see that the page goes on (team
+   request, November 2026). A 44px square outline cell of the go arrow's family (1.5px
+   currentColor) holds the drawn arrow pointing down, centred under the actions and above the foot
+   row. It is a link to the next section, so it needs no script and scrolls smoothly (style.css);
+   the section keeps clear of the sticky header when it lands. Icon only: in the middle of the
+   gradient, cream reaches 3.8:1, enough for a graphic but not for small text (DESIGN.md, the
+   Gradient Text Rule). Hover fills it cream with a red arrow, the primary action on a red surface.
+   On phones, and on screens under 820px tall (a 1366×768 laptop), the cover is taller than the
+   screen, so the cue would sit below the fold and only add height: it is not shown there. The
+   movement is in motion.css. */
+.cover .down {
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: -8px 0;
+  border: 1.5px solid currentColor;
+  color: inherit;
+  transition: background var(--dur-fast, 0.2s) ease, color var(--dur-fast, 0.2s) ease;
+}
+.cover .down svg { display: block; width: 18px; height: 18px; }
+.cover .down:hover { background: var(--cream); color: var(--red); }
+#next-event { scroll-margin-top: 110px; }
+@media (max-width: 759px), (max-height: 820px) {
+  .cover .down { display: none; }
+}

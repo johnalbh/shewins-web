@@ -260,6 +260,22 @@ summary::after { transition: background-size 0.35s var(--ease-out); }
   8%, 24% { transform: translate(4px, -4px); }
 }
 
+/* ---------- Scroll cue on the home cover ---------- */
+
+/* The cue (controls.css) follows the actions in, then its arrow steps down twice every few seconds
+   and rests, like the ↗ of the month's posters: the eye is led on without a loop that never stops.
+   On hover it steps down and stays. */
+.cover .down { animation: sw-fade-up var(--dur-mid) var(--ease-out) 0.55s both; }
+.cover .down svg {
+  transition: transform var(--dur-fast) var(--ease-out);
+  animation: sw-down 4s var(--ease-out) 1.4s infinite;
+}
+.cover .down:hover svg { animation: none; transform: translateY(3px); }
+@keyframes sw-down {
+  0%, 16%, 32%, 100% { transform: none; }
+  8%, 24% { transform: translateY(4px); }
+}
+
 /* ---------- Reduced motion: no movement, final states straight away ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -277,6 +293,7 @@ summary::after { transition: background-size 0.35s var(--ease-out); }
   .month .evt:hover .pic img,
   .posters figure:hover figcaption span,
   .month .evt:hover h3 .ext,
+  .cover .down:hover svg,
   .menu[hidden],
   .menu nav a,
   .cb[hidden],

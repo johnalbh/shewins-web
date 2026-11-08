@@ -30,9 +30,10 @@ const jsonLd = nextFree ? [eventNode(nextFree)] : [];
 <p class="lead"><span class={lang}>{L("A free event every month, workshops, and soon a membership. For women who want to connect, grow and take the next step.", "Un evento gratuito cada mes, talleres y, pronto, una membresía. Para mujeres que quieren conectar, crecer y dar el siguiente paso.")}</span></p>
 <div class="btns"><a class="btn b-cream" href={u("/events")}><span class={lang}>{L("Come to a free event", "Ven a un evento gratuito")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a><a class="btn b-line" href={u("/membership") + "#waitlist"}><span class={lang}>{L("Join the membership waitlist", "Lista de espera de la membresía")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a></div>
 </div>
+<a class="down" href="#next-event" aria-label={L("Scroll down to the next free event", "Baja al próximo evento gratuito")}><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M8 2v11M3.5 9 8 13.5 12.5 9"></path></svg></a>
 <p class="lab foot"><span>Málaga</span><span>www.shewins.es</span><span>@shewins.es</span></p>
 </div></section>
-<section class="sec s-cream"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L("Next free event", "Próximo evento gratuito")}</span></p></div><NextEvent lang={lang} /></div></section>
+<section class="sec s-cream" id="next-event"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L("Next free event", "Próximo evento gratuito")}</span></p></div><NextEvent lang={lang} /></div></section>
 <section class="sec s-cream" style="padding-top:0"><div class="w">
 <div class="head"><p class="lab"><span class={lang}>{L("Start here", "Empieza aquí")}</span></p><h2 class="l"><span class={lang}>{L("Where do you want to start?", "¿Por dónde quieres empezar?")}</span></h2></div>
 <div class="start">
