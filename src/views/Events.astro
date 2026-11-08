@@ -1,7 +1,6 @@
 ---
 // Generated from html/events.html + html/es/events.html by scripts/migrate-from-html.mjs.
 import Base from '../layouts/Base.astro';
-import NextEvent from '../components/events/NextEvent.astro';
 import PastEvents from '../components/events/PastEvents.astro';
 import ThisMonth from '../components/events/ThisMonth.astro';
 import { localize, type Lang } from '../i18n';
@@ -15,18 +14,17 @@ interface Props {
 const { lang } = Astro.props;
 const { L, u } = localize(lang);
 
-// Event structured data for the upcoming events this page shows: the next free event (NextEvent)
-// and the rest of this month's events (ThisMonth). Past events are not marked up: search engines
-// only list events that have not happened yet.
-const { upcoming, fromMonthStart, today } = await getEventsByTime();
-const shown = new Set([upcoming.find((e) => !e.fee), ...fromMonthStart.filter((e) => e.date >= today)]);
-const jsonLd = [...shown].filter((e) => e !== undefined).map(eventNode);
+// Event structured data for the upcoming events this page shows: this month's events from today
+// on (ThisMonth). Past events are not marked up: search engines only list events that have not
+// happened yet. The "Next free event" frame is on the home only: here it repeated, right above the
+// red tile of This month, the same event with the same poster (team request, November 2026).
+const { fromMonthStart, today } = await getEventsByTime();
+const jsonLd = fromMonthStart.filter((e) => e.date >= today).map(eventNode);
 ---
 
 <Base lang={lang} route="events" jsonLd={jsonLd}>
 <div class="page on" id="p-events">
 <section class="open o-red"><div aria-hidden="true" class="n">02</div><div class="t"><h1><span class={lang}>{L("Come to a free event.", "Ven a un evento gratuito.")}</span></h1><span class="script"><span class={lang}>{L("every month", "cada mes")}</span></span><p class="lead"><span class={lang}>{L("Talks, workshops and open conversations, in English, Spanish or both. Come alone. You will not stay that way.", "Charlas, talleres y conversaciones abiertas, en inglés, en español o en ambos. Ven sola. No te quedarás así.")}</span></p></div></section>
-<section class="sec s-cream"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L("Next event", "Próximo evento")}</span></p><h2 class="m"><span class={lang}>{L("Save your place.", "Reserva tu plaza.")}</span></h2><p class="lead"><span class={lang}>{L("Register on Meetup or Luma, whichever you prefer. Each event says which language it runs in.", "Regístrate en Meetup o en Luma, la que prefieras. Cada evento indica en qué idioma se celebra.")}</span></p></div><NextEvent lang={lang} /></div></section>
 <ThisMonth lang={lang} />
 <section class="sec s-pink"><div class="w">
 <div class="head"><p class="lab"><span class={lang}>{L("What to expect", "Qué esperar")}</span></p></div>
