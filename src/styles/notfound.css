@@ -1,0 +1,20 @@
+/* The 404 page (src/views/NotFound.astro). One file is served for every missing URL, so each of
+   its texts has an English and a Spanish twin, and the chapter switches language by itself. */
+
+/* Language. The page's own texts follow data-lang on the chapter (set from the URL by the page's
+   script), not <html lang>: the header and footer around it are rendered in English, and flipping
+   <html lang> would hide their English spans. Specificity (0,3,0) beats the site rule
+   html:not([lang="es"]) .es (0,2,1). */
+.nf[data-lang="es"] .en { display: none; }
+.nf[data-lang="es"] .es { display: inline; }
+
+/* The status code is three digits where the chapters have two. The opener's numeral column
+   (fixes.css) is two digits wide (1.04em plus a 0.24em gap), so here it is three digits wide
+   (1.56em plus the gap); the title column takes the rest, as on every chapter. */
+@media (min-width: 860px) {
+  .nf .open { grid-template-columns: calc(var(--n-x) + 1.8 * var(--n-size)) minmax(0, 1fr); }
+}
+
+/* Broken-link note under the doors: body size, the same as the start cards' text. */
+.nf-note { margin-top: 28px; font-size: 15px; line-height: 1.5; max-width: 60ch; }
+.nf-note a { color: var(--red); font-weight: 600; }

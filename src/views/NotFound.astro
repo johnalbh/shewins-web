@@ -1,0 +1,51 @@
+---
+// The 404 page. Vercel serves this one file for every URL that does not exist, so it carries both
+// languages: each text has its English and Spanish twin, and the chapter switches to Spanish when
+// the missing URL is under /es (the inline scripts set data-lang before the content paints, and
+// point the links at the Spanish pages). The header and footer around it stay in English, the
+// site's first language. The status code takes the place of the chapter numeral, and the page
+// then does what the home's "Start here" does: it offers the doors that are open.
+import Base from '../layouts/Base.astro';
+import { getSettings } from '../lib/content';
+import { ARROW } from '../lib/markup';
+import '../styles/notfound.css';
+
+const settings = await getSettings();
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+/** Both languages side by side; notfound.css shows the one that matches the chapter's data-lang. */
+const both = (en: string, es: string) => `<span class="en">${esc(en)}</span><span class="es" lang="es">${esc(es)}</span>`;
+
+const GO = '<i><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></i>';
+
+const doors = [
+  { k: '01', href: '/about', h: ['I am new here', 'Soy nueva aquí'], p: ['What She Wins is, who comes and what makes it different.', 'Qué es She Wins, quién viene y qué la hace diferente.'], go: ['About She Wins', 'Sobre She Wins'] },
+  { k: '02', href: '/events', h: ['The next event', 'El próximo evento'], p: ['A free event every month. Come alone. You will not stay that way.', 'Un evento gratuito cada mes. Ven sola. No te quedarás así.'], go: ['Events', 'Eventos'] },
+  { k: '03', href: '/membership', h: ['I want to belong', 'Quiero pertenecer'], p: ['Membership opens soon. Join the waitlist to hear first.', 'La membresía abre pronto. Únete a la lista de espera para enterarte la primera.'], go: ['Membership', 'Membresía'] },
+  { k: '04', href: '/blog', h: ['Something to read', 'Algo que leer'], p: ['Ideas and practical tools from the women behind She Wins.', 'Ideas y herramientas prácticas de las mujeres detrás de She Wins.'], go: ['Blog', 'Blog'] },
+];
+---
+
+<Base lang="en" route="404">
+<div class="page on nf" data-lang="en" id="p-404">
+<script is:inline>
+/* Spanish URL: the chapter's texts switch before they paint, and the tab title with them. */
+(function(){if(/^\/es(\/|$)/.test(location.pathname)){document.getElementById('p-404').setAttribute('data-lang','es');document.title='Página no encontrada | She Wins'}})();
+</script>
+<section class="open o-red"><div aria-hidden="true" class="n">404</div><div class="t">
+<h1><Fragment set:html={both('This door leads nowhere.', 'Esta puerta no lleva a nada.')} /></h1>
+<span class="script"><Fragment set:html={both('Try another one.', 'Prueba otra.')} /></span>
+<p class="lead"><Fragment set:html={both('The page you are looking for has moved, or the link was wrong. She Wins is still here, and these doors are open.', 'La página que buscas se ha movido o el enlace no era correcto. She Wins sigue aquí, y estas puertas están abiertas.')} /></p>
+<div class="btns"><a class="btn b-cream" href="/"><Fragment set:html={both('Back to the home', 'Volver al inicio')} /><Fragment set:html={ARROW} /></a><a class="btn b-line" href="/events"><Fragment set:html={both('Next free event', 'Próximo evento gratuito')} /><Fragment set:html={ARROW} /></a></div>
+</div></section>
+<section class="sec s-cream"><div class="w">
+<div class="head"><p class="lab"><Fragment set:html={both('Open doors', 'Puertas abiertas')} /></p><h2 class="l"><Fragment set:html={both('Where do you want to go?', '¿A dónde quieres ir?')} /></h2></div>
+<div class="start">{doors.map((d) => <a href={d.href}><b class="k">{d.k}</b><h3><Fragment set:html={both(d.h[0], d.h[1])} /></h3><p><Fragment set:html={both(d.p[0], d.p[1])} /></p><span class="go"><Fragment set:html={GO} /><Fragment set:html={both(d.go[0], d.go[1])} /></span></a>)}</div>
+<p class="nf-note"><Fragment set:html={both('Did a link on this site bring you here? Tell us at ', '¿Te ha traído hasta aquí un enlace de esta web? Escríbenos a ')} /><a href={`mailto:${settings.email}`}>{settings.email}</a><Fragment set:html={both(' and we will fix it.', ' y lo arreglamos.')} /></p>
+</div></section>
+<script is:inline>
+/* Spanish URL: the doors lead to the Spanish pages. Runs once the links exist. */
+(function(){var p=document.getElementById('p-404');if(p.getAttribute('data-lang')!=='es')return;Array.prototype.forEach.call(p.querySelectorAll('a[href^="/"]'),function(a){var h=a.getAttribute('href');if(h.indexOf('/es')!==0)a.setAttribute('href',h==='/'?'/es':'/es'+h)})})();
+</script>
+</div>
+</Base>

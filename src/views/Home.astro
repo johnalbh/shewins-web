@@ -10,11 +10,9 @@ import { eventNode } from '../lib/seo';
 
 interface Props {
   lang: Lang;
-  /** "404" reuses the home content under a "Page not found" heading (passed as children). */
-  route?: string;
 }
 
-const { lang, route = 'home' } = Astro.props;
+const { lang } = Astro.props;
 const { L, u } = localize(lang);
 
 // Event structured data for the one upcoming event the home shows, the next free one (NextEvent).
@@ -22,8 +20,7 @@ const nextFree = (await getEventsByTime()).upcoming.find((e) => !e.fee);
 const jsonLd = nextFree ? [eventNode(nextFree)] : [];
 ---
 
-<Base lang={lang} route={route} jsonLd={jsonLd}>
-<slot />
+<Base lang={lang} route="home" jsonLd={jsonLd}>
 <div class="page on" id="p-home">
 <section class="cover"><div class="w">
 <p class="lab meta"><span><span class={lang}>{L("International", "Internacional")}</span></span><span><span class={lang}>Local</span></span><span><span class={lang}>{L("English + Spanish", "Inglés + español")}</span></span></p>
