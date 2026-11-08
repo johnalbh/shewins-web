@@ -253,7 +253,13 @@ summary:focus-visible { border-radius: 0; }
 /* With the image below it, the day numeral is smaller than the original 200px, so the date does not
    push the frame's content down (team request). */
 .frame .dtw .dt { font-size: clamp(80px, 9vw, 130px); }
-.frame .dtw figure { margin: 0; }
+/* The frame's left column is at least as wide as its content (fixes.css: the month "Nov" must
+   never run under the text). The image must not count towards that width: with srcset and sizes,
+   its intrinsic width is the sizes value (30vw), so on a 2560px or 4K screen the column grew to
+   the image and squeezed the event's text into a few characters per line (team report, November
+   2026). Inline-size containment gives the figure no intrinsic width of its own; it still
+   stretches to the column, and the date alone sets the column's minimum. */
+.frame .dtw figure { margin: 0; contain: inline-size; }
 .frame .ev-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
 
 /* ---------- This month from Meetup (events page) ---------- */
