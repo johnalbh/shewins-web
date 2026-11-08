@@ -3,7 +3,7 @@
 Source of **www.shewins.es**: the bilingual (EN / ES) site of Asociación She Wins, Málaga.
 
 - **Astro** builds static HTML for every page. Only the editing panel and the form endpoint run as Vercel functions.
-- **Keystatic** is the editing panel at `/keystatic`. Blog articles, events, authors and contact links are stored as files in this repository (`src/content/`). Every save in the panel is a commit, and Vercel rebuilds the site.
+- **Keystatic** is the editing panel at `/keystatic`. Blog articles, authors and contact links are stored as files in this repository (`src/content/`). Events are published on Meetup and read from there at build time. Every save in the panel is a commit, and Vercel rebuilds the site.
 - The design is the designer's original `public/style.css` (Messin Virginia), unchanged. Motion lives in `src/styles/motion.css` and responsive fixes in `src/styles/responsive.css`.
 
 Editors: see [docs/editor-guide.md](docs/editor-guide.md).
@@ -23,7 +23,7 @@ npm run build        # output in .vercel/output
 | `src/views/` | One template per page, with both languages: `L("English", "Español")` |
 | `src/pages/` | One line per URL (`about.astro`, `es/about.astro`…), same URLs as the original site |
 | `src/components/chrome/` | Header, menu, footer, cookie banner, sticky CTA |
-| `src/components/events/`, `blog/` | Sections built from content: next event, this month, past posters, blog list |
+| `src/components/events/`, `blog/` | Sections built from content: next event, this month and past events (from Meetup), blog list |
 | `src/content/` | Content edited in Keystatic (YAML + Markdoc) |
 | `src/data/seo.json` | Title, description and JSON-LD of each fixed page |
 | `src/lib/` | Content reader, Markdoc rendering, dates, images |

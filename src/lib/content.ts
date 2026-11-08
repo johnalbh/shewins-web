@@ -1,7 +1,7 @@
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 import { todayInMadrid } from './dates';
-import { getMeetupEvents, type MeetupEvent } from './meetup';
+import { getMeetupEvents } from './meetup';
 
 // Content is read from the repository files at build time.
 const reader = createReader(process.cwd(), keystaticConfig);
@@ -31,70 +31,24 @@ export async function getPosts() {
 
 export type Post = Awaited<ReturnType<typeof getPosts>>[number];
 
-export async function getEvents() {
-  const events = await reader.collections.events.all();
-  return events.map(({ slug, entry }) => ({ slug, ...entry })).sort((a, b) => (a.date ?? '').localeCompare(b.date ?? ''));
-}
-
-type KeystaticEvent = Awaited<ReturnType<typeof getEvents>>[number];
-
-export type Event = KeystaticEvent & {
-  /** "meetup" for the events read from Meetup (lab page); unset for the Keystatic events. */
-  source?: 'meetup';
-  meetup?: MeetupEvent;
-  /** False for paid events; unknown (undefined) for Keystatic events, which count as free. */
-  free?: boolean;
-};
-
 /**
- * Events split around today (Madrid time). Past events are newest first.
- * With `meetup` (lab page only for now), the events come from Meetup alone and Keystatic's are not read.
+ * The She Wins events, split around today (Madrid time). They come from the group on Meetup, where
+ * the team publishes them (src/lib/meetup.ts); Keystatic no longer holds events (November 2026).
+ * Past events are newest first. If Meetup did not answer during the build, every list is empty
+ * and each event section shows its own "new dates coming" state.
  */
-export async function getEventsByTime({ meetup = false } = {}) {
+export async function getEventsByTime() {
   const today = todayInMadrid();
-  const events: Event[] = meetup ? await getMeetupOnlyEvents() : await getEvents();
+  const events = (await getMeetupEvents((await getSettings()).meetup)) ?? [];
   return {
     today,
-    upcoming: events.filter((e) => e.date && e.date >= today),
-    past: events.filter((e) => e.date && e.date < today).reverse(),
-    fromMonthStart: events.filter((e) => e.date && e.date >= `${today.slice(0, 7)}-01`),
-    /** Null when Meetup was not asked, false when it did not answer. */
-    meetupLoaded: meetup ? (await getMeetupEvents((await getSettings()).meetup)) !== null : null,
+    upcoming: events.filter((e) => e.date >= today),
+    past: events.filter((e) => e.date < today).reverse(),
+    fromMonthStart: events.filter((e) => e.date >= `${today.slice(0, 7)}-01`),
   };
 }
 
-/**
- * The team publishes its events on Meetup and does not want to enter them again in Keystatic
- * (November 2026), so with Meetup on, every event comes from there. What Meetup has no field for
- * is worked out or left out: the title is cleaned, the language guessed from the text, and the
- * speaker's role, the second-language topic and the Luma and Instagram links are not shown.
- * If Meetup does not answer, there are no events: the page shows its "new date coming soon" state.
- */
-async function getMeetupOnlyEvents(): Promise<Event[]> {
-  const remote = await getMeetupEvents((await getSettings()).meetup);
-  return (remote ?? []).map((m) => ({
-    slug: `meetup-${m.id}`,
-    title: m.title,
-    date: m.date,
-    startTime: m.startTime,
-    endTime: m.endTime,
-    language: m.language,
-    venue: m.venue,
-    host: m.speaker,
-    hostRoleEn: '',
-    hostRoleEs: '',
-    topicEn: m.subtitle,
-    topicEs: m.subtitle,
-    meetupUrl: m.url,
-    lumaUrl: null,
-    poster: null,
-    posterAlt: '',
-    instagramUrl: null,
-    source: 'meetup' as const,
-    meetup: m,
-    free: !m.fee,
-  }));
-}
+export type { MeetupEvent as Event } from './meetup';
 
 // About 200 words a minute, the pace the original reading times were based on.
 function readingTime(node: { walk(): Iterable<{ type: string; attributes: Record<string, unknown> }> }) {

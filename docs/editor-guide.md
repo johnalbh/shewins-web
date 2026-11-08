@@ -7,7 +7,7 @@ A one-page guide for Agnieszka and Sophia.
 1. Go to **https://www.shewins.es/keystatic**.
 2. Sign in with your email (Keystatic Cloud). The first time, accept the invitation email you received.
 
-You will see four sections on the left: **Blog articles**, **Events**, **Authors** and **Contact and links**.
+You will see three sections on the left: **Blog articles**, **Authors** and **Contact and links**. Events are not here: they are published on Meetup (see below).
 
 ## Publish a blog article
 
@@ -24,20 +24,17 @@ You will see four sections on the left: **Blog articles**, **Events**, **Authors
 
 ## Add an event
 
-Events are moving to Meetup. The "Next free event" box and the "This month" list on the **events page**, and the "Recent events" row on the **home page** already come straight from the She Wins group on Meetup: publish the event there, with the speaker in Meetup's speaker field and the price in its payment settings, and the site picks it up at its next update (every night, or after any save in this panel). The steps below are only for the parts of the site that still read Keystatic.
+Events are published on **Meetup**, in the She Wins group, and the site reads them from there. Every event section of the site comes from Meetup: "Next free event", "This month", "Recent events" and "Past events".
 
-1. **Events** → **Add**.
-2. Fill in **Title** (as on the poster, not translated), **Date**, **Start time** and **End time** (for example `18:30`), **Language** and **Place**.
-3. Optional:
-   - **Speaker or host**. Leave it empty for a community session.
-   - **Speaker role** and **One line about the talk**, in both languages. They show in the "Next free event" box.
-   - **Meetup link** and **Luma link** for this event. If empty, the buttons go to the She Wins pages.
-   - **Poster** (portrait image). After the event it appears under "Past events" on the events page. The home's "Recent events" row takes its images from Meetup instead: there it shows the image of the event on Meetup.
-   - **Poster description**: what the poster shows, for people who cannot see it.
-   - **Instagram post**: the link to the post about this event. The poster links to it.
-4. **Save**.
+1. Create the event on Meetup as usual.
+2. For it to look right on the site:
+   - **Title**: the name, then a colon and the subtitle, for example `CLARIDAD BAJO PRESIÓN: Conversaciones difíciles, decisiones que se retrasan`. The site shows the name as the title and the rest below it.
+   - **Speaker**: in Meetup's speaker field, not only in the description. Without one, the site says "Community session".
+   - **Price**: in Meetup's payment settings. An event without a price counts as free and can appear as the "Next free event".
+   - **Image**: Meetup's 16:9 event image. The site shows it whole.
+3. The site picks it up at its next update: every night, or after any save in this panel.
 
-You don't need to do anything when an event is over. Every night the site moves it to "Past" by itself, and the next one becomes the "Next free event".
+The language is worked out from the event's text, since Meetup has no field for it. You don't need to do anything when an event is over: every night the site moves it to "Past" by itself, and the next one becomes the "Next free event".
 
 ## Change an email or social link
 

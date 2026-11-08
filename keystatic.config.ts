@@ -5,21 +5,6 @@ import { wrapper } from '@keystatic/core/content-components';
 // sign in with their email and every save becomes a commit that Vercel rebuilds.
 const storage = import.meta.env.DEV ? ({ kind: 'local' } as const) : ({ kind: 'cloud' } as const);
 
-const slugify = (s: string) =>
-  s
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-
-const time = (label: string, isRequired: boolean) =>
-  fields.text({
-    label,
-    description: '24h format, for example 18:30',
-    validation: { isRequired, pattern: { regex: /^$|^\d{1,2}:\d{2}$/, message: 'Use HH:MM, for example 18:30' } },
-  });
-
 // Blocks the article editor offers on top of normal text (they keep the brand styles).
 const articleBlocks = {
   callout: wrapper({ label: 'Pink box', description: 'Highlighted box, for an invitation or a key idea', schema: {} }),
@@ -40,7 +25,7 @@ export default config({
   cloud: { project: 'shewins-website/shewins-web' },
   ui: {
     brand: { name: 'She Wins' },
-    navigation: { Content: ['posts', 'events'], Settings: ['authors', 'settings'] },
+    navigation: { Content: ['posts'], Settings: ['authors', 'settings'] },
   },
   collections: {
     posts: collection({
@@ -76,50 +61,6 @@ export default config({
         }),
         bodyEn: articleBody('Article (English)'),
         bodyEs: articleBody('Article (Spanish)'),
-      },
-    }),
-    events: collection({
-      label: 'Events',
-      slugField: 'title',
-      path: 'src/content/events/*',
-      columns: ['title', 'date'],
-      schema: {
-        title: fields.slug({
-          name: { label: 'Title', description: 'As it appears on the poster. It is not translated.', validation: { isRequired: true } },
-          slug: {
-            label: 'File name',
-            description: 'Internal only, not shown on the site.',
-            generate: (name) => `${new Date().toISOString().slice(0, 10)}-${slugify(name)}`,
-          },
-        }),
-        date: fields.date({ label: 'Date', validation: { isRequired: true } }),
-        startTime: time('Start time', true),
-        endTime: time('End time', false),
-        language: fields.select({
-          label: 'Language',
-          options: [
-            { label: 'Spanish (ESP)', value: 'es' },
-            { label: 'English (ENG)', value: 'en' },
-            { label: 'English + Spanish', value: 'both' },
-          ],
-          defaultValue: 'es',
-        }),
-        venue: fields.text({ label: 'Place', description: 'Name and address, for example: Niage Garage, Calle Ancha del Carmen 32', validation: { isRequired: true } }),
-        host: fields.text({ label: 'Speaker or host', description: 'Leave empty for a community session.' }),
-        hostRoleEn: fields.text({ label: 'Speaker role (English)', description: 'Optional, for example: Consultant & strategist' }),
-        hostRoleEs: fields.text({ label: 'Speaker role (Spanish)', description: 'Opcional, por ejemplo: Consultora y estratega' }),
-        topicEn: fields.text({ label: 'One line about the talk (English)', description: 'Optional. Shown in the "Next free event" box.' }),
-        topicEs: fields.text({ label: 'One line about the talk (Spanish)', description: 'Opcional. Aparece en el recuadro "Próximo evento gratuito".' }),
-        meetupUrl: fields.url({ label: 'Meetup link', description: 'If empty, the button goes to the She Wins Meetup page.' }),
-        lumaUrl: fields.url({ label: 'Luma link', description: 'If empty, the button goes to the She Wins Luma page.' }),
-        poster: fields.image({
-          label: 'Poster',
-          description: 'Portrait image (3:4). After the event it appears under "Past events".',
-          directory: 'src/assets/events',
-          publicPath: '/src/assets/events/',
-        }),
-        posterAlt: fields.text({ label: 'Poster description', description: 'Optional. What the poster shows, for people who cannot see it.' }),
-        instagramUrl: fields.url({ label: 'Instagram post', description: 'Link of the post about this event. The poster links to it.' }),
       },
     }),
     authors: collection({

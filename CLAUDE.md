@@ -51,18 +51,13 @@ The `seo.json` key is the `route` prop of `Base.astro`. It is also the `body[dat
 
 The tags must match the `articleBlocks` in `keystatic.config.ts`. `@markdoc/markdoc` is pinned to the version Keystatic parses with, so the node trees match.
 
-**Images.** Keystatic image fields store `/src/assets/…` paths. `src/lib/images.ts` resolves them through `import.meta.glob` so that `astro:assets` can optimise them. Fixed-page images are plain files in `public/assets/`.
+**Images.** Fixed-page images are plain files in `public/assets/`. Event images come from Meetup (below).
 
-**Events depend on the date.**
-- `getEventsByTime()` splits events around today in Europe/Madrid at build time. This drives "Next free event", "This month" and "Past events".
-- `.github/workflows/daily-rebuild.yml` calls a Vercel deploy hook every night so that past events move on.
-- `site.js` also sets the event status pills on the client.
-
-**Events from Meetup.**
-- The team publishes its events on Meetup. `src/lib/meetup.ts` reads the group's events at build time from Meetup's public GraphQL endpoint (no key; Meetup only documents its API for Pro, so it may stop). A failed request gets 3 tries; after that the build goes on without Meetup.
-- The home's "Recent events" row (`PastEvents` with `meetup`) shows the last three Meetup events: Meetup's 16:9 image (never cropped, it has text on it) and, right of its title, two small red squares with the Meetup and Instagram marks. Without Meetup it falls back to the Keystatic posters.
-- The events page's "Next free event" frame (`NextEvent` with `meetup`) takes the first free upcoming Meetup event, with Meetup's image under the date. Without Meetup it shows "new date coming soon": the team no longer enters events in Keystatic. Its "This month" rows (`ThisMonth` with `meetup`) also come from Meetup, with prices, and each row links to the event on Meetup. The home's frame and the events page's "Past events" still use Keystatic.
-- `/lab/meetup` (noindex, not in the sitemap) is the test page: the whole home with events from Meetup alone, never mixed with Keystatic (team decision, November 2026).
+**Events come from Meetup.**
+- The team publishes its events on the She Wins group on Meetup; Keystatic holds no events (team decision, November 2026). `src/lib/meetup.ts` reads the group's events at build time from Meetup's public GraphQL endpoint (no key; Meetup only documents its API for Pro, so it may stop). A failed request gets 3 tries; after that the build goes on with no events and each section shows its empty state.
+- Meetup has no language field and no speaker role: the language is guessed from the text, and the title is cleaned ("BUILD WITHOUT BURNOUT   Energy…" → "Build without burnout", the rest becomes the subtitle). The speaker comes from Meetup's speaker field, the price from its payment settings.
+- `getEventsByTime()` splits the events around today in Europe/Madrid. "Next free event" (`NextEvent`, home and events) takes the first upcoming event without a price, with Meetup's image under the date. "This month" (`ThisMonth`, events) lists the month with prices, each row linking to the event on Meetup. "Recent events" / "Past events" (`PastEvents`) show the last three, each with Meetup's 16:9 image (never cropped, it has text on it) and two small red squares to Meetup and Instagram.
+- `.github/workflows/daily-rebuild.yml` calls a Vercel deploy hook every night, so new Meetup events appear and past ones move on. `site.js` also sets the event status pills on the client.
 - `astro.config.mjs` allows `secure.meetupstatic.com` images, so `astro:assets` downloads and optimises them; a running dev server must be restarted after a change there.
 
 **CSS layers.** `public/style.css` is the designer's original (Messin Virginia) and is never edited. Changes go in `src/styles/`, imported by `Base.astro` in this order:
@@ -108,7 +103,7 @@ The tags must match the `articleBlocks` in `keystatic.config.ts`. `@markdoc/mark
 - Never invent member or attendance numbers, press, case studies or testimonials.
 - Membership has no price or date ("opening soon").
 
-Fixed page copy (home, about, membership, partners, legal) is edited in the views. Blog posts, events, authors and contact links are edited in Keystatic (`docs/editor-guide.md` is the guide for the non-technical editors).
+Fixed page copy (home, about, membership, partners, legal) is edited in the views. Blog posts, authors and contact links are edited in Keystatic; events are published on Meetup (`docs/editor-guide.md` is the guide for the non-technical editors).
 
 ## Conventions
 

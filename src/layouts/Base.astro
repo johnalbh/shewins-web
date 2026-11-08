@@ -27,8 +27,6 @@ interface Props {
   /** Overrides for pages built from content (blog articles). */
   seo?: Seo;
   path?: string;
-  /** Hidden pages (the lab): kept out of search engines. */
-  noindex?: boolean;
 }
 
 const { lang, route } = Astro.props;
@@ -56,7 +54,7 @@ const [locale, localeAlt] = lang === 'es' ? ['es_ES', 'en_GB'] : ['en_GB', 'es_E
 
     <title>{seo.title}</title>
     <meta content={seo.description} name="description" />
-    <meta content={Astro.props.noindex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'} name="robots" />
+    <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots" />
     <link href={canonical} rel="canonical" />
     <link href={abs(alternates.en)} hreflang="en" rel="alternate" />
     <link href={abs(alternates.es)} hreflang="es" rel="alternate" />

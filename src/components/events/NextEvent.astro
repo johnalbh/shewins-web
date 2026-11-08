@@ -1,10 +1,10 @@
 ---
-// "Next free event" frame (home and events): the first free event from today onwards.
-// Same markup and line breaks as the frame in html/index.html.
-// With `meetup` (the events page and the lab, team request of November 2026), the event comes from
-// the She Wins group on Meetup alone, and Meetup's 16:9 image sits under the date. The team no
-// longer enters events in Keystatic, so if Meetup does not answer during the build the frame shows
-// its "new date coming soon" state, which points to Meetup.
+// "Next free event" frame (home and events): the first free event from today onwards, from the
+// She Wins group on Meetup (src/lib/meetup.ts). Same markup and line breaks as the frame in
+// html/index.html, plus Meetup's 16:9 image under the date. Meetup has no field for the speaker's
+// role or a second language, so the topic line is Meetup's subtitle as written there. With no
+// upcoming free event, or if Meetup did not answer during the build, the frame shows its "new date
+// coming soon" state, which points to Meetup.
 import { Image } from 'astro:assets';
 import { localize, type Lang } from '../../i18n';
 import { getEventsByTime, getSettings } from '../../lib/content';
@@ -13,41 +13,35 @@ import { ARROW, INSTAGRAM, MEETUP } from '../../lib/markup';
 
 interface Props {
   lang: Lang;
-  /** Take the event from Meetup instead of Keystatic. */
-  meetup?: boolean;
 }
 
-const { lang, meetup = false } = Astro.props;
+const { lang } = Astro.props;
 const { L } = localize(lang);
-const [{ upcoming }, settings] = await Promise.all([getEventsByTime({ meetup }), getSettings()]);
-// The frame says "free": paid events (known only from Meetup) are skipped.
-const ev = upcoming.find((e) => e.free !== false);
+const [{ upcoming }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
+// The frame says "free": paid events are skipped.
+const ev = upcoming.find((e) => !e.fee);
 const when = dateParts(ev?.date ?? todayInMadrid(), lang);
 const language = {
   es: L('Spanish', 'Español'),
   en: L('English', 'Inglés'),
-  both: L('English + Spanish', 'Inglés + español'),
 };
-const topic = ev && L(ev.topicEn, ev.topicEs);
-const role = ev && L(ev.hostRoleEn, ev.hostRoleEs);
 const time = ev && [ev.startTime, ev.endTime].filter(Boolean).join('–');
-const photo = meetup && ev?.meetup?.photo;
-const photoAlt = ev && L(`Event poster: ${ev.title}${ev.host ? ` with ${ev.host}` : ''}`, `Póster del evento: ${ev.title}${ev.host ? ` con ${ev.host}` : ''}`);
+const photoAlt = ev && L(`Event poster: ${ev.title}${ev.speaker ? ` with ${ev.speaker}` : ''}`, `Póster del evento: ${ev.title}${ev.speaker ? ` con ${ev.speaker}` : ''}`);
 ---
 
 {ev ? (
 <div class="frame"><div class="pn">
-{photo ? (
-<div class="dtw"><div class="dt"><small><span class={lang}>{when.weekday}</span> · <span class={lang}>{when.monthShort}</span></small>{when.day}</div><figure><Image src={photo} inferSize alt={photoAlt} widths={[400, 600, 800]} sizes="(min-width: 860px) 30vw, 100vw" class="ev-img" /></figure></div>
+{ev.photo ? (
+<div class="dtw"><div class="dt"><small><span class={lang}>{when.weekday}</span> · <span class={lang}>{when.monthShort}</span></small>{when.day}</div><figure><Image src={ev.photo} inferSize alt={photoAlt} widths={[400, 600, 800]} sizes="(min-width: 860px) 30vw, 100vw" class="ev-img" /></figure></div>
 ) : (
 <div class="dt"><small><span class={lang}>{when.weekday}</span> · <span class={lang}>{when.monthShort}</span></small>{when.day}</div>
 )}
 <div>
 <p class="lab" style="margin-bottom:14px"><span class={lang}>{L('Next free event', 'Próximo evento gratuito')}</span></p>
 <h2>{ev.title}</h2>
-<p class="who">{topic && <Fragment><span class={lang}>{topic}</span><br /></Fragment>}{ev.host ? <b>{ev.host}</b> : <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}{ev.host && role && <Fragment> · <span class={lang}>{role}</span></Fragment>}</p>
+<p class="who">{ev.subtitle && <Fragment>{ev.subtitle}<br /></Fragment>}{ev.speaker ? <b>{ev.speaker}</b> : <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}</p>
 <dl class="facts"><div><dt><span class={lang}>{L('When', 'Cuándo')}</span></dt><dd>{time}</dd></div><div><dt><span class={lang}>{L('Language', 'Idioma')}</span></dt><dd><span class={lang}>{language[ev.language]}</span></dd></div><div><dt><span class={lang}>{L('Where', 'Dónde')}</span></dt><dd>{ev.venue}</dd></div></dl>
-<div class="btns"><a class="btn b-red" href={ev.meetupUrl || settings.meetup} rel="noopener" target="_blank"><Fragment set:html={MEETUP} /><span class={lang}>{L('RSVP on Meetup', 'Apúntate en Meetup')}</span><Fragment set:html={ARROW} /></a><a class="btn b-line" href={ev.lumaUrl || settings.luma} rel="noopener" target="_blank"><span class={lang}>{L('RSVP on Luma', 'Apúntate en Luma')}</span><Fragment set:html={ARROW} /></a></div>
+<div class="btns"><a class="btn b-red" href={ev.url} rel="noopener" target="_blank"><Fragment set:html={MEETUP} /><span class={lang}>{L('RSVP on Meetup', 'Apúntate en Meetup')}</span><Fragment set:html={ARROW} /></a><a class="btn b-line" href={settings.luma} rel="noopener" target="_blank"><span class={lang}>{L('RSVP on Luma', 'Apúntate en Luma')}</span><Fragment set:html={ARROW} /></a></div>
 </div>
 </div></div>
 ) : (

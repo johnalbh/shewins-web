@@ -96,7 +96,7 @@ async function load(groupUrl: string) {
       if (attempt < ATTEMPTS) await new Promise((r) => setTimeout(r, RETRY_MS));
     }
   }
-  console.warn('[meetup] events not loaded: the lab page shows none');
+  console.warn('[meetup] events not loaded: the event sections show their empty states');
   return null;
 }
 
@@ -129,7 +129,7 @@ function normalise(e: RawEvent): MeetupEvent {
   };
 }
 
-// "18:00" → "18:00", "09:30" → "9:30", the form the Keystatic events use.
+// "18:00" → "18:00", "09:30" → "9:30", the form of the original site's times.
 function clock(iso: string) {
   return iso.slice(11, 16).replace(/^0/, '');
 }
