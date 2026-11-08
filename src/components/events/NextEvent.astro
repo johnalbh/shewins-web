@@ -1,6 +1,8 @@
 ---
 // "Next free event" frame (home and events): the first event from today onwards.
 // Same markup and line breaks as the frame in html/index.html.
+import { Image } from 'astro:assets';
+import Mu from '../lab/Mu.astro';
 import { localize, type Lang } from '../../i18n';
 import { getEventsByTime, getSettings } from '../../lib/content';
 import { dateParts, todayInMadrid } from '../../lib/dates';
@@ -26,16 +28,24 @@ const language = {
 const topic = ev && L(ev.topicEn, ev.topicEs);
 const role = ev && L(ev.hostRoleEn, ev.hostRoleEs);
 const time = ev && [ev.startTime, ev.endTime].filter(Boolean).join('–');
+// Lab page: what came from Meetup is marked, and Meetup's 16:9 event image sits under the date.
+const from = ev?.from ?? {};
+const photo = meetup && ev?.meetup?.photo;
+const photoAlt = ev && L(`Event poster: ${ev.title}${ev.host ? ` with ${ev.host}` : ''}`, `Póster del evento: ${ev.title}${ev.host ? ` con ${ev.host}` : ''}`);
 ---
 
 {ev ? (
 <div class="frame"><div class="pn">
-<div class="dt"><small><span class={lang}>{when.weekday}</span> · <span class={lang}>{when.monthShort}</span></small>{when.day}</div>
+{photo ? (
+<div class="dtw"><div class="dt"><small><span class={lang}>{when.weekday}</span> · <span class={lang}>{when.monthShort}</span></small><Mu on={from.date}>{when.day}</Mu></div><figure class="mu-box"><Image src={photo} inferSize alt={photoAlt} widths={[400, 600, 800]} sizes="(min-width: 860px) 30vw, 100vw" class="mu-img" /></figure></div>
+) : (
+<div class="dt"><small><span class={lang}>{when.weekday}</span> · <span class={lang}>{when.monthShort}</span></small><Mu on={from.date}>{when.day}</Mu></div>
+)}
 <div>
 <p class="lab" style="margin-bottom:14px"><span class={lang}>{L('Next free event', 'Próximo evento gratuito')}</span></p>
-<h2>{ev.title}</h2>
-<p class="who">{topic && <Fragment><span class={lang}>{topic}</span><br /></Fragment>}{ev.host ? <b>{ev.host}</b> : <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}{ev.host && role && <Fragment> · <span class={lang}>{role}</span></Fragment>}</p>
-<dl class="facts"><div><dt><span class={lang}>{L('When', 'Cuándo')}</span></dt><dd>{time}</dd></div><div><dt><span class={lang}>{L('Language', 'Idioma')}</span></dt><dd><span class={lang}>{language[ev.language]}</span></dd></div><div><dt><span class={lang}>{L('Where', 'Dónde')}</span></dt><dd>{ev.venue}</dd></div></dl>
+<h2><Mu on={from.title}>{ev.title}</Mu></h2>
+<p class="who">{topic && <Fragment><span class={lang}><Mu on={from[lang === 'es' ? 'topicEs' : 'topicEn']}>{topic}</Mu></span><br /></Fragment>}{ev.host ? <b><Mu on={from.host}>{ev.host}</Mu></b> : <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}{ev.host && role && <Fragment> · <span class={lang}>{role}</span></Fragment>}</p>
+<dl class="facts"><div><dt><span class={lang}>{L('When', 'Cuándo')}</span></dt><dd><Mu on={from.time}>{time}</Mu></dd></div><div><dt><span class={lang}>{L('Language', 'Idioma')}</span></dt><dd><span class={lang}><Mu on={from.language}>{language[ev.language]}</Mu></span></dd></div><div><dt><span class={lang}>{L('Where', 'Dónde')}</span></dt><dd><Mu on={from.venue}>{ev.venue}</Mu></dd></div></dl>
 <div class="btns"><a class="btn b-red" href={ev.meetupUrl || settings.meetup} rel="noopener" target="_blank"><Fragment set:html={MEETUP} /><span class={lang}>{L('RSVP on Meetup', 'Apúntate en Meetup')}</span><Fragment set:html={ARROW} /></a><a class="btn b-line" href={ev.lumaUrl || settings.luma} rel="noopener" target="_blank"><span class={lang}>{L('RSVP on Luma', 'Apúntate en Luma')}</span><Fragment set:html={ARROW} /></a></div>
 </div>
 </div></div>

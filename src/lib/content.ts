@@ -38,12 +38,17 @@ export async function getEvents() {
 
 type KeystaticEvent = Awaited<ReturnType<typeof getEvents>>[number];
 
+/** Event fields that can come from Meetup; the lab page marks them. "guess" is derived from Meetup's text. */
+export type MeetupField = 'title' | 'date' | 'time' | 'venue' | 'host' | 'topicEn' | 'topicEs' | 'language' | 'fee' | 'image';
+
 export type Event = KeystaticEvent & {
   /** Where the event came from. Keystatic-only events have no Meetup data. */
   source?: 'keystatic' | 'meetup' | 'both';
   meetup?: MeetupEvent;
   /** False for paid events; unknown (undefined) for Keystatic-only events, which count as free. */
   free?: boolean;
+  /** Which of the shown values came from Meetup. Only set when Meetup is merged in. */
+  from?: Partial<Record<MeetupField, true | 'guess'>>;
 };
 
 /**
@@ -101,6 +106,16 @@ async function getEventsWithMeetup(): Promise<Event[]> {
       source: 'both',
       meetup: m,
       free: !m.fee,
+      from: {
+        date: true,
+        time: true,
+        venue: true,
+        ...(!e.host && m.speaker && { host: true }),
+        ...(!e.topicEn && m.subtitle && { topicEn: true }),
+        ...(!e.topicEs && m.subtitle && { topicEs: true }),
+        ...(m.fee && { fee: true }),
+        ...(m.photo && { image: true }),
+      },
     };
   });
 
@@ -127,6 +142,17 @@ async function getEventsWithMeetup(): Promise<Event[]> {
       source: 'meetup',
       meetup: m,
       free: !m.fee,
+      from: {
+        title: true,
+        date: true,
+        time: true,
+        venue: true,
+        language: 'guess',
+        ...(m.speaker && { host: true }),
+        ...(m.subtitle && { topicEn: true, topicEs: true }),
+        ...(m.fee && { fee: true }),
+        ...(m.photo && { image: true }),
+      },
     });
   }
   return merged.sort((a, b) => `${a.date} ${a.startTime.padStart(5, '0')}`.localeCompare(`${b.date} ${b.startTime.padStart(5, '0')}`));

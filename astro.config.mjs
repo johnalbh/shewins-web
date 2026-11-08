@@ -14,6 +14,9 @@ export default defineConfig({
   compressHTML: false,
   // The Letter page is /letter, but people type "newsletter" when they guess the link.
   redirects: { '/newsletter': '/letter', '/es/newsletter': '/es/letter' },
+  // Meetup's event images, downloaded and optimised at build time (lab page), so they are served
+  // from this site and the visitor's browser never contacts Meetup.
+  image: { domains: ['secure.meetupstatic.com'] },
   integrations: [react(), keystatic()],
   adapter: vercel(),
 });
