@@ -2,6 +2,7 @@
 // Generated from html/legal.html + html/es/legal.html by scripts/migrate-from-html.mjs.
 import Base from '../layouts/Base.astro';
 import { localize, type Lang } from '../i18n';
+import { getSettings } from '../lib/content';
 
 interface Props {
   lang: Lang;
@@ -9,6 +10,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const { L, u } = localize(lang);
+const settings = await getSettings();
 ---
 
 <Base lang={lang} route="legal">
@@ -19,7 +21,7 @@ const { L, u } = localize(lang);
 <section class="s-cream"><div class="w"><article class="post"><div class={lang}>
 <p>{L("In compliance with article 10 of Spanish Law 34/2002 on information society services and electronic commerce (LSSI-CE), the owner of this website is identified below.", "En cumplimiento del artículo 10 de la Ley 34/2002 de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), se identifica a continuación al titular de este sitio web.")}</p>
 <h2>{L("Owner", "Titular")}</h2>
-<ul><li>{L("Name: ", "Nombre: ")}<span class={lang}>Asociación She Wins</span></li><li>{L("Tax ID: ", "NIF: ")}<mark class="ph"><span class={lang}>{L("[Tax ID (NIF/CIF)]", "[NIF/CIF]")}</span></mark></li><li>{L("Address: ", "Domicilio: ")}<a href="https://maps.app.goo.gl/5uuXznP51vD8KBHQ7" rel="noopener" target="_blank">C/ Ancha del Carmen 32, 29002 Málaga (Niage Garage CoWorking)</a></li><li>Email: <a href="mailto:agnieszka@shewins.es">agnieszka@shewins.es</a></li><li>{L("Website: www.shewins.es", "Web: www.shewins.es")}</li><li>{L("Registry: association registered in the Register of Associations ", "Inscripción: asociación inscrita en el Registro de Asociaciones ")}<mark class="ph"><span class={lang}>{L("[which register and number]", "[registro y número]")}</span></mark></li></ul>
+<ul><li>{L("Name: ", "Nombre: ")}<span class={lang}>Asociación She Wins</span></li><li>{L("Tax ID: ", "NIF: ")}<mark class="ph"><span class={lang}>{L("[Tax ID (NIF/CIF)]", "[NIF/CIF]")}</span></mark></li><li>{L("Address: ", "Domicilio: ")}<a href="https://maps.app.goo.gl/5uuXznP51vD8KBHQ7" rel="noopener" target="_blank">C/ Ancha del Carmen 32, 29002 Málaga (Niage Garage CoWorking)</a></li><li>Email: <a href={`mailto:${settings.email}`}>{settings.email}</a></li><li>{L("Website: www.shewins.es", "Web: www.shewins.es")}</li><li>{L("Registry: association registered in the Register of Associations ", "Inscripción: asociación inscrita en el Registro de Asociaciones ")}<mark class="ph"><span class={lang}>{L("[which register and number]", "[registro y número]")}</span></mark></li></ul>
 <h2>{L("Purpose", "Objeto")}</h2>
 <p>{L("This website presents She Wins, a business community for women in Málaga: its events, membership, blog and ways to collaborate.", "Este sitio web presenta She Wins, una comunidad de negocios para mujeres en Málaga: sus eventos, la membresía, el blog y las formas de colaborar.")}</p>
 <h2>{L("Terms of use", "Condiciones de uso")}</h2>

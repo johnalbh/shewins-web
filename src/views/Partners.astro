@@ -2,6 +2,7 @@
 // Generated from html/partners.html + html/es/partners.html by scripts/migrate-from-html.mjs.
 import Base from '../layouts/Base.astro';
 import { localize, type Lang } from '../i18n';
+import { getSettings } from '../lib/content';
 
 interface Props {
   lang: Lang;
@@ -9,6 +10,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const { L, u } = localize(lang);
+const settings = await getSettings();
 ---
 
 <Base lang={lang} route="partners">
@@ -33,7 +35,7 @@ const { L, u } = localize(lang);
 <div class="names"><div><p class="lab"><span class={lang}>Partners</span></p><p class="vals"><span>Femtech Spain</span><span>Talentina</span><span>Inception Women’s Lab</span></p></div><div><p class="lab"><span class={lang}>{L("Sponsor", "Patrocinio")}</span></p><p class="vals"><span>Memcyco</span></p></div><div><p class="lab"><span class={lang}>{L("Hosts", "Espacios")}</span></p><p class="vals"><span>Innovation Campus Málaga</span><span>Niage Garage</span><span>Workcafé Santander</span><span>Sharing Co·working</span></p></div></div>
 </div></section>
 <section class="formband long" id="contact"><div class="w"><div class="fgrid">
-<div><p class="lab"><span class={lang}>{L("Contact", "Contacto")}</span></p><h2 class="l" style="margin-top:18px"><span class={lang}>{L("Tell us what you have in mind.", "Cuéntanos qué tienes en mente.")}</span></h2><p class="lead" style="margin-top:22px"><span class={lang}>{L("We read every message and reply personally.", "Leemos cada mensaje y respondemos personalmente.")}</span></p><p style="margin-top:14px"><span class={lang}>{L("Or write to", "O escribe a")}</span> <a href="mailto:agnieszka@shewins.es" style="font-weight:600">agnieszka@shewins.es</a></p></div>
+<div><p class="lab"><span class={lang}>{L("Contact", "Contacto")}</span></p><h2 class="l" style="margin-top:18px"><span class={lang}>{L("Tell us what you have in mind.", "Cuéntanos qué tienes en mente.")}</span></h2><p class="lead" style="margin-top:22px"><span class={lang}>{L("We read every message and reply personally.", "Leemos cada mensaje y respondemos personalmente.")}</span></p><p style="margin-top:14px"><span class={lang}>{L("Or write to", "O escribe a")}</span> <a href={`mailto:${settings.email}`} style="font-weight:600">{settings.email}</a></p></div>
 <div>
 <form class="form" data-form="contact" novalidate><input aria-hidden="true" autocomplete="off" id="c-website" name="website" style="position:absolute;left:-9999px" tabindex="-1" type="text" />
 <div class="fld"><label for="c-type"><span class={lang}>{L("I am a…", "Soy…")}</span></label><select id="c-type"><option data-en="Sponsor or company" data-es="Patrocinador o empresa">Sponsor or company</option><option data-en="Partner or institution" data-es="Partner o institución">Partner or institution</option><option data-en="Speaker or mentor" data-es="Ponente o mentora">Speaker or mentor</option><option data-en="Venue" data-es="Espacio">Venue</option><option data-en="Investor" data-es="Inversor/a">Investor</option><option data-en="Other" data-es="Otro">Other</option></select></div>
