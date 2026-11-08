@@ -1,43 +1,5 @@
 /* Lab page only (/lab/meetup), imported by its two page wrappers, never by Base.astro.
-   The team asked to see at a glance which values come from Meetup (November 2026): a dashed
-   underline on the value and a small square "M" after it ("M?" when the value is guessed from
-   Meetup's text, like the language). Both use currentColor, so they keep the approved pair of
-   whatever block they sit on: black on the pink frame, cream on the black facts strip, ink on
-   cream and white. */
-.mu {
-  text-decoration: underline dashed 1.5px;
-  text-underline-offset: 0.16em;
-  text-decoration-skip-ink: none;
-}
-.mu::after {
-  content: 'M';
-  display: inline-block;
-  margin-left: 0.3em;
-  padding: 2px 3px 1px;
-  border: 1px solid currentColor;
-  font: 600 9px/1 var(--body);
-  letter-spacing: 0.06em;
-  vertical-align: 0.4em;
-  text-decoration: none;
-}
-.mu[data-mu='guess']::after { content: 'M?'; }
-
-/* An image from Meetup carries the same square "M", in ink on cream, at its top left corner. */
-.mu-box { position: relative; }
-.mu-box::before {
-  content: 'M';
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  z-index: 1;
-  padding: 4px 5px 3px;
-  background: var(--cream);
-  color: var(--ink);
-  font: 600 11px/1 var(--body);
-  letter-spacing: 0.06em;
-}
-
-/* Meetup's event images are 16:9 posters with their own text (title, date, speaker), so they are
+   Meetup's event images are 16:9 posters with their own text (title, date, speaker), so they are
    shown whole: never cropped to the 3:4 of the site's posters. */
 .mu-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
 .frame .dtw { display: grid; gap: 22px; }

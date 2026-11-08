@@ -1,7 +1,8 @@
 // Events of the She Wins group on Meetup, read at build time.
 // Meetup's GraphQL endpoint answers public group data without a key. Meetup only documents its
-// API for Pro customers, so this may stop working: every failure returns null and the site
-// falls back to the Keystatic events alone. The build never fails because of Meetup.
+// API for Pro customers, so this may stop working: every failure returns null and the page shows
+// no events. The build never fails because of Meetup. The group's public iCal feed is no fallback:
+// it has no place, image, price or past events.
 
 const ENDPOINT = 'https://api.meetup.com/gql-ext';
 const TIMEOUT_MS = 8000;
@@ -69,25 +70,34 @@ export function getMeetupEvents(groupUrl: string): Promise<MeetupEvent[] | null>
   return cache;
 }
 
+// With the events taken from Meetup alone, a failed request leaves the page without events until
+// the next build, so a passing error (a timeout, a 5xx) gets two more tries a few seconds apart.
+const ATTEMPTS = 3;
+const RETRY_MS = 3000;
+
 async function load(groupUrl: string) {
   const urlname = groupUrl.match(/meetup\.com\/([^/?#]+)/)?.[1];
   if (!urlname) return null;
-  try {
-    const res = await fetch(ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: QUERY, variables: { urlname } }),
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-    });
-    const json = await res.json();
-    const group = json?.data?.groupByUrlname;
-    if (!res.ok || !group) throw new Error(json?.errors?.[0]?.message ?? `HTTP ${res.status}`);
-    const nodes: RawEvent[] = [...group.past.edges, ...group.upcoming.edges].map((e: { node: RawEvent }) => e.node);
-    return nodes.map(normalise).sort((a, b) => a.startISO.localeCompare(b.startISO));
-  } catch (err) {
-    console.warn(`[meetup] events not loaded, using Keystatic only: ${(err as Error).message}`);
-    return null;
+  for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: QUERY, variables: { urlname } }),
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+      });
+      const json = await res.json();
+      const group = json?.data?.groupByUrlname;
+      if (!res.ok || !group) throw new Error(json?.errors?.[0]?.message ?? `HTTP ${res.status}`);
+      const nodes: RawEvent[] = [...group.past.edges, ...group.upcoming.edges].map((e: { node: RawEvent }) => e.node);
+      return nodes.map(normalise).sort((a, b) => a.startISO.localeCompare(b.startISO));
+    } catch (err) {
+      console.warn(`[meetup] attempt ${attempt} of ${ATTEMPTS} failed: ${(err as Error).message}`);
+      if (attempt < ATTEMPTS) await new Promise((r) => setTimeout(r, RETRY_MS));
+    }
   }
+  console.warn('[meetup] events not loaded: the lab page shows none');
+  return null;
 }
 
 function normalise(e: RawEvent): MeetupEvent {
