@@ -1,0 +1,35 @@
+---
+// Lab page only (/lab/meetup): says what the page is and, for each event of the month, what came
+// from Meetup and what from Keystatic, so the team can judge the integration before it goes live.
+import { localize, type Lang } from '../../i18n';
+import { getEventsByTime } from '../../lib/content';
+import { dateParts } from '../../lib/dates';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { L } = localize(lang);
+const { fromMonthStart, upcoming, meetupLoaded } = await getEventsByTime({ meetup: true });
+const next = upcoming.find((e) => e.free !== false);
+const built = new Intl.DateTimeFormat(lang === 'es' ? 'es-ES' : 'en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Madrid' }).format(new Date());
+const SOURCE = {
+  meetup: L('Meetup only', 'Solo Meetup'),
+  both: L('Meetup + Keystatic', 'Meetup + Keystatic'),
+  keystatic: L('Keystatic only', 'Solo Keystatic'),
+};
+---
+
+<section class="sec s-cream"><div class="w">
+<div class="head"><p class="lab"><span class={lang}>{L('Lab · hidden page', 'Laboratorio · página oculta')}</span></p><h2 class="l"><span class={lang}>{L('Events from Meetup, in the She Wins format.', 'Eventos de Meetup, en el formato de She Wins.')}</span></h2></div>
+<p class="lead"><span class={lang}>{L(
+  `A copy of the home page whose events are read from Meetup when the site is built. It is not in the menu, the sitemap or search engines. Built ${built}.`,
+  `Una copia de la home cuyos eventos se leen de Meetup al construir la web. No está en el menú, ni en el sitemap, ni en los buscadores. Construida el ${built}.`,
+)}</span></p>
+{meetupLoaded === false && <p class="lead"><b><span class={lang}>{L('Meetup did not answer: these are the Keystatic events only.', 'Meetup no respondió: estos son solo los eventos de Keystatic.')}</span></b></p>}
+{fromMonthStart.map((ev) => {
+  const d = dateParts(ev.date!, lang);
+  return <div class="rw"><p class="lab"><span class={lang}>{d.weekday} {d.day} {d.monthShort}</span></p><div><h3>{ev.title}</h3><p>{ev.meetup && ev.meetup.rawTitle !== ev.title && <Fragment><span class={lang}>{L('On Meetup: ', 'En Meetup: ')}</span>“{ev.meetup.rawTitle}”<br /></Fragment>}{ev.source === 'meetup' && <span class={lang}>{L('Title cleaned and language guessed; no poster.', 'Título limpiado e idioma deducido; sin póster.')}</span>}{ev.source === 'both' && <span class={lang}>{L('Date, time, place and price from Meetup; the rest from Keystatic.', 'Fecha, hora, lugar y precio de Meetup; lo demás de Keystatic.')}</span>}</p><div class="tags"><span class="pill">{SOURCE[ev.source ?? 'keystatic']}</span>{ev.free === false && <span class="pill"><span class={lang}>{L('Paid', 'De pago')}</span></span>}{ev === next && <span class="pill r"><span class={lang}>{L('Next free event', 'Próximo evento gratuito')}</span></span>}</div></div></div>;
+})}
+</div></section>

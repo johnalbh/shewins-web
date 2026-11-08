@@ -8,12 +8,15 @@ import { ARROW, INSTAGRAM, MEETUP } from '../../lib/markup';
 
 interface Props {
   lang: Lang;
+  /** Merge the Meetup events in (lab page). */
+  meetup?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, meetup = false } = Astro.props;
 const { L } = localize(lang);
-const [{ upcoming }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
-const ev = upcoming[0];
+const [{ upcoming }, settings] = await Promise.all([getEventsByTime({ meetup }), getSettings()]);
+// The frame says "free": paid events (known only from Meetup) are skipped.
+const ev = upcoming.find((e) => e.free !== false);
 const when = dateParts(ev?.date ?? todayInMadrid(), lang);
 const language = {
   es: L('Spanish', 'Español'),

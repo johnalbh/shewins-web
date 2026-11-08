@@ -8,11 +8,13 @@ import { getImage } from '../../lib/images';
 
 interface Props {
   lang: Lang;
+  /** Merge the Meetup events in (lab page). */
+  meetup?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, meetup = false } = Astro.props;
 const { L } = localize(lang);
-const [{ past }, settings] = await Promise.all([getEventsByTime(), getSettings()]);
+const [{ past }, settings] = await Promise.all([getEventsByTime({ meetup }), getSettings()]);
 // The three most recent, shown oldest to newest like the original row.
 const posters = past
   .map((ev) => ({ ev, image: getImage(ev.poster) }))
