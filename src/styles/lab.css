@@ -1,6 +1,0 @@
-/* Lab page only (/lab/meetup), imported by its two page wrappers, never by Base.astro.
-   Meetup's event images are 16:9 posters with their own text (title, date, speaker), so they are
-   shown whole: never cropped to the 3:4 of the site's posters. */
-.mu-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
-.frame .dtw { display: grid; gap: 22px; }
-.frame .dtw figure { margin: 0; }

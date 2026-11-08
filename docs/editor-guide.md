@@ -24,6 +24,8 @@ You will see four sections on the left: **Blog articles**, **Events**, **Authors
 
 ## Add an event
 
+Events are moving to Meetup. The "Next free event" box on the **events page** and the "Recent events" row on the **home page** already come straight from the She Wins group on Meetup: publish the event there, with the speaker in Meetup's speaker field and the price in its payment settings, and the site picks it up at its next update (every night, or after any save in this panel). The steps below are only for the parts of the site that still read Keystatic.
+
 1. **Events** → **Add**.
 2. Fill in **Title** (as on the poster, not translated), **Date**, **Start time** and **End time** (for example `18:30`), **Language** and **Place**.
 3. Optional:

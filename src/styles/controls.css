@@ -242,3 +242,12 @@ summary:focus-visible { border-radius: 0; }
 }
 .posters.wide .ev-icons a:hover { background: color-mix(in srgb, var(--red) 80%, black); }
 .posters.wide .ev-icons .lg { width: 16px; height: 16px; }
+
+/* ---------- Next free event with Meetup's image (events page) ---------- */
+
+/* On the events page the "Next free event" frame takes its event from Meetup (team request,
+   November 2026), with Meetup's image under the date. The image is a 16:9 poster with its own
+   text, so it is shown whole; the date and the image share the frame's left column. */
+.frame .dtw { display: grid; gap: 22px; }
+.frame .dtw figure { margin: 0; }
+.frame .ev-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }

@@ -60,7 +60,8 @@ The tags must match the `articleBlocks` in `keystatic.config.ts`. `@markdoc/mark
 
 **Events from Meetup.**
 - The team publishes its events on Meetup. `src/lib/meetup.ts` reads the group's events at build time from Meetup's public GraphQL endpoint (no key; Meetup only documents its API for Pro, so it may stop). A failed request gets 3 tries; after that the build goes on without Meetup.
-- The home's "Recent events" row (`PastEvents` with `meetup`) shows the last three Meetup events: Meetup's 16:9 image (never cropped, it has text on it) and, right of its title, two small red squares with the Meetup and Instagram marks. Without Meetup it falls back to the Keystatic posters. The events page still uses Keystatic.
+- The home's "Recent events" row (`PastEvents` with `meetup`) shows the last three Meetup events: Meetup's 16:9 image (never cropped, it has text on it) and, right of its title, two small red squares with the Meetup and Instagram marks. Without Meetup it falls back to the Keystatic posters.
+- The events page's "Next free event" frame (`NextEvent` with `meetup`) takes the first free upcoming Meetup event, with Meetup's image under the date. Without Meetup it shows "new date coming soon": the team no longer enters events in Keystatic. The home's frame, "This month" and "Past events" still use Keystatic.
 - `/lab/meetup` (noindex, not in the sitemap) is the test page: the whole home with events from Meetup alone, never mixed with Keystatic (team decision, November 2026).
 - `astro.config.mjs` allows `secure.meetupstatic.com` images, so `astro:assets` downloads and optimises them; a running dev server must be restarted after a change there.
 
