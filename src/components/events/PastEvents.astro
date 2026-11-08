@@ -3,8 +3,8 @@
 // Images are resized and converted to WebP at build time.
 //
 // With `meetup` (the home, team request of November 2026), they are the events of the She Wins
-// group on Meetup, with Meetup's own image and two quiet links on one line: the event on Meetup
-// and She Wins on Instagram.
+// group on Meetup, with Meetup's own image and, right of the title, two small red squares with
+// the Meetup and Instagram marks: the event on Meetup and She Wins on Instagram.
 // Meetup's images are 16:9 posters with their own text, so they are shown whole, never cropped to
 // the 3:4 of the Keystatic posters. If Meetup did not answer during the build, the row falls back
 // to the Keystatic posters, as before, rather than leave the section empty.
@@ -44,7 +44,7 @@ const altText = (ev: Event) => {
 ---
 
 {fromMeetup.length > 0 ? (
-<div class="posters three wide">{fromMeetup.map((ev) => <figure><a aria-hidden="true" href={ev.meetup!.url} rel="noopener" tabindex="-1" target="_blank"><Image src={ev.meetup!.photo!} inferSize alt={altText(ev)} widths={[400, 600, 800]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /></a><figcaption>{ev.title}</figcaption><p class="ev-links"><a aria-label={`Meetup: ${ev.title}`} href={ev.meetup!.url} rel="noopener" target="_blank"><Fragment set:html={MEETUP} /><span>Meetup</span></a><a aria-label={L('She Wins on Instagram', 'She Wins en Instagram')} href={ev.instagramUrl || settings.instagram} rel="noopener" target="_blank"><Fragment set:html={INSTAGRAM} /><span>Instagram</span></a></p></figure>)}</div>
+<div class="posters three wide">{fromMeetup.map((ev) => <figure><a aria-hidden="true" href={ev.meetup!.url} rel="noopener" tabindex="-1" target="_blank"><Image src={ev.meetup!.photo!} inferSize alt={altText(ev)} widths={[400, 600, 800]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /></a><figcaption>{ev.title}<div class="ev-icons"><a aria-label={`Meetup: ${ev.title}`} href={ev.meetup!.url} rel="noopener" target="_blank" title="Meetup"><Fragment set:html={MEETUP} /></a><a aria-label={L('She Wins on Instagram', 'She Wins en Instagram')} href={ev.instagramUrl || settings.instagram} rel="noopener" target="_blank" title="Instagram"><Fragment set:html={INSTAGRAM} /></a></div></figcaption></figure>)}</div>
 ) : (
 <div class="posters three">{posters.map(({ ev, image }) => <figure><a href={ev.instagramUrl || settings.instagram} rel="noopener" target="_blank"><Image src={image!} alt={altText(ev)} widths={[360, 540, 720]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /></a><figcaption>{ev.title} <span aria-hidden="true">↗</span></figcaption></figure>)}</div>
 )}
