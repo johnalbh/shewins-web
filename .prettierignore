@@ -1,0 +1,13 @@
+# The designer's stylesheet is never edited (CLAUDE.md, CSS layers).
+public/style.css
+# Written by Keystatic: its own format, edited in the panel.
+src/content/
+# Generated or third-party output.
+package-lock.json
+.astro/
+.vercel/
+dist/
+audit/
+.impeccable/
+# Prose (DESIGN.md, PRODUCT.md, docs): line breaks are the authors' own.
+*.md

@@ -6,7 +6,10 @@
 
 /* ---------- Grid ---------- */
 
-.post-grid { display: grid; grid-template-columns: minmax(0, 1fr); }
+.post-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
 @media (min-width: 1100px) {
   .post-grid {
     grid-template-columns: minmax(0, 68ch) 200px;
@@ -16,19 +19,46 @@
   /* The head lives in the reading column: back link, then meta and title. The second track
      stays empty so the title lines up with the text below it. */
   .post-rail-head,
-  .post-title { grid-column: 1; }
-  .post-body .post { grid-column: 1; grid-row: 1; }
-  .post-rail { grid-column: 2; grid-row: 1; }
+  .post-title {
+    grid-column: 1;
+  }
+  .post-body .post {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .post-rail {
+    grid-column: 2;
+    grid-row: 1;
+  }
 }
 
 /* ---------- Head ---------- */
 
-.post-head { padding-top: clamp(40px, 6vw, 96px); }
-.post-head .back { display: inline-flex; align-items: center; gap: 8px; }
-.post-head .back svg { width: 14px; height: 14px; transition: transform 0.2s var(--ease-out); }
-.post-head .back:hover svg { transform: translateX(-3px); }
-.post-title .lab { margin: 28px 0 0; }
-.post-head h1 { font-size: clamp(34px, 4.4vw, 64px); line-height: 0.98; max-width: 18ch; margin-top: 18px; }
+.post-head {
+  padding-top: clamp(40px, 6vw, 96px);
+}
+.post-head .back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.post-head .back svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s var(--ease-out);
+}
+.post-head .back:hover svg {
+  transform: translateX(-3px);
+}
+.post-title .lab {
+  margin: 28px 0 0;
+}
+.post-head h1 {
+  font-size: clamp(34px, 4.4vw, 64px);
+  line-height: 0.98;
+  max-width: 18ch;
+  margin-top: 18px;
+}
 
 /* ---------- Reading column ---------- */
 
@@ -36,14 +66,29 @@
   max-width: none;
   padding-block: clamp(40px, 5vw, 72px) clamp(64px, 8vw, 120px);
 }
-.post > div > p { line-height: 1.8; margin-bottom: 1.45em; }
+.post > div > p {
+  line-height: 1.8;
+  margin-bottom: 1.45em;
+}
 /* The opening paragraph is the lead: a size up, an invitation to read on. */
-.post > div > p:first-child { font-size: clamp(19px, 1.75vw, 23px); line-height: 1.6; margin-bottom: 1.3em; }
-.post h2 { font-size: clamp(24px, 2.4vw, 32px); margin: 2.4em 0 0.75em; }
+.post > div > p:first-child {
+  font-size: clamp(19px, 1.75vw, 23px);
+  line-height: 1.6;
+  margin-bottom: 1.3em;
+}
+.post h2 {
+  font-size: clamp(24px, 2.4vw, 32px);
+  margin: 2.4em 0 0.75em;
+}
 .post ul,
-.post ol { gap: 0.7em; margin-bottom: 1.6em; }
+.post ol {
+  gap: 0.7em;
+  margin-bottom: 1.6em;
+}
 .post ul > li,
-.post ol > li { line-height: 1.7; }
+.post ol > li {
+  line-height: 1.7;
+}
 /* Pull quote: red display type between two hairlines, instead of a side bar. */
 .post .pull {
   border-left: 0;
@@ -55,18 +100,33 @@
   font-size: clamp(24px, 2.4vw, 32px);
   line-height: 1.2;
 }
-.post .callout { margin: 2.6em 0; }
-.post .byline { margin-top: 3.5em; }
+.post .callout {
+  margin: 2.6em 0;
+}
+.post .byline {
+  margin-top: 3.5em;
+}
 .post ::selection,
-.post-head ::selection { background: var(--pink); color: var(--black); }
+.post-head ::selection {
+  background: var(--pink);
+  color: var(--black);
+}
 
 /* ---------- The Letter, at the end of the article ---------- */
 
 /* Readers who reach the end are the likeliest to subscribe (team request, November 2026), so every
    post ends with a link to /letter. It is a hairline row, not a card. .post p and .post a would
    otherwise turn the label into body text and the button text red on red. */
-.post .post-letter { margin-top: 3em; padding-top: 26px; border-top: 1px solid var(--ink); }
-.post .post-letter .lab { font-size: 11px; line-height: 1.5; margin: 0; }
+.post .post-letter {
+  margin-top: 3em;
+  padding-top: 26px;
+  border-top: 1px solid var(--ink);
+}
+.post .post-letter .lab {
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 0;
+}
 .post .post-letter .pl-t {
   font-family: var(--display);
   font-weight: 700;
@@ -77,29 +137,74 @@
   max-width: 26ch;
   margin: 12px 0 22px;
 }
-.post .post-letter .btn.b-red { color: var(--cream); text-decoration: none; }
+.post .post-letter .btn.b-red {
+  color: var(--cream);
+  text-decoration: none;
+}
 
 /* ---------- Side column: author, reading time, share ---------- */
 
-.post-rail { margin-bottom: clamp(56px, 8vw, 112px); }
-.post-author { display: none; }
+.post-rail {
+  margin-bottom: clamp(56px, 8vw, 112px);
+}
+.post-author {
+  display: none;
+}
 @media (min-width: 1100px) {
-  .post-rail { position: sticky; top: 150px; align-self: start; margin: clamp(40px, 5vw, 72px) 0 0; }
-  .post-author { display: block; padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
-  .post-author .nm { font-family: var(--display); font-weight: 700; font-stretch: 96%; letter-spacing: -0.03em; font-size: 22px; line-height: 1.1; margin-top: 10px; }
-  .post-author .role { font-size: 13px; line-height: 1.5; opacity: 0.75; margin-top: 6px; }
-  .post-author .role + .role { margin-top: 2px; }
+  .post-rail {
+    position: sticky;
+    top: 150px;
+    align-self: start;
+    margin: clamp(40px, 5vw, 72px) 0 0;
+  }
+  .post-author {
+    display: block;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+  .post-author .nm {
+    font-family: var(--display);
+    font-weight: 700;
+    font-stretch: 96%;
+    letter-spacing: -0.03em;
+    font-size: 22px;
+    line-height: 1.1;
+    margin-top: 10px;
+  }
+  .post-author .role {
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.75;
+    margin-top: 6px;
+  }
+  .post-author .role + .role {
+    margin-top: 2px;
+  }
 }
 
 /* Share actions: outlined square buttons, icon at the right, one per line in the side column
    and two per line below 1100px. */
-.share { max-width: 68ch; }
-.share h2 { margin-bottom: 12px; }
-.share ul { display: grid; gap: 8px; }
-.share li[hidden] { display: none; }
+.share {
+  max-width: 68ch;
+}
+.share h2 {
+  margin-bottom: 12px;
+}
+.share ul {
+  display: grid;
+  gap: 8px;
+}
+.share li[hidden] {
+  display: none;
+}
 @media (max-width: 1099px) {
-  .share ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .share li:has([data-share-native]) { grid-column: 1 / -1; }
+  .share ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .share li:has([data-share-native]) {
+    grid-column: 1 / -1;
+  }
 }
 .share a,
 .share button {
@@ -121,25 +226,53 @@
   text-align: left;
   text-decoration: none;
   cursor: pointer;
-  transition: color 0.2s ease, background-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
-.share svg { width: 16px; height: 16px; flex: none; transition: transform 0.2s var(--ease-out); }
+.share svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  transition: transform 0.2s var(--ease-out);
+}
 .share a:hover,
-.share button:hover { background-color: color-mix(in srgb, var(--ink) 6%, transparent); color: var(--red); }
-.share .is-done { color: var(--red); border-color: var(--red); }
-.share a:hover svg { transform: translate(2px, -2px); }
-.share button:hover svg { transform: translateY(-2px); }
+.share button:hover {
+  background-color: color-mix(in srgb, var(--ink) 6%, transparent);
+  color: var(--red);
+}
+.share .is-done {
+  color: var(--red);
+  border-color: var(--red);
+}
+.share a:hover svg {
+  transform: translate(2px, -2px);
+}
+.share button:hover svg {
+  transform: translateY(-2px);
+}
 .share a:focus-visible,
-.share button:focus-visible { border-radius: 0; }
+.share button:focus-visible {
+  border-radius: 0;
+}
 
 /* Announces "Link copied" to screen readers without showing it twice on screen. */
-.share-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.share-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 
 /* ---------- Reading progress ---------- */
 
 /* A 3px red line along the top of the window that fills as the article is read (scroll-driven,
    no script). Hidden where scroll timelines are not supported and under reduced motion. */
-.read-progress { display: none; }
+.read-progress {
+  display: none;
+}
 @supports (animation-timeline: scroll()) {
   .read-progress {
     display: block;
@@ -153,12 +286,20 @@
     animation-timeline: scroll(root);
     pointer-events: none;
   }
-  @keyframes sw-read { from { transform: scaleX(0); } }
+  @keyframes sw-read {
+    from {
+      transform: scaleX(0);
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .read-progress { display: none; }
+  .read-progress {
+    display: none;
+  }
   .post-head .back:hover svg,
   .share a:hover svg,
-  .share button:hover svg { transform: none; }
+  .share button:hover svg {
+    transform: none;
+  }
 }

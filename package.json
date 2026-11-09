@@ -12,6 +12,14 @@
     "preview": "astro preview",
     "astro": "astro",
     "migrate": "node scripts/migrate-from-html.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test",
     "audit:responsive": "node scripts/responsive-audit.mjs"
   },
   "dependencies": {
@@ -26,16 +34,32 @@
     "react-dom": "19.3.1"
   },
   "overrides": {
-    "@vercel/routing-utils": { "path-to-regexp": "6.3.0" },
-    "@vercel/cli-config": { "zod": "4.6.7" }
+    "@vercel/routing-utils": {
+      "path-to-regexp": "6.3.0"
+    },
+    "@vercel/cli-config": {
+      "zod": "4.6.7"
+    }
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.19.2",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "cheerio": "1.2.0",
+    "eslint": "10.14.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-astro": "3.2.1",
+    "globals": "17.14.0",
     "js-yaml": "4.3.2",
     "playwright": "1.64.1",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.2",
     "serve": "14.2.6",
-    "turndown": "7.2.4"
+    "turndown": "7.2.4",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.2",
+    "vitest": "5.1.0"
   }
 }

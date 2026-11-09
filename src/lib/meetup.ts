@@ -29,7 +29,8 @@ interface RawEvent {
   endTime: string | null;
   eventType: 'PHYSICAL' | 'ONLINE' | 'HYBRID' | string;
   eventUrl: string;
-  venues: { name: string; address: string; city: string; postalCode: string | null; country: string | null; lat: number; lon: number }[] | null;
+  venues:
+    { name: string; address: string; city: string; postalCode: string | null; country: string | null; lat: number; lon: number }[] | null;
   featuredEventPhoto: { highResUrl: string } | null;
   feeSettings: { amount: number; currency: string } | null;
   speakerDetails: { name: string } | null;
@@ -121,7 +122,17 @@ function normalise(e: RawEvent): MeetupEvent {
     venueName: online ? 'Online' : v.name.trim(),
     venue: online ? 'Online' : [v.name.trim(), street].filter(Boolean).join(', '),
     // Meetup's postal code is sometimes a placeholder ("meetup6") and its country code lower case.
-    address: v && !online ? { street, city: v.city, postalCode: /^\d{4,6}$/.test(v.postalCode ?? '') ? v.postalCode! : '', country: (v.country ?? 'ES').toUpperCase(), lat: v.lat, lon: v.lon } : null,
+    address:
+      v && !online
+        ? {
+            street,
+            city: v.city,
+            postalCode: /^\d{4,6}$/.test(v.postalCode ?? '') ? v.postalCode! : '',
+            country: (v.country ?? 'ES').toUpperCase(),
+            lat: v.lat,
+            lon: v.lon,
+          }
+        : null,
     photo: e.featuredEventPhoto?.highResUrl ?? null,
     fee: e.feeSettings && e.feeSettings.amount > 0 ? e.feeSettings : null,
     speaker: e.speakerDetails?.name.trim() ?? '',

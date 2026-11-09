@@ -23,7 +23,20 @@ const ONLY = arg('pages', '');
 
 const SLUGS = fs.readdirSync(path.resolve('src/content/posts'));
 // /404 is the 404 page itself; /es/404 is a missing URL, which shows that page in Spanish.
-const PAGES = ['/', '/about', '/events', '/membership', '/partners', '/blog', '/letter', '/privacy', '/legal', '/cookies', '/404', ...SLUGS.map((s) => `/blog/${s}`)]
+const PAGES = [
+  '/',
+  '/about',
+  '/events',
+  '/membership',
+  '/partners',
+  '/blog',
+  '/letter',
+  '/privacy',
+  '/legal',
+  '/cookies',
+  '/404',
+  ...SLUGS.map((s) => `/blog/${s}`),
+]
   .flatMap((p) => [p, p === '/' ? '/es' : `/es${p}`])
   .filter((p) => !ONLY || ONLY.split(',').includes(p));
 
@@ -77,7 +90,8 @@ function inspect() {
     .map((el) => ({ el: label(el), box: el.clientWidth, content: el.scrollWidth }));
 
   // Links inside running text are exempt from target size (WCAG 2.5.8 "inline" exception).
-  const inline = (el) => el.tagName === 'A' && getComputedStyle(el).display === 'inline' && /^(P|LI|TD|SPAN|SMALL)$/.test(el.parentElement.tagName);
+  const inline = (el) =>
+    el.tagName === 'A' && getComputedStyle(el).display === 'inline' && /^(P|LI|TD|SPAN|SMALL)$/.test(el.parentElement.tagName);
   const targets = all
     .filter((el) => el.matches('a[href], button, input:not([type=hidden]), select, textarea, summary, [role=button]') && !inline(el))
     .map((el) => {
@@ -105,7 +119,9 @@ await context.addInitScript(() => {
   try {
     localStorage.setItem('sw-consent', JSON.stringify({ an: false, mk: false, t: Date.now() }));
     localStorage.setItem('sw-letter', JSON.stringify({ s: 'closed', t: Date.now() }));
-  } catch {}
+  } catch {
+    // Storage blocked (about:blank before the first navigation): the banners simply show.
+  }
 });
 const page = await context.newPage();
 fs.mkdirSync(path.join(OUT, 'shots'), { recursive: true });
@@ -184,7 +200,10 @@ const table = (title, key, fmt) => {
   return `<h2>${title} <small>(${rows.length})</small></h2>${
     rows.length
       ? `<table><tr><th>Element</th><th>Detail</th><th>Where (${'page@width'})</th></tr>${rows
-          .map(([, e]) => `<tr><td>${esc(e.item.el)}</td><td>${esc(fmt(e.item))}</td><td>${[...e.where].slice(0, 12).join(', ')}${e.where.size > 12 ? ` … +${e.where.size - 12}` : ''}</td></tr>`)
+          .map(
+            ([, e]) =>
+              `<tr><td>${esc(e.item.el)}</td><td>${esc(fmt(e.item))}</td><td>${[...e.where].slice(0, 12).join(', ')}${e.where.size > 12 ? ` … +${e.where.size - 12}` : ''}</td></tr>`,
+          )
           .join('')}</table>`
       : '<p>None.</p>'
   }`;

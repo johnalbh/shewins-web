@@ -27,20 +27,42 @@
   border-radius: 0;
   transition: background-color 0.2s ease;
 }
-.btn .ar svg { width: 16px; height: 16px; }
+.btn .ar svg {
+  width: 16px;
+  height: 16px;
+}
 /* The Meetup or Instagram mark before the label (src/lib/markup.ts), so people see at a glance
    where the button goes. In the label's colour, 20px, 10px from the label. */
-.btn .lg { width: 20px; height: 20px; flex: none; margin-right: -8px; }
+.btn .lg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  margin-right: -8px;
+}
 
 /* Hover: the cell takes a tint of the text colour and the arrow steps forward (motion.css).
    No lift: blocks stay on the page. */
-.btn:hover { transform: none; }
-.btn:hover .ar { background-color: color-mix(in srgb, currentColor 14%, transparent); }
-.btn:disabled { cursor: progress; opacity: 0.75; }
+.btn:hover {
+  transform: none;
+}
+.btn:hover .ar {
+  background-color: color-mix(in srgb, currentColor 14%, transparent);
+}
+.btn:disabled {
+  cursor: progress;
+  opacity: 0.75;
+}
 
 /* Header CTA: the compact size. */
-.hcta { min-height: 40px; padding: 0 16px; gap: 14px; }
-.hcta .ar { width: 40px; margin: 0 -16px 0 0; }
+.hcta {
+  min-height: 40px;
+  padding: 0 16px;
+  gap: 14px;
+}
+.hcta .ar {
+  width: 40px;
+  margin: 0 -16px 0 0;
+}
 
 /* ---------- Menu, close, go arrows, FAQ, skip link ---------- */
 
@@ -49,25 +71,40 @@
 .skip,
 .start .go i,
 .prow .go i,
-summary::after { border-radius: 0; }
+summary::after {
+  border-radius: 0;
+}
 
 /* Close: a drawn × instead of the text glyph. */
-.menu .x { display: grid; place-items: center; }
-.menu .x svg { width: 18px; height: 18px; }
+.menu .x {
+  display: grid;
+  place-items: center;
+}
+.menu .x svg {
+  width: 18px;
+  height: 18px;
+}
 
 /* Go arrows (start cards, blog rows): the same drawn arrow as the buttons. */
-.go i svg { width: 15px; height: 15px; }
+.go i svg {
+  width: 15px;
+  height: 15px;
+}
 
 /* FAQ: a drawn plus that becomes a minus when the answer is open (the vertical bar folds away
    in motion.css), instead of the "+" / "–" characters. */
 summary::after,
 details[open] summary::after {
-  content: "";
+  content: '';
   background:
     linear-gradient(currentColor, currentColor) center / 12px 1.5px no-repeat,
     linear-gradient(currentColor, currentColor) center / 1.5px 12px no-repeat;
 }
-details[open] summary::after { background-size: 12px 1.5px, 1.5px 0; }
+details[open] summary::after {
+  background-size:
+    12px 1.5px,
+    1.5px 0;
+}
 
 /* ---------- Focus ---------- */
 
@@ -78,7 +115,9 @@ details[open] summary::after { background-size: 12px 1.5px, 1.5px 0; }
 .skip:focus-visible,
 .start a:focus-visible,
 .prow:focus-visible,
-summary:focus-visible { border-radius: 0; }
+summary:focus-visible {
+  border-radius: 0;
+}
 
 /* ---------- Signup dialog: newsletter and waitlist ---------- */
 
@@ -98,13 +137,33 @@ summary:focus-visible { border-radius: 0; }
   background: var(--cream);
   color: var(--ink);
 }
-.ask::backdrop { background: rgba(26, 26, 26, 0.72); }
-.ask [hidden] { display: none; }
-.ask-q { display: grid; gap: 18px; }
-.ask-q .lab + h2 { margin-top: -8px; }
-.ask h2 { font-size: clamp(30px, 4vw, 44px); line-height: 0.98; letter-spacing: -0.045em; padding-right: 52px; }
-.ask-to { margin-top: -4px; font-size: 15px; overflow-wrap: anywhere; }
-.ask-to b { font-weight: 600; }
+.ask::backdrop {
+  background: rgba(26, 26, 26, 0.72);
+}
+.ask [hidden] {
+  display: none;
+}
+.ask-q {
+  display: grid;
+  gap: 18px;
+}
+.ask-q .lab + h2 {
+  margin-top: -8px;
+}
+.ask h2 {
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  padding-right: 52px;
+}
+.ask-to {
+  margin-top: -4px;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.ask-to b {
+  font-weight: 600;
+}
 .ask .x,
 .invite .x {
   position: absolute;
@@ -122,44 +181,118 @@ summary:focus-visible { border-radius: 0; }
   cursor: pointer;
 }
 .ask .x svg,
-.invite .x svg { width: 18px; height: 18px; }
-.ask :focus-visible { outline-color: var(--ink); }
-.ask .chk input { accent-color: var(--red); }
-.ask .ferr { margin-top: 0; background: var(--red); color: var(--cream); }
+.invite .x svg {
+  width: 18px;
+  height: 18px;
+}
+.ask :focus-visible {
+  outline-color: var(--ink);
+}
+.ask .chk input {
+  accent-color: var(--red);
+}
+.ask .ferr {
+  margin-top: 0;
+  background: var(--red);
+  color: var(--cream);
+}
 /* Every form says under a field what is missing (team request, November 2026; site.js adds the
    .fmsg line). The line keeps the text colour of its block, cream on the red form bands, and is
    red on the cream dialog: both approved pairs. A message, not a disabled button, because a
    disabled button does not say why. The waitlist consent box, required and unticked at first,
    also gets a red ring, since a native checkbox has no underline to turn pink. */
-.form .fmsg { font-size: 14px; font-weight: 600; line-height: 1.4; }
-.form > .fmsg, .ask-q > .fmsg { margin-top: -10px; }
-.chk + .fmsg { padding-left: 32px; }
-.inline-form .fmsg { flex: 1 0 100%; margin-top: -4px; }
-.ask .fmsg { color: var(--red); }
-.ask .chk input[aria-invalid="true"] { outline: 2px solid var(--red); outline-offset: 2px; }
+.form .fmsg {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.form > .fmsg,
+.ask-q > .fmsg {
+  margin-top: -10px;
+}
+.chk + .fmsg {
+  padding-left: 32px;
+}
+.inline-form .fmsg {
+  flex: 1 0 100%;
+  margin-top: -4px;
+}
+.ask .fmsg {
+  color: var(--red);
+}
+.ask .chk input[aria-invalid='true'] {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
 /* The confirmation is the form's own thank-you (.sent), copied in by site.js. */
-.ask .sent { display: block; padding: 0 52px 0 0; border-top: 0; }
-.ask-end { margin-top: 24px; }
-.ask-end .btn { padding: 6px 22px; }
+.ask .sent {
+  display: block;
+  padding: 0 52px 0 0;
+  border-top: 0;
+}
+.ask-end {
+  margin-top: 24px;
+}
+.ask-end .btn {
+  padding: 6px 22px;
+}
 
 /* The contact form in its dialog (Partners, team request, November 2026). It is the red band's own
    form, moved in by site.js, so on the cream dialog its cream button turns red (cream on red, the
    action colour) and a field to fix is underlined in red, not pink, which is too faint on cream.
    Its thank-you shows only once it is sent: unlike the signup dialogs, nothing is copied in. */
-.ask-body { margin-top: 24px; }
-.ask-form .b-cream { background: var(--red); color: var(--cream); }
-.ask-form [aria-invalid="true"] { border-bottom-color: var(--red); }
-.ask-form .sent { display: none; padding: 0; }
-.ask-form form.done ~ .sent { display: block; }
+.ask-body {
+  margin-top: 24px;
+}
+.ask-form .b-cream {
+  background: var(--red);
+  color: var(--cream);
+}
+.ask-form [aria-invalid='true'] {
+  border-bottom-color: var(--red);
+}
+.ask-form .sent {
+  display: none;
+  padding: 0;
+}
+.ask-form form.done ~ .sent {
+  display: block;
+}
 
 /* Language of the emails (newsletter and waitlist): two radio buttons under a field label. The
    legend takes the style of .fld label, and each option reuses the .chk checkbox and is at least
    44px tall so it is easy to tap. */
-.form fieldset.fld { border: 0; margin: 0; padding: 0; min-width: 0; }
-.form fieldset.fld legend { padding: 0; margin-bottom: 6px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; }
-.form .opts { display: flex; flex-wrap: wrap; column-gap: 32px; }
-.form .opts .chk { align-items: center; min-height: 44px; font-size: 16px; letter-spacing: normal; text-transform: none; font-weight: 400; cursor: pointer; }
-.form .opts .chk input { margin: 0; }
+.form fieldset.fld {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.form fieldset.fld legend {
+  padding: 0;
+  margin-bottom: 6px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.form .opts {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 32px;
+}
+.form .opts .chk {
+  align-items: center;
+  min-height: 44px;
+  font-size: 16px;
+  letter-spacing: normal;
+  text-transform: none;
+  font-weight: 400;
+  cursor: pointer;
+}
+.form .opts .chk input {
+  margin: 0;
+}
 
 /* ---------- Letter invitation card ---------- */
 
@@ -185,8 +318,13 @@ summary:focus-visible { border-radius: 0; }
   background: var(--red);
   color: var(--cream);
 }
-.invite[hidden] { display: none; }
-.invite .x { top: 10px; right: 10px; }
+.invite[hidden] {
+  display: none;
+}
+.invite .x {
+  top: 10px;
+  right: 10px;
+}
 .invite-t {
   padding-right: 48px;
   font-family: var(--display);
@@ -196,9 +334,16 @@ summary:focus-visible { border-radius: 0; }
   font-size: clamp(24px, 2.2vw, 28px);
   line-height: 1;
 }
-.invite-d { font-size: 15px; line-height: 1.5; }
-.invite .btn { margin-top: 6px; }
-.invite :focus-visible { outline-color: var(--cream); }
+.invite-d {
+  font-size: 15px;
+  line-height: 1.5;
+}
+.invite .btn {
+  margin-top: 6px;
+}
+.invite :focus-visible {
+  outline-color: var(--cream);
+}
 @media (max-width: 639px) {
   .invite {
     left: 0;
@@ -207,15 +352,31 @@ summary:focus-visible { border-radius: 0; }
     width: auto;
     gap: 10px;
     border-width: 2px 0 0;
-    padding: 18px max(var(--gut), env(safe-area-inset-right, 0px)) max(18px, env(safe-area-inset-bottom, 0px)) max(var(--gut), env(safe-area-inset-left, 0px));
+    padding: 18px max(var(--gut), env(safe-area-inset-right, 0px)) max(18px, env(safe-area-inset-bottom, 0px))
+      max(var(--gut), env(safe-area-inset-left, 0px));
   }
   /* Kept short on phones so it covers little of the screen: the label shares its line with the
      close button, the sentence takes the full width, and the description is left to /letter. */
-  .invite .lab { display: flex; align-items: center; min-height: 44px; padding-right: 56px; }
-  .invite .x { top: 18px; right: max(var(--gut), env(safe-area-inset-right, 0px)); }
-  .invite-t { padding-right: 0; font-size: 22px; }
-  .invite-d { display: none; }
-  .invite .btn { margin-top: 4px; }
+  .invite .lab {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding-right: 56px;
+  }
+  .invite .x {
+    top: 18px;
+    right: max(var(--gut), env(safe-area-inset-right, 0px));
+  }
+  .invite-t {
+    padding-right: 0;
+    font-size: 22px;
+  }
+  .invite-d {
+    display: none;
+  }
+  .invite .btn {
+    margin-top: 4px;
+  }
 }
 
 /* ---------- Recent events from Meetup (home and events page) ---------- */
@@ -228,9 +389,19 @@ summary:focus-visible { border-radius: 0; }
    request: smaller than buttons, beside the title). Cream on red is an approved pair; square like
    every control; 32px, above the minimum touch target. The name shows on hover (title) and is
    read out (aria-label). */
-.posters.three.wide img { aspect-ratio: 16 / 9; }
-.posters.wide figcaption { align-items: center; gap: 12px; padding-top: 12px; }
-.posters.wide .ev-icons { display: flex; flex: none; gap: 6px; }
+.posters.three.wide img {
+  aspect-ratio: 16 / 9;
+}
+.posters.wide figcaption {
+  align-items: center;
+  gap: 12px;
+  padding-top: 12px;
+}
+.posters.wide .ev-icons {
+  display: flex;
+  flex: none;
+  gap: 6px;
+}
 /* The original row makes every link in it a block (.posters.three a). */
 .posters.three.wide .ev-icons a {
   display: grid;
@@ -241,26 +412,45 @@ summary:focus-visible { border-radius: 0; }
   color: var(--cream);
   transition: background-color var(--dur-fast, 0.15s) ease;
 }
-.posters.wide .ev-icons a:hover { background: color-mix(in srgb, var(--red) 80%, black); }
-.posters.wide .ev-icons .lg { width: 16px; height: 16px; }
+.posters.wide .ev-icons a:hover {
+  background: color-mix(in srgb, var(--red) 80%, black);
+}
+.posters.wide .ev-icons .lg {
+  width: 16px;
+  height: 16px;
+}
 
 /* ---------- Next free event with Meetup's image (home and events page) ---------- */
 
 /* The "Next free event" frame takes its event from Meetup (team request, November 2026), with
    Meetup's image under the date. The image is a 16:9 poster with its own
    text, so it is shown whole; the date and the image share the frame's left column. */
-.frame .dtw { display: grid; gap: 22px; }
+.frame .dtw {
+  display: grid;
+  gap: 22px;
+}
 /* With the image below it, the day numeral is smaller than the original 200px, so the date does not
    push the frame's content down (team request). */
-.frame .dtw .dt { font-size: clamp(80px, 9vw, 130px); }
+.frame .dtw .dt {
+  font-size: clamp(80px, 9vw, 130px);
+}
 /* The frame's left column is at least as wide as its content (fixes.css: the month "Nov" must
    never run under the text). The image must not count towards that width: with srcset and sizes,
    its intrinsic width is the sizes value (30vw), so on a 2560px or 4K screen the column grew to
    the image and squeezed the event's text into a few characters per line (team report, November
    2026). Inline-size containment gives the figure no intrinsic width of its own; it still
    stretches to the column, and the date alone sets the column's minimum. */
-.frame .dtw figure { margin: 0; contain: inline-size; }
-.frame .ev-img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.frame .dtw figure {
+  margin: 0;
+  contain: inline-size;
+}
+.frame .ev-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
 
 /* ---------- This month from Meetup (events page) ---------- */
 
@@ -273,32 +463,129 @@ summary:focus-visible { border-radius: 0; }
    title, host, place and pills. The title is the link; its ::after stretches over the tile, so
    the whole block opens the event on Meetup. On hover the poster grows a little and the title is
    underlined; the small ↗ says it leaves the site. */
-.month { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
-@media (min-width: 760px) { .month { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
-.month .evt { position: relative; display: flex; flex-direction: column; gap: 16px; padding: clamp(18px, 2.4vw, 28px); }
-.month .t-red { background: var(--red); color: var(--cream); }
-.month .t-cream { background: var(--cream); color: var(--ink); }
+.month {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+@media (min-width: 760px) {
+  .month {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+.month .evt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(18px, 2.4vw, 28px);
+}
+.month .t-red {
+  background: var(--red);
+  color: var(--cream);
+}
+.month .t-cream {
+  background: var(--cream);
+  color: var(--ink);
+}
 .month .t-cream h3,
-.month .t-cream .d { color: var(--red); }
-.month .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-.month .d { font-family: var(--display); font-weight: 700; font-stretch: 96%; letter-spacing: -0.05em; line-height: 0.85; font-size: clamp(56px, 5vw, 72px); }
-.month .d small { display: block; font-family: var(--body); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; font-size: 10.5px; margin-bottom: 8px; }
-.month .pic { overflow: hidden; background: var(--white); }
-.month .pic img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; transition: transform 0.6s var(--ease-out, ease-out); }
-.month .evt:hover .pic img { transform: scale(1.03); }
+.month .t-cream .d {
+  color: var(--red);
+}
+.month .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.month .d {
+  font-family: var(--display);
+  font-weight: 700;
+  font-stretch: 96%;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+  font-size: clamp(56px, 5vw, 72px);
+}
+.month .d small {
+  display: block;
+  font-family: var(--body);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 10.5px;
+  margin-bottom: 8px;
+}
+.month .pic {
+  overflow: hidden;
+  background: var(--white);
+}
+.month .pic img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out, ease-out);
+}
+.month .evt:hover .pic img {
+  transform: scale(1.03);
+}
 /* An event Meetup has no image for: a white block of the poster's shape with the title in red display type. */
-.month .blank { display: grid; place-items: center; aspect-ratio: 16 / 9; padding: 8%; color: var(--red); text-align: center; font-family: var(--display); font-weight: 700; font-stretch: 96%; letter-spacing: -0.04em; line-height: 0.95; font-size: clamp(24px, 2.6vw, 34px); }
-.month h3 { font-size: clamp(24px, 2.2vw, 30px); line-height: 1.02; }
-.month h3 a { color: inherit; text-decoration: none; }
-.month h3 a::after { content: ""; position: absolute; inset: 0; }
-.month .evt:hover h3 a { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.12em; }
-.month h3 .ext { display: inline-block; margin-left: 0.2em; font-size: 0.55em; vertical-align: 0.4em; }
-.month p { font-size: 15px; line-height: 1.5; }
+.month .blank {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  padding: 8%;
+  color: var(--red);
+  text-align: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-stretch: 96%;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  font-size: clamp(24px, 2.6vw, 34px);
+}
+.month h3 {
+  font-size: clamp(24px, 2.2vw, 30px);
+  line-height: 1.02;
+}
+.month h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.month h3 a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.month .evt:hover h3 a {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em;
+}
+.month h3 .ext {
+  display: inline-block;
+  margin-left: 0.2em;
+  font-size: 0.55em;
+  vertical-align: 0.4em;
+}
+.month p {
+  font-size: 15px;
+  line-height: 1.5;
+}
 /* Pills at the foot of the tile, so the tiles of a row end alike. */
-.month .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.month .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
 /* An event earlier this month that has happened: its poster fades a little; the text keeps its
    contrast and the pill says "Past". */
-.month .past .pic { opacity: 0.7; }
+.month .past .pic {
+  opacity: 0.7;
+}
 
 /* ---------- Scroll cue on the home cover ---------- */
 
@@ -321,11 +608,24 @@ summary:focus-visible { border-radius: 0; }
   margin: -8px 0;
   border: 1.5px solid currentColor;
   color: inherit;
-  transition: background var(--dur-fast, 0.2s) ease, color var(--dur-fast, 0.2s) ease;
+  transition:
+    background var(--dur-fast, 0.2s) ease,
+    color var(--dur-fast, 0.2s) ease;
 }
-.cover .down svg { display: block; width: 18px; height: 18px; }
-.cover .down:hover { background: var(--cream); color: var(--red); }
-#next-event { scroll-margin-top: 110px; }
+.cover .down svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+.cover .down:hover {
+  background: var(--cream);
+  color: var(--red);
+}
+#next-event {
+  scroll-margin-top: 110px;
+}
 @media (max-width: 759px), (max-height: 820px) {
-  .cover .down { display: none; }
+  .cover .down {
+    display: none;
+  }
 }

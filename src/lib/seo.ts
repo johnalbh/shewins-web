@@ -137,20 +137,21 @@ export function eventNode(ev: Event) {
     ...(ev.endISO && { endDate: ev.endISO }),
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: ev.online ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode',
-    location: ev.online || !a
-      ? { '@type': 'VirtualLocation', url: ev.url }
-      : {
-          '@type': 'Place',
-          name: ev.venueName,
-          address: {
-            '@type': 'PostalAddress',
-            ...(a.street && { streetAddress: a.street }),
-            addressLocality: a.city,
-            ...(a.postalCode && { postalCode: a.postalCode }),
-            addressCountry: a.country,
+    location:
+      ev.online || !a
+        ? { '@type': 'VirtualLocation', url: ev.url }
+        : {
+            '@type': 'Place',
+            name: ev.venueName,
+            address: {
+              '@type': 'PostalAddress',
+              ...(a.street && { streetAddress: a.street }),
+              addressLocality: a.city,
+              ...(a.postalCode && { postalCode: a.postalCode }),
+              addressCountry: a.country,
+            },
+            ...(a.lat && a.lon && { geo: { '@type': 'GeoCoordinates', latitude: a.lat, longitude: a.lon } }),
           },
-          ...(a.lat && a.lon && { geo: { '@type': 'GeoCoordinates', latitude: a.lat, longitude: a.lon } }),
-        },
     ...(ev.photo && { image: [ev.photo] }),
     inLanguage: ev.language,
     isAccessibleForFree: !ev.fee,

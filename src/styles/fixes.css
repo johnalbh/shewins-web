@@ -3,55 +3,102 @@
 /* Forms: after sending, the form hides (form.done) and the thank-you (.sent) should show.
    The original rule was "form.done + .sent", but the error line (.ferr) sits between them in
    all five forms, so the thank-you never appeared. */
-form.done ~ .sent { display: block; }
+form.done ~ .sent {
+  display: block;
+}
 
 /* ---------- Accessibility (WCAG 2.2 AA, found by Lighthouse / axe) ---------- */
 
 /* Heading order. Some headings skipped a level (h1 → h3, h2 → h4). They now use the right level
    and keep exactly the look of the original rule they replace. */
-.frame h2 { font-size: clamp(34px, 4.6vw, 70px); letter-spacing: -0.045em; line-height: 0.95; margin-bottom: 14px; } /* was .frame h3 */
-.plist .prow h2 { letter-spacing: -0.04em; margin-bottom: 12px; } /* was .prow h3; size and measure in "Blog list" below */
-.foot h2 { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; font-family: var(--body); margin-bottom: 12px; } /* was .foot h4 */
-h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promoted to h2 ("We believe") */
+.frame h2 {
+  font-size: clamp(34px, 4.6vw, 70px);
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  margin-bottom: 14px;
+} /* was .frame h3 */
+.plist .prow h2 {
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+} /* was .prow h3; size and measure in "Blog list" below */
+.foot h2 {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: var(--body);
+  margin-bottom: 12px;
+} /* was .foot h4 */
+h2.lab {
+  font-family: var(--body);
+  font-stretch: 100%;
+} /* section labels promoted to h2 ("We believe") */
 
 /* Contrast. Muted text dropped below 4.5:1:
    - inactive EN / ES button: ink at 45% on cream, 2.83:1 → 65%, 5.2:1;
    - secondary cream text on red (footer headings, copyright, form small print): 75–80%,
      3.5–3.8:1 → 90%, 4.65:1 (the minimum is 89%). */
-.lang button[aria-pressed="false"] { opacity: 0.65; }
+.lang button[aria-pressed='false'] {
+  opacity: 0.65;
+}
 .foot h2,
 .foot .legal .cp,
-.s-red .small { opacity: 0.9; }
+.s-red .small {
+  opacity: 0.9;
+}
 
 /* Past events: the whole row was dimmed to 55%, taking venue, host and pills to about 3:1.
    Only the large type dims now (title and day number, 3.9:1 as large text); the details stay
    at full contrast. The red weekday label keeps its own colour. */
-.ev.past { opacity: 1; }
+.ev.past {
+  opacity: 1;
+}
 .ev.past h3,
-.ev.past .d { color: rgba(26, 26, 26, 0.55); }
+.ev.past .d {
+  color: rgba(26, 26, 26, 0.55);
+}
 
 /* ---------- Adjustments requested by the team ---------- */
 
 /* Partners / sponsor / hosts: one name per line, each starting with "+". The original ran the
    names together in a wrapping row with "+" only between them (span + span), so the first name
    had none and, on wrapped lines, the "+" looked attached to the previous name. */
-.names .vals { flex-direction: column; align-items: flex-start; gap: clamp(6px, 1vw, 14px) 0; }
-.names > div { padding: clamp(22px, 2.6vw, 34px) 0; }
-.names .vals span::before { content: "+"; font-weight: 400; padding-right: 0.35em; opacity: 0.6; }
+.names .vals {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(6px, 1vw, 14px) 0;
+}
+.names > div {
+  padding: clamp(22px, 2.6vw, 34px) 0;
+}
+.names .vals span::before {
+  content: '+';
+  font-weight: 400;
+  padding-right: 0.35em;
+  opacity: 0.6;
+}
 /* Hanging indent: a long name that wraps on phones lines up with the text, not under the "+"
    ("+" plus its padding measures 0.913em in the display face). */
-.names .vals span { padding-left: 0.913em; text-indent: -0.913em; }
+.names .vals span {
+  padding-left: 0.913em;
+  text-indent: -0.913em;
+}
 
 /* ---------- Alignment polish (team request, October 2026) ---------- */
 
 /* Rows with a label column: the small uppercase label sits on the same baseline as the first
    line of large type next to it, instead of at the top of its box (where it floated above). */
-.names > div { align-items: baseline; }
+.names > div {
+  align-items: baseline;
+}
 
 /* Community voices: one quote per hairline row, with the name in the label column on the
    quote's first baseline. The two-column grid left large gaps under short quotes. */
 @media (min-width: 760px) {
-  .quotes { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .quotes {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
   .quotes > div,
   .quotes > div:first-child,
   .quotes > div:nth-child(-n + 2) {
@@ -63,17 +110,34 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
     border-left: 0;
     border-top: 1px solid var(--line);
   }
-  .quotes > div:first-child { border-top-color: var(--ink); }
-  .quotes cite { grid-column: 1; grid-row: 1; margin-top: 0; }
-  .quotes p { grid-column: 2; grid-row: 1; max-width: 46ch; }
+  .quotes > div:first-child {
+    border-top-color: var(--ink);
+  }
+  .quotes cite {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 0;
+  }
+  .quotes p {
+    grid-column: 2;
+    grid-row: 1;
+    max-width: 46ch;
+  }
 }
 
 /* Why She Wins pairs: each title holds one line (68px max fits the longest, "Comunidad +
    formación", in its column at every width), with no forced hyphenation ("educa-tion"), and the
    description sits on the title's baseline. */
-.pair .t { font-size: clamp(28px, 5.2vw, 68px); hyphens: manual; overflow-wrap: break-word; }
+.pair .t {
+  font-size: clamp(28px, 5.2vw, 68px);
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
 @media (min-width: 860px) {
-  .pair { align-items: end; align-items: last baseline; }
+  .pair {
+    align-items: end;
+    align-items: last baseline;
+  }
 }
 
 /* Next event facts: when / language / where as a ticket strip (small label over a 15px value,
@@ -88,12 +152,33 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
   background: var(--black);
   color: var(--cream);
 }
-.frame .facts > div { padding: 14px 20px; border-left: 1px solid var(--line-c); }
-.frame .facts > div:first-child { padding-left: 0; border-left: 0; }
-.frame .facts dt { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; line-height: 1.5; margin-bottom: 4px; }
-.frame .facts dd { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.35; }
+.frame .facts > div {
+  padding: 14px 20px;
+  border-left: 1px solid var(--line-c);
+}
+.frame .facts > div:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+.frame .facts dt {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+.frame .facts dd {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+}
 @media (max-width: 560px) {
-  .frame .facts { grid-template-columns: minmax(0, 1fr); padding: 0 16px; }
+  .frame .facts {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0 16px;
+  }
   .frame .facts > div,
   .frame .facts > div:first-child {
     display: grid;
@@ -104,27 +189,38 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
     border-left: 0;
     border-top: 1px solid var(--line-c);
   }
-  .frame .facts > div:first-child { border-top: 0; }
-  .frame .facts dt { margin: 0; }
+  .frame .facts > div:first-child {
+    border-top: 0;
+  }
+  .frame .facts dt {
+    margin: 0;
+  }
 }
 /* Narrow phones: label above value, so the venue does not break into five lines. */
 @media (max-width: 380px) {
   .frame .facts > div,
-  .frame .facts > div:first-child { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .frame .facts > div:first-child {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
 }
 
 /* Next event date column. With no date announced, the frame shows the month ("Nov") instead of a
    two-digit day, and the word was wider than its 0.7fr column: it ran under "Follow us on Meetup…".
    The column is now at least as wide as the date it holds. */
 @media (min-width: 860px) {
-  .frame .pn { grid-template-columns: minmax(max-content, 0.7fr) minmax(0, 1.3fr); }
+  .frame .pn {
+    grid-template-columns: minmax(max-content, 0.7fr) minmax(0, 1.3fr);
+  }
 }
 
 /* A section label with nothing else in its head ("Next free event", "Community voices", "Built
    with people") kept the head's full margin, 52px, so it sat twice as far from its frame or list
    as "Start here" sits from its heading. It now keeps the same distance: the head's 14px gap plus
    the room above the heading's capitals (0.11em of the .l heading size). */
-.head:has(> .lab:only-child) { margin-bottom: calc(14px + 0.11 * clamp(38px, 6.4vw, 92px)); }
+.head:has(> .lab:only-child) {
+  margin-bottom: calc(14px + 0.11 * clamp(38px, 6.4vw, 92px));
+}
 
 /* Closing form bands (waitlist, the Letter, partner contact). They were full-width red bands
    right above the red footer, so the page's main action ran into the footer as one block, and
@@ -133,24 +229,36 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
    own last page before the footer. Cream on red (5.6:1) with cream buttons, as before. The title
    sits on the left and the text and form on the right, both ending on the same line; the long
    contact form keeps its heading at the top instead. */
-.formband { background: var(--cream); }
+.formband {
+  background: var(--cream);
+}
 .formband .fgrid {
   background: var(--red);
   color: var(--cream);
   padding: clamp(34px, 4.8vw, 74px);
 }
-.formband .fgrid :focus-visible { outline-color: var(--cream); }
+.formband .fgrid :focus-visible {
+  outline-color: var(--cream);
+}
 @media (min-width: 860px) {
-  .formband .fgrid { align-items: end; }
-  .formband.long .fgrid { align-items: start; }
+  .formband .fgrid {
+    align-items: end;
+  }
+  .formband.long .fgrid {
+    align-items: start;
+  }
 }
 
 /* The drawn arrow (FieldArrow.astro) that points at the email field, in the 72px gap between the
    columns. Its tip (51, 79 of the 58×94 drawing) lands 17px before "Email", level with the
    field's text. Once the field has focus or an email, it has done its job and steps aside. */
-.nudge { display: none; }
+.nudge {
+  display: none;
+}
 @media (min-width: 860px) {
-  .formband .inline-form { position: relative; }
+  .formband .inline-form {
+    position: relative;
+  }
   .formband .nudge {
     display: block;
     position: absolute;
@@ -159,36 +267,75 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
     width: 58px;
     height: 94px;
     overflow: visible;
-    transition: opacity 0.3s ease-out, translate 0.3s ease-out;
+    transition:
+      opacity 0.3s ease-out,
+      translate 0.3s ease-out;
   }
   .formband .inline-form:focus-within .nudge,
-  .formband .inline-form:has(input:not(:placeholder-shown)) .nudge { opacity: 0; translate: 8px 0; }
+  .formband .inline-form:has(input:not(:placeholder-shown)) .nudge {
+    opacity: 0;
+    translate: 8px 0;
+  }
 }
 /* Titles in the panel's half column. The Letter's four sentences each take a line, and the
    longest ("Una oportunidad.", 7.3em) must fit a column that narrows to ~490px: 64px at most. */
-.formband h2.l { font-size: clamp(32px, 5vw, 64px); }
+.formband h2.l {
+  font-size: clamp(32px, 5vw, 64px);
+}
 
 /* Blog list: a calmer index. Titles step down to 36px on a 28ch measure (two lines instead of
    three or four), and from 760px the "Read article" arrow moves to the end of the row as a quiet
    square cell; the label stays for screen readers, and the whole row is the link. */
-.plist .prow h2 { font-size: clamp(24px, 2.6vw, 36px); line-height: 1.02; max-width: 28ch; }
-.plist .prow p { max-width: 60ch; }
+.plist .prow h2 {
+  font-size: clamp(24px, 2.6vw, 36px);
+  line-height: 1.02;
+  max-width: 28ch;
+}
+.plist .prow p {
+  max-width: 60ch;
+}
 @media (min-width: 760px) {
-  .plist .prow { position: relative; grid-template-columns: 200px minmax(0, 1fr) 34px; align-items: baseline; }
-  .plist .prow > div:last-child { display: contents; }
+  .plist .prow {
+    position: relative;
+    grid-template-columns: 200px minmax(0, 1fr) 34px;
+    align-items: baseline;
+  }
+  .plist .prow > div:last-child {
+    display: contents;
+  }
   .plist .prow h2,
-  .plist .prow p { grid-column: 2; }
-  .plist .prow .go { grid-column: 3; grid-row: 1; margin-top: 0; align-self: start; }
+  .plist .prow p {
+    grid-column: 2;
+  }
+  .plist .prow .go {
+    grid-column: 3;
+    grid-row: 1;
+    margin-top: 0;
+    align-self: start;
+  }
   .plist .prow .go > span:last-child {
-    position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 
 /* Start cards: number, title, text and link line up across the four cards (subgrid), so a
    two-line title no longer pushes its card's text and link below the others. */
 @supports (grid-template-rows: subgrid) {
-  .start > a { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; }
-  .start > a .go { justify-self: start; align-self: start; }
+  .start > a {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+  .start > a .go {
+    justify-self: start;
+    align-self: start;
+  }
 }
 
 /* Script phrase under the page titles ("So we made a place to find your people", "every month"…).
@@ -196,8 +343,13 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
    title's descenders, and wrapped lines crossed each other on phones. A small indent keeps the
    loops inside the column, with more room above and between lines. */
 .cover .script,
-.open .script { padding-left: 0.3em; }
-.open .script { margin-top: 0.3em; line-height: 1.45; }
+.open .script {
+  padding-left: 0.3em;
+}
+.open .script {
+  margin-top: 0.3em;
+  line-height: 1.45;
+}
 
 /* Chapter openers: the numeral and the title read as one pair, in the same place on every page.
    The original split the band into two equal halves, so on desktop the title started at the
@@ -216,15 +368,24 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
   --h-size: clamp(40px, 5.8vw, 84px);
   --n-top: clamp(24px, 3vw, 40px);
 }
-.open .n { font-size: var(--n-size); }
-.open h1 { font-size: var(--h-size); }
+.open .n {
+  font-size: var(--n-size);
+}
+.open h1 {
+  font-size: var(--h-size);
+}
 @media (min-width: 860px) {
   .open {
     --n-x: max(40px, calc((100vw - 1240px) / 2 + 40px));
     grid-template-columns: calc(var(--n-x) + 1.28 * var(--n-size)) minmax(0, 1fr);
   }
-  .open .n { padding: var(--n-top) 0 0 var(--n-x); }
-  .open .t { padding-left: 0; padding-right: var(--n-x); }
+  .open .n {
+    padding: var(--n-top) 0 0 var(--n-x);
+  }
+  .open .t {
+    padding-left: 0;
+    padding-right: var(--n-x);
+  }
   .open .t:has(> h1) {
     justify-content: flex-start;
     padding-top: calc(var(--n-top) + 0.034 * var(--n-size) - 0.095 * var(--h-size));
@@ -236,7 +397,12 @@ h2.lab { font-family: var(--body); font-stretch: 100%; } /* section labels promo
    line, "Una comunidad de negocios", is 11.6em, so the title tops out at 100px to fit the 1200px
    column. Below 640px the break is dropped and the title flows, because each half would wrap
    on its own anyway. */
-.cover h1 { font-size: clamp(46px, 7vw, 100px); max-width: none; }
+.cover h1 {
+  font-size: clamp(46px, 7vw, 100px);
+  max-width: none;
+}
 @media (max-width: 639px) {
-  .cover h1 br { display: none; }
+  .cover h1 br {
+    display: none;
+  }
 }

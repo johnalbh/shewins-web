@@ -54,24 +54,44 @@
 }
 
 @keyframes sw-settle {
-  from { transform: translateY(0.12em); }
+  from {
+    transform: translateY(0.12em);
+  }
 }
 /* The clip box is 1em larger than the phrase on every side, so loops and descenders are never cut
    and nothing jumps when the animation ends. */
 @keyframes sw-write {
-  from { clip-path: inset(-1em 100% -1em -1em); }
-  to { clip-path: inset(-1em -1em -1em -1em); }
+  from {
+    clip-path: inset(-1em 100% -1em -1em);
+  }
+  to {
+    clip-path: inset(-1em -1em -1em -1em);
+  }
 }
 @keyframes sw-rise {
-  from { transform: translateY(100%); clip-path: inset(0 0 100% 0); }
-  to { transform: none; clip-path: inset(0 0 -10% 0); }
+  from {
+    transform: translateY(100%);
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    transform: none;
+    clip-path: inset(0 0 -10% 0);
+  }
 }
 @keyframes sw-fade-up {
-  from { opacity: 0; transform: translateY(12px); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 }
 @keyframes sw-forward {
-  0%, 100% { transform: none; }
-  45% { transform: translateX(4px); }
+  0%,
+  100% {
+    transform: none;
+  }
+  45% {
+    transform: translateX(4px);
+  }
 }
 
 /* ---------- Closing form blocks: the arrow writes itself toward the email field ---------- */
@@ -79,16 +99,33 @@
 /* site.js adds .arm (stroke not yet written) and, once the field is half on screen, .seen: the
    loop writes itself in like the script phrases, the head follows, then the arrow nudges toward
    the field three times and rests. pathLength="1" makes 1 the length of every stroke. */
-.formband.arm .nudge path { stroke-dasharray: 1 2; stroke-dashoffset: 1; }
-.formband.seen .nudge path:first-child { animation: sw-ink 0.8s var(--ease-out) 0.15s both; }
-.formband.seen .nudge path:last-child { animation: sw-ink 0.3s var(--ease-out) 0.85s both; }
-.formband.seen .nudge { animation: sw-nudge 1.1s var(--ease-out) 1.35s 3; }
+.formband.arm .nudge path {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+}
+.formband.seen .nudge path:first-child {
+  animation: sw-ink 0.8s var(--ease-out) 0.15s both;
+}
+.formband.seen .nudge path:last-child {
+  animation: sw-ink 0.3s var(--ease-out) 0.85s both;
+}
+.formband.seen .nudge {
+  animation: sw-nudge 1.1s var(--ease-out) 1.35s 3;
+}
 @keyframes sw-ink {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 @keyframes sw-nudge {
-  0%, 55%, 100% { transform: none; }
-  25% { transform: translateX(6px); }
+  0%,
+  55%,
+  100% {
+    transform: none;
+  }
+  25% {
+    transform: translateX(6px);
+  }
 }
 
 /* ---------- Rows arrive by drawing their hairline (scroll-driven) ---------- */
@@ -103,7 +140,7 @@
   .rw::before,
   .ev::before,
   .prow::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;
@@ -116,11 +153,17 @@
     animation-timeline: view();
     animation-range: entry 0% entry 60%;
   }
-  .rw:first-child::before { display: none; }
+  .rw:first-child::before {
+    display: none;
+  }
   .s-red .rw::before,
-  .s-grad .rw::before { opacity: 0.4; } /* = --line-c on cream */
+  .s-grad .rw::before {
+    opacity: 0.4;
+  } /* = --line-c on cream */
   .ev:first-child::before,
-  .plist .prow:first-child::before { opacity: 1; }
+  .plist .prow:first-child::before {
+    opacity: 1;
+  }
 
   /* Lists that read as lists settle in as they arrive. */
   .ev > *,
@@ -132,15 +175,24 @@
     animation-range: entry 0% entry 45%;
   }
   .posters figure:nth-child(2),
-  .month > .evt:nth-child(3n + 2) { animation-range: entry 8% entry 53%; }
+  .month > .evt:nth-child(3n + 2) {
+    animation-range: entry 8% entry 53%;
+  }
   .posters figure:nth-child(3),
-  .month > .evt:nth-child(3n) { animation-range: entry 16% entry 61%; }
+  .month > .evt:nth-child(3n) {
+    animation-range: entry 16% entry 61%;
+  }
 
   @keyframes sw-draw {
-    from { transform: scaleX(0); }
+    from {
+      transform: scaleX(0);
+    }
   }
   @keyframes sw-arrive {
-    from { opacity: 0; transform: translateY(14px); }
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
   }
 }
 
@@ -152,18 +204,38 @@
   transition: transform var(--dur-fast) var(--ease-out);
 }
 /* The arrow steps forward inside its cell; a press sinks the block 1px. */
-.btn:hover .ar svg { transform: translateX(4px); }
-.btn:active { transform: translateY(1px); }
+.btn:hover .ar svg {
+  transform: translateX(4px);
+}
+.btn:active {
+  transform: translateY(1px);
+}
 .start a:hover .go i svg,
-.prow:hover .go i svg { transform: translateX(3px); }
+.prow:hover .go i svg {
+  transform: translateX(3px);
+}
 
-.nav a { transition: opacity var(--dur-fast) ease, border-color var(--dur-fast) ease; }
+.nav a {
+  transition:
+    opacity var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
 
-.posters figure a { overflow: hidden; }
-.posters img { transition: transform 0.6s var(--ease-out); }
-.posters figure a:hover img { transform: scale(1.03); }
-.posters figcaption span { display: inline-block; }
-.posters figure:hover figcaption span { transform: translate(2px, -2px); }
+.posters figure a {
+  overflow: hidden;
+}
+.posters img {
+  transition: transform 0.6s var(--ease-out);
+}
+.posters figure a:hover img {
+  transform: scale(1.03);
+}
+.posters figcaption span {
+  display: inline-block;
+}
+.posters figure:hover figcaption span {
+  transform: translate(2px, -2px);
+}
 
 /* ---------- Continuity ---------- */
 
@@ -172,7 +244,9 @@
 @view-transition {
   navigation: auto;
 }
-.hdr { view-transition-name: sw-header; }
+.hdr {
+  view-transition-name: sw-header;
+}
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.25s;
@@ -186,19 +260,42 @@
     transform 0.3s var(--ease-out),
     display 0.3s allow-discrete;
 }
-.menu[hidden] { opacity: 0; transform: translateY(-16px); }
-@starting-style {
-  .menu:not([hidden]) { opacity: 0; transform: translateY(-16px); }
+.menu[hidden] {
+  opacity: 0;
+  transform: translateY(-16px);
 }
-.menu nav a { transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out); }
 @starting-style {
-  .menu:not([hidden]) nav a { opacity: 0; transform: translateY(12px); }
+  .menu:not([hidden]) {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
 }
-.menu nav a:nth-child(2) { transition-delay: 40ms; }
-.menu nav a:nth-child(3) { transition-delay: 80ms; }
-.menu nav a:nth-child(4) { transition-delay: 120ms; }
-.menu nav a:nth-child(5) { transition-delay: 160ms; }
-.menu nav a:nth-child(6) { transition-delay: 200ms; }
+.menu nav a {
+  transition:
+    opacity 0.35s var(--ease-out),
+    transform 0.35s var(--ease-out);
+}
+@starting-style {
+  .menu:not([hidden]) nav a {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.menu nav a:nth-child(2) {
+  transition-delay: 40ms;
+}
+.menu nav a:nth-child(3) {
+  transition-delay: 80ms;
+}
+.menu nav a:nth-child(4) {
+  transition-delay: 120ms;
+}
+.menu nav a:nth-child(5) {
+  transition-delay: 160ms;
+}
+.menu nav a:nth-child(6) {
+  transition-delay: 200ms;
+}
 
 /* Cookie banner slides up from the bottom edge, and back down when answered. */
 .cb {
@@ -206,9 +303,13 @@
     transform 0.4s var(--ease-out),
     display 0.4s allow-discrete;
 }
-.cb[hidden] { transform: translateY(100%); }
+.cb[hidden] {
+  transform: translateY(100%);
+}
 @starting-style {
-  .cb:not([hidden]) { transform: translateY(100%); }
+  .cb:not([hidden]) {
+    transform: translateY(100%);
+  }
 }
 
 /* Letter invitation card: slides up from the bottom edge, like the cookie banner, and back down
@@ -218,18 +319,28 @@
     transform 0.45s var(--ease-out),
     display 0.45s allow-discrete;
 }
-.invite[hidden] { transform: translateY(calc(100% + 32px)); }
+.invite[hidden] {
+  transform: translateY(calc(100% + 32px));
+}
 @starting-style {
-  .invite:not([hidden]) { transform: translateY(calc(100% + 32px)); }
+  .invite:not([hidden]) {
+    transform: translateY(calc(100% + 32px));
+  }
 }
 
 /* Signup dialog: rises in while the backdrop fades in. Under reduced motion it simply appears. */
 @media (prefers-reduced-motion: no-preference) {
-  .ask[open] { animation: sw-fade-up 0.35s var(--ease-out) both; }
-  .ask[open]::backdrop { animation: sw-fade-in 0.35s var(--ease-out) both; }
+  .ask[open] {
+    animation: sw-fade-up 0.35s var(--ease-out) both;
+  }
+  .ask[open]::backdrop {
+    animation: sw-fade-in 0.35s var(--ease-out) both;
+  }
 }
 @keyframes sw-fade-in {
-  from { opacity: 0; }
+  from {
+    opacity: 0;
+  }
 }
 
 /* FAQ answers open smoothly; the + / – mark turns as it changes. */
@@ -240,9 +351,13 @@ details::details-content {
     block-size 0.35s var(--ease-out),
     content-visibility 0.35s allow-discrete;
 }
-details[open]::details-content { block-size: auto; }
+details[open]::details-content {
+  block-size: auto;
+}
 /* The drawn plus folds its vertical bar away to become a minus (controls.css). */
-summary::after { transition: background-size 0.35s var(--ease-out); }
+summary::after {
+  transition: background-size 0.35s var(--ease-out);
+}
 
 /* ---------- This month's posters that open Meetup ---------- */
 
@@ -253,11 +368,24 @@ summary::after { transition: background-size 0.35s var(--ease-out); }
   transition: transform var(--dur-fast) var(--ease-out);
   animation: sw-ext 4s var(--ease-out) 1s infinite;
 }
-.month > .evt:nth-of-type(2n) h3 .ext { animation-delay: 2.2s; }
-.month .evt:hover h3 .ext { animation: none; transform: translate(3px, -3px); }
+.month > .evt:nth-of-type(2n) h3 .ext {
+  animation-delay: 2.2s;
+}
+.month .evt:hover h3 .ext {
+  animation: none;
+  transform: translate(3px, -3px);
+}
 @keyframes sw-ext {
-  0%, 16%, 32%, 100% { transform: none; }
-  8%, 24% { transform: translate(4px, -4px); }
+  0%,
+  16%,
+  32%,
+  100% {
+    transform: none;
+  }
+  8%,
+  24% {
+    transform: translate(4px, -4px);
+  }
 }
 
 /* ---------- Scroll cue on the home cover ---------- */
@@ -265,21 +393,36 @@ summary::after { transition: background-size 0.35s var(--ease-out); }
 /* The cue (controls.css) follows the actions in, then its arrow steps down twice every few seconds
    and rests, like the ↗ of the month's posters: the eye is led on without a loop that never stops.
    On hover it steps down and stays. */
-.cover .down { animation: sw-fade-up var(--dur-mid) var(--ease-out) 0.55s both; }
+.cover .down {
+  animation: sw-fade-up var(--dur-mid) var(--ease-out) 0.55s both;
+}
 .cover .down svg {
   transition: transform var(--dur-fast) var(--ease-out);
   animation: sw-down 4s var(--ease-out) 1.4s infinite;
 }
-.cover .down:hover svg { animation: none; transform: translateY(3px); }
+.cover .down:hover svg {
+  animation: none;
+  transform: translateY(3px);
+}
 @keyframes sw-down {
-  0%, 16%, 32%, 100% { transform: none; }
-  8%, 24% { transform: translateY(4px); }
+  0%,
+  16%,
+  32%,
+  100% {
+    transform: none;
+  }
+  8%,
+  24% {
+    transform: translateY(4px);
+  }
 }
 
 /* ---------- Reduced motion: no movement, final states straight away ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
   *,
   ::before,
   ::after {
@@ -304,8 +447,12 @@ summary::after { transition: background-size 0.35s var(--ease-out); }
     .menu:not([hidden]),
     .menu:not([hidden]) nav a,
     .cb:not([hidden]),
-    .invite:not([hidden]) { transform: none; }
+    .invite:not([hidden]) {
+      transform: none;
+    }
   }
   ::view-transition-old(root),
-  ::view-transition-new(root) { animation: none !important; }
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
 }

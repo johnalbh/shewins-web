@@ -58,7 +58,10 @@ export type { MeetupEvent as Event } from './meetup';
 function readingTime(node: { walk(): Iterable<{ type: string; attributes: Record<string, unknown> }> }) {
   let words = 0;
   for (const child of node.walk()) {
-    if (child.type === 'text') words += String(child.attributes.content ?? '').split(/\s+/).filter(Boolean).length;
+    if (child.type === 'text')
+      words += String(child.attributes.content ?? '')
+        .split(/\s+/)
+        .filter(Boolean).length;
   }
   return Math.max(1, Math.round(words / 200));
 }

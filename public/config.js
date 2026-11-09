@@ -4,7 +4,7 @@
    and MailerSend (team notifications). Leave a value empty and that form just shows its success message
    without sending anything (prototype mode). */
 window.SW_FORMS = {
-  waitlist: '/api/form',   // membership waitlist
-  contact:  '/api/form',   // partners / contact form
-  letter:   '/api/form'    // newsletter signup
+  waitlist: '/api/form', // membership waitlist
+  contact: '/api/form', // partners / contact form
+  letter: '/api/form', // newsletter signup
 };

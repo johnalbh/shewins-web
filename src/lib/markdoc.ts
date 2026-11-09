@@ -36,7 +36,11 @@ function config(lang: Lang): Config {
             .transformChildren(cfg)
             .filter((c) => isTag(c, 'ul'))
             .flatMap((ul) => (ul as Tag).children.filter((li) => isTag(li, 'li')));
-          return new Tag('ul', { class: 'ckl' }, items.map((li) => new Tag('li', {}, [TICK, ...unwrap((li as Tag).children)])));
+          return new Tag(
+            'ul',
+            { class: 'ckl' },
+            items.map((li) => new Tag('li', {}, [TICK, ...unwrap((li as Tag).children)])),
+          );
         },
       },
       sources: {
