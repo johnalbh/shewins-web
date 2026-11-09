@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import seo from '../data/seo.json';
 import { SITE, localePath } from '../i18n';
 import { getPosts, getSettings } from '../lib/content';
+import { pageName } from '../lib/seo';
 
 // Plain summary for AI assistants, built from the same data as the pages (was html/llms.txt).
 const MAIN = ['home', 'about', 'events', 'membership', 'blog', 'letter', 'partners'] as const;
@@ -10,14 +11,13 @@ const LEGAL = ['privacy', 'legal', 'cookies'] as const;
 export const GET: APIRoute = async () => {
   const [posts, settings] = await Promise.all([getPosts(), getSettings()]);
   const url = (path: string) => `${SITE}${path}`;
-  const name = (title: string) => title.split(' | ')[0];
 
   const main = MAIN.map((r) => {
     const page = seo[r];
-    return `- [${name(page.en.title)}](${url(page.path)}): ${page.en.description}  (ES: ${url(localePath(page.path, 'es'))})`;
+    return `- [${pageName(page.en.title)}](${url(page.path)}): ${page.en.description}  (ES: ${url(localePath(page.path, 'es'))})`;
   });
   const articles = posts.map((p) => `- [${p.title}](${url(`/blog/${p.slug}`)}): ${p.excerptEn}  (ES: ${url(`/es/blog/${p.slug}`)})`);
-  const legal = LEGAL.map((r) => `- [${name(seo[r].en.title)}](${url(seo[r].path)})`);
+  const legal = LEGAL.map((r) => `- [${pageName(seo[r].en.title)}](${url(seo[r].path)})`);
   const contacts = [settings.email, settings.emailSecondary].filter(Boolean).join(', ');
 
   const txt = `# She Wins

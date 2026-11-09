@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { Event } from '../../src/lib/content';
+import type { Event } from '../../src/lib/events';
 import { blogPosting, breadcrumb, eventNode, organization, webPage, website } from '../../src/lib/seo';
 
 const settings = {

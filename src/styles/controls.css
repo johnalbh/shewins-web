@@ -196,7 +196,7 @@ summary:focus-visible {
   background: var(--red);
   color: var(--cream);
 }
-/* Every form says under a field what is missing (team request, November 2026; site.js adds the
+/* Every form says under a field what is missing (team request, November 2026; forms.js adds the
    .fmsg line). The line keeps the text colour of its block, cream on the red form bands, and is
    red on the cream dialog: both approved pairs. A message, not a disabled button, because a
    disabled button does not say why. The waitlist consent box, required and unticked at first,
@@ -224,7 +224,7 @@ summary:focus-visible {
   outline: 2px solid var(--red);
   outline-offset: 2px;
 }
-/* The confirmation is the form's own thank-you (.sent), copied in by site.js. */
+/* The confirmation is the form's own thank-you (.sent), copied in by forms.js. */
 .ask .sent {
   display: block;
   padding: 0 52px 0 0;
@@ -238,7 +238,7 @@ summary:focus-visible {
 }
 
 /* The contact form in its dialog (Partners, team request, November 2026). It is the red band's own
-   form, moved in by site.js, so on the cream dialog its cream button turns red (cream on red, the
+   form, moved in by forms.js, so on the cream dialog its cream button turns red (cream on red, the
    action colour) and a field to fix is underlined in red, not pink, which is too faint on cream.
    Its thank-you shows only once it is sent: unlike the signup dialogs, nothing is copied in. */
 .ask-body {

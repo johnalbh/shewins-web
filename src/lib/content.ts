@@ -1,21 +1,22 @@
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
-import { todayInMadrid } from './dates';
-import { getMeetupEvents } from './meetup';
 
-// Content is read from the repository files at build time.
+// Content edited in Keystatic (keystatic.config.ts), read from the repository files at build time.
 const reader = createReader(process.cwd(), keystaticConfig);
 
-export async function getSettings() {
-  const settings = await reader.singletons.settings.readOrThrow();
-  return settings;
+/** Contact and links (Keystatic singleton "settings"). */
+export function getSettings() {
+  return reader.singletons.settings.readOrThrow();
 }
 
-export async function getAuthors() {
+export type Settings = Awaited<ReturnType<typeof getSettings>>;
+
+async function getAuthors() {
   const authors = await reader.collections.authors.all();
   return new Map(authors.map(({ slug, entry }) => [slug, entry]));
 }
 
+/** The blog articles, newest first, with their author and reading time. */
 export async function getPosts() {
   const [posts, authors] = await Promise.all([reader.collections.posts.all({ resolveLinkedFiles: true }), getAuthors()]);
   return posts
@@ -31,37 +32,15 @@ export async function getPosts() {
 
 export type Post = Awaited<ReturnType<typeof getPosts>>[number];
 
-/**
- * The She Wins events, split around today (Madrid time). They come from the group on Meetup, where
- * the team publishes them (src/lib/meetup.ts); Keystatic no longer holds events (November 2026).
- * Past events are newest first. If Meetup did not answer during the build, every list is empty
- * and each event section shows its own "new dates coming" state.
- */
-export async function getEventsByTime() {
-  const today = todayInMadrid();
-  const events = (await getMeetupEvents((await getSettings()).meetup)) ?? [];
-  const upcoming = events.filter((e) => e.date >= today);
-  return {
-    today,
-    upcoming,
-    // The event of the "Next free event" frame (home and events). The frame says "free", so paid
-    // events are skipped. This month leaves it out of its tiles, so the one place to work it out.
-    nextFree: upcoming.find((e) => !e.fee),
-    past: events.filter((e) => e.date < today).reverse(),
-    fromMonthStart: events.filter((e) => e.date >= `${today.slice(0, 7)}-01`),
-  };
-}
+// The pace the original reading times were based on.
+const WORDS_PER_MINUTE = 200;
+const countWords = (text: string) => text.split(/\s+/).filter(Boolean).length;
 
-export type { MeetupEvent as Event } from './meetup';
-
-// About 200 words a minute, the pace the original reading times were based on.
+/** Minutes to read an article body (a Markdoc tree), at least one. */
 function readingTime(node: { walk(): Iterable<{ type: string; attributes: Record<string, unknown> }> }) {
   let words = 0;
   for (const child of node.walk()) {
-    if (child.type === 'text')
-      words += String(child.attributes.content ?? '')
-        .split(/\s+/)
-        .filter(Boolean).length;
+    if (child.type === 'text') words += countWords(String(child.attributes.content ?? ''));
   }
-  return Math.max(1, Math.round(words / 200));
+  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
 }

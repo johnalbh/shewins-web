@@ -9,13 +9,14 @@
 // numeral) with the status pill beside it, Meetup's 16:9 poster whole (it carries its own text),
 // the title as the link to Meetup (it stretches over the tile), the host, the place and the pills
 // (time, language, price). Past / Today / Upcoming pills are set in the browser from data-date
-// (scripts/site.js), so the page stays right between the daily rebuilds. Styles: controls.css.
+// (scripts/event-status.js), so the page stays right between the daily rebuilds. Styles: controls.css.
 // With no events this month, or if Meetup did not answer during the build, the section says new
 // dates are on their way.
 import { Image } from 'astro:assets';
 import { localize, type Lang } from '../../i18n';
-import { getEventsByTime, getSettings, type Event } from '../../lib/content';
+import { getSettings } from '../../lib/content';
 import { dateParts } from '../../lib/dates';
+import { formatFee, getEventsByTime, posterAlt, timeRange, type Event } from '../../lib/events';
 
 interface Props {
   lang: Lang;
@@ -29,16 +30,10 @@ const [{ fromMonthStart, nextFree, today }, settings] = await Promise.all([getEv
 const heading = dateParts(fromMonthStart[0]?.date ?? today, lang);
 const listed = fromMonthStart.filter((e) => e !== nextFree);
 const LANG_PILL = { es: 'ESP', en: 'ENG' };
-const price = (ev: Event) =>
-  ev.fee && new Intl.NumberFormat(lang === 'es' ? 'es-ES' : 'en-GB', { style: 'currency', currency: ev.fee.currency, maximumFractionDigits: 0 }).format(ev.fee.amount);
-const rows = listed.map((ev) => ({ ev, d: dateParts(ev.date, lang), time: [ev.startTime, ev.endTime].filter(Boolean).join('–'), fee: price(ev) }));
-const altText = (ev: Event) => {
-  const what = ev.speaker ? L(`${ev.title} with ${ev.speaker}`, `${ev.title} con ${ev.speaker}`) : ev.title;
-  return L(`Event poster: ${what}`, `Póster del evento: ${what}`);
-};
+const rows = listed.map((ev) => ({ ev, d: dateParts(ev.date, lang), time: timeRange(ev), fee: formatFee(ev, lang) }));
 // The next listed event from today on is the red tile, a dark surface (on-d: its pills and focus ring invert).
 const next = listed.find((e) => e.date >= today);
 const tile = (ev: Event) => (ev === next ? 't-red on-d' : 't-cream');
 ---
 
-<section class="sec s-white"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L('This month', 'Este mes')}</span></p><h2 class="l"><span class={lang}>{L(`${heading.monthName} at She Wins.`, `${heading.monthName} en She Wins.`)}</span></h2></div>{rows.length > 0 && <div class="month">{rows.map(({ ev, d, time, fee }) => <article class={`evt show ${tile(ev)}`} data-date={ev.date}><div class="top"><div class="d"><small><span class={lang}>{d.weekday}</span>{d.month !== heading.month && <span class={lang}> · {d.monthShort}</span>}</small>{d.day}</div><span class="pill r status" hidden></span></div><div class="pic">{ev.photo ? <Image src={ev.photo} inferSize alt={altText(ev)} widths={[400, 600, 800]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /> : <span class="blank"><span>{ev.title}</span></span>}</div><h3><a href={ev.url} rel="noopener" target="_blank">{ev.title}<span aria-hidden="true" class="ext">↗</span></a></h3><p>{ev.speaker || <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}<br />{ev.venue}</p><div class="tags"><span class="pill">{time}</span><span class="pill">{LANG_PILL[ev.language]}</span>{fee && <span class="pill">{fee}</span>}</div></article>)}</div>}{rows.length === 0 && <p class="lead"><span class={lang}>{L('New dates are on their way. Follow us on ', 'Las nuevas fechas están en camino. Síguenos en ')}<a href={settings.meetup} rel="noopener" target="_blank">Meetup</a>{L(' or ', ' o ')}<a href={settings.instagram} rel="noopener" target="_blank">Instagram</a>.</span></p>}</div></section>
+<section class="sec s-white"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L('This month', 'Este mes')}</span></p><h2 class="l"><span class={lang}>{L(`${heading.monthName} at She Wins.`, `${heading.monthName} en She Wins.`)}</span></h2></div>{rows.length > 0 && <div class="month">{rows.map(({ ev, d, time, fee }) => <article class={`evt show ${tile(ev)}`} data-date={ev.date}><div class="top"><div class="d"><small><span class={lang}>{d.weekday}</span>{d.month !== heading.month && <span class={lang}> · {d.monthShort}</span>}</small>{d.day}</div><span class="pill r status" hidden></span></div><div class="pic">{ev.photo ? <Image src={ev.photo} inferSize alt={posterAlt(ev, lang)} widths={[400, 600, 800]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /> : <span class="blank"><span>{ev.title}</span></span>}</div><h3><a href={ev.url} rel="noopener" target="_blank">{ev.title}<span aria-hidden="true" class="ext">↗</span></a></h3><p>{ev.speaker || <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}<br />{ev.venue}</p><div class="tags"><span class="pill">{time}</span><span class="pill">{LANG_PILL[ev.language]}</span>{fee && <span class="pill">{fee}</span>}</div></article>)}</div>}{rows.length === 0 && <p class="lead"><span class={lang}>{L('New dates are on their way. Follow us on ', 'Las nuevas fechas están en camino. Síguenos en ')}<a href={settings.meetup} rel="noopener" target="_blank">Meetup</a>{L(' or ', ' o ')}<a href={settings.instagram} rel="noopener" target="_blank">Instagram</a>.</span></p>}</div></section>

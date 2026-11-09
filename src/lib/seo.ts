@@ -4,26 +4,26 @@
 // Before November 2026 each page in src/data/seo.json carried its own hand-written copy of the
 // organisation, so the inner pages described it with less detail than the home.
 import { SITE, type Lang } from '../i18n';
-import type { Event } from './content';
+import type { Settings } from './content';
+import type { Event } from './events';
 
-export const ORG_ID = `${SITE}/#org`;
-export const SITE_ID = `${SITE}/#site`;
+const ORG_ID = `${SITE}/#org`;
+const SITE_ID = `${SITE}/#site`;
+export const LOGO_URL = `${SITE}/assets/logo-red.png`;
+const LOGO = { '@type': 'ImageObject', url: LOGO_URL, width: 142, height: 160 };
+/** The social card image (1200×630) of every page. */
+export const OG_IMAGE = `${SITE}/assets/og-image.jpg`;
+
+/** A page's own name: its title without the "| She Wins" suffix. */
+export const pageName = (title: string) => title.split(' | ')[0];
 
 export interface Crumb {
   name: string;
   url: string;
 }
 
-interface Settings {
-  email: string;
-  instagram: string;
-  linkedin: string;
-  meetup: string;
-  luma: string;
-}
-
 /** Asociación She Wins. The contact and social links come from Keystatic (Contact and links). */
-export function organization(settings: Settings, description: string) {
+export function organization(settings: Pick<Settings, 'email' | 'instagram' | 'linkedin' | 'meetup' | 'luma'>, description: string) {
   return {
     '@type': 'Organization',
     '@id': ORG_ID,
@@ -32,8 +32,8 @@ export function organization(settings: Settings, description: string) {
     // People also write the name as one word, and search for it with the city.
     alternateName: ['SheWins', 'She Wins Málaga'],
     url: `${SITE}/`,
-    logo: { '@type': 'ImageObject', url: `${SITE}/assets/logo-red.png`, width: 142, height: 160 },
-    image: `${SITE}/assets/og-image.jpg`,
+    logo: LOGO,
+    image: OG_IMAGE,
     description,
     email: settings.email,
     address: {
@@ -101,7 +101,7 @@ export function blogPosting(opts: {
     inLanguage: opts.lang,
     url: opts.url,
     mainEntityOfPage: { '@id': opts.url },
-    image: `${SITE}/assets/og-image.jpg`,
+    image: OG_IMAGE,
     ...(opts.datePublished && { datePublished: opts.datePublished }),
     author: {
       '@type': 'Person',
@@ -113,7 +113,7 @@ export function blogPosting(opts: {
       '@type': 'Organization',
       '@id': ORG_ID,
       name: 'She Wins',
-      logo: { '@type': 'ImageObject', url: `${SITE}/assets/logo-red.png`, width: 142, height: 160 },
+      logo: LOGO,
     },
     isAccessibleForFree: true,
   };
@@ -170,4 +170,33 @@ export function eventNode(ev: Event) {
 // Meetup descriptions can run long; the markup keeps the start, cut at a word.
 function shorten(text: string, max = 600) {
   return text.length <= max ? text : `${text.slice(0, max).replace(/\s+\S*$/, '')}…`;
+}
+
+/**
+ * The JSON-LD of a page: the organisation and the website on every page, then this page, its
+ * breadcrumb and what the view adds. A page that is not indexed (the 404) describes only the
+ * organisation and the website: a page node would point search engines at a missing URL.
+ */
+export function pageGraph(opts: {
+  settings: Parameters<typeof organization>[0];
+  /** The organisation is described with the home's description on every page. */
+  orgDescription: string;
+  indexed: boolean;
+  page: Omit<Parameters<typeof webPage>[0], 'breadcrumbId'>;
+  /** She Wins > … > this page; empty on the home. */
+  crumbs: Crumb[];
+  extra?: unknown[];
+}) {
+  const shared = [organization(opts.settings, opts.orgDescription), website()];
+  if (!opts.indexed) return { '@context': 'https://schema.org', '@graph': shared };
+  const breadcrumbId = opts.crumbs.length ? `${opts.page.url}#breadcrumb` : undefined;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      ...shared,
+      webPage({ ...opts.page, breadcrumbId }),
+      ...(breadcrumbId ? [breadcrumb(breadcrumbId, opts.crumbs)] : []),
+      ...(opts.extra ?? []),
+    ],
+  };
 }

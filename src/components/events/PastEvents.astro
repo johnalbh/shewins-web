@@ -7,7 +7,8 @@
 // answer during the build there is no row.
 import { Image } from 'astro:assets';
 import { localize, type Lang } from '../../i18n';
-import { getEventsByTime, getSettings, type Event } from '../../lib/content';
+import { getSettings } from '../../lib/content';
+import { getEventsByTime, posterAlt } from '../../lib/events';
 import { INSTAGRAM, MEETUP } from '../../lib/markup';
 
 interface Props {
@@ -21,12 +22,8 @@ const recent = past
   .filter((ev) => ev.photo)
   .slice(0, 3)
   .reverse();
-const altText = (ev: Event) => {
-  const what = ev.speaker ? L(`${ev.title} with ${ev.speaker}`, `${ev.title} con ${ev.speaker}`) : ev.title;
-  return L(`Event poster: ${what}`, `Póster del evento: ${what}`);
-};
 ---
 
 {recent.length > 0 && (
-<div class="posters three wide">{recent.map((ev) => <figure><a aria-hidden="true" href={ev.url} rel="noopener" tabindex="-1" target="_blank"><Image src={ev.photo!} inferSize alt={altText(ev)} widths={[400, 600, 800]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /></a><figcaption>{ev.title}<div class="ev-icons"><a aria-label={`Meetup: ${ev.title}`} href={ev.url} rel="noopener" target="_blank" title="Meetup"><Fragment set:html={MEETUP} /></a><a aria-label={L('She Wins on Instagram', 'She Wins en Instagram')} href={settings.instagram} rel="noopener" target="_blank" title="Instagram"><Fragment set:html={INSTAGRAM} /></a></div></figcaption></figure>)}</div>
+<div class="posters three wide">{recent.map((ev) => <figure><a aria-hidden="true" href={ev.url} rel="noopener" tabindex="-1" target="_blank"><Image src={ev.photo!} inferSize alt={posterAlt(ev, lang)} widths={[400, 600, 800]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /></a><figcaption>{ev.title}<div class="ev-icons"><a aria-label={`Meetup: ${ev.title}`} href={ev.url} rel="noopener" target="_blank" title="Meetup"><Fragment set:html={MEETUP} /></a><a aria-label={L('She Wins on Instagram', 'She Wins en Instagram')} href={settings.instagram} rel="noopener" target="_blank" title="Instagram"><Fragment set:html={INSTAGRAM} /></a></div></figcaption></figure>)}</div>
 )}

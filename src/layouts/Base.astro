@@ -9,7 +9,7 @@ import StickyCta from '../components/chrome/StickyCta.astro';
 import LetterInvite from '../components/chrome/LetterInvite.astro';
 import { SITE, alternatesFor, type Lang } from '../i18n';
 import { getSettings } from '../lib/content';
-import { breadcrumb, organization, webPage, website, type Crumb } from '../lib/seo';
+import { OG_IMAGE, pageGraph, pageName, type Crumb } from '../lib/seo';
 import '../styles/fixes.css';
 import '../styles/responsive.css';
 import '../styles/controls.css';
@@ -42,29 +42,23 @@ const seo = Astro.props.seo ?? page[lang];
 const alternates = alternatesFor(Astro.props.path ?? page.path);
 const abs = (p: string) => SITE + p;
 const canonical = abs(alternates[lang]);
-const ogImage = `${SITE}/assets/og-image.jpg`;
 const [locale, localeAlt] = lang === 'es' ? ['es_ES', 'en_GB'] : ['en_GB', 'es_ES'];
 // The 404 page reuses the home under its own heading. It must not be indexed, and it has no
 // canonical or language twins: those would point search engines at the home for a missing URL.
 const noindex = route === '404';
 const rss = lang === 'es' ? '/es/rss.xml' : '/rss.xml';
 
-// Structured data: the organisation and the website on every page, then this page, its breadcrumb
-// (She Wins > page) and what the view adds. The organisation's description is the home's.
-const settings = await getSettings();
+// Structured data (src/lib/seo.ts). The breadcrumb is She Wins > page, or the view's own trail.
 const home: Crumb = { name: 'She Wins', url: abs(lang === 'es' ? '/es' : '/') };
-const crumbs = route === 'home' ? [] : [home, ...(Astro.props.crumbs ?? [{ name: seo.title.split(' | ')[0], url: canonical }])];
-const breadcrumbId = crumbs.length ? `${canonical}#breadcrumb` : undefined;
-const graph = noindex
-  ? [organization(settings, seoData.home[lang].description), website()]
-  : [
-      organization(settings, seoData.home[lang].description),
-      website(),
-      webPage({ url: canonical, title: seo.title, description: seo.description, lang, type: page?.pageType, breadcrumbId }),
-      ...(breadcrumbId ? [breadcrumb(breadcrumbId, crumbs)] : []),
-      ...(Astro.props.jsonLd ?? []),
-    ];
-const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+const crumbs = route === 'home' ? [] : [home, ...(Astro.props.crumbs ?? [{ name: pageName(seo.title), url: canonical }])];
+const jsonLd = pageGraph({
+  settings: await getSettings(),
+  orgDescription: seoData.home[lang].description,
+  indexed: !noindex,
+  page: { url: canonical, title: seo.title, description: seo.description, lang, type: page?.pageType },
+  crumbs,
+  extra: Astro.props.jsonLd,
+});
 ---
 
 <!doctype html>
@@ -100,7 +94,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
     <meta content={seo.title} property="og:title" />
     <meta content={seo.description} property="og:description" />
     <meta content={canonical} property="og:url" />
-    <meta content={ogImage} property="og:image" />
+    <meta content={OG_IMAGE} property="og:image" />
     <meta content="1200" property="og:image:width" />
     <meta content="630" property="og:image:height" />
     <meta content="She Wins, a business community for women" property="og:image:alt" />
@@ -109,7 +103,7 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
     <meta content="summary_large_image" name="twitter:card" />
     <meta content={seo.title} name="twitter:title" />
     <meta content={seo.description} name="twitter:description" />
-    <meta content={ogImage} name="twitter:image" />
+    <meta content={OG_IMAGE} name="twitter:image" />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body data-route={route}>

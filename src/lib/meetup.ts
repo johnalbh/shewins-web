@@ -21,6 +21,16 @@ fragment ev on Event {
   speakerDetails { name }
 }`;
 
+interface RawVenue {
+  name: string;
+  address: string;
+  city: string;
+  postalCode: string | null;
+  country: string | null;
+  lat: number;
+  lon: number;
+}
+
 interface RawEvent {
   id: string;
   title: string;
@@ -29,8 +39,7 @@ interface RawEvent {
   endTime: string | null;
   eventType: 'PHYSICAL' | 'ONLINE' | 'HYBRID' | string;
   eventUrl: string;
-  venues:
-    { name: string; address: string; city: string; postalCode: string | null; country: string | null; lat: number; lon: number }[] | null;
+  venues: RawVenue[] | null;
   featuredEventPhoto: { highResUrl: string } | null;
   feeSettings: { amount: number; currency: string } | null;
   speakerDetails: { name: string } | null;
@@ -76,25 +85,32 @@ export function getMeetupEvents(groupUrl: string): Promise<MeetupEvent[] | null>
 const ATTEMPTS = 3;
 const RETRY_MS = 3000;
 
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/** One request for the group's events, oldest first. Throws on any failure. */
+async function fetchGroupEvents(urlname: string): Promise<MeetupEvent[]> {
+  const res = await fetch(ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query: QUERY, variables: { urlname } }),
+    signal: AbortSignal.timeout(TIMEOUT_MS),
+  });
+  const json = await res.json();
+  const group = json?.data?.groupByUrlname;
+  if (!res.ok || !group) throw new Error(json?.errors?.[0]?.message ?? `HTTP ${res.status}`);
+  const nodes: RawEvent[] = [...group.past.edges, ...group.upcoming.edges].map((e: { node: RawEvent }) => e.node);
+  return nodes.map(normalise).sort((a, b) => a.startISO.localeCompare(b.startISO));
+}
+
 async function load(groupUrl: string) {
   const urlname = groupUrl.match(/meetup\.com\/([^/?#]+)/)?.[1];
   if (!urlname) return null;
   for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
     try {
-      const res = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: QUERY, variables: { urlname } }),
-        signal: AbortSignal.timeout(TIMEOUT_MS),
-      });
-      const json = await res.json();
-      const group = json?.data?.groupByUrlname;
-      if (!res.ok || !group) throw new Error(json?.errors?.[0]?.message ?? `HTTP ${res.status}`);
-      const nodes: RawEvent[] = [...group.past.edges, ...group.upcoming.edges].map((e: { node: RawEvent }) => e.node);
-      return nodes.map(normalise).sort((a, b) => a.startISO.localeCompare(b.startISO));
+      return await fetchGroupEvents(urlname);
     } catch (err) {
       console.warn(`[meetup] attempt ${attempt} of ${ATTEMPTS} failed: ${(err as Error).message}`);
-      if (attempt < ATTEMPTS) await new Promise((r) => setTimeout(r, RETRY_MS));
+      if (attempt < ATTEMPTS) await wait(RETRY_MS);
     }
   }
   console.warn('[meetup] events not loaded: the event sections show their empty states');
@@ -103,9 +119,9 @@ async function load(groupUrl: string) {
 
 function normalise(e: RawEvent): MeetupEvent {
   const { title, subtitle } = cleanTitle(e.title);
-  const v = e.venues?.[0];
-  const online = e.eventType === 'ONLINE' || !v;
-  const street = v ? streetOf(v.address) : '';
+  // An online event, or one without a venue, is shown as "Online".
+  const venue = e.eventType === 'ONLINE' ? undefined : e.venues?.[0];
+  const street = venue ? streetOf(venue.address) : '';
   return {
     id: e.id,
     url: e.eventUrl,
@@ -118,27 +134,22 @@ function normalise(e: RawEvent): MeetupEvent {
     endTime: e.endTime ? clock(e.endTime) : '',
     startISO: e.dateTime,
     endISO: e.endTime,
-    online,
-    venueName: online ? 'Online' : v.name.trim(),
-    venue: online ? 'Online' : [v.name.trim(), street].filter(Boolean).join(', '),
-    // Meetup's postal code is sometimes a placeholder ("meetup6") and its country code lower case.
-    address:
-      v && !online
-        ? {
-            street,
-            city: v.city,
-            postalCode: /^\d{4,6}$/.test(v.postalCode ?? '') ? v.postalCode! : '',
-            country: (v.country ?? 'ES').toUpperCase(),
-            lat: v.lat,
-            lon: v.lon,
-          }
-        : null,
+    online: !venue,
+    venueName: venue ? venue.name.trim() : 'Online',
+    venue: venue ? [venue.name.trim(), street].filter(Boolean).join(', ') : 'Online',
+    address: venue ? addressOf(venue, street) : null,
     photo: e.featuredEventPhoto?.highResUrl ?? null,
     fee: e.feeSettings && e.feeSettings.amount > 0 ? e.feeSettings : null,
     speaker: e.speakerDetails?.name.trim() ?? '',
     language: guessLanguage(`${e.title} ${e.description ?? ''}`),
     description: plain(e.description ?? ''),
   };
+}
+
+// Meetup's postal code is sometimes a placeholder ("meetup6") and its country code lower case.
+function addressOf(venue: RawVenue, street: string): MeetupEvent['address'] {
+  const postalCode = venue.postalCode && /^\d{4,6}$/.test(venue.postalCode) ? venue.postalCode : '';
+  return { street, city: venue.city, postalCode, country: (venue.country ?? 'ES').toUpperCase(), lat: venue.lat, lon: venue.lon };
 }
 
 // "18:00" → "18:00", "09:30" → "9:30", the form of the original site's times.
