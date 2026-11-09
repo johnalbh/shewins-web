@@ -24,7 +24,13 @@ function config(lang: Lang): Config {
         transform(node, cfg) {
           const { href, title } = node.transformAttributes(cfg);
           const external = /^https?:\/\//.test(href);
-          return new Tag('a', { href, title, ...(external ? { rel: 'noopener', target: '_blank' } : {}) }, node.transformChildren(cfg));
+          // A link without a title must not get one: the HTML renderer would write title="undefined",
+          // which browsers show as a tooltip.
+          return new Tag(
+            'a',
+            { href, ...(title ? { title } : {}), ...(external ? { rel: 'noopener', target: '_blank' } : {}) },
+            node.transformChildren(cfg),
+          );
         },
       },
     },
