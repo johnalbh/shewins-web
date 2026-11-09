@@ -3,6 +3,7 @@
 // email, and the phone's own share sheet on touch devices. Plain links only: no third-party
 // widgets or scripts, so nothing loads (and no cookies are set) until the reader shares.
 import { localize, type Lang } from '../../i18n';
+import { lineIcon } from '../../lib/markup';
 
 interface Props {
   lang: Lang;
@@ -15,12 +16,10 @@ const { lang, url, title, description } = Astro.props;
 const { L } = localize(lang);
 const enc = encodeURIComponent;
 
-const svg = (path: string) =>
-  `<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16">${path}</svg>`;
-const ICON_OUT = svg('<path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"></path>');
-const ICON_COPY = svg('<path d="M5.5 5.5h8v8h-8zM10.5 2.5h-8v8"></path>');
-const ICON_SHARE = svg('<path d="M8 10V2.5M5 5.5l3-3 3 3M3.5 8.5v5h9v-5"></path>');
-const ICON_MAIL = svg('<path d="M2.5 4h11v8h-11zM2.5 4.5 8 9l5.5-4.5"></path>');
+const ICON_OUT = lineIcon('<path d="M4.5 11.5 11.5 4.5M5.5 4.5h6v6"></path>');
+const ICON_COPY = lineIcon('<path d="M5.5 5.5h8v8h-8zM10.5 2.5h-8v8"></path>');
+const ICON_SHARE = lineIcon('<path d="M8 10V2.5M5 5.5l3-3 3 3M3.5 8.5v5h9v-5"></path>');
+const ICON_MAIL = lineIcon('<path d="M2.5 4h11v8h-11zM2.5 4.5 8 9l5.5-4.5"></path>');
 
 const links = [
   { name: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}`, external: true },

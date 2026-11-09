@@ -1,5 +1,5 @@
 ---
-// Generated from html/blog.html + html/es/blog.html by scripts/migrate-from-html.mjs.
+// Blog index (/blog and /es/blog). Markup and copy come from html/blog.html, the designer's reference.
 import Base from '../layouts/Base.astro';
 import PostList from '../components/blog/PostList.astro';
 import LetterSignup from '../components/forms/LetterSignup.astro';
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const { L, u } = localize(lang);
+const { L } = localize(lang);
 ---
 
 <Base lang={lang} route="blog">

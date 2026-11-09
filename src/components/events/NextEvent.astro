@@ -10,7 +10,7 @@ import { localize, type Lang } from '../../i18n';
 import { getSettings } from '../../lib/content';
 import { dateParts, todayInMadrid } from '../../lib/dates';
 import { getEventsByTime, posterAlt, timeRange } from '../../lib/events';
-import { ARROW, INSTAGRAM, MEETUP } from '../../lib/markup';
+import Icon from '../Icon.astro';
 
 interface Props {
   lang: Lang;
@@ -39,7 +39,7 @@ const time = ev && timeRange(ev);
 <h2>{ev.title}</h2>
 <p class="who">{ev.subtitle && <Fragment>{ev.subtitle}<br /></Fragment>}{ev.speaker ? <b>{ev.speaker}</b> : <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}</p>
 <dl class="facts"><div><dt><span class={lang}>{L('When', 'Cuándo')}</span></dt><dd>{time}</dd></div><div><dt><span class={lang}>{L('Language', 'Idioma')}</span></dt><dd><span class={lang}>{language[ev.language]}</span></dd></div><div><dt><span class={lang}>{L('Where', 'Dónde')}</span></dt><dd>{ev.venue}</dd></div></dl>
-<div class="btns"><a class="btn b-red" href={ev.url} rel="noopener" target="_blank"><Fragment set:html={MEETUP} /><span class={lang}>{L('RSVP on Meetup', 'Apúntate en Meetup')}</span><Fragment set:html={ARROW} /></a><a class="btn b-line" href={settings.luma} rel="noopener" target="_blank"><span class={lang}>{L('RSVP on Luma', 'Apúntate en Luma')}</span><Fragment set:html={ARROW} /></a></div>
+<div class="btns"><a class="btn b-red" href={ev.url} rel="noopener" target="_blank"><Icon name="meetup" /><span class={lang}>{L('RSVP on Meetup', 'Apúntate en Meetup')}</span><span class="ar"><Icon name="arrow" /></span></a><a class="btn b-line" href={settings.luma} rel="noopener" target="_blank"><span class={lang}>{L('RSVP on Luma', 'Apúntate en Luma')}</span><span class="ar"><Icon name="arrow" /></span></a></div>
 </div>
 </div></div>
 ) : (
@@ -49,7 +49,7 @@ const time = ev && timeRange(ev);
 <p class="lab" style="margin-bottom:14px"><span class={lang}>{L('Next free event', 'Próximo evento gratuito')}</span></p>
 <h2>{L('New date coming soon.', 'Nueva fecha muy pronto.')}</h2>
 <p class="who"><span class={lang}>{L('Follow us on Meetup or Instagram to hear first.', 'Síguenos en Meetup o Instagram para enterarte la primera.')}</span></p>
-<div class="btns" style="margin-top:26px"><a class="btn b-red" href={settings.meetup} rel="noopener" target="_blank"><Fragment set:html={MEETUP} /><span>Meetup</span><Fragment set:html={ARROW} /></a><a class="btn b-line" href={settings.instagram} rel="noopener" target="_blank"><Fragment set:html={INSTAGRAM} /><span>Instagram</span><Fragment set:html={ARROW} /></a></div>
+<div class="btns" style="margin-top:26px"><a class="btn b-red" href={settings.meetup} rel="noopener" target="_blank"><Icon name="meetup" /><span>Meetup</span><span class="ar"><Icon name="arrow" /></span></a><a class="btn b-line" href={settings.instagram} rel="noopener" target="_blank"><Icon name="instagram" /><span>Instagram</span><span class="ar"><Icon name="arrow" /></span></a></div>
 </div>
 </div></div>
 )}

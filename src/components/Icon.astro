@@ -1,0 +1,13 @@
+---
+// One of the site's icons (src/lib/markup.ts), inline. Decorative: the text next to it says what
+// it means. A button's arrow goes in its cell: <span class="ar"><Icon name="arrow" /></span>.
+import { ICONS, type IconName } from '../lib/markup';
+
+interface Props {
+  name: IconName;
+}
+
+const { name } = Astro.props;
+---
+
+<Fragment set:html={ICONS[name]} />

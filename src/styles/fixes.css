@@ -406,3 +406,19 @@ h2.lab {
     display: none;
   }
 }
+
+/* ---------- Inline styles of the original markup, as classes ---------- */
+
+/* Off screen but still in the page: the email labels of the inline forms, which screen readers
+   read (the placeholder shows the label), and the honeypot fields, which bots fill in and people
+   never see. The original markup hid them with the same inline style in every form. */
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+/* The manifesto rows on About ("She wins when… she knows her worth."): a size down from the
+   manifesto's own .big, as the original set on each row. */
+.man .rw .big {
+  font-size: clamp(24px, 3vw, 44px);
+}

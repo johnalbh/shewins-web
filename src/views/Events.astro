@@ -1,5 +1,5 @@
 ---
-// Generated from html/events.html + html/es/events.html by scripts/migrate-from-html.mjs.
+// Events page (/events and /es/events). Markup and copy come from html/events.html, the designer's reference.
 import Base from '../layouts/Base.astro';
 import NextEvent from '../components/events/NextEvent.astro';
 import PastEvents from '../components/events/PastEvents.astro';
@@ -7,6 +7,7 @@ import ThisMonth from '../components/events/ThisMonth.astro';
 import { localize, type Lang } from '../i18n';
 import { getEventsByTime } from '../lib/events';
 import { eventNode } from '../lib/seo';
+import Icon from '../components/Icon.astro';
 
 interface Props {
   lang: Lang;
@@ -31,11 +32,11 @@ const jsonLd = [...shown].filter((e) => e !== undefined).map(eventNode);
 <section class="sec s-pink"><div class="w">
 <div class="head"><p class="lab"><span class={lang}>{L("What to expect", "Qué esperar")}</span></p></div>
 <ul class="ck">
-<li><svg aria-hidden="true" viewBox="0 0 40 32"><path d="M4 18 L15 28 L36 4"></path></svg><span class={lang}>{L("Practical talks and workshops", "Charlas y talleres prácticos")}</span></li>
-<li><svg aria-hidden="true" viewBox="0 0 40 32"><path d="M4 18 L15 28 L36 4"></path></svg><span class={lang}>{L("Open conversations about work and life", "Conversaciones abiertas sobre trabajo y vida")}</span></li>
-<li><svg aria-hidden="true" viewBox="0 0 40 32"><path d="M4 18 L15 28 L36 4"></path></svg><span class={lang}>{L("A relaxed, international crowd", "Un ambiente relajado e internacional")}</span></li>
-<li><svg aria-hidden="true" viewBox="0 0 40 32"><path d="M4 18 L15 28 L36 4"></path></svg><span class={lang}>{L("Genuine connections, not business cards", "Conexiones reales, no tarjetas de visita")}</span></li>
-<li><svg aria-hidden="true" viewBox="0 0 40 32"><path d="M4 18 L15 28 L36 4"></path></svg><span class={lang}>{L("A space where you can show up as yourself", "Un espacio donde puedes ser tú misma")}</span></li>
+<li><Icon name="tick" /><span class={lang}>{L("Practical talks and workshops", "Charlas y talleres prácticos")}</span></li>
+<li><Icon name="tick" /><span class={lang}>{L("Open conversations about work and life", "Conversaciones abiertas sobre trabajo y vida")}</span></li>
+<li><Icon name="tick" /><span class={lang}>{L("A relaxed, international crowd", "Un ambiente relajado e internacional")}</span></li>
+<li><Icon name="tick" /><span class={lang}>{L("Genuine connections, not business cards", "Conexiones reales, no tarjetas de visita")}</span></li>
+<li><Icon name="tick" /><span class={lang}>{L("A space where you can show up as yourself", "Un espacio donde puedes ser tú misma")}</span></li>
 </ul>
 </div></section>
 <section class="sec s-cream"><div class="w">
@@ -46,7 +47,7 @@ const jsonLd = [...shown].filter((e) => e !== undefined).map(eventNode);
 <div class="fgrid">
 <div><p class="lab"><span class={lang}>{L("Beyond free events", "Más allá de los eventos gratuitos")}</span></p><h2 class="l" style="margin-top:18px"><span class={lang}>{L("Workshops, special events and more.", "Talleres, eventos especiales y más.")}</span></h2></div>
 <div><p class="lead" style="font-size:clamp(18px,1.8vw,22px)"><span class={lang}>{L("Paid workshops and masterclasses go deep on one specific challenge. Members get priority access to selected events and discounts on selected workshops.", "Los talleres y masterclasses de pago profundizan en un reto concreto. Las miembros tienen acceso prioritario a eventos seleccionados y descuentos en talleres seleccionados.")}</span></p>
-<div class="btns" style="margin-top:26px"><a class="btn b-cream" href={u("/membership")}><span class={lang}>{L("Membership", "Membresía")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a><a class="btn b-line" href={u("/partners")}><span class={lang}>{L("Speak or host", "Habla o acoge")}</span><span class="ar"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"></path></svg></span></a></div></div>
+<div class="btns" style="margin-top:26px"><a class="btn b-cream" href={u("/membership")}><span class={lang}>{L("Membership", "Membresía")}</span><span class="ar"><Icon name="arrow" /></span></a><a class="btn b-line" href={u("/partners")}><span class={lang}>{L("Speak or host", "Habla o acoge")}</span><span class="ar"><Icon name="arrow" /></span></a></div></div>
 </div>
 </div></section>
 </div>
