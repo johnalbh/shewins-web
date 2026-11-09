@@ -1,17 +1,79 @@
-/* Cookie banner, unchanged from the original pages (html/*.html): the choice is stored in
-   localStorage "sw-consent" for 12 months, exposed as window.swConsent and announced with the
-   "sw-consent" event, so analytics can be loaded only after consent (see html/README.md §6). */
-(function(){
-var cb=document.getElementById('cb');if(!cb)return;
-var KEY='sw-consent';
-function get(){try{var v=JSON.parse(localStorage.getItem(KEY)||'null');if(v&&Date.now()-v.t<31536000000)return v}catch(x){}return null}
-function put(an,mk){try{localStorage.setItem(KEY,JSON.stringify({an:an,mk:mk,t:Date.now()}))}catch(x){};cb.hidden=true;window.swConsent={analytics:an,marketing:mk};try{document.dispatchEvent(new CustomEvent('sw-consent',{detail:window.swConsent}))}catch(x){}}
-function open(){var v=get();document.getElementById('cb-an').checked=!!(v&&v.an);document.getElementById('cb-mk').checked=!!(v&&v.mk);cb.hidden=false}
-var set=cb.querySelector('.cb-set'),save=cb.querySelector('[data-cb=save]'),cfg=cb.querySelector('[data-cb=cfg]');
-cb.addEventListener('click',function(e){var b=e.target.closest('[data-cb]');if(!b)return;var a=b.getAttribute('data-cb');
- if(a==='all')put(true,true);else if(a==='none')put(false,false);
- else if(a==='cfg'){set.hidden=false;save.hidden=false;cfg.hidden=true}
- else if(a==='save')put(document.getElementById('cb-an').checked,document.getElementById('cb-mk').checked)});
-document.addEventListener('click',function(e){var o=e.target.closest('[data-cookie-open]');if(o){e.preventDefault();set.hidden=true;save.hidden=true;cfg.hidden=false;open()}});
-var v=get();if(v){window.swConsent={analytics:v.an,marketing:v.mk}}else{cb.hidden=false}
+/* Cookie banner, as on the original pages (html/*.html): the choice is stored in localStorage
+   "sw-consent" for 12 months, exposed as window.swConsent and announced with the "sw-consent"
+   event, so analytics can be loaded only after consent (see html/README.md §6). */
+(function () {
+  var banner = document.getElementById('cb');
+  if (!banner) return;
+  var KEY = 'sw-consent';
+  var TWELVE_MONTHS = 365 * 24 * 60 * 60 * 1000;
+  var analyticsBox = document.getElementById('cb-an');
+  var marketingBox = document.getElementById('cb-mk');
+  var settings = banner.querySelector('.cb-set');
+  var saveButton = banner.querySelector('[data-cb=save]');
+  var settingsButton = banner.querySelector('[data-cb=cfg]');
+
+  /* The stored choice, or null when there is none, it is older than 12 months or storage is blocked. */
+  function storedChoice() {
+    try {
+      var choice = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (choice && Date.now() - choice.t < TWELVE_MONTHS) return choice;
+    } catch {
+      // Blocked or broken storage: ask again.
+    }
+    return null;
+  }
+
+  function expose(analytics, marketing) {
+    window.swConsent = { analytics: analytics, marketing: marketing };
+  }
+
+  function saveChoice(analytics, marketing) {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ an: analytics, mk: marketing, t: Date.now() }));
+    } catch {
+      // Blocked storage: the choice holds for this page only.
+    }
+    banner.hidden = true;
+    expose(analytics, marketing);
+    try {
+      document.dispatchEvent(new CustomEvent('sw-consent', { detail: window.swConsent }));
+    } catch {
+      // Very old browsers without CustomEvent: nothing listens there anyway.
+    }
+  }
+
+  function showSettings(shown) {
+    settings.hidden = !shown;
+    saveButton.hidden = !shown;
+    settingsButton.hidden = shown;
+  }
+
+  /* Reopened from the footer's "Cookie settings": the boxes show the stored choice. */
+  function reopen() {
+    var choice = storedChoice();
+    analyticsBox.checked = Boolean(choice && choice.an);
+    marketingBox.checked = Boolean(choice && choice.mk);
+    banner.hidden = false;
+  }
+
+  banner.addEventListener('click', function (event) {
+    var button = event.target.closest('[data-cb]');
+    if (!button) return;
+    var action = button.getAttribute('data-cb');
+    if (action === 'all') saveChoice(true, true);
+    else if (action === 'none') saveChoice(false, false);
+    else if (action === 'cfg') showSettings(true);
+    else if (action === 'save') saveChoice(analyticsBox.checked, marketingBox.checked);
+  });
+
+  document.addEventListener('click', function (event) {
+    if (!event.target.closest('[data-cookie-open]')) return;
+    event.preventDefault();
+    showSettings(false);
+    reopen();
+  });
+
+  var choice = storedChoice();
+  if (choice) expose(choice.an, choice.mk);
+  else banner.hidden = false;
 })();
