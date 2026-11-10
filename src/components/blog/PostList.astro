@@ -1,5 +1,5 @@
 ---
-// Blog index rows, newest first. Markup kept on one line per row, as in html/blog.html.
+// Blog index rows, newest first, as in html/blog.html.
 import { localize, type Lang } from '../../i18n';
 import { getPosts } from '../../lib/content';
 import Icon from '../Icon.astro';
@@ -13,4 +13,26 @@ const { L, u } = localize(lang);
 const posts = await getPosts();
 ---
 
-<div class="plist">{posts.map((p) => <a class="prow" href={u(`/blog/${p.slug}`)}><div class="lab">{p.authorEntry?.name}<br /><span class="mut">{p.readingTime} <span class={lang}>{L('min read', 'min de lectura')}</span></span></div><div><h2><span class={lang}>{L(p.title, p.titleEs)}</span></h2><p><span class={lang}>{L(p.excerptEn, p.excerptEs)}</span></p><span class="go"><i><Icon name="arrow" /></i><span class={lang}>{L('Read article', 'Leer artículo')}</span></span></div></a>)}</div>
+<div class="plist">
+  {posts.map((p) => (
+    <a class="prow" href={u(`/blog/${p.slug}`)}>
+      <div class="lab">
+        {p.authorEntry?.name}
+        <br />
+        <span class="mut">{p.readingTime} <span class={lang}>{L('min read', 'min de lectura')}</span></span>
+      </div>
+      <div>
+        <h2>
+          <span class={lang}>{L(p.title, p.titleEs)}</span>
+        </h2>
+        <p>
+          <span class={lang}>{L(p.excerptEn, p.excerptEs)}</span>
+        </p>
+        <span class="go">
+          <i><Icon name="arrow" /></i>
+          <span class={lang}>{L('Read article', 'Leer artículo')}</span>
+        </span>
+      </div>
+    </a>
+  ))}
+</div>

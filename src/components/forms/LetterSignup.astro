@@ -15,24 +15,93 @@ interface Props {
 const { lang } = Astro.props;
 const { L } = localize(lang);
 ---
-<form class="form" data-form="letter" novalidate><input aria-hidden="true" autocomplete="off" id="em-website" name="website" class="offscreen" tabindex="-1" type="text" />
-<div class="inline-form"><FieldArrow /><label for="em-letter" class="offscreen">Email</label>
-<input autocomplete="email" data-ph-en="Email" data-ph-es="Correo electrónico" id="em-letter" placeholder="Email" required type="email" />
-<button class="btn b-cream" type="submit"><span class={lang}>{L("Subscribe", "Suscribirme")}</span><span class="ar"><Icon name="arrow" /></span></button></div>
-<dialog aria-labelledby="em-ask-t" class="ask">
-<button aria-label={L("Close", "Cerrar")} class="x" data-close type="button"><Icon name="close" /></button>
-<div class="ask-q">
-<p class="lab"><span class={lang}>{L("The She Wins Letter", "La Letter de She Wins")}</span></p>
-<h2 id="em-ask-t"><span class={lang}>{L("Just two more questions.", "Solo dos preguntas más.")}</span></h2>
-<p class="ask-to"><span class={lang}>{L("We will write to", "Te escribiremos a")}</span> <b data-mail></b></p>
-<div class="fld"><label for="em-name"><span class={lang}>{L("Your name", "Tu nombre")}</span></label><input autocomplete="name" data-err-en="Enter your name." data-err-es="Escribe tu nombre." id="em-name" maxlength="40" required type="text" /></div>
-<fieldset class="fld"><legend><span class={lang}>{L("Send me emails in", "Quiero los emails en")}</span></legend><div class="opts"><label class="chk"><input checked={lang === "en"} name="em-lang" type="radio" value="en" /><span lang="en">English</span></label><label class="chk"><input checked={lang === "es"} name="em-lang" type="radio" value="es" /><span lang="es">Español</span></label></div></fieldset>
-<div><button class="btn b-red" type="submit"><span class={lang}>{L("Complete subscription", "Completar suscripción")}</span><span class="ar"><Icon name="arrow" /></span></button></div>
-<p class="ferr" hidden role="alert"></p>
-</div>
-<div class="ask-done" role="status"></div>
-<div class="ask-end" hidden><button class="btn b-red" data-close type="button"><span class={lang}>{L("Close", "Cerrar")}</span></button></div>
-</dialog>
+
+<form class="form" data-form="letter" novalidate>
+  <input aria-hidden="true" autocomplete="off" id="em-website" name="website" class="offscreen" tabindex="-1" type="text" />
+  <div class="inline-form">
+    <FieldArrow />
+    <label for="em-letter" class="offscreen">Email</label>
+    <input
+      autocomplete="email"
+      data-ph-en="Email"
+      data-ph-es="Correo electrónico"
+      id="em-letter"
+      placeholder="Email"
+      required
+      type="email"
+    />
+    <button class="btn b-cream" type="submit">
+      <span class={lang}>{L('Subscribe', 'Suscribirme')}</span>
+      <span class="ar"><Icon name="arrow" /></span>
+    </button>
+  </div>
+  <dialog aria-labelledby="em-ask-t" class="ask">
+    <button aria-label={L('Close', 'Cerrar')} class="x" data-close type="button"><Icon name="close" /></button>
+    <div class="ask-q">
+      <p class="lab">
+        <span class={lang}>{L('The She Wins Letter', 'La Letter de She Wins')}</span>
+      </p>
+      <h2 id="em-ask-t">
+        <span class={lang}>{L('Just two more questions.', 'Solo dos preguntas más.')}</span>
+      </h2>
+      <p class="ask-to">
+        <span class={lang}>{L('We will write to', 'Te escribiremos a')}</span> <b data-mail></b>
+      </p>
+      <div class="fld">
+        <label for="em-name"><span class={lang}>{L('Your name', 'Tu nombre')}</span></label>
+        <input
+          autocomplete="name"
+          data-err-en="Enter your name."
+          data-err-es="Escribe tu nombre."
+          id="em-name"
+          maxlength="40"
+          required
+          type="text"
+        />
+      </div>
+      <fieldset class="fld">
+        <legend>
+          <span class={lang}>{L('Send me emails in', 'Quiero los emails en')}</span>
+        </legend>
+        <div class="opts">
+          <label class="chk">
+            <input checked={lang === 'en'} name="em-lang" type="radio" value="en" />
+            <span lang="en">English</span>
+          </label>
+          <label class="chk">
+            <input checked={lang === 'es'} name="em-lang" type="radio" value="es" />
+            <span lang="es">Español</span>
+          </label>
+        </div>
+      </fieldset>
+      <div>
+        <button class="btn b-red" type="submit">
+          <span class={lang}>{L('Complete subscription', 'Completar suscripción')}</span>
+          <span class="ar"><Icon name="arrow" /></span>
+        </button>
+      </div>
+      <p class="ferr" hidden role="alert"></p>
+    </div>
+    <div class="ask-done" role="status"></div>
+    <div class="ask-end" hidden>
+      <button class="btn b-red" data-close type="button"><span class={lang}>{L('Close', 'Cerrar')}</span></button>
+    </div>
+  </dialog>
 </form>
-<p class="ferr" hidden role="alert"><span class={lang}>{L("Something went wrong. Please try again or email us.", "Algo ha fallado. Inténtalo de nuevo o escríbenos por email.")}</span></p><div class="sent" role="status"><b><span class={lang}>{L("Almost there.", "Ya casi está.")}</span></b><p><span class={lang}>{L("Check your inbox and confirm your email to start getting the Letter.", "Revisa tu bandeja de entrada y confirma tu email para empezar a recibir la Letter.")}</span></p></div>
-<p class="small" style="margin-top:16px"><span class={lang}>{L("One email a month. Unsubscribe at any time.", "Un email al mes. Puedes darte de baja cuando quieras.")}</span></p>
+<p class="ferr" hidden role="alert">
+  <span class={lang}>{L('Something went wrong. Please try again or email us.', 'Algo ha fallado. Inténtalo de nuevo o escríbenos por email.')}</span>
+</p>
+<div class="sent" role="status">
+  <b><span class={lang}>{L('Almost there.', 'Ya casi está.')}</span></b>
+  <p>
+    <span class={lang}>
+      {L(
+        'Check your inbox and confirm your email to start getting the Letter.',
+        'Revisa tu bandeja de entrada y confirma tu email para empezar a recibir la Letter.',
+      )}
+    </span>
+  </p>
+</div>
+<p class="small" style="margin-top:16px">
+  <span class={lang}>{L('One email a month. Unsubscribe at any time.', 'Un email al mes. Puedes darte de baja cuando quieras.')}</span>
+</p>

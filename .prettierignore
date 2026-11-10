@@ -1,3 +1,7 @@
+# Astro templates keep their whitespace in the HTML (compressHTML: false), and prettier-plugin-astro
+# ignores htmlWhitespaceSensitivity: formatting a view put visible spaces next to links and
+# punctuation. Views and components are formatted by hand (CLAUDE.md, Conventions).
+*.astro
 # The designer's stylesheet is never edited (CLAUDE.md, CSS layers).
 public/style.css
 # Written by Keystatic: its own format, edited in the panel.

@@ -17,33 +17,129 @@ const settings = await getSettings();
 const both = (en: string, es: string) => `<span class="en">${escapeHtml(en)}</span><span class="es" lang="es">${escapeHtml(es)}</span>`;
 
 const doors = [
-  { k: '01', href: '/about', h: ['I am new here', 'Soy nueva aquí'], p: ['What She Wins is, who comes and what makes it different.', 'Qué es She Wins, quién viene y qué la hace diferente.'], go: ['About She Wins', 'Sobre She Wins'] },
-  { k: '02', href: '/events', h: ['The next event', 'El próximo evento'], p: ['A free event every month. Come alone. You will not stay that way.', 'Un evento gratuito cada mes. Ven sola. No te quedarás así.'], go: ['Events', 'Eventos'] },
-  { k: '03', href: '/membership', h: ['I want to belong', 'Quiero pertenecer'], p: ['Membership opens soon. Join the waitlist to hear first.', 'La membresía abre pronto. Únete a la lista de espera para enterarte la primera.'], go: ['Membership', 'Membresía'] },
-  { k: '04', href: '/blog', h: ['Something to read', 'Algo que leer'], p: ['Ideas and practical tools from the women behind She Wins.', 'Ideas y herramientas prácticas de las mujeres detrás de She Wins.'], go: ['Blog', 'Blog'] },
+  {
+    k: '01',
+    href: '/about',
+    h: ['I am new here', 'Soy nueva aquí'],
+    p: ['What She Wins is, who comes and what makes it different.', 'Qué es She Wins, quién viene y qué la hace diferente.'],
+    go: ['About She Wins', 'Sobre She Wins'],
+  },
+  {
+    k: '02',
+    href: '/events',
+    h: ['The next event', 'El próximo evento'],
+    p: ['A free event every month. Come alone. You will not stay that way.', 'Un evento gratuito cada mes. Ven sola. No te quedarás así.'],
+    go: ['Events', 'Eventos'],
+  },
+  {
+    k: '03',
+    href: '/membership',
+    h: ['I want to belong', 'Quiero pertenecer'],
+    p: [
+      'Membership opens soon. Join the waitlist to hear first.',
+      'La membresía abre pronto. Únete a la lista de espera para enterarte la primera.',
+    ],
+    go: ['Membership', 'Membresía'],
+  },
+  {
+    k: '04',
+    href: '/blog',
+    h: ['Something to read', 'Algo que leer'],
+    p: ['Ideas and practical tools from the women behind She Wins.', 'Ideas y herramientas prácticas de las mujeres detrás de She Wins.'],
+    go: ['Blog', 'Blog'],
+  },
 ];
 ---
 
 <Base lang="en" route="404">
-<div class="page on nf" data-lang="en" id="p-404">
-<script is:inline>
-/* Spanish URL: the chapter's texts switch before they paint, and the tab title with them. */
-(function(){if(/^\/es(\/|$)/.test(location.pathname)){document.getElementById('p-404').setAttribute('data-lang','es');document.title='Página no encontrada | She Wins'}})();
-</script>
-<section class="open o-red"><div aria-hidden="true" class="n">404</div><div class="t">
-<h1><Fragment set:html={both('This door leads nowhere.', 'Esta puerta no lleva a nada.')} /></h1>
-<span class="script"><Fragment set:html={both('Try another one.', 'Prueba otra.')} /></span>
-<p class="lead"><Fragment set:html={both('The page you are looking for has moved, or the link was wrong. She Wins is still here, and these doors are open.', 'La página que buscas se ha movido o el enlace no era correcto. She Wins sigue aquí, y estas puertas están abiertas.')} /></p>
-<div class="btns"><a class="btn b-cream" href="/"><Fragment set:html={both('Back to the home', 'Volver al inicio')} /><span class="ar"><Icon name="arrow" /></span></a><a class="btn b-line" href="/events"><Fragment set:html={both('Next free event', 'Próximo evento gratuito')} /><span class="ar"><Icon name="arrow" /></span></a></div>
-</div></section>
-<section class="sec s-cream"><div class="w">
-<div class="head"><p class="lab"><Fragment set:html={both('Open doors', 'Puertas abiertas')} /></p><h2 class="l"><Fragment set:html={both('Where do you want to go?', '¿A dónde quieres ir?')} /></h2></div>
-<div class="start">{doors.map((d) => <a href={d.href}><b class="k">{d.k}</b><h3><Fragment set:html={both(d.h[0], d.h[1])} /></h3><p><Fragment set:html={both(d.p[0], d.p[1])} /></p><span class="go"><i><Icon name="arrow" /></i><Fragment set:html={both(d.go[0], d.go[1])} /></span></a>)}</div>
-<p class="nf-note"><Fragment set:html={both('Did a link on this site bring you here? Tell us at ', '¿Te ha traído hasta aquí un enlace de esta web? Escríbenos a ')} /><a href={`mailto:${settings.email}`}>{settings.email}</a><Fragment set:html={both(' and we will fix it.', ' y lo arreglamos.')} /></p>
-</div></section>
-<script is:inline>
-/* Spanish URL: the doors lead to the Spanish pages. Runs once the links exist. */
-(function(){var p=document.getElementById('p-404');if(p.getAttribute('data-lang')!=='es')return;Array.prototype.forEach.call(p.querySelectorAll('a[href^="/"]'),function(a){var h=a.getAttribute('href');if(h.indexOf('/es')!==0)a.setAttribute('href',h==='/'?'/es':'/es'+h)})})();
-</script>
-</div>
+  <div class="page on nf" data-lang="en" id="p-404">
+    <script is:inline>
+      /* Spanish URL: the chapter's texts switch before they paint, and the tab title with them. */
+      (function () {
+        if (/^\/es(\/|$)/.test(location.pathname)) {
+          document.getElementById('p-404').setAttribute('data-lang', 'es');
+          document.title = 'Página no encontrada | She Wins';
+        }
+      })();
+    </script>
+    <section class="open o-red">
+      <div aria-hidden="true" class="n">
+        404
+      </div>
+      <div class="t">
+        <h1>
+          <Fragment set:html={both('This door leads nowhere.', 'Esta puerta no lleva a nada.')} />
+        </h1>
+        <span class="script"><Fragment set:html={both('Try another one.', 'Prueba otra.')} /></span>
+        <p class="lead">
+          <Fragment
+            set:html={both(
+              'The page you are looking for has moved, or the link was wrong. She Wins is still here, and these doors are open.',
+              'La página que buscas se ha movido o el enlace no era correcto. She Wins sigue aquí, y estas puertas están abiertas.',
+            )}
+          />
+        </p>
+        <div class="btns">
+          <a class="btn b-cream" href="/">
+            <Fragment set:html={both('Back to the home', 'Volver al inicio')} />
+            <span class="ar"><Icon name="arrow" /></span>
+          </a>
+          <a class="btn b-line" href="/events">
+            <Fragment set:html={both('Next free event', 'Próximo evento gratuito')} />
+            <span class="ar"><Icon name="arrow" /></span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="sec s-cream">
+      <div class="w">
+        <div class="head">
+          <p class="lab">
+            <Fragment set:html={both('Open doors', 'Puertas abiertas')} />
+          </p>
+          <h2 class="l">
+            <Fragment set:html={both('Where do you want to go?', '¿A dónde quieres ir?')} />
+          </h2>
+        </div>
+        <div class="start">
+          {doors.map((d) => (
+            <a href={d.href}>
+              <b class="k">{d.k}</b>
+              <h3>
+                <Fragment set:html={both(d.h[0], d.h[1])} />
+              </h3>
+              <p>
+                <Fragment set:html={both(d.p[0], d.p[1])} />
+              </p>
+              <span class="go">
+                <i><Icon name="arrow" /></i>
+                <Fragment set:html={both(d.go[0], d.go[1])} />
+              </span>
+            </a>
+          ))}
+        </div>
+        <p class="nf-note">
+          <Fragment
+            set:html={both(
+              'Did a link on this site bring you here? Tell us at ',
+              '¿Te ha traído hasta aquí un enlace de esta web? Escríbenos a ',
+            )}
+          />
+          <a href={`mailto:${settings.email}`}>{settings.email}</a>
+          <Fragment set:html={both(' and we will fix it.', ' y lo arreglamos.')} />
+        </p>
+      </div>
+    </section>
+    <script is:inline>
+      /* Spanish URL: the doors lead to the Spanish pages. Runs once the links exist. */
+      (function () {
+        var p = document.getElementById('p-404');
+        if (p.getAttribute('data-lang') !== 'es') return;
+        Array.prototype.forEach.call(p.querySelectorAll('a[href^="/"]'), function (a) {
+          var h = a.getAttribute('href');
+          if (h.indexOf('/es') !== 0) a.setAttribute('href', h === '/' ? '/es' : '/es' + h);
+        });
+      })();
+    </script>
+  </div>
 </Base>

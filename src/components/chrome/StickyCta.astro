@@ -12,4 +12,9 @@ const { lang } = Astro.props;
 const { L } = localize(lang);
 ---
 
-<div class="sticky-cta" id="sticky"><button class="btn b-red" data-scroll="waitlist" type="button"><span class={lang}>{L("Join the waitlist", "Unirme a la lista de espera")}</span><span class="ar"><Icon name="arrow" /></span></button></div>
+<div class="sticky-cta" id="sticky">
+  <button class="btn b-red" data-scroll="waitlist" type="button">
+    <span class={lang}>{L('Join the waitlist', 'Unirme a la lista de espera')}</span>
+    <span class="ar"><Icon name="arrow" /></span>
+  </button>
+</div>

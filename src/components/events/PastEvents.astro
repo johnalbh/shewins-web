@@ -25,5 +25,33 @@ const recent = past
 ---
 
 {recent.length > 0 && (
-<div class="posters three wide">{recent.map((ev) => <figure><a aria-hidden="true" href={ev.url} rel="noopener" tabindex="-1" target="_blank"><Image src={ev.photo!} inferSize alt={posterAlt(ev, lang)} widths={[400, 600, 800]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /></a><figcaption>{ev.title}<div class="ev-icons"><a aria-label={`Meetup: ${ev.title}`} href={ev.url} rel="noopener" target="_blank" title="Meetup"><Icon name="meetup" /></a><a aria-label={L('She Wins on Instagram', 'She Wins en Instagram')} href={settings.instagram} rel="noopener" target="_blank" title="Instagram"><Icon name="instagram" /></a></div></figcaption></figure>)}</div>
+  <div class="posters three wide">
+    {recent.map((ev) => (
+      <figure>
+        <a aria-hidden="true" href={ev.url} rel="noopener" tabindex="-1" target="_blank">
+          <Image
+            src={ev.photo!}
+            inferSize
+            alt={posterAlt(ev, lang)}
+            widths={[400, 600, 800]}
+            sizes="(min-width: 760px) 33vw, 100vw"
+            loading="lazy"
+          />
+        </a>
+        <figcaption>
+          {ev.title}
+          <div class="ev-icons">
+            <a aria-label={`Meetup: ${ev.title}`} href={ev.url} rel="noopener" target="_blank" title="Meetup"><Icon name="meetup" /></a>
+            <a
+              aria-label={L('She Wins on Instagram', 'She Wins en Instagram')}
+              href={settings.instagram}
+              rel="noopener"
+              target="_blank"
+              title="Instagram"
+            ><Icon name="instagram" /></a>
+          </div>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
 )}

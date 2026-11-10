@@ -24,10 +24,42 @@ const ICON_MAIL = lineIcon('<path d="M2.5 4h11v8h-11zM2.5 4.5 8 9l5.5-4.5"></pat
 const links = [
   { name: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}`, external: true },
   { name: 'WhatsApp', href: `https://wa.me/?text=${enc(`${title} ${url}`)}`, external: true },
-  { name: L('Email', 'Correo'), href: `mailto:?subject=${enc(title)}&body=${enc(`${description}\n\n${url}`)}`, external: false, icon: ICON_MAIL },
+  {
+    name: L('Email', 'Correo'),
+    href: `mailto:?subject=${enc(title)}&body=${enc(`${description}\n\n${url}`)}`,
+    external: false,
+    icon: ICON_MAIL,
+  },
 ];
 ---
 
-<div class="share" role="group" aria-labelledby="share-t"><h2 class="lab" id="share-t"><span class={lang}>{L('Share this article', 'Comparte este artículo')}</span></h2><ul><li hidden><button type="button" data-share-native data-title={title} data-url={url}><span class={lang}>{L('Share…', 'Compartir…')}</span><Fragment set:html={ICON_SHARE} /></button></li><li><button type="button" data-copy={url} data-done={L('Link copied', 'Enlace copiado')}><span class={lang}>{L('Copy link', 'Copiar enlace')}</span><Fragment set:html={ICON_COPY} /></button></li>{links.map((l) => <li><a href={l.href} target={l.external ? '_blank' : undefined} rel={l.external ? 'noopener' : undefined}><span>{l.name}</span><Fragment set:html={l.icon ?? ICON_OUT} /></a></li>)}</ul><p class="share-status" aria-live="polite"></p></div>
+<div class="share" role="group" aria-labelledby="share-t">
+  <h2 class="lab" id="share-t">
+    <span class={lang}>{L('Share this article', 'Comparte este artículo')}</span>
+  </h2>
+  <ul>
+    <li hidden>
+      <button type="button" data-share-native data-title={title} data-url={url}>
+        <span class={lang}>{L('Share…', 'Compartir…')}</span>
+        <Fragment set:html={ICON_SHARE} />
+      </button>
+    </li>
+    <li>
+      <button type="button" data-copy={url} data-done={L('Link copied', 'Enlace copiado')}>
+        <span class={lang}>{L('Copy link', 'Copiar enlace')}</span>
+        <Fragment set:html={ICON_COPY} />
+      </button>
+    </li>
+    {links.map((l) => (
+      <li>
+        <a href={l.href} target={l.external ? '_blank' : undefined} rel={l.external ? 'noopener' : undefined}>
+          <span>{l.name}</span>
+          <Fragment set:html={l.icon ?? ICON_OUT} />
+        </a>
+      </li>
+    ))}
+  </ul>
+  <p class="share-status" aria-live="polite"></p>
+</div>
 
 <script src="../../scripts/share.js"></script>

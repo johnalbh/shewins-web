@@ -36,4 +36,69 @@ const next = listed.find((e) => e.date >= today);
 const tile = (ev: Event) => (ev === next ? 't-red on-d' : 't-cream');
 ---
 
-<section class="sec s-white"><div class="w"><div class="head"><p class="lab"><span class={lang}>{L('This month', 'Este mes')}</span></p><h2 class="l"><span class={lang}>{L(`${heading.monthName} at She Wins.`, `${heading.monthName} en She Wins.`)}</span></h2></div>{rows.length > 0 && <div class="month">{rows.map(({ ev, d, time, fee }) => <article class={`evt show ${tile(ev)}`} data-date={ev.date}><div class="top"><div class="d"><small><span class={lang}>{d.weekday}</span>{d.month !== heading.month && <span class={lang}> · {d.monthShort}</span>}</small>{d.day}</div><span class="pill r status" hidden></span></div><div class="pic">{ev.photo ? <Image src={ev.photo} inferSize alt={posterAlt(ev, lang)} widths={[400, 600, 800]} sizes="(min-width: 760px) 33vw, 100vw" loading="lazy" /> : <span class="blank"><span>{ev.title}</span></span>}</div><h3><a href={ev.url} rel="noopener" target="_blank">{ev.title}<span aria-hidden="true" class="ext">↗</span></a></h3><p>{ev.speaker || <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}<br />{ev.venue}</p><div class="tags"><span class="pill">{time}</span><span class="pill">{LANG_PILL[ev.language]}</span>{fee && <span class="pill">{fee}</span>}</div></article>)}</div>}{rows.length === 0 && <p class="lead"><span class={lang}>{L('New dates are on their way. Follow us on ', 'Las nuevas fechas están en camino. Síguenos en ')}<a href={settings.meetup} rel="noopener" target="_blank">Meetup</a>{L(' or ', ' o ')}<a href={settings.instagram} rel="noopener" target="_blank">Instagram</a>.</span></p>}</div></section>
+<section class="sec s-white">
+  <div class="w">
+    <div class="head">
+      <p class="lab">
+        <span class={lang}>{L('This month', 'Este mes')}</span>
+      </p>
+      <h2 class="l">
+        <span class={lang}>{L(`${heading.monthName} at She Wins.`, `${heading.monthName} en She Wins.`)}</span>
+      </h2>
+    </div>
+    {rows.length > 0 && (
+      <div class="month">
+        {rows.map(({ ev, d, time, fee }) => (
+          <article class={`evt show ${tile(ev)}`} data-date={ev.date}>
+            <div class="top">
+              <div class="d">
+                <small>
+                  <span class={lang}>{d.weekday}</span>
+                  {d.month !== heading.month && <span class={lang}> · {d.monthShort}</span>}
+                </small>
+                {d.day}
+              </div>
+              <span class="pill r status" hidden></span>
+            </div>
+            <div class="pic">
+              {ev.photo ? (
+                <Image
+                  src={ev.photo}
+                  inferSize
+                  alt={posterAlt(ev, lang)}
+                  widths={[400, 600, 800]}
+                  sizes="(min-width: 760px) 33vw, 100vw"
+                  loading="lazy"
+                />
+              ) : (
+                <span class="blank"><span>{ev.title}</span></span>
+              )}
+            </div>
+            <h3><a href={ev.url} rel="noopener" target="_blank">{ev.title}<span aria-hidden="true" class="ext">↗</span></a></h3>
+            <p>
+              {ev.speaker || <span class={lang}>{L('Community session', 'Sesión de comunidad')}</span>}
+              <br />
+              {ev.venue}
+            </p>
+            <div class="tags">
+              <span class="pill">{time}</span>
+              <span class="pill">{LANG_PILL[ev.language]}</span>
+              {fee && <span class="pill">{fee}</span>}
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+    {rows.length === 0 && (
+      <p class="lead">
+        <span class={lang}>
+          {L('New dates are on their way. Follow us on ', 'Las nuevas fechas están en camino. Síguenos en ')}
+          <a href={settings.meetup} rel="noopener" target="_blank">Meetup</a>
+          {L(' or ', ' o ')}
+          <a href={settings.instagram} rel="noopener" target="_blank">Instagram</a>
+          .
+        </span>
+      </p>
+    )}
+  </div>
+</section>
