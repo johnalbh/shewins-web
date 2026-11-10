@@ -39,7 +39,9 @@ Run each case on an English and a Spanish page (`/membership`, `/es/membership`,
 
 ## 2. The endpoint (nothing is sent)
 
-With `npm run dev` running (`B=http://localhost:4321`). In dev, BotID always answers human. On a
+`npm test` checks all of this, and the MailerLite and MailerSend requests of each form, against
+fakes (`tests/api/form.test.ts`), and `npm run test:smoke` checks section 1 in Chrome. By hand,
+with `npm run dev` running (`B=http://localhost:4321`). In dev, BotID always answers human. On a
 Vercel deployment, every call that gets past the honeypot answers 403 from BotID instead (see 6).
 
 ```bash

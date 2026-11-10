@@ -13,9 +13,10 @@ Editors: see [docs/editor-guide.md](docs/editor-guide.md).
 Requires Node 24.
 
 ```bash
-npm install
+npm install          # also sets up the pre-commit hook
 npm run dev          # http://localhost:4321, panel at /keystatic (local mode: edits files on disk)
 npm run build        # output in .vercel/output
+npm run check        # formatting, lint, types and unit tests (what CI runs before the build)
 ```
 
 | Path | What it is |
@@ -25,14 +26,19 @@ npm run build        # output in .vercel/output
 | `src/components/chrome/` | Header, menu, footer, cookie banner, sticky CTA |
 | `src/components/events/`, `blog/` | Sections built from content: next event, this month and past events (from Meetup), blog list |
 | `src/content/` | Content edited in Keystatic (YAML + Markdoc) |
-| `src/data/seo.json` | Title, description and JSON-LD of each fixed page |
-| `src/lib/` | Content reader, Markdoc rendering, dates, images |
-| `src/scripts/` | Site behaviour (menu, forms, event status) and cookie consent, ported from the original |
-| `src/pages/api/form.ts` | Form endpoint: MailerLite (newsletter, waitlist) and MailerSend (team notifications) |
+| `src/components/Icon.astro` | Every icon of the site by name (defined once in `src/lib/markup.ts`) |
+| `src/data/seo.json` | Title and description of each fixed page |
+| `src/lib/` | Content reader, Meetup events, JSON-LD, RSS, Markdoc rendering, dates, icons |
+| `src/lib/forms/` | Form handling: allowlist, spam checks, MailerLite, MailerSend |
+| `src/scripts/` | Site behaviour (menu, forms, event status, sticky bar) and cookie consent, one file per concern |
+| `src/pages/api/form.ts` | Form endpoint: the checks of each request, then `src/lib/forms/` |
+| `tests/` | Unit tests (Vitest) |
 | `keystatic.config.ts` | Panel fields and labels |
 
-Scripts:
+Checks:
 
+- `npm run format` / `npm run lint` / `npm run typecheck` / `npm test`: Prettier, ESLint, astro check and Vitest. A pre-commit hook runs ESLint and Prettier on the staged files, and GitHub Actions runs all of them and the build on every push (`.github/workflows/ci.yml`). Views (`.astro`) are formatted by hand, see CLAUDE.md.
+- `npm run test:smoke`: with `npm run dev` running, checks menu, forms, dialogs, cookie banner and the other browser behaviour in Chrome (Playwright). Form posts are intercepted, nothing is sent.
 - `node scripts/compare-with-html.mjs`: after a build, compares every page with the designer's original in `../html` (SEO head and visible text).
 - `npm run audit:responsive -- --base http://localhost:4321 --out audit/run`: checks overflow, tap targets and input sizes at 18 widths, with screenshots (uses the installed Chrome).
 
