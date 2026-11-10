@@ -14,7 +14,7 @@ export type Submission =
   | (Common & { form: 'waitlist'; name: string; language: Lang; stage: string; letter: boolean })
   | (Common & { form: 'contact'; name: string; type: string; organisation: string; message: string });
 export type FormKind = Submission['form'];
-export type Invalid = { invalid: string };
+type Invalid = { invalid: string };
 type Fields = Record<string, unknown>;
 
 const text = (value: unknown, max: number) => (typeof value === 'string' ? value.trim().slice(0, max) : '');

@@ -35,7 +35,6 @@ Scripts:
 
 - `node scripts/compare-with-html.mjs`: after a build, compares every page with the designer's original in `../html` (SEO head and visible text).
 - `npm run audit:responsive -- --base http://localhost:4321 --out audit/run`: checks overflow, tap targets and input sizes at 18 widths, with screenshots (uses the installed Chrome).
-- `scripts/migrate-from-html.mjs`: the one-off migration from `../html`, kept for reference.
 
 ## Deploy and services
 
