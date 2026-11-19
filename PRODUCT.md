@@ -108,7 +108,7 @@ Event attendance and the membership waitlist remain supporting goals.
 ## Evidence on Hand
 
 - **Community quotes**, published with first names only: Marta, Silvia, Sara, Anna and Mar (home page).
-- **Partners:** Femtech Spain, Talentina, Inception Women's Lab.
+- **Partners:** Femtech Spain, Talentina, Inception Women's Lab, Onlineprinters.
 - **Sponsor:** Memcyco.
 - **Hosts:** Innovation Campus Málaga, Niage Garage, Workcafé Santander, Sharing Co·working.
 - **Events:** the October 2026 programme (four events) and the posters of past events (`src/assets/events`).
